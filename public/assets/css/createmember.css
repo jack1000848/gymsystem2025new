@@ -1,0 +1,95 @@
+/* General page styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Background image styling */
+.background {
+    background-image: url('gym-background.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Registration box styling */
+.register-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+}
+
+/* Logo styling */
+.logo img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.logo h2 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Form input fields */
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Select elements styling */
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Register button */
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #c0392b;
+}
+
+/* Back to login link */
+form .back-to-login {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #3498db;
+}
+
+form .back-to-login:hover {
+    color: #2980b9;
+}

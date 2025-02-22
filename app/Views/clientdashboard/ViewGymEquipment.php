@@ -1,5 +1,5 @@
 <?php
-    $this ->extend('layout/main');
+    $this ->extend('layout/mainclient');
     $this ->section('body');
 
     ?>
@@ -24,12 +24,9 @@
     <thead>
         <tr>
             
-            <th>Name</th>
-            <th>Equipment Picture</th>
-            <th>description</th>
-            
-
-            
+            <th>Description</th>
+            <th>Qty</th>
+     
 
 
         </tr>
@@ -38,9 +35,8 @@
     <?php foreach ($viewequipment as $equipment): ?>
 
 <tr>
-<td><?= $equipment['name']; ?></td>
-<td><img src="/uploads/<?= $equipment['Equipment_pic']; ?>" alt="" width="100"></td>
-<td><?= $equipment['description']; ?></td>
+<td><?= $equipment['Description']; ?></td>
+<td><?= $equipment['Qty']; ?></td>
 
 
 

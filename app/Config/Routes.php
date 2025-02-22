@@ -13,9 +13,6 @@ $routes->get('/joinus', 'Home::joinus');
 $routes->get('join-now', 'CreateMemberController::index');
 $routes->post('join-now/store', 'CreateMemberController::storeClient');
 
-///coach login 
-$routes->get('/coach-login', 'LoginCoachController::logincoach');
-$routes->post('/coachlogin/authenticate', 'LoginCoachController::authenticate');
 
 //user-login clients logn
 $routes->get('/member-login', 'LoginClientController::LoginClient');
@@ -23,28 +20,30 @@ $routes->post('/login/authenticate', 'LoginClientController::authenticate');
 $routes->post('/logout', 'LoginClientController::logout');
 ///// client dashboard/
 $routes->get('/clientdashboard', 'ClientsDashboardController::index');
-///coach dashboard
+///coach dashboard/login 
 $routes->get('/coachdashboard', 'CoachDashboardController::index');
-$routes->get('coach-login', 'LoginCoachController::LoginCoach');
-$routes->post('/login/authenticate', 'LoginCoachController::authenticate1/');
+$routes->get('/coach-login', 'LoginCoachController::LoginCoach');
+$routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 
 //clientx coach na to! routes  admin dashboard
-$routes->get('/coach', 'ClientsController::index');
-//$routes->get('/client/create', 'ClientsController::createClient');
-$routes->post('/client/store', 'ClientsController::storeClient');
-$routes->get('/client/edit/(:num)', 'ClientsController::editClient/$1');
-$routes->post('/client/update/(:num)', 'ClientsController::updateClient/$1');
-$routes->get('/client/(:num)', 'ClientsController::deleteClient/$1');
+$routes->get('/coach', 'CoachController::index');
+//$routes->get('/client/create', 'CoachController::createClient');
+$routes->post('/client/store', 'CoachController::storeClient');
+$routes->get('/client/edit/(:num)', 'CoachController::editClient/$1');
+$routes->post('/client/update/(:num)', 'CoachController::updateClient/$1');
+$routes->get('/client/(:num)', 'CoachController::deleteClient/$1');
 
 //QR ATTENDANCE
 $routes->get('/qr-attendance', 'QrAttendanceController::scanQrCode');
 
 ///gym equipment!  admin dashboard
 $routes->get('/gymequipment', 'EquipmentController::index');
-///$routes->get('/gymequipment/create', 'ClientsController::create');
+///$routes->get('/gymequipment/create', 'CoachController::create');
 $routes->post('/gymequipment/store', 'EquipmentController::storeEquipment');
 $routes->get('/gymequipment/(:num)', 'EquipmentController::deleteEquipment/$1');
 
+$routes->get('/fetchPlans', 'CustomerController::getPlans');
+$routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 
 ///admin dashboard gym plans kunno
 $routes->get('/gymplans', 'PlanController::indexgymplan');
@@ -55,18 +54,18 @@ $routes->post('/gymplans/store', 'PlanController::storegymplan');
 
 
 /// clients1 routes   client dashboard
-$routes->get('/clients1', 'Clients1Controller::index');
-$routes->get('/clients1/create', 'Clients1Controller::createClients1');
-$routes->post('/clients1/store', 'Clients1Controller::storeClients1');
-$routes->get('/clients1/edit/(:num)', 'Clients1Controller::editClients1/$1');
-$routes->get('/clients1/update/(:num)', 'Clients1Controller::updateClients1/$1');
-$routes->get('/clients1/delete/(:num)', 'Clients1Controller::deleteClients1/$1');
-$routes->get('clients1/renew', 'Clients1Controller::renew');
-$routes->get('test-db', 'Clients1Controller::testDatabase');
+$routes->get('/clients1', 'CustomerController::index');
+$routes->get('/clients1/create', 'CustomerController::createClients1');
+$routes->post('/clients1/store', 'CustomerController::storeClients1');
+$routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');
+$routes->get('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
+$routes->get('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
+$routes->get('clients1/renew', 'CustomerController::renew');
+$routes->get('test-db', 'CustomerController::testDatabase');
 
 
 ///viewing gym equipments forclients dashboard
-$routes->get('viewequipment', 'ViewEquipmentController::indexviewequipment');
+$routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 
 
 ////qr code practice

@@ -9,6 +9,7 @@
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Plan</button>
     
     </div>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <
     <?php if (session()->getFlashdata('success')) :?>
@@ -23,13 +24,12 @@
     <table id="myTable" class="display">
     <thead>
         <tr>
-            <<th>ID</th>
+            <th>Plan ID</th>
             <th>Plan Name</th>
             <th>Description</th>
             <th>Duration in Months</th>
-            <th>Price</th>
             <th>Trainer Included</th>
-            <th>Creation Date</th>
+            <th>Price</th>
             <th>Active</th>
             <th>Action</th>
 
@@ -40,18 +40,18 @@
     <?php foreach ($gymplans as $plan): ?>
 
 <tr>
-<th scope="row"><?=$plan['id']; ?></th>
-<td><?= $plan['plan_name']; ?></td>
-<td><?= $plan['description']; ?></td>
-<td><?= $plan['duration_in_months']; ?></td>
-<td><?= $plan['price']; ?></td>
-<td><?= $plan['trainer_included']; ?></td>
-<td><?= $plan['creation_date']; ?></td>
-<td><?= $plan['active']; ?></td>
+<th scope="row"><?=$plan['PlanID']; ?></th>
+<td><?= $plan['PlanName']; ?></td>
+<td><?= $plan['Description']; ?></td>
+<td><?= $plan['Duration']; ?></td>
+<td><?= $plan['TrainerIncluded']; ?></td>
+<td><?= $plan['Price']; ?></td>
+<td><?= $plan['IsActive']; ?></td>
+
 
 <td>
-<a href="/gymequipment<?= $plan['id']; ?>" class="btn btn-primary">Edit</a>
-<a href="/gymequipment<?= $plan['id']; ?>" class="btn btn-danger">Delete</a>
+<a href="/gymequipment<?= $plan['PlanID']; ?>" class="btn btn-primary">Edit</a>
+<a href="/gymequipment<?= $plan['PlanID']; ?>" class="btn btn-danger">Delete</a>
 </td>
 
 
@@ -95,8 +95,12 @@
     </div> 
 
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label"> Trainer </label>
-              <input type="text" class="form-control" name="trainer"required>
+    <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
+    <?php foreach ($coaches as $coach): ?>
+        <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
+    <?php endforeach; ?>
+</select>
+
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label"> Creation Date </label>
@@ -120,6 +124,8 @@
 </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
     $(document).ready(function(){
 
@@ -132,6 +138,8 @@
             alert('Client Added Successfully!')
 
         });
+
+      
 
     });
    

@@ -24,11 +24,9 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Gym Code</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Password</th>
-            <th>Age</th>
             <th>Address</th>
             <th>Email</th>
             <th>Create Profile</th>
@@ -38,26 +36,22 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($clients as $client): ?>
+    <?php foreach ($clients as $client): ?>
+    <tr>
+        <th scope="row"><?= $client['CoachID']; ?></th>
+        <td><?= $client['Firstname']; ?></td>
+        <td><?= $client['Lastname']; ?></td>
+        <td><?= $client['Password']; ?></td>
+        <td></td>
+        <td><?= $client['Email']; ?></td>
+        <td><img src="/uploads/<?= $client['Avatar']; ?>" alt="Profile" width="100"></td>
+        <td>
+            <a href="/client/<?= $client['CoachID']; ?>" class="btn btn-primary">Edit</a>
+            <a href="/client/delete/<?= $client['CoachID']; ?>" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
 
-        <tr>
-        <th scope="row"><?= $client['id']; ?></th>
-        <td><?= $client['gym_code']; ?></td>
-<td><?= $client['first_name']; ?></td>
-<td><?= $client['last_name']; ?></td>
-<td><?= $client['password']; ?></td>
-<td><?= $client['age']; ?></td>
-<td><?= $client['address']; ?></td>
-<td><?= $client['email']; ?></td>
-<td><img src="/uploads/<?= $client['client_profile']; ?>" alt="" width="100"></td>
-<td>
-    <a href="/client<?= $client['id']; ?>" class="btn btn-primary">Edit</a>
-    <a href="/client/<?= $client['id']; ?>" class="btn btn-danger">Delete</a>
-</td>
-
-        </tr>
-
-        <?php endforeach; ?>
     </tbody>
 </table>
 
@@ -78,7 +72,7 @@
       <div class="mb-3">
       <div class="mb-3">
     <label for="gymcode" class="form-label">Gym Code</label>
-    <input type="text" class="form-control" name="gymcode" value="">
+    <input type="text" class="form-control" name="gymcode" value="<?= $next_id; ?>" disabled readonly>
 </div>
 
              </div>
@@ -99,10 +93,7 @@
 
     </div>
 
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Age</label>
-              <input type="text" class="form-control" name="clientAge"required>
-    </div> 
+   
 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Address</label>
@@ -143,7 +134,6 @@
 
         $("#btn-save").on('click', function(){
 
-            alert('Coach Added Successfully!')
 
         });
 

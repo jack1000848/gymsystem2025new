@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>iSFGYM | Client | Dashboard </title><!--begin::Primary Meta Tags-->
+    <title>iSFGYM | Coach | Dashboard </title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE v4 | Dashboard">
     <meta name="author" content="ColorlibHQ">
@@ -105,7 +105,7 @@
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open"> 
-                            <a href="<?= base_url('admin') ?>" class="nav-link active"> 
+                            <a href="<?= base_url('coachdashboard') ?>" class="nav-link active"> 
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
                                     Coach Dashboard

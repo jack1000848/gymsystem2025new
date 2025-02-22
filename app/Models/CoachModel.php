@@ -4,18 +4,29 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PlansModel extends Model
+class CoachModel extends Model
 {
-    protected $table            = 'tbl_plans';
-    protected $primaryKey       = 'id';
+    protected $table            = 'coach';
+    protected $primaryKey       = 'coachid';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'plan_name', 'description', 'duration_in_months', 'price', 'trainer_included', 'creation_date', 'active'
+    protected $allowedFields = [
+        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password', 
+        'RegisteredDate', 'number', 'Email', 'Status', 'Avatar'
     ];
     
+    
+    public function getCoaches()
+    {
+        return $this->findAll();
+    }
+
+    public function getCoachById($id)
+    {
+        return $this->find($id);
+    }
 
 
     protected bool $allowEmptyInserts = false;

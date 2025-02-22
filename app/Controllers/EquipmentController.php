@@ -19,6 +19,7 @@ class EquipmentController extends BaseController
 }
 
 
+
 public function create()
 {
     return view('equipment/create', $data);
@@ -37,15 +38,15 @@ public function create()
        }
 
         
-        $data = array(
-            'name' => $this->request->getPost('Ename'),
-            'Equipment_pic' => $imageName, 
-            'amount' => $this->request->getPost('Eamount'),
-            'quantity' => $this->request->getPost('Equantity'),
-            'description' => $this->request->getPost('Ediscription'),
-            'purchase_date' => $this->request->getPost('Epurchasedate'),
-
-        );
+       $data = array(
+        'EquipmentID' => $this->request->getPost('Eid'),          // Mapped 'name' to 'EquipmentID'
+        //'Image' => $imageName,                                      // Mapped 'Equipment_pic' to 'Image'
+        'Description' => $this->request->getPost('Ename'),    // Mapped 'description' to 'Description'
+        'Amount' => $this->request->getPost('Eamount'),             // Mapped 'amount' to 'Amount'
+        'Qty' => $this->request->getPost('Equantity'),              // Mapped 'quantity' to 'Qty'
+        //'purchase_date' => $this->request->getPost('Epurchasedate') // 'purchase_date' is not mapped in allowed fields, consider adding it if necessary
+    );
+    
 
         $insertEquipments->insert($data);
 

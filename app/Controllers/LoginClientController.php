@@ -18,25 +18,32 @@ use App\models\ClientloginModel;
         $session = session();
         $model = new ClientloginModel();
 
-        $username = $this->request->getVar('username');
+        // Use email instead of username
+        $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
-        $user = $model->getUserByUsername($username);
+        // Use the updated method to get user by email
+        $user = $model->getUserByEmail($email);
 
         if ($user) {
-            if ($password == $user['password']) { // Replace with hashing later
+            // Compare the password (Note: replace with hashed password checking later)
+            if ($password == $user['Password']) { 
+                // Store user data in session
                 $session->set([
-                    'user_id' => $user['id'],
-                    'user_name' => $user['user_name'],
+                    'CustomerID' => $user['CustomerID'],
+                    'Email' => $user['Email'],
                     'logged_in' => true,
                 ]);
-                return redirect()->to('/clientdashboard'); // Replace with your dashboard URL
+                return redirect()->to('/clientdashboard'); // Redirect to the client dashboard
             } else {
+                // Password mismatch
                 return redirect()->back()->with('error', 'Invalid password.');
             }
         } else {
-            return redirect()->back()->with('error', 'Username1 not found.');
+            // User not found
+            return redirect()->back()->with('error', 'Email not found.');
         }
+
     }
 
     public function logout()

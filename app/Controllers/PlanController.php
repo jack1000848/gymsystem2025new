@@ -3,14 +3,18 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\PlansModel;
+use App\Models\PlanModel;
+use App\Models\CoachModel;
+use App\Models\CoachPlanModel;
 
 
 class PlanController extends BaseController
 {
     public function indexgymplan()
     {
-        $fetchPlan =new PlansModel();
+        $fetchPlan =new PlanModel();
+        $fetchCoaches = new CoachModel();
+        $data['coaches'] = $fetchCoaches->findAll();
         $data['gymplans'] = $fetchPlan ->findAll();
 
         return view('gymplan/manageplan', $data);
@@ -23,21 +27,26 @@ class PlanController extends BaseController
     }
     public function storegymplan()
      {
-        $insertEquipments = new PlansModel ();
+        $planData = [
+            'PlanName' => $this->request->getPost('Pname'),
+            'Description' => $this->request->getPost('description'),
+            'Duration' => $this->request->getPost('durationim'),
+            'Price' => $this->request->getPost('price'),
+            'TrainerIncluded' => $this->request->getPost('trainer'),
+            'IsActive' => $this->request->getPost('active')
+        ];
+    
+        $planModel = new PlanModel();
+        $planID = $planModel->insert($planData);
+        $coachIDs = $this->request->getPost('coaches'); 
+        $coachPlanModel = new CoachPlanModel();
 
-        
-        $data = array(
-            'plan_name' => $this->request->getPost('Pname'), 
-            'description' => $this->request->getPost('description'),
-            'duration_in_months' => $this->request->getPost('durationim'),
-            'price' => $this->request->getPost('price'),
-            'trainer_included' => $this->request->getPost('trainer'),
-            'creation_date' => $this->request->getPost('creation'),
-            'active' => $this->request->getPost('active'),
-
-        );
-
-        $insertEquipments->insert($data);
+        foreach ($coachIDs as $coachID) {
+            $coachPlanModel->insert([
+                'CoachID' => $coachID,
+                'PlanID' => $planID
+            ]);
+        }
 
         return redirect()->to('/gymplans')->with('success', 'Equipment Added Successfully!');
 

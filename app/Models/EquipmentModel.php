@@ -6,14 +6,14 @@ use CodeIgniter\Model;
 
 class EquipmentModel extends Model
 {
-    protected $table            = 'tbl_equipment';
-    protected $primaryKey       = 'id';
+    protected $table            = 'equipment';
+    protected $primaryKey       = 'EquipmentID ';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name', 'Equipment_pic','amount', 'quantity', 'description', 'purchase_date'
+        'EquipmentID ', 'Image','Description', 'Amount', 'Qty', 
     ];
     
     public function getEquipment()

@@ -14,61 +14,77 @@
  <a href="/clients1/create" class="btn btn=primary" id="btn-save">Add A Client</a>
  <table class="table">
     <thread>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Gym Code</th>
-            <th scope="col">QrCode</th>
+    
+            <th scope="col">Client ID</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Full Address</th>
-            <th scope="col">Email Address</th>
-            <th scope="col">Phone Number</th>
+            <th scope="col">Address</th>
             <th scope="col">Gender</th>
-            <th scope="col">Date of Registration</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Password</th>
+            <th scope="col">Register Date</th>
             <th scope="col">Types of Workout</th>
-            <th scope="col">Monthly Plan</th>
-            <th scope="col">Amount</th>
-            <th scope="col">>Duration (in days)</th>
-            <th scope="col">QrCode Path</th>
+            <th scope="col">Membership Plan</th>
+            <th scope="col">QR Code</th>
             <th scope="col">Action</th>
-
+            
         </tr>
     </thread>
     <tbody>
     <?php foreach ($clients1 as $Clients): ?>
-
 <tr>
-<th scope="row"><?= $Clients['id']; ?></th>
-<td><?= $Clients['gym_code']; ?></td>  
-<td><?= $Clients['qrcode']; ?></td>
-<td><?= $Clients['first_name']; ?></td>
-<td><?= $Clients['last_name']; ?></td>
-<td><?= $Clients['user_name']; ?></td>
-<td><?= $Clients['password']; ?></td>
-<td><?= $Clients['full_address']; ?></td>
-<td><?= $Clients['email_address']; ?></td>
-<td><?= $Clients['phone_number']; ?></td>
-<td><?= $Clients['gender']; ?></td>
-<td><?= $Clients['date_of_registration']; ?></td>
-<td><?= $Clients['workout_type']; ?></td>
-<td><?= $Clients['plans']; ?></td>
-<td><?= $Clients['amount']; ?></td>
-<td><?= $Clients['duration']; ?></td>
-<td><img src="<?= base_url('') ?>" alt="QR Code" style="width: 100px;"></td>
-<td>
-<a href="/clients1/edit<?= $Clients['id']; ?>" class="btn btn-primary">Edit</a>
-<a href="/clients1/delete<?= $Clients['id']; ?>" class="btn btn-danger">Delete</a>
+    <th scope="row"><?= $Clients['CustomerID']; ?></th> <!-- Mapped 'id' to 'CustomerID' -->
+    <td><?= $Clients['Firstname']; ?></td> <!-- Mapped 'first_name' to 'Firstname' -->
+    <td><?= $Clients['Lastname']; ?></td> <!-- Mapped 'last_name' to 'Lastname' -->
+    <td><?= $Clients['Address']; ?></td> <!-- Mapped 'full_address' to 'Address' -->
+    <td><?= $Clients['Gender']; ?></td> <!-- Mapped 'gender' -->
+    <td><?= $Clients['Email']; ?></td> <!-- Mapped 'email_address' to 'Email' -->
+    <td><?= $Clients['Password']; ?></td> <!-- Mapped 'password' to 'Password' -->
+    <td><?= $Clients['RegisteredDate']; ?></td>
+    <td><?= $Clients['types_of_workout']; ?></td>
+    <td><?= $Clients['Membesrship_plan']; ?></td>
+    <td><img id="qrCodeImage<?= $Clients['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
+    <td>
+        <a href="/clients1/edit<?= $Clients['CustomerID']; ?>" class="btn btn-primary">Edit</a>
+        <a href="/clients1/delete<?= $Clients['CustomerID']; ?>" class="btn btn-danger">Delete</a>
+    </td>
+    <td><?= $Clients['WorkoutTypeID']; ?></td> <!-- Mapped 'workout_type' to 'WorkoutTypeID' -->
+    <td><?= $Clients['CurrentPlanID']; ?></td> <!-- Mapped 'plans' to 'CurrentPlanID' -->
+    <td><?= $Clients['Duration'] ?? ''; ?></td> <!-- Mapped 'duration' --> 
+   
+</tr>
+<?php endforeach; ?>
 
-</td>
-
-    <?php endforeach; ?>
     </tbody>
  </table>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+    function generateQRCode(clientId) {
+        const qr = new QRious({
+            element: document.createElement('canvas'),
+            value: `Customer ID: ${clientId}`,
+            size: 200,
+            background: 'white',
+            foreground: 'black',
+        });
 
+        // Update the image source to the QR code generated data URL
+        const qrImageElement = document.getElementById(`qrCodeImage${clientId}`);
+        if (qrImageElement) {
+            qrImageElement.src = qr.toDataURL();
+        }
+    }
 
+    // Call the generateQRCode function for each client when the page loads
+    window.onload = function() {
+        <?php foreach ($clients1 as $Clients): ?>
+            generateQRCode(<?= $Clients['CustomerID']; ?>); // Generate QR code for each client
+        <?php endforeach; ?>
+    }
+
+</script>
+ 
 
  
  <?php $this->endSection(); ?>

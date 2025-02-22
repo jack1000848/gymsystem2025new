@@ -25,14 +25,15 @@
                 <h1>Coach login</h1>
             </div>
             <?php if (session()->getFlashdata('error')): ?>
-        <p style="color:red"><?= session()->getFlashdata('error') ?></p>
-    <?php endif; ?>
+    <div class="error"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
     
-            <form method="post" action="/login/authenticate">
-                <label for="email"></label>
-                <input type="text" name="email" placeholder="Email" required>
-                <label for="password"></label>
-                <input type="password" name="password" placeholder="Password" required>
+            <<form action="<?= site_url('coach/authenticate') ?>" method="post">
+        <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br><br>
                 <button type="submit">Login</button>
                 <a href="<?= base_url('join-now') ?>" class="register">Member Registration</a>
                 <a href="<?= base_url('joinus') ?>" class="register">Admin Login</a>

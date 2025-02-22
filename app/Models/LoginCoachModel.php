@@ -4,22 +4,24 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClientsModel extends Model
+class LoginCoachModel extends Model
 {
-    protected $table            = 'tbl_clients';
-    protected $primaryKey       = 'id';
+    protected $table            = 'coach';
+    protected $primaryKey       = 'coachid';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'gym_code','first_name', 'last_name', 'password', 'age', 'number', 'email', 'address', 'client_profile'
+    protected $allowedFields = [
+        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password', 
+        'RegisteredDate', 'number', 'Email', 'Status', 'Avatar'
     ];
     
-    public function getUserByEmail($email)
+    public function getUserByEmail1($email)
     {
-        return $this->where('email', $email)->first();
+        return $this->where('Email', $email)->first();
     }
+
     
     public function getCoachById($id)
     {

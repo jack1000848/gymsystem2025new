@@ -20,9 +20,9 @@ class Admin extends BaseController
     public function index()
     {
         // Call the private function using $this
-        $totalClients = $this->getCount('tbl_clients1');
-        $totalClient = $this->getCount('tbl_clients');
-        $totalEquipment = $this->getCount('tbl_equipment');
+        $totalClient = $this->getCount('coach');
+        $totalClients = $this->getCount('customer');
+        $totalEquipment = $this->getCount('equipment');
 
         // Pass the result to the view
         $data['totalClients'] = $totalClients; ///client

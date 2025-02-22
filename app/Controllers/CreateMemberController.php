@@ -53,7 +53,7 @@ class CreateMemberController extends BaseController
     {
         $data['clients1Password'] = '20_'. uniqid();
         $data['gymcode'] = '155_' . uniqid();
-
+        
         //qr
     
         return view('create_member/createmember', $data);
@@ -64,23 +64,25 @@ class CreateMemberController extends BaseController
 
        
 
-        $data = array(
-            'gym_code' => $this->request->getPost('gymcode'), 
-            'first_name' => $this->request->getPost('clients1Fname'),
-            'last_name' => $this->request->getPost('clients1Lname'),
-            'user_name' => $this->request->getPost('clients1Username'),
-            'password' => $this->request->getPost('password'),
-            'full_address' => $this->request->getPost('clients1Fulladdress'),
-            'email_address' => $this->request->getPost('clients1Emailaddress'),
-            'phone_number' => $this->request->getPost('clients1Phonenumber'),
-            'gender' => $this->request->getPost('gender'),
-            'date_of_registration' => $this->request->getPost('dateofregistration'),
-            'workout_type' => $this->request->getPost('tworkout'),
-            'plans' => $this->request->getPost('plans'),
-            'amount' => $this->request->getPost('amount'),
-            
-
-        );
+        $data = [
+            'CustomerID'       => $this->request->getPost('gymcode'),                 // Maps directly
+            'Firstname'        => $this->request->getPost('clients1Fname'),           // Maps directly
+            ///'Middlename'       => $this->request->getPost('clients1Mname') ?? null,   // Add if required
+            'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name
+            'Address'          => $this->request->getPost('clients1Username'),     // Adjusted field name
+            'Gender'           => $this->request->getPost('gender'),                  // Maps directly
+          // 'PhoneNumber'      => $this->request->getPost('phone_number'),            // Add phone field
+            'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
+            'Password'         => $this->request->getPost('password'),
+            'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
+            'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
+            'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
+            'WorkoutTypeID'    => null,                // Adjusted field name
+            'CurrentPlanID'    => null,                   // Adjusted field name
+                  
+            'WorkoutPlanID'    =>  null, // Add if necessary
+        ];
+        
 
         
 

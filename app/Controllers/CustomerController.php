@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Clients1Model;
+use App\Models\CustomerModel;
+use App\Models\PlanModel;
+use App\Models\CoachPlanView;
+
 // eto sa qr
 
 use App\Models\QrCodeModel;
@@ -14,35 +17,26 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Color\Color;
 
 
-class Clients1Controller extends BaseController
+class CustomerController extends BaseController
 
 
 {
-  public function testDatabase()
-  {
-      $db = \Config\Database::connect();
-      if ($db->connect()) {
-          echo "Database connected successfully.";
-      } else {
-          echo "Database connection failed.";
-      }
-  }
+ 
     public function index()
     {
-        $fetchClients1 =new Clients1Model();
+        $fetchClients1 =new CustomerModel();
         $data['clients1'] = $fetchClients1 ->findAll();
+      
+    
+      $maxId = $fetchClients1->selectMax('customerid')->first(); 
+      $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
+      $data['next_id'] = $nextId;
 
-        //testing
-        //$data['coaches'] = [
-        //    'coach1',
-          //  'coach2',
-        //    'coach3'
-       // ];
-       ///for dynamic
+      return view('clients1crud/list', $data);
 
        
 
-        return view('clients1crud/list', $data);
+        ////return view('clients1crud/list', $data);
     }
 
     public function linkcoach()
@@ -55,6 +49,42 @@ class Clients1Controller extends BaseController
         // Render the view with the data
         return view('clients1crud/add', $data);
     }
+
+
+    public function getCoaches()
+    {
+        // Get the planId from the request query parameters
+        $planId = $this->request->getVar('planId');
+    
+        // Check if the planId is provided, otherwise return an error
+        if (!$planId) {
+            return $this->response->setJSON(['error' => 'Plan ID is required']);
+        }
+    
+        // Fetch coaches based on PlanID from the CoachPlanView model
+        $coachPlanModel = new \App\Models\CoachPlanView();
+        $coaches = $coachPlanModel->where('PlanID', $planId)->findAll();
+    
+        // Return the coaches data as a JSON response
+        return $this->response->setJSON($coaches);
+    }
+    
+
+    public function getPlans()
+    {
+        $plansModel = new PlanModel();
+    
+        // Get all plans
+        $plans = $plansModel->findAll();
+    
+        // Return the plans data as JSON
+        return $this->response->setJSON($plans);
+    }
+    
+
+    
+
+
     public function getCount($tableName)
     {
 
@@ -76,15 +106,17 @@ class Clients1Controller extends BaseController
     public function createClients1()
     {
         $data['clients1Password'] = '20_'. uniqid();
-        $data['gymcode'] = '155_' . uniqid();
+        $fetchClient = new CustomerModel();
+      $data['customer'] = $fetchClient->findAll();
+      $maxId = $fetchClient->selectMax('customerid')->first(); 
+      $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
+      $data['next_id'] = $nextId;
 
-        //qr
-    
-        return view('clients1crud/add', $data);
+      return view('clients1crud/add', $data);
     }
     public function storeClients1()
      {
-        $insertClients = new Clients1Model ();
+        $insertClients = new CustomerModel ();
 
        /// $name = $this->request->getPost('first_name');
        /// $date = $this->request->getPost('date_of_registration');
@@ -103,44 +135,36 @@ class Clients1Controller extends BaseController
           ///  'qr_code_path' => $qrCodeImagePath // Replace with actual image path
        // ];
 
-       ///$clients1Model = new Clients1Model();
-       // $clients1Model->saveReservation($data);
+       ///$CustomerModel = new CustomerModel();
+       // $CustomerModel->saveReservation($data);
 
         
         
 
-        $data = array(
-            'gym_code' => $this->request->getPost('gymcode'), 
-            'first_name' => $this->request->getPost('clients1Fname'),
-            'last_name' => $this->request->getPost('clients1Lname'),
-            'user_name' => $this->request->getPost('clients1Username'),
-            'password' => $this->request->getPost('password'),
-            'full_address' => $this->request->getPost('clients1Fulladdress'),
-            'email_address' => $this->request->getPost('clients1Emailaddress'),
-            'phone_number' => $this->request->getPost('clients1Phonenumber'),
-            'gender' => $this->request->getPost('gender'),
-            'date_of_registration' => $this->request->getPost('dateofregistration'),
-            'workout_type' => $this->request->getPost('tworkout'),
-            'plans' => $this->request->getPost('plans'),
-            'amount' => $this->request->getPost('amount'),
-            //qr
-            
-          ///  'duration' => $this->request->getPost('duration'),
-           /// 'qr_code_path' => $this->request->getPost('qrcode'),
-
-
-            //$data = $this->request->getPost('data');
-           // if (!$data) {
-            //    return redirect()->back()->with('error', 'Please enter data to generate QR code.');
-           // }
+       $data = [
+        'CustomerID'       => $this->request->getPost('gymcode'),                 // Maps directly
+        'Firstname'        => $this->request->getPost('clients1Fname'),           // Maps directly
+        ///'Middlename'       => $this->request->getPost('clients1Mname') ?? null,   // Add if required
+        'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name
+        'Address'          => $this->request->getPost('clients1Username'),     // Adjusted field name
+        'Gender'           => $this->request->getPost('gender'),                  // Maps directly
+      // 'PhoneNumber'      => $this->request->getPost('phone_number'),            // Add phone field
+        'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
+        'Password'         => $this->request->getPost('password'),
+        'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
+        'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
+        'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
+        'WorkoutTypeID'    => null,                // Adjusted field name
+        'CurrentPlanID'    => null,                   // Adjusted field name
+              
+        'WorkoutPlanID'    =>  null, // Add if necessary
+    ];
     
-            // Generate QR code
-            
-            
+           
            
 
        
-        );
+      
 
         $insertClients->insert($data);
 
@@ -148,7 +172,7 @@ class Clients1Controller extends BaseController
     }
     public function editClients1($id)
     {
-        $fetchClients1 =new Clients1Model();
+        $fetchClients1 =new CustomerModel();
         $data['clients1'] = $fetchClients1 ->where('id', $id)->first();
 
         
@@ -162,8 +186,8 @@ class Clients1Controller extends BaseController
           ///      $imageName = $img->getRandomName();
           ///      $img->move('uploads/', $imageName);
           //  }
-          $insertClients = new Clients1Model ();
-          $updateClients1 = new Clients1Model();
+          $insertClients = new CustomerModel ();
+          $updateClients1 = new CustomerModel();
         
         
         $data = array(
@@ -195,7 +219,7 @@ class Clients1Controller extends BaseController
 
     public function deleteClients1($id)
     {
-      $deleteClients1 = new Clients1Model();
+      $deleteClients1 = new CustomerModel();
       $deleteClients1->delete($id);
 
       return redirect()->to('/clients1')->with('success', 'Client Deleted Successfully!');

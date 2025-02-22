@@ -4,29 +4,27 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClientsModel extends Model
+class CustomerModel extends Model
 {
-    protected $table            = 'tbl_clients';
-    protected $primaryKey       = 'id';
+    protected $table            = 'customer';
+    protected $primaryKey       = 'CustomerID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'gym_code','first_name', 'last_name', 'password', 'age', 'number', 'email', 'address', 'client_profile'
+        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'phone_number', 'Password', 'RegisteredDate','types_of_workout','Membesrship_plan','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID'
+        
+   
     ];
     
-    public function getCoaches()
+
+    public function saveReservation($data)
     {
-        return $this->findAll();
+        return $this->insert($data);
     }
-
-    public function getCoachById($id)
-    {
-        return $this->find($id);
-    }
-
-
+    
+    
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 

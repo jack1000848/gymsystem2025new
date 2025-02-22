@@ -6,25 +6,26 @@ use CodeIgniter\Model;
 
 class ClientloginModel extends Model
 {
-    protected $table            = 'tbl_clients1';
-    protected $primaryKey       = 'id';
+    protected $table            = 'customer';
+    protected $primaryKey       = 'CustomerID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'gym_code','qrcode', 'first_name', 'last_name', 'user_name', 'password', 'full_address', 'email_address', 'phone_number', 'gender', 'date_of_registration', 'plans','amount','duration', 'qr_code_path', 'attendance_count'
-
+        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'phone_number', 'Password', 'RegisteredDate','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID'
+        
+   
     ];
     
-    public function getUserByUsername($username)
+    public function getUserByEmail($email)
     {
-        return $this->where('user_name', $username)->first();
+        return $this->where('Email', $email)->first();
     }
-   // public function saveReservation($data)
-    //{
-    //    return $this->insert($data);
-   // }
+    public function saveReservation($data)
+    {
+        return $this->insert($data);
+    }
     
     
     protected bool $allowEmptyInserts = false;

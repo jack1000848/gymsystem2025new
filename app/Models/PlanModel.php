@@ -4,27 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Clients1Model extends Model
+class PlanModel extends Model
 {
-    protected $table            = 'tbl_clients1';
-    protected $primaryKey       = 'id';
+    protected $table            = 'plan';
+    protected $primaryKey       = 'PlanID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'gym_code','qrcode', 'first_name', 'last_name', 'user_name', 'password', 'full_address', 'email_address', 'phone_number', 'gender', 'date_of_registration','workout_type', 'plans','amount','duration', 'qr_code_path', 'attendance_count'
-        
-   
+        'PlanName', 'Description', 'Duration', 'TrainerIncluded', 'Price', 'IsActive',
     ];
     
 
-    public function saveReservation($data)
-    {
-        return $this->insert($data);
-    }
-    
-    
+
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 

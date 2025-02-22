@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Controllers\BaseController;
-use App\models\LoginCoachnModel;
+use App\models\LoginCoachModel;
 
     class LoginCoachController extends BaseController
 {
@@ -18,23 +18,29 @@ use App\models\LoginCoachnModel;
         $session = session();
         $model = new LoginCoachModel();
 
+        // Use email instead of username
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
-        $user = $model->getUserByEmail($email);
+        // Use the updated method to get user by email
+        $user = $model->getUserByEmail1($email);
 
-        if ($email) {
-            if ($password == $user['password']) { // Replace with hashing later
+        if ($user) {
+            // Compare the password (Note: replace with hashed password checking later)
+            if ($password == $user['Password']) { 
+                // Store user data in session
                 $session->set([
-                    'id' => $user['id'],
-                    'email' => $user['email'],
+                    'CoachID' => $user['CoachID'],
+                    'Email' => $user['Email'],
                     'logged_in' => true,
                 ]);
-                return redirect()->to('/coachdashboard'); // Replace with your dashboard URL
+                return redirect()->to('/coachdashboard'); // Redirect to the client dashboard
             } else {
+                // Password mismatch
                 return redirect()->back()->with('error', 'Invalid password.');
             }
         } else {
+            // User not found
             return redirect()->back()->with('error', 'Email not found.');
         }
     }

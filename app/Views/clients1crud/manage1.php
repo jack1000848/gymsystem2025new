@@ -24,19 +24,15 @@
     <thead>
         <tr>
         <th scope="col">#</th>
-            <th scope="col">Gym Code</th>
-            <th scope="col">QrCode</th>
+            <th scope="col">Client ID</th>
             <th scope="col">First Name</th>
+            <th scope="col">Middle Name</th>
             <th scope="col">Last Name</th>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Full Address</th>
-            <th scope="col">Email Address</th>
-            <th scope="col">Phone Number</th>
+            <th scope="col">Address</th>
             <th scope="col">Gender</th>
-            <th scope="col">Date of Registration</th>
-            <th scope="col">Monthly Plan</th>
-            <th scope="col">Amount</th>
+            <th scope="col">Phone Number</th>\
+            <th scope="col">Email Address</th>
+            <th scope="col">Full Address</th>
             <th scope="col">Action</th>
 
 
@@ -89,10 +85,7 @@
       <div class="modal-body">
       <form action="<?php echo site_url('/clients1/store'); ?>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
-    <div class="mb-3">
-                <label for="gymcode" class="form-label">Gym Code</label>
-                <input type="text" class="form-control" name="gymcode" value="<?= $gymcode; ?>" readonly>
-             </div>
+    
 
          
 

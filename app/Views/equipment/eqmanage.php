@@ -23,13 +23,10 @@
     <table id="myTable" class="display">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Equipment Picture</th>
+            <th>Equipment ID</th>
+            <th>Desicription</th>
             <th>Ammount</th>
             <th>Quantity</th>
-            <th>description</th>
-            <th>Purchase Date</th>
             <th>Action</th>
 
 
@@ -39,17 +36,15 @@
     <?php foreach ($gymequipment as $equipment): ?>
 
 <tr>
-<th scope="row"><?=$equipment['id']; ?></th>
-<td><?= $equipment['name']; ?></td>
-<td><img src="/uploads/<?= $equipment['Equipment_pic']; ?>" alt="" width="100"></td>
-<td><?= $equipment['amount']; ?></td>
-<td><?= $equipment['quantity']; ?></td>
-<td><?= $equipment['description']; ?></td>
-<td><?= $equipment['purchase_date']; ?></td>
+<td><?= $equipment['EquipmentID']; ?></td>
+<td><?= $equipment['Description']; ?></td>
+<td><?= $equipment['Amount']; ?></td>
+<td><?= $equipment['Qty']; ?></td>
+
 
 <td>
-<a href="/gymequipment<?= $equipment['id']; ?>" class="btn btn-primary">Edit</a>
-<a href="/gymequipment<?= $equipment['id']; ?>" class="btn btn-danger">Delete</a>
+<a href="/gymequipment<?= $equipment['EquipmentID']; ?>" class="btn btn-primary">Edit</a>
+<a href="/gymequipment<?= $equipment['EquipmentID']; ?>" class="btn btn-danger">Delete</a>
 </td>
 
 
@@ -77,30 +72,16 @@
          <label for="exampleFormControlInput1" class="form-label">Name</label>
               <input type="text" class="form-control" name="Ename" required>
     </div>
-
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Equipment Picture</label>
-              <input type="file" class="form-control" name="equipmentpic"required>
+         <label for="exampleFormControlInput1" class="form-label">Amount</label>
+              <input type="text" class="form-control" name="Eamount"required>
     </div> 
-     
-    <div class="mb-3">
-         <label for="exampleFormControlTextarea1" class="form-label">Amount</label>
-             <input type="text" class="form-control" name="Eamount"required>
-</div>
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Quantity</label>
               <input type="text" class="form-control" name="Equantity"required>
     </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">description</label>
-              <input type="text" class="form-control" name="Ediscription"required>
-    </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Purchase Date</label>
-              <input type="date" class="form-control" name="Epurchasedate"required>
-    </div> 
+     
+    
 
     </div>
       <div class="modal-footer">

@@ -6,20 +6,23 @@ use CodeIgniter\Model;
 
 class CreateMemberModel extends Model
 {
-    protected $table            = 'tbl_clients1';
-    protected $primaryKey       = 'id';
+    protected $table            = 'customer';
+    protected $primaryKey       = 'CustomerID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'gym_code','qrcode', 'first_name', 'last_name', 'user_name', 'password', 'full_address', 'email_address', 'phone_number', 'gender', 'date_of_registration','workout_type', 'plans','amount','duration', 'qr_code_path', 'attendance_count'
+        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'Password', 'RegisteredDate','types_of_workout','Membesrship_plan','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID'
         
    
     ];
     
 
-    
+    public function saveReservation($data)
+    {
+        return $this->insert($data);
+    }
     
     
     protected bool $allowEmptyInserts = false;

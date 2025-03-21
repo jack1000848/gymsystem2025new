@@ -57,6 +57,7 @@ class PlanController extends BaseController
     }
     public function storegymplan()
      {
+        
         $planData = [
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),

@@ -238,6 +238,7 @@
 
     async function editPlan(id){
 
+        console.log
         const plan = await $.get('/gymplans/edit/' + id);
         
         if (plan !== null) {

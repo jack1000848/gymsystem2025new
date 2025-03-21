@@ -14,17 +14,15 @@ use App\models\ClientloginModel;
  
 
     public function authenticate()
-    {
-        $session = session();
+    { $session = session();
         $model = new ClientloginModel();
 
-        // Use email instead of username
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
-        // Use the updated method to get user by email
         $user = $model->getUserByEmail($email);
 
+        
         if ($user) {
             // Check if the user is verified
             if ($user['is_verified'] == 0) { // Assuming 0 means not verified

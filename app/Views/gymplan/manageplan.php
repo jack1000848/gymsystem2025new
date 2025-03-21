@@ -209,7 +209,7 @@
         }
 
         $.ajax({
-        url: '/gymplans/store',
+        url: 'gymplans/store',
         type: 'POST',
         data: data,
         processData: false, 

@@ -150,7 +150,7 @@ class CoachDashboardController extends BaseController
             $model = new TimeScheduleModel(); // Change to your actual model name
             $data['time'] = $model->findAll(); // Fetch all schedules from the database
             
-            return view('/coachdashboard/TimeScheds', $data);
+            return view('/coachdashboard/TimeSheds', $data);
         }
         public function timestore()
         {

@@ -13,8 +13,11 @@ class ClientsDashboardController extends BaseController
         return view('clientdashboard/index');
     }
     
-    
+    /////heres the viewqrcode in dashboard
 
+    public function myqrcode(){
+        return view('clientdashboard/myqrcode');
+    }
 }
 
 ?>

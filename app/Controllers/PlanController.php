@@ -20,6 +20,36 @@ class PlanController extends BaseController
         return view('gymplan/manageplan', $data);
     }
 
+    public function edit($id)
+    {
+        $fetchPlan =new PlanModel();
+        $plan = $fetchPlan->find($id);
+        return $this->response->setJSON($plan);
+    }
+
+    public function delete($id)
+    {
+        $fetchPlan =new PlanModel();
+        $fetchPlan->delete($id);
+        return $this->response->setJSON(['success' => true]);
+    }
+    
+    public function update($id)
+    {
+        $fetchPlan =new PlanModel();
+        $data = [
+            'PlanName' => $this->request->getPost('Pname'),
+            'Description' => $this->request->getPost('description'),
+            'Duration' => $this->request->getPost('durationim'),
+            'GymTimeSlot' => $this->request->getPost('timeslot'),
+            'Price' => $this->request->getPost('price'),
+            'TrainerIncluded' => $this->request->getPost('trainer'),
+            'IsActive' => $this->request->getPost('active')
+        ];
+        $fetchPlan->update($id, $data);
+        return $this->response->setJSON(['success' => true]);
+    }
+
     
     public function creategymplan()
     {
@@ -31,6 +61,7 @@ class PlanController extends BaseController
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
             'Duration' => $this->request->getPost('durationim'),
+            'GymTimeSlot' => $this->request->getPost('timeslot'),
             'Price' => $this->request->getPost('price'),
             'TrainerIncluded' => $this->request->getPost('trainer'),
             'IsActive' => $this->request->getPost('active')
@@ -40,13 +71,15 @@ class PlanController extends BaseController
         $planID = $planModel->insert($planData);
         $coachIDs = $this->request->getPost('coaches'); 
         $coachPlanModel = new CoachPlanModel();
-
-        foreach ($coachIDs as $coachID) {
-            $coachPlanModel->insert([
-                'CoachID' => $coachID,
-                'PlanID' => $planID
-            ]);
+        if($coachIDs != null){
+            foreach ($coachIDs as $coachID) {
+                $coachPlanModel->insert([
+                    'CoachID' => $coachID,
+                    'PlanID' => $planID
+                ]);
+            }
         }
+        
 
         return redirect()->to('/gymplans')->with('success', 'Equipment Added Successfully!');
 

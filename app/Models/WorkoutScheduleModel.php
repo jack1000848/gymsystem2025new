@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PlanModel extends Model
+class WorkoutScheduleModel extends Model
 {
-    protected $table            = 'plan';
-    protected $primaryKey       = 'PlanID';
+    protected $table            = 'workoutschedule';
+    protected $primaryKey       = 'ScheduleID ';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'PlanName', 'Description', 'Duration', 'GymTimeSlot', 'TrainerIncluded', 'Price', 'IsActive',
+        'ScheduleID ', 'Day','WorkoutPlandID', 
     ];
     
 

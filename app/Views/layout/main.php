@@ -22,7 +22,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
     
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-   
+    <style>
+    
+
+        <style>
+    /* Sidebar Styling */
+    .app-sidebar {
+        padding: 20px 0;
+        width: 200px; /* Adjust the sidebar width */
+    }
+
+    /* Navigation Items */
+    .sidebar-menu .nav-item {
+        margin: 8px 0; /* More space between each nav button */
+    }
+
+    .sidebar-menu .nav-link {
+        font-size: 20px; /* Increase font size */
+        padding: 10px 20px; /* Increase padding for bigger buttons */
+        border-radius: 8px; /* Rounded corners */
+        transition: background 0.3s ease-in-out;
+    }
+
+    /* Hover Effect */
+    .sidebar-menu .nav-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Active Link */
+    .sidebar-menu .nav-link.active {
+        background: #4CAF50; /* Highlighted color */
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Icon Styling */
+    .sidebar-menu .nav-link i {
+        font-size: 20px; /* Make icons bigger */
+        margin-right: 12px; /* Add spacing between icon and text */
+    }
+    .user-footer {
+        display: flex;
+    }
+    
+</style>
+
+        
+    </style>
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
@@ -31,35 +77,16 @@
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                    <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i> </a> </li> <!--end::Navbar Search--> <!--begin::Messages Dropdown Menu-->
-                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span> </a>
+                    
+                    <li class="nav-item dropdown"> 
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Brad Diesel
-                                            <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                        </h3>
-                                        <p class="fs-7">Call me whenever you can...</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
+                                    
                                 </div> <!--end::Message-->
                             </a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            John Pierce
-                                            <span class="float-end fs-7 text-secondary"> <i class="bi bi-star-fill"></i> </span>
-                                        </h3>
-                                        <p class="fs-7">I got your message bro</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div> <!--end::Message-->
+                                
                             </a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
                                 <div class="d-flex">
@@ -78,24 +105,13 @@
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                         </div>
                     </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
-                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 new messages
-                                <span class="float-end text-secondary fs-7">3 mins</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                                <span class="float-end text-secondary fs-7">12 hours</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                                <span class="float-end text-secondary fs-7">2 days</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">
-                                See All Notifications
-                            </a>
-                        </div>
+                    
                     
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
                             <li class="user-footer">
                                  <a href="#" class="btn btn-default btn-flat text-start">WELCOME ADMIN</a> 
-                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                 <a href="<?= base_url('/member-login') ?>" class="btn btn-default btn-flat float-end">Sign out</a> 
+                                 <a href="#" class="btn btn-default btn-flat"></a>
+                                 <a href="<?= base_url('/member-login') ?>" class="btn btn-default btn-flat float-end"></a> 
                                 </li> <!--end::Menu Footer-->
                         </ul>
                     </li> <!--end::User Menu Dropdown-->
@@ -104,7 +120,7 @@
         </nav> <!--end::Header--> <!--begin::Sidebar-->
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
             <div class="sidebar-brand"> <!--begin::Brand Link--> 
-                <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> 
+                <a href="<?= base_url('/') ?>" class="brand-link"> <!--begin::Brand Image--> 
                 <img src="<?= base_url('admin-assets/img/logo.png') ?>" alt="" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> 
             <span class="brand-text fw-light">ISHOW FITNESS GYM</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
             <div class="sidebar-wrapper">
@@ -121,16 +137,16 @@
                             
                         </li>
                         <li class="nav-item"> 
-                            <a href="#" class="nav-link"> 
+                            <a href="<?= base_url('scan-qr') ?>" class="nav-link"> 
                                 <i class=""></i>
                                 <p>Scan your ID</p>
                             </a> 
                         </li>
                         </li>
                         <li class="nav-item"> 
-                            <a href="#" class="nav-link"> 
+                            <a href="<?= base_url('attendance') ?>" class="nav-link"> 
                                 <i class=""></i>
-                                <p>Attendance</p>
+                                <p>Participant log</p>
                             </a> 
                         </li>
 
@@ -163,6 +179,15 @@
                                 <p>Plans</p>
                             </a> 
                         </li>
+
+                        <li class="nav-item1"> 
+                         <a href="<?= base_url('/logout') ?>" class="nav-link"> 
+                              <i class=""></i>
+                                 <p>LOGOUT</p>
+                         </a> 
+                        </li>
+
+
 
 
                     </ul> <!--end::Sidebar Menu-->
@@ -290,7 +315,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js" integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js" integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script> <!-- jsvectormap -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const visitorsData = {
             US: 398, // USA

@@ -40,10 +40,11 @@
                <input type="text" class="form-control" name="clients1Fulladdress" placeholder="Sta Elana Hagonoy, Bulacan"required>
             </div>
 
-             <div class="mb-3">
-                <label for="clients1Emailaddress" class="form-label">Email Address</label>
-                <input type="text" class="form-control" name="clients1Emailaddress" placeholder="jdcruzmwamwa@gmail.com"required>
-              </div>
+            <div class="mb-3">
+              <label for="clients1Emailaddress" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="clients1Emailaddress" name="clients1Emailaddress" placeholder="example@gmail.com" required>
+                   <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
+            </div>
 
 
     
@@ -61,6 +62,15 @@
         <input type="date" class="form-control" name="dateofregistration"required>
    </div>
 
+    <!-- Gymtimeslot -->
+    <div class="mb-3">
+                        <label for="timeslot" class="form-label">Gym Time SLot</label>
+                        <select id="timeslot" class="form-control" name="timeslot" required>
+                            <option value="Day Class">Day Class</option>
+                            <option value=">Evening Class">Evening Class</option>
+                        </select>
+                        </div>
+    
    <div class="mb-3">
                   <label for="tworkout" class="form-label">Types of Workout</label>
                  <select id="tworkout" class="form-control" name="tworkout"required>
@@ -107,7 +117,10 @@
 
 
             
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button><br>
+         
+        <a href="<?= base_url('member-login') ?>" class="register">Back to Login</a>
+
  </form>
 
 
@@ -132,8 +145,18 @@
 
 });
 
+    document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    var emailInput = this.value;
+    var emailError = document.getElementById("emailError");
+    
+    if (!emailInput.endsWith("@gmail.com")) {
+        emailError.style.display = "block";
+    } else {
+        emailError.style.display = "none";
+    }
+    });
 
-async function fetchCoach(planId) {
+    async function fetchCoach(planId) {
     try {
         const data = await $.get(`/fetchCoachPlan?planId=${planId}`);  
 

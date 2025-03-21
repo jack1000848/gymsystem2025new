@@ -1,111 +1,93 @@
 <!DOCTYPE html>
-<html lang="en"> <!--begin::Head-->
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>iSFGYM | Client | Dashboard </title><!--begin::Primary Meta Tags-->
+    <meta charset="utf-8">
+    <title>iSFGYM | Coach | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE v4 | Dashboard">
-    <meta name="author" content="ColorlibHQ">
-    <meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
-    <meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard"><!--end::Primary Meta Tags--><!--begin::Fonts-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous"><!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="../../dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
-    <link rel="stylesheet" href="<?= base_url('admin-assets/css/adminlte.css') ?>"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous">
-</head> <!--end::Head--> <!--begin::Body-->
 
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
-    <div class="app-wrapper"> <!--begin::Header-->
-        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
-            <div class="container-fluid"> <!--begin::Start Navbar Links-->
-                
-                <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                    <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i> </a> </li> <!--end::Navbar Search--> <!--begin::Messages Dropdown Menu-->
-                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span> </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Brad Diesel
-                                            <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                        </h3>
-                                        <p class="fs-7">Call me whenever you can...</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div> <!--end::Message-->
+    <!-- Fonts and Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="<?= base_url('admin-assets/css/adminlte.css') ?>">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css">
+
+
+    <style>
+        
+    </style>
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+
+        <!-- Navbar -->
+        <nav class="app-header navbar navbar-expand bg-body">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+
+                <!-- Hamburger Button for mobile -->
+                <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+
+                <div class="d-none d-md-block">
+                    <!-- Optional additional Navbar content -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar Offcanvas (for mobile) -->
+        <div class="offcanvas offcanvas-start bg-body-secondary shadow" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">ISHOW FITNESS GYM</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <!-- Sidebar Content -->
+            <div class="offcanvas-body p-0">
+                <nav class="mt-2">
+                    <ul class="nav flex-column" role="menu">
+                        <li class="nav-item menu-open">
+                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active">
+                                <i class="bi bi-speedometer nav-icon"></i> Home
                             </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            John Pierce
-                                            <span class="float-end fs-7 text-secondary"> <i class="bi bi-star-fill"></i> </span>
-                                        </h3>
-                                        <p class="fs-7">I got your message bro</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div> <!--end::Message-->
-                            </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Nora Silvester
-                                            <span class="float-end fs-7 text-warning"> <i class="bi bi-star-fill"></i> </span>
-                                        </h3>
-                                        <p class="fs-7">The subject goes here</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div> <!--end::Message-->
-                            </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
-                    <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 new messages
-                                <span class="float-end text-secondary fs-7">3 mins</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                                <span class="float-end text-secondary fs-7">12 hours</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                                <span class="float-end text-secondary fs-7">2 days</span> </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">
-                                See All Notifications
-                            </a>
-                        </div>
-                    
-                            </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
-                            <li class="user-footer">
-                                 <a href="#" class="btn btn-default btn-flat text-start">WELCOME</a> 
-                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                 <a href="<?= base_url('/member-login') ?>" class="btn btn-default btn-flat float-end">Sign out</a> 
-                                </li> <!--end::Menu Footer-->
-                        </ul>
-                    </li> <!--end::User Menu Dropdown-->
-                </ul> <!--end::End Navbar Links-->
-            </div> <!--end::Container-->
-        </nav> <!--end::Header--> <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
-            <div class="sidebar-brand"> <!--begin::Brand Link--> 
-                <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> 
-                <img src="<?= base_url('admin-assets/img/logo.png') ?>" alt="" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> 
-            <span class="brand-text fw-light">ISHOW FITNESS GYM</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('/myqrcode') ?>" class="nav-link">My Qr Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">To-Do</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('') ?>" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Static Sidebar for Desktop    -->
+        <aside class="app-sidebar bg-body-secondary shadow d-none d-md-block" data-bs-theme="dark">
+            <div class="sidebar-brand text-center py-3">
+                <a href="#" class="brand-link">
+                    <img src="<?= base_url('admin-assets/img/logo.png') ?>" alt="Logo" class="brand-image opacity-75 shadow">
+                    <span class="brand-text fw-light">ISHOW FITNESS GYM</span>
+                </a>
+            </div>
             <div class="sidebar-wrapper">
-                <nav class="mt-2"> <!--begin::Sidebar Menu-->
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open"> 
-                            <a href="<?= base_url('admin') ?>" class="nav-link active"> 
+                <nav class="mt-2">
+                    <ul class="nav flex-column" role="menu">
+                        <li class="nav-item menu-open">
+                        <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active"> 
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
                                     Home
@@ -115,12 +97,12 @@
                             
                         </li>
                         <li class="nav-item"> 
-                            <a href="#" class="nav-link"> 
+                            <a href="<?= base_url('/myqrcode') ?>" class="nav-link"> 
                                 <i class=""></i>
-                                <p>Workout Plan</p>
+                                <p>My QR CODE</p>
                             </a> 
-                        </li>
-                        </li>
+                           </li>
+                          </li>
                         <li class="nav-item"> 
                             <a href="#" class="nav-link"> 
                                 <i class=""></i>
@@ -138,20 +120,16 @@
 
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('') ?>" class="nav-link"> 
+                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link"> 
                                 <i class=""></i>
                                 <p>Body Information</p>
                             </a> 
                         </li>
 
                         </li>
-                        
-
-                        
-
-                    </ul> <!--end::Sidebar Menu-->
+                    </ul>
                 </nav>
-            </div> <!--end::Sidebar Wrapper-->
+            </div>
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
         <main class="app-main"> <!--begin::App Content Header-->
                     <?= $this->renderSection('body') ?>

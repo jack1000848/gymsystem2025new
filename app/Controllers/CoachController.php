@@ -19,7 +19,7 @@ class CoachController extends BaseController
     public function index()
     {
         $fetchClient = new CoachModel();
-        $data['clients'] = $fetchClient->findAll();
+        $data['coaches'] = $fetchClient->findAll();
         $maxId = $fetchClient->selectMax('coachid')->first(); 
         $nextId = isset($maxId['coachid']) ? $maxId['coachid'] + 1 : 1;
         $data['next_id'] = $nextId;
@@ -67,26 +67,86 @@ class CoachController extends BaseController
         return redirect()->to('/coach')->with ('success', 'Coach Added Successfully!');
     }
 
-    public function editClient($id)
-
-    { 
-        $fetchClient = new CoachModel();
-        //$data ['client'] = $fetchClient->where('id,'$id)->first();
-
-        return view ('client/', $data);
- 
-    }
-
-    public function updateClient($id)
+    public function edit($id)
     {
-        //update
+        $coachModel = new CoachModel();
+    
+        // Fetch the equipment data by ID
+        $coach = $coachModel->find($id);
+    
+        if (!$coach) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Coach not found'
+            ]);
+        }
+    
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data' => $coach
+        ]);
     }
 
-    public function deleteClient($id)
-    {
-        $deleteClient = new CoachModel();
-        $deleteClient->delete($id);
+    public function update($id)
+{
+    // Load the EquipmentModel
+    $CoachModel = new \App\Models\CoachModel();
 
-        return redirect()->to('/coach')->with('success', 'Coach Deleted Successfully!');
+    // Get the input data from the request (this is assuming you're sending POST data)
+    $data = [
+        'CoachID' => $this->request->getPost('CoachID'),
+        'Firstname' => $this->request->getPost('Firstname'),
+        'Lastname' => $this->request->getPost('Lastname'),
+        'Email' => $this->request->getPost('Email'),
+        'Password' => $this->request->getPost('Password'),
+        'Address' => $this->request->getPost('Address'),
+        
+    ];
+
+    // Optionally, you can validate the data before updating
+    if (!$data['CoachID'] || !$data['Firstname'] || !$data['Lastname'] ||!$data['Email'] || !$data['Password'] || !$data['Address']) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'All fields are required!'
+        ]);
     }
+
+    // Attempt to update the record in the database
+    $updated = $CoachModel->update($id, $data);
+
+    // Check if the update was successful
+    if ($updated) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Equipment updated successfully!'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to update equipment. Please try again.'
+        ]);
+    }
+}
+
+
+public function deleteCoach($id)
+{
+    $deleteCoach = new CoachModel();
+
+    $isDeleted = $deleteCoach->delete($id);
+
+    if ($isDeleted) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Client deleted successfully.'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to delete client.'
+        ]);
+    }
+}
+
+
 }

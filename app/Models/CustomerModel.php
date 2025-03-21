@@ -13,7 +13,7 @@ class CustomerModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'phone_number', 'Password', 'RegisteredDate','types_of_workout','Membesrship_plan','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID'
+        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'phone_number', 'Password', 'RegisteredDate','GymTimeSlot','types_of_workout','Membesrship_plan','qr_code','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID', 'is_frozen'
         
    
     ];

@@ -15,6 +15,7 @@ use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Builder\Builder;
 
 
 class CustomerController extends BaseController
@@ -32,7 +33,7 @@ class CustomerController extends BaseController
       $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
       $data['next_id'] = $nextId;
 
-      return view('clients1crud/list', $data);
+      return view('clients1crud/manage1', $data);
 
        
 
@@ -50,6 +51,7 @@ class CustomerController extends BaseController
         return view('clients1crud/add', $data);
     }
 
+   
 
     public function getCoaches()
     {
@@ -112,34 +114,13 @@ class CustomerController extends BaseController
       $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
       $data['next_id'] = $nextId;
 
-      return view('clients1crud/add', $data);
+      return view('clients1crud/manage1', $data);
     }
     public function storeClients1()
      {
         $insertClients = new CustomerModel ();
 
-       /// $name = $this->request->getPost('first_name');
-       /// $date = $this->request->getPost('date_of_registration');
-       /// $duration = $this->request->getPost('duration');
-
-        // Generate QR code data
-       // $qrCodeData = "Name: $name\nDate: $date\nDuration: $duration days";
-
-        // Generate QR code image (using a library like Endroid/QrCode)
-        // ... (code to generate QR code image and save it to a file)
-
-       // $data = [
-           // 'first_name' => $name,
-         //   'date' => $date,
-         //   'date_of_registration' => $duration,
-          ///  'qr_code_path' => $qrCodeImagePath // Replace with actual image path
-       // ];
-
-       ///$CustomerModel = new CustomerModel();
-       // $CustomerModel->saveReservation($data);
-
-        
-        
+       
 
        $data = [
         'CustomerID'       => $this->request->getPost('gymcode'),                 // Maps directly
@@ -152,19 +133,15 @@ class CustomerController extends BaseController
         'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
         'Password'         => $this->request->getPost('password'),
         'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
-        'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
+        'types_of_workout'   => $this->request->getPost('tworkout'), 
+        'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
         'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
         'WorkoutTypeID'    => null,                // Adjusted field name
         'CurrentPlanID'    => null,                   // Adjusted field name
               
         'WorkoutPlanID'    =>  null, // Add if necessary
-    ];
+     ];
     
-           
-           
-
-       
-      
 
         $insertClients->insert($data);
 
@@ -172,63 +149,130 @@ class CustomerController extends BaseController
     }
     public function editClients1($id)
     {
-        $fetchClients1 =new CustomerModel();
-        $data['clients1'] = $fetchClients1 ->where('id', $id)->first();
+        $clients1Model = new CustomerModel();
 
-        
-        
-       return view('clients1crud/edit',$data);
+        // Fetch the Client data by ID
+        $editclient = $clients1Model->find($id);
+    
+        if (!$editclient) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Client not found'
+            ]);
+        }
+    
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data' => $editclient
+        ]);
     }
     public function updateClients1($id)
-    {
-       /// if($img = $this->request->getFile('studentProfile')) {
-           /// if($img->isValid() && !$img->hasMoved()) {
-          ///      $imageName = $img->getRandomName();
-          ///      $img->move('uploads/', $imageName);
-          //  }
-          $insertClients = new CustomerModel ();
-          $updateClients1 = new CustomerModel();
-        
-        
-        $data = array(
-            'gym_code' => $this->request->getPost('gymcode'), 
-            'first_name' => $this->request->getPost('clients1Fname'),
-            'last_name' => $this->request->getPost('clients1Lname'),
-            'user_name' => $this->request->getPost('clients1Username'),
-            'password' => $this->request->getPost('password'),
-            'full_address' => $this->request->getPost('clients1Fulladdress'),
-            'email_address' => $this->request->getPost('clients1Emailaddress'),
-            'phone_number' => $this->request->getPost('clients1Phonenumber'),
-            'gender' => $this->request->getPost('gender'),
-            'date_of_registration' => $this->request->getPost('dateofregistration'),
-            'workout_type' => $this->request->getPost('tworkout'),
-            'plans' => $this->request->getPost('plans'),
-            'amount' => $this->request->getPost('amount'),
-           // 'plans' => $this->request->getPost('clients1Phonenumber'),
-           // 'attendance_count' => $this->request->getPost('clients1Phonenumber'),
+{
+    // Load the CustomerModel
+    $customerModel = new \App\Models\CustomerModel();
 
-            
-        );  
-  
-        $updateClients1->update($id, $data);
-        
-        
+    // Get the input data from the request
+    $data = [
+        'gym_code' => $this->request->getPost('gymcode'), 
+        'first_name' => $this->request->getPost('clients1Fname'),
+        'last_name' => $this->request->getPost('clients1Lname'),
+        'user_name' => $this->request->getPost('clients1Username'),
+        'password' => $this->request->getPost('password'),
+        'full_address' => $this->request->getPost('clients1Fulladdress'),
+        'email_address' => $this->request->getPost('clients1Emailaddress'),
+        'phone_number' => $this->request->getPost('clients1Phonenumber'),
+        'gender' => $this->request->getPost('gender'),
+        'date_of_registration' => $this->request->getPost('dateofregistration'),
+        'GymTimeSlot' => $this->request->getPost('timeslot'),
+        'workout_type' => $this->request->getPost('tworkout'),
+        'plans' => $this->request->getPost('plans'),
+        'amount' => $this->request->getPost('amount'),
+    ];
 
-        return redirect()->to('/clients1')->with('success', 'Client Updated Successfully!');
+    // Validate required fields
+    if (
+        !$data['gym_code'] || !$data['first_name'] || !$data['last_name'] ||
+        !$data['user_name'] || !$data['password'] || !$data['full_address'] ||
+        !$data['email_address'] || !$data['phone_number'] || !$data['gender'] ||
+        !$data['date_of_registration'] || !$data['GymTimeSlot'] || !$data['workout_type'] ||
+        !$data['plans'] || !$data['amount']
+    ) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'All fields are required!'
+        ]);
     }
 
-    public function deleteClients1($id)
-    {
-      $deleteClients1 = new CustomerModel();
-      $deleteClients1->delete($id);
+    // Attempt to update the client in the database
+    $updated = $customerModel->update($id, $data);
 
-      return redirect()->to('/clients1')->with('success', 'Client Deleted Successfully!');
+    // Check if the update was successful
+    if ($updated) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Client updated successfully!'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to update client. Please try again.'
+        ]);
+    }
+}
+
+
+
+public function deleteClients1($id)
+{
+    $deleteClients1 = new CustomerModel();
+
+    $isDeleted = $deleteClients1->delete($id);
+
+    if ($isDeleted) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Client deleted successfully.'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to delete client.'
+        ]);
+    }
+}
+
+public function toggleFreeze($id)
+{
+    $customerModel = new CustomerModel();
+    $client = $customerModel->find($id);
+
+    if ($client) {
+        $newStatus = $client['is_frozen'] ? 0 : 1; // Toggle status
+
+        $customerModel->update($id, ['is_frozen' => $newStatus]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => $newStatus ? 'Client frozen successfully.' : 'Client unfrozen successfully.'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Client not found.'
+        ]);
+    }
+}
+public function viewClient($id)
+{
+    $customerModel = new CustomerModel();
+    $client = $customerModel->find($id);
+
+    if (!$client) {
+        return redirect()->to('/clients1')->with('error', 'Client not found.');
     }
 
-    public function renew()
-    {
-        return view('/clients1');
-    }
+    return view('clients1crud/client_view', ['client' => $client]);
 
-    
+}
+
 }

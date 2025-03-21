@@ -13,7 +13,7 @@ class CreateMemberModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'Password', 'RegisteredDate','types_of_workout','Membesrship_plan','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID'
+        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'Password', 'RegisteredDate', 'GymTimeSlot', 'types_of_workout','Membesrship_plan','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID' ,  'reset_token', 'reset_token_expires','verification_token', 'is_verified'
         
    
     ];

@@ -9,7 +9,7 @@ use App\models\ClientloginModel;
 
     public function LoginClient()
     {
-        return view('clientdashboard/loginclient');     ///loginview 
+        return view('/clientdashboard/loginclient');     ///loginview 
     }
  
 
@@ -26,7 +26,12 @@ use App\models\ClientloginModel;
         $user = $model->getUserByEmail($email);
 
         if ($user) {
-            // Compare the password (Note: replace with hashed password checking later)
+            // Check if the user is verified
+            if ($user['is_verified'] == 0) { // Assuming 0 means not verified
+                return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
+            }
+        
+            // Compare the password (Replace this with hashed password checking later)
             if ($password == $user['Password']) { 
                 // Store user data in session
                 $session->set([
@@ -43,8 +48,12 @@ use App\models\ClientloginModel;
             // User not found
             return redirect()->back()->with('error', 'Email not found.');
         }
+        
 
     }
+
+    
+    
 
     public function logout()
     {

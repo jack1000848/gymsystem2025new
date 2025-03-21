@@ -54,28 +54,87 @@ public function create()
 
     }
 
+
     public function edit($id)
+{
+    $equipmentModel = new EquipmentModel();
 
-    { 
-        $fetchEquipment = new EquipmentModel();
-        //$data ['client'] = $fetchClient->where('id,'$id)->first();
+    // Fetch the equipment data by ID
+    $equipment = $equipmentModel->find($id);
 
-        return view ('gymequipment', $data);
- 
+    if (!$equipment) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Equipment not found'
+        ]);
     }
 
-    public function updateClient($id)
-    {
-        //update
+    return $this->response->setJSON([
+        'status' => 'success',
+        'data' => $equipment
+    ]);
+}
+
+
+public function update($id)
+{
+    // Load the EquipmentModel
+    $equipmentModel = new \App\Models\EquipmentModel();
+
+    // Get the input data from the request (this is assuming you're sending POST data)
+    $data = [
+        'EquipmentID' => $this->request->getPost('EquipmentID'),
+        'Description' => $this->request->getPost('Description'),
+        'Amount' => $this->request->getPost('Amount'),
+        'Qty' => $this->request->getPost('Qty'),
+       
+    ];
+
+    // Optionally, you can validate the data before updating
+    if (!$data['EquipmentID'] || !$data['Description'] || !$data['Amount'] || !$data['Qty']) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'All fields are required!'
+        ]);
     }
 
-    public function deleteEquipment($id)
-    {
-        $deleteEquipment = new EquipmentModel();
-        $deleteEquipment->delete($id);
+    // Attempt to update the record in the database
+    $updated = $equipmentModel->update($id, $data);
 
-        return redirect()->to('/gymequipment')->with('success', 'Equipment Deleted Successfully!');
+    // Check if the update was successful
+    if ($updated) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Equipment updated successfully!'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to update equipment. Please try again.'
+        ]);
     }
+}
+
+
+public function deleteEquipment($id)
+{
+    $deleteEquipment = new EquipmentModel();
+
+    $isDeleted = $deleteEquipment->delete($id);
+
+    if ($isDeleted) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Equipment deleted successfully.'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to delete equipment.'
+        ]);
+    }
+}
+
 
 
    

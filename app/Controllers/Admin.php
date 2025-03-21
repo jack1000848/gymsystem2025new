@@ -19,6 +19,8 @@ class Admin extends BaseController
 
     public function index()
     {
+        
+
         // Call the private function using $this
         $totalClient = $this->getCount('coach');
         $totalClients = $this->getCount('customer');
@@ -31,5 +33,20 @@ class Admin extends BaseController
 
         return view('admin/index', $data);
     }
+    public function index1()
+    {
+        $model = new AttendanceLogModel();
+        $data['customers'] = $model->getCustomers();
+
+        return view('/admin/index', $data);
+    }
+
+    public function logout()
+{
+    session()->destroy(); // Destroy all session data
+    return redirect()->to('/joinus')->with('success', 'You have been logged out.');
+}
+
+
 }
 

@@ -42,9 +42,10 @@
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Password" required>
                 <button type="submit">Login</button>
-                <a href="<?= base_url('join-now') ?>" class="register">Member Registration</a>
+                <a href="<?= base_url('join-now') ?>" class="register">Signup</a>
                 <a href="<?= base_url('member-login') ?>" class="register">Member Login</a>
                 <a href="<?= base_url('coach-login') ?>" class="register">Coach Login</a>
+                
             </form>
         </div>
     </div>

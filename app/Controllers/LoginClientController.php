@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Controllers\BaseController;
-use App\models\ClientloginModel;
+use App\Models\ClientloginModel;
 
     class LoginClientController extends BaseController
 {

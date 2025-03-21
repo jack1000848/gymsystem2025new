@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Controllers\BaseController;
-use App\models\LoginCoachModel;
+use App\Models\LoginCoachModel;
 
     class LoginCoachController extends BaseController
 {

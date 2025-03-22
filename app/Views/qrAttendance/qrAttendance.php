@@ -75,29 +75,36 @@ $this->section('body'); // Start the body section
         $.ajax({
     url: "<?= base_url('attendance/scan') ?>",
     type: "POST",
+    dataType: 'json',
     data: { CustomerID: decodedText },
     success: function(response) {
         console.log("Response:", response);
 
         if (response.status === 'success') {
             if (response.action === 'checkin') {
-                alert("Check-In Successful for Customer ID: " + response.CustomerID);
+                alert("✅ Check-In Successful for Customer ID: " + response.CustomerID);
             } else if (response.action === 'checkout') {
-                alert("Check-Out Successful for Customer ID: " + response.CustomerID);
+                alert("✅ Check-Out Successful for Customer ID: " + response.CustomerID);
             }
-            // Optionally reload the table
+            // Optionally show user info if valid
+            $("#userId").text(response.CustomerID);
+            $("#fullName").text(response.FullName);
+            $("#expirationDate").text(response.ExpirationDate);
+            $("#showInfo").show();
+
         } else {
-            alert(response.message);
+            // Hide info box if invalid or error
+            $("#showInfo").hide();
+            alert("❌ Error: " + response.message);
         }
-    
-            },
-            error: function(error) {
-                console.error("Error saving QR Code:", error);
-                $("#loadingSpinner").hide();
-                alert("Failed to process QR Code.");
-                reset();
-            }
-        });
+    },
+    error: function(xhr, status, error) {
+        $("#showInfo").hide();
+        console.error("AJAX Error:", error);
+        alert("❌ Failed to process the QR Code. Please try again.");
+    }
+});
+
     }
 
     function onScanFailure(error) {

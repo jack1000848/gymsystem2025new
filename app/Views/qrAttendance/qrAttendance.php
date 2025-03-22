@@ -60,7 +60,7 @@ $this->section('body'); // Start the body section
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
-        console.log("Sending to: ", "<?= base_url('scan-qr/save/') ?>" + decodedText);
+        console.log("Scanned QR Code:", decodedText);
         
         $("#loadingSpinner").show();
 
@@ -73,8 +73,7 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-            
-            url: "<?= base_url('scan-qr/save/') ?>" + decodedText,
+             url: "/scan-qr/save/" + decodedText,
              type: "POST",
              dataType: "json",
              success: function(response) {

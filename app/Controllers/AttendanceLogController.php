@@ -14,6 +14,23 @@ class AttendanceLogController extends Controller
 
         return view('/qrAttendance/attendancelog', $data);
     }
+ // Update the CheckOut time
+ public function checkout()
+ {
+     $customerID = $this->request->getPost('CustomerID');
 
+     if ($customerID) {
+         $model = new AttendanceLogModel();
+
+         // Update CheckOut time as the current timestamp
+         $model->update($customerID, [
+             'CheckOut' => date('Y-m-d H:i:s')
+         ]);
+
+         return redirect()->to('/qrAttendance/attendancelog')->with('success', 'Customer Checked Out Successfully');
+     } else {
+         return redirect()->to('/qrAttendance/attendancelog')->with('error', 'Invalid Customer ID');
+     }
+ }
     
 }

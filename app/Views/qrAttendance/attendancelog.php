@@ -77,7 +77,7 @@ $this->section('body'); // Start the body section
                     <th>Customer ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
-                    
+                    <th>Check-Out</th> <!-- Added this -->
                     
                 </tr>
             </thead>
@@ -87,7 +87,7 @@ $this->section('body'); // Start the body section
                         <td><?= esc($customer['CustomerID']) ?></td>
                         <td><?= esc($customer['FullName']) ?></td>
                         <td><?= esc($customer['CheckIn']) ?></td>
-                        
+                        <td><?= esc($customer['CheckOut']) ?></td> <!-- Added this -->
                         
                         
                     </tr>
@@ -95,12 +95,16 @@ $this->section('body'); // Start the body section
             </tbody>
         </table>
     </div>
-</body>
-</html>
-    <script>
+    </body>
+    </html>
+    
+        <script>
+            $(document).ready(function() {
+               $('#customerTable').DataTable();
+                });
+           </script>
 
-</script>
 
-</body>
-</html>
+        </body>
+        </html>
 <?php $this->endSection(); ?>

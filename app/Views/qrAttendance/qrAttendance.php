@@ -73,7 +73,7 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-             url: "<?= base_url('/scan-qr/save/') ?>" + customerId,
+             url: "<?= base_url('/scan-qr/save/') ?>" + CustomerID,
                  method: "POST",
                  dataType: "json",
                  success: function (response) {

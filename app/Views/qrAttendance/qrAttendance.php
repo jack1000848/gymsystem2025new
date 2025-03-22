@@ -57,6 +57,7 @@ $this->section('body'); // Start the body section
     
 
 <script>
+    
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
@@ -73,33 +74,18 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-             url: "<? echo base_url('/scan-qr/save'); ?>" + decodedText,
-             type: "POST",
-             dataType: "json",
-             success: function(response) {
-                console.log("Response from server:", response);
-                const customer = response.customer;
-                
-                // Hide loader & show scanned user info
-                $("#loadingSpinner").hide();
-                $("#showInfo").show();
+    url: "<?= base_url('scan-qr/save') ?>",
+    type: "POST",
+    data: { qr_data: decodedText },
+    success: function(response) {
+        console.log(response);
+    },
+    error: function(xhr) {
+        console.log(xhr.responseText);
+        alert("Failed to process QR Code.");
+    }
+});
 
-                // Populate scanned info (assuming response has user data)
-                $("#userId").text(customer.CustomerID || "N/A");
-                $("#fullName").text(customer.CustomerName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
-                setTimeout(() => {
-                    reset();
-
-        }, 10000);
-            },
-            error: function(error) {
-                console.error("Error saving QR Code:", error);
-                $("#loadingSpinner").hide();
-                alert("Failed to process QR Code.");
-                reset();
-            }
-        });
     }
 
     function onScanFailure(error) {

@@ -75,7 +75,7 @@ $this->section('body'); // Start the body section
         $.ajax({
     url: "<?= base_url('attendance/scan') ?>",
     type: "POST",
-    data: { customerID: decodedText },
+    data: { CustomerID: decodedText },
     success: function(response) {
         console.log("Response:", response);
 

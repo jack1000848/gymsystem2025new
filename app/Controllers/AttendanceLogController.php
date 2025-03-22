@@ -58,9 +58,8 @@ class AttendanceLogController extends Controller
      }
 
      return $this->response->setJSON([
-         'status' => 'success',
-         'action' => $action,
-         'CustomerID' => $customerID
+        'status' => 'error',
+        'message' => 'Invalid QR Code or Customer not found!'1s
      ]);
  }
     

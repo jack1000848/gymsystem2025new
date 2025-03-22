@@ -89,12 +89,16 @@ $this->section('body'); // Start the body section
         } else {
             alert(response.message);
         }
-    },
-    error: function(error) {
-        console.error("Error:", error);
-        alert("Failed to process QR Code.");
+    
+            },
+            error: function(error) {
+                console.error("Error saving QR Code:", error);
+                $("#loadingSpinner").hide();
+                alert("Failed to process QR Code.");
+                reset();
+            }
+        });
     }
-});
 
     function onScanFailure(error) {
        

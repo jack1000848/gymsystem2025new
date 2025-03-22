@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class CustomerPlanModel extends Model
 {
-    protected $table = 'CustomerPlan'; 
+    protected $table = 'customerplan'; 
     protected $primaryKey = 'CustomerID';
     protected $allowedFields = ['CustomerID', 'CustomerName', 'PlanName', 'ExpirationDate'];
 

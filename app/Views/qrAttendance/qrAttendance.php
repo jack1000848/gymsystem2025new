@@ -73,40 +73,43 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-            url: "<?= base_url('scan-qr/save') ?>/" + decodedText,
-            type: "POST",
-            success: function(response) {
-                console.log("Response from server:", response);
-                const customer = response.customer;
-                
-                // Hide loader & show scanned user info
-                $("#loadingSpinner").hide();
-                $("#showInfo").show();
+    url: "<?= base_url('/attendance/scan') ?>/" + decodedText,
+    type: "POST",
+    dataType: "json", // Important to automatically parse JSON response
+    success: function(response) {
+        console.log("Response from server:", response);
 
-                if (response.status === 'success') {
-            if (response.action === 'checkin') 
-            {
-                $("#userId").text(customer.CustomerID || "N/A");
-                $("#fullName").text(customer.CustomerName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
-                setTimeout(() =>
-                 {
-                    reset();
-                 }, 10000);
-            },
-            } 
-            else if (response.action === 'checkout') 
-            {
-                alert("Check-Out Successful for Customer ID: " + response.customerID);
+        if (response.status === 'success') {
+            const customer = response.customer;
+
+            // Hide loader & show scanned user info
+            $("#loadingSpinner").hide();
+            $("#showInfo").show();
+
+            // Populate scanned info
+            $("#userId").text(customer.CustomerID || "N/A");
+            $("#fullName").text(customer.CustomerName || "N/A");
+            $("#expirationDate").text(customer.ExpirationDate || "N/A");
+
+            // Optional: Show alert based on action (check-in or check-out)
+            if (response.action === 'checkin') {
+                alert("Check-In Successful for Customer ID: " + customer.CustomerID);
+            } else if (response.action === 'checkout') {
+                alert("Check-Out Successful for Customer ID: " + customer.CustomerID);
             }
-            // Optionally reload the table
+
+            // Optionally reload or update other parts of your UI here
+
         } else {
             alert(response.message);
+            $("#loadingSpinner").hide();
         }
-    },
 
-                // Populate scanned info (assuming response has user data)
-                
+        // Auto reset after a delay (if needed)
+        setTimeout(() => {
+            reset();
+        }, 3000);
+    },
             error: function(error) {
                 console.error("Error saving QR Code:", error);
                 $("#loadingSpinner").hide();

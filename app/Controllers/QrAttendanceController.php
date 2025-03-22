@@ -50,17 +50,5 @@ class QrAttendanceController extends Controller
         return redirect()->to('/attendance')->with('error', 'Failed to delete attendance record.');
     }
 }
-public function saveQRCode($qrData)
-{
-    if (!$qrData) {
-        return $this->response->setStatusCode(400)->setBody('No QR Data');
-    }
-
-    // Sample insert
-    $db = \Config\Database::connect();
-    $builder = $db->table('attendance');
-    $builder->insert(['qr_code' => $qrData, 'scanned_at' => date('Y-m-d H:i:s')]);
-
-    return $this->response->setStatusCode(200)->setBody('Saved');
-}
+    
 }

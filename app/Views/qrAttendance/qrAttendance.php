@@ -96,15 +96,7 @@ $this->section('body'); // Start the body section
     }
 });
 
-    },
-    error: function(xhr, status, error) {
-        $("#showInfo").hide();
-        console.error("AJAX Error:", error);
-        alert("❌ Failed to process the QR Code. Please try again.");
-    }
-});
-
-    }
+   
 
     function onScanFailure(error) {
        

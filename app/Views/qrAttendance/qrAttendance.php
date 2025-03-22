@@ -60,7 +60,7 @@ $this->section('body'); // Start the body section
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
-        console.log("Scanned QR Code:", decodedText);
+        console.log("Sending to: ", "<?= base_url('scan-qr/save/') ?>" + decodedText);
         
         $("#loadingSpinner").show();
 

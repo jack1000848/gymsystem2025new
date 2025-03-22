@@ -13,30 +13,26 @@ class QrAttendanceController extends Controller
         $customerPlanModel = new CustomerPlanModel();
         $qrAttendanceModel = new QrAttendanceModel();
     
-        // Validate ID
         if (empty($id) || !is_numeric($id)) {
-            return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
+            return $this->response->setStatusCode(400)->setJSON(['error' => 'Invalid Customer ID']);
         }
     
-        // Check if customer exists
         $customer = $customerPlanModel->find($id);
         if (!$customer) {
-            return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'Customer not found']);
         }
     
-        // Insert attendance record
         $data = ['CustomerID' => $id];
         if ($qrAttendanceModel->insert($data)) {
-            return $this->response->setJSON([
+            return $this->response->setStatusCode(200)->setJSON([
                 'success' => 'Attendance recorded successfully',
                 'customer' => $customer
             ]);
         }
     
-        // Handle insertion failure
-        return $this->response->setJSON(['error' => 'Failed to record attendance'])->setStatusCode(500);
+        return $this->response->setStatusCode(500)->setJSON(['error' => 'Failed to record attendance']);
     }
-
+    
     public function list()
     {
         $scanModel = new QrAttendanceModel();

@@ -72,29 +72,35 @@ $this->section('body'); // Start the body section
         });
 
         // Send data to backend
-        $.ajax({
-    url: "<?= base_url('attendance/scan') ?>",
-    type: "POST",
-    data: { CustomerID: decodedText },
-    success: function(response) {
-        console.log("Response:", response);
+            $.ajax({
+                url: "<?= base_url('/attendance/scan') ?>/" + decodedText,
+                type: "POST",
+                success: function(response) {
+                    console.log("Response from server:", response);
+                    const customer = response.customer;
+                    
+                    // Hide loader & show scanned user info
+                    $("#loadingSpinner").hide();
+                    $("#showInfo").show();
 
-        if (response.status === 'success') {
-            if (response.action === 'checkin') {
-                alert("Check-In Successful for Customer ID: " + response.customerID);
-            } else if (response.action === 'checkout') {
-                alert("Check-Out Successful for Customer ID: " + response.customerID);
-            }
-            // Optionally reload the table
-        } else {
-            alert(response.message);
-        }
-    },
-    error: function(error) {
-        console.error("Error:", error);
-        alert("Failed to process QR Code.");
-    }
-});
+                    // Populate scanned info (assuming response has user data)
+                    $("#userId").text(customer.CustomerID || "N/A");
+                    $("#fullName").text(customer.CustomerName || "N/A");
+                    $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                    setTimeout(() => {
+                        reset();
+
+                        
+
+            }, 10000);
+                },
+                error: function(error) {
+                    console.error("Error saving QR Code:", error);
+                    $("#loadingSpinner").hide();
+                    alert("Failed to process QR Code.");
+                    reset();
+                }
+            });
     }
 
     function onScanFailure(error) {

@@ -73,11 +73,10 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-            url: "/scan-qr/save/" + decodedText,
-            type: "POST",
-            success: function(response) {
-                console.log("Response from server:", response);
-                const customer = response.customer;
+              url: '<?= base_url('qr-attendance/save/') ?>' + customerId,
+                 method: 'POST',
+                 success: function(response) {
+                    console.log(response);
                 
                 // Hide loader & show scanned user info
                 $("#loadingSpinner").hide();

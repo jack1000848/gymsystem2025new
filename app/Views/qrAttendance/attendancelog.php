@@ -101,7 +101,7 @@ $this->section('body'); // Start the body section
         </table>
     </div>
     <script>
-function checkout(customerId, checkInTime) {
+function checkout(CustomerID, checkInTime) {
     const now = new Date();
     const checkInDate = new Date(checkInTime);
     const timeDiff = (now - checkInDate) / (1000 * 60 * 60); // difference in hours
@@ -111,7 +111,7 @@ function checkout(customerId, checkInTime) {
     } else {
         // If more than 1 hour, proceed with checkout (you can replace this with AJAX later)
         if (confirm("Proceed to check out?")) {
-            window.location.href = "/attendance/checkout/" + customerId;
+            window.location.href = "/qrAttendance/attendancelog/" + CustomerID;
         }
     }
 }

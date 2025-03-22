@@ -72,6 +72,7 @@ $this->section('body'); // Start the body section
         });
 
         // Send data to backend
+        function processQRCode(customerId) {
         $.ajax({
              url: "<?= base_url('/scan-qr/save/') ?>" + CustomerID,
                  method: "POST",

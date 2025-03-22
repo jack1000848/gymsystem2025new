@@ -73,27 +73,24 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-    url: "<?= base_url('attendance/scan') ?>",
-    type: "POST",
-    data: { CustomerID: decodedText },
-    success: function(response) {
-        console.log("Response:", response);
+            url: "<?= base_url('/attendance/scan') ?>/" + decodedText,
+            type: "POST",
+            success: function(response) {
+                console.log("Response from server:", response);
+                const customer = response.customer;
+                
+                // Hide loader & show scanned user info
+                $("#loadingSpinner").hide();
+                $("#showInfo").show();
 
-        if (response.status === 'success') {
-            if (response.action === 'CheckIn') {
-                alert("Check-In Successful for Customer ID: " + response.CustomerID);
-            } else if (response.action === 'CheckOut') {
-                alert("Check-Out Successful for Customer ID: " + response.CustomerID);
-            }
-            // Optionally reload the table
-        } else {
-            alert(response.message);
-        }
-        setTimeout(() => {
+                // Populate scanned info (assuming response has user data)
+                $("#userId").text(customer.CustomerID || "N/A");
+                $("#fullName").text(customer.CustomerName || "N/A");
+                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                setTimeout(() => {
                     reset();
-
-        }, 10000);
-            },
+                }, 5000);
+        
     },
     error: function(error) {
         console.error("Error:", error);

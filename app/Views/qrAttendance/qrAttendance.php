@@ -73,51 +73,28 @@ $this->section('body'); // Start the body section
 
         // Send data to backend
         $.ajax({
-    url: "<?= base_url('/attendance/scan') ?>/" + decodedText,
+    url: "<?= base_url('attendance/scan') ?>",
     type: "POST",
-    dataType: "json", // Important to automatically parse JSON response
+    data: { customerID: decodedText },
     success: function(response) {
-        console.log("Response from server:", response);
+        console.log("Response:", response);
 
         if (response.status === 'success') {
-            const customer = response.customer;
-
-            // Hide loader & show scanned user info
-            $("#loadingSpinner").hide();
-            $("#showInfo").show();
-
-            // Populate scanned info
-            $("#userId").text(customer.CustomerID || "N/A");
-            $("#fullName").text(customer.CustomerName || "N/A");
-            $("#expirationDate").text(customer.ExpirationDate || "N/A");
-
-            // Optional: Show alert based on action (check-in or check-out)
             if (response.action === 'checkin') {
-                alert("Check-In Successful for Customer ID: " + customer.CustomerID);
+                alert("Check-In Successful for Customer ID: " + response.customerID);
             } else if (response.action === 'checkout') {
-                alert("Check-Out Successful for Customer ID: " + customer.CustomerID);
+                alert("Check-Out Successful for Customer ID: " + response.customerID);
             }
-
-            // Optionally reload or update other parts of your UI here
-
+            // Optionally reload the table
         } else {
             alert(response.message);
-            $("#loadingSpinner").hide();
         }
-
-        // Auto reset after a delay (if needed)
-        setTimeout(() => {
-            reset();
-        }, 3000);
     },
-            error: function(error) {
-                console.error("Error saving QR Code:", error);
-                $("#loadingSpinner").hide();
-                alert("Failed to process QR Code.");
-                reset();
-            }
-        });
+    error: function(error) {
+        console.error("Error:", error);
+        alert("Failed to process QR Code.");
     }
+});
 
     function onScanFailure(error) {
        

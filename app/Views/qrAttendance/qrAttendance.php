@@ -81,7 +81,7 @@ $this->section('body'); // Start the body section
 
         if (response.status === 'success') {
             if (response.action === 'checkin') {
-                alert("Check-In Successful for Customer ID: " + $("#userId").text(customer.CustomerID || "N/A"));
+                alert("Check-In Successful for Customer ID: " + response.CustomerID);
             } else if (response.action === 'checkout') {
                 alert("Check-Out Successful for Customer ID: " + response.CustomerID);
             }

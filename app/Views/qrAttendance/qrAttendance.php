@@ -28,7 +28,7 @@ $this->section('body'); // Start the body section
         <div class="col-lg-6 col-md-8">
             <div class="card shadow-lg p-4">
                 <div class="card-header bg-primary text-white text-center">
-                    <h2>Scan QR Code Baby!</h2>
+                    <h2>Scan QR Code</h2>
                 </div>
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->

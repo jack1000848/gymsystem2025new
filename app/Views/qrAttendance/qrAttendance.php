@@ -72,14 +72,12 @@ $this->section('body'); // Start the body section
         });
 
         // Send data to backend
-        function processQRCode(customerId) {
         $.ajax({
-             url: "<?= base_url('/scan-qr/save/') ?>" + CustomerID,
-                 method: "POST",
-                 dataType: "json",
-                 success: function (response) {
-                    console.log(response);
-
+            url: "/scan-qr/save/" + decodedText,
+            type: "POST",
+            success: function(response) {
+                console.log("Response from server:", response);
+                const customer = response.customer;
                 
                 // Hide loader & show scanned user info
                 $("#loadingSpinner").hide();

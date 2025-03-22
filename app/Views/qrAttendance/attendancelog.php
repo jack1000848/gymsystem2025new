@@ -77,6 +77,7 @@ $this->section('body'); // Start the body section
                     <th>Customer ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
+                    <th>Check-Out</th>
                     
                     
                 </tr>
@@ -88,13 +89,34 @@ $this->section('body'); // Start the body section
                         <td><?= esc($customer['FullName']) ?></td>
                         <td><?= esc($customer['CheckIn']) ?></td>
                         
-                        
+                        <?php if (!$customer['CheckOut']): ?>
+                        <button onclick="checkout(<?= $customer['CustomerID'] ?>, '<?= $customer['CheckIn'] ?>')">Check Out</button>
+                    <?php else: ?>
+                        Checked Out
+                    <?php endif; ?>
                         
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <script>
+function checkout(customerId, checkInTime) {
+    const now = new Date();
+    const checkInDate = new Date(checkInTime);
+    const timeDiff = (now - checkInDate) / (1000 * 60 * 60); // difference in hours
+
+    if (timeDiff < 1) {
+        alert("You need to stay at least 1 hour before checking out!");
+    } else {
+        // If more than 1 hour, proceed with checkout (you can replace this with AJAX later)
+        if (confirm("Proceed to check out?")) {
+            window.location.href = "/attendance/checkout/" + customerId;
+        }
+    }
+}
+</script>
+
 </body>
 </html>
 <?php $this->endSection(); ?>

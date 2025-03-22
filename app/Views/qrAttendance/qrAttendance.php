@@ -80,15 +80,15 @@ $this->section('body'); // Start the body section
         console.log("Response:", response);
 
         if (response.status === 'success') {
-            if (response.action === 'checkin') {
+            if (response.action === 'CheckIn') {
                 alert("Check-In Successful for Customer ID: " + response.CustomerID);
-            } else if (response.action === 'checkout') {
+            } else if (response.action === 'CheckOut') {
                 alert("Check-Out Successful for Customer ID: " + response.CustomerID);
             }
             // Optionally reload the table
         } else {
             alert(response.message);
-        }
+          }  }
     },
     error: function(error) {
         console.error("Error:", error);

@@ -34,33 +34,60 @@ class AttendanceLogController extends Controller
  }
  // Unified QR Scan Handler - Check-In or Check-Out based on status
  public function scan()
- {
-     $customerID = $this->request->getPost('CustomerID');
-     if (!$customerID) {
-         return $this->response->setJSON(['status' => 'error', 'message' => 'Customer ID missing']);
-     }
+{
+    $customerID = $this->request->getPost('CustomerID');
 
-     $model = new AttendanceLogModel();
+    if (!$customerID) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'No QR code data received!'
+        ]);
+    }
 
-     // Check if there's an existing check-in without a check-out
-     $existing = $model->where('CustomerID', $CustomerID)
-                       ->where('CheckOut IS NULL')
-                       ->first();
+    $model = new AttendanceLogModel();
 
-     if ($existing) {
-         // Perform Check-Out
-         $model->update($CustomerID, ['CheckOut' => date('Y-m-d H:i:s')]);
-         $action = 'checkout';
-     } else {
-         // Perform Check-In
-         $model->update($CustomerID, ['CheckIn' => date('Y-m-d H:i:s'), 'CheckOut' => null]);
-         $action = 'checkin';
-     }
+    // Check if the customer exists in the database
+    $customer = $model->where('CustomerID', $customerID)->first();
 
-     return $this->response->setJSON([
-        'status' => 'error',
-        'message' => 'Invalid QR Code or Customer not found!'
-     ]);
- }
+    if (!$customer) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Invalid QR Code or Customer not found!'
+        ]);
+    }
+
+    // If customer found, decide if check-in or check-out (simple example)
+    // Sample logic: if no CheckIn, then CheckIn. If CheckIn exists, then CheckOut.
+    if (empty($customer['CheckIn'])) {
+        // Perform check-in
+        $model->update($customerID, ['CheckIn' => date('Y-m-d H:i:s')]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'action' => 'checkin',
+            'CustomerID' => $customerID,
+            'FullName' => $customer['FullName'],
+            'ExpirationDate' => $customer['ExpirationDate'] ?? 'N/A'
+        ]);
+    } else if (empty($customer['CheckOut'])) {
+        // Perform check-out
+        $model->update($customerID, ['CheckOut' => date('Y-m-d H:i:s')]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'action' => 'checkout',
+            'CustomerID' => $customerID,
+            'FullName' => $customer['FullName'],
+            'ExpirationDate' => $customer['ExpirationDate'] ?? 'N/A'
+        ]);
+    } else {
+        // Already checked out, cannot scan again
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Customer already checked in and out today!'
+        ]);
+    }
+}
+
     
 }

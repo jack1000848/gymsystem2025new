@@ -57,7 +57,6 @@ $this->section('body'); // Start the body section
     
 
 <script>
-    
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
@@ -72,20 +71,12 @@ $this->section('body'); // Start the body section
             console.error("Failed to stop scanner:", err);
         });
 
-        // Send data to backend
         $.ajax({
-    url: "<?= base_url('scan-qr/save') ?>",
+    url: "<?= base_url('scan-qr/save') ?>/" + decodedText,
     type: "POST",
-    data: { qr_data: decodedText },
-    success: function(response) {
-        console.log(response);
-    },
-    error: function(xhr) {
-        console.log(xhr.responseText);
-        alert("Failed to process QR Code.");
-    }
+    success: function(response) { /* handle success */ },
+    error: function(error) { /* handle error */ }
 });
-
     }
 
     function onScanFailure(error) {

@@ -15,15 +15,5 @@ class AttendanceLogController extends Controller
         return view('/qrAttendance/attendancelog', $data);
     }
 
-    public function checkout($customerId)
-{
-    $model = new AttendanceLogModel();
-
-    // Update CheckOut time
-    $model->set('CheckOut', date('Y-m-d H:i:s'))
-          ->where('CustomerID', $customerId)
-          ->update();
-
-    return redirect()->to('/attendance')->with('success', 'Customer checked out successfully');
-}
+    
 }

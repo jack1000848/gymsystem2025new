@@ -89,11 +89,7 @@ $this->section('body'); // Start the body section
                         <td><?= esc($customer['FullName']) ?></td>
                         <td><?= esc($customer['CheckIn']) ?></td>
                         
-                        <?php if (!$customer['CheckOut']): ?>
-                        <button onclick="checkout(<?= $customer['CustomerID'] ?>, '<?= $customer['CheckIn'] ?>')">Check Out</button>
-                    <?php else: ?>
-                        Checked Out
-                    <?php endif; ?>
+                       
                         
                     </tr>
                 <?php endforeach; ?>

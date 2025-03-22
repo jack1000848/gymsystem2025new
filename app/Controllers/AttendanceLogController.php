@@ -32,5 +32,36 @@ class AttendanceLogController extends Controller
          return redirect()->to('/qrAttendance/attendancelog')->with('error', 'Invalid Customer ID');
      }
  }
+ // Unified QR Scan Handler - Check-In or Check-Out based on status
+ public function scan()
+ {
+     $customerID = $this->request->getPost('CustomerID');
+     if (!$customerID) {
+         return $this->response->setJSON(['status' => 'error', 'message' => 'Customer ID missing']);
+     }
+
+     $model = new AttendanceLogModel();
+
+     // Check if there's an existing check-in without a check-out
+     $existing = $model->where('CustomerID', $customerID)
+                       ->where('CheckOut IS NULL')
+                       ->first();
+
+     if ($existing) {
+         // Perform Check-Out
+         $model->update($customerID, ['CheckOut' => date('Y-m-d H:i:s')]);
+         $action = 'checkout';
+     } else {
+         // Perform Check-In
+         $model->update($customerID, ['CheckIn' => date('Y-m-d H:i:s'), 'CheckOut' => null]);
+         $action = 'checkin';
+     }
+
+     return $this->response->setJSON([
+         'status' => 'success',
+         'action' => $action,
+         'CustomerID' => $customerID
+     ]);
+ }
     
 }

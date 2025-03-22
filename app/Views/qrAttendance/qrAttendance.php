@@ -88,14 +88,15 @@ $this->section('body'); // Start the body section
             // Optionally reload the table
         } else {
             alert(response.message);
-          }  }
+        }
     },
     error: function(error) {
         console.error("Error:", error);
         alert("Failed to process QR Code.");
     }
-});
-
+    
+    });
+    }
    
 
     function onScanFailure(error) {

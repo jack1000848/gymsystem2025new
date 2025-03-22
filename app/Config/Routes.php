@@ -134,6 +134,7 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 
 ////qr code new att
 $routes->get('scan-qr', 'QrAttendanceController::list');
+$routes->get('scan-qr/save', 'QrAttendanceController::scanQrCode/$1');
 $routes->post('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
 $routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
 

@@ -71,12 +71,34 @@ $this->section('body'); // Start the body section
             console.error("Failed to stop scanner:", err);
         });
 
+        // Send data to backend
         $.ajax({
-    url: "<?= base_url('scan-qr/save') ?>/" + decodedText,
-    type: "POST",
-    success: function(response) { /* handle success */ },
-    error: function(error) { /* handle error */ }
-});
+            url: "<?= base_url('scan-qr/save') ?>/" + decodedText,
+            type: "POST",
+            success: function(response) {
+                console.log("Response from server:", response);
+                const customer = response.customer;
+                
+                // Hide loader & show scanned user info
+                $("#loadingSpinner").hide();
+                $("#showInfo").show();
+
+                // Populate scanned info (assuming response has user data)
+                $("#userId").text(customer.CustomerID || "N/A");
+                $("#fullName").text(customer.CustomerName || "N/A");
+                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                setTimeout(() => {
+                    reset();
+
+        }, 10000);
+            },
+            error: function(error) {
+                console.error("Error saving QR Code:", error);
+                $("#loadingSpinner").hide();
+                alert("Failed to process QR Code.");
+                reset();
+            }
+        });
     }
 
     function onScanFailure(error) {

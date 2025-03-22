@@ -89,6 +89,11 @@ $this->section('body'); // Start the body section
         } else {
             alert(response.message);
         }
+        setTimeout(() => {
+                    reset();
+
+        }, 10000);
+            },
     },
     error: function(error) {
         console.error("Error:", error);

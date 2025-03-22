@@ -69,7 +69,7 @@ $this->section('body'); // Start the body section
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <center> <h2>Customer List who tapped the QR code</h2> </center>
         <table id="customerTable" class="display">
             <thead>
@@ -77,7 +77,6 @@ $this->section('body'); // Start the body section
                     <th>Customer ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
-                    <th>Check-Out</th>
                     
                     
                 </tr>
@@ -89,28 +88,17 @@ $this->section('body'); // Start the body section
                         <td><?= esc($customer['FullName']) ?></td>
                         <td><?= esc($customer['CheckIn']) ?></td>
                         
-                       
+                        
                         
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+</body>
+</html>
     <script>
-function checkout(CustomerID, checkInTime) {
-    const now = new Date();
-    const checkInDate = new Date(checkInTime);
-    const timeDiff = (now - checkInDate) / (1000 * 60 * 60); // difference in hours
 
-    if (timeDiff < 1) {
-        alert("You need to stay at least 1 hour before checking out!");
-    } else {
-        // If more than 1 hour, proceed with checkout (you can replace this with AJAX later)
-        if (confirm("Proceed to check out?")) {
-            window.location.href = "/qrAttendance/attendancelog/" + CustomerID;
-        }
-    }
-}
 </script>
 
 </body>

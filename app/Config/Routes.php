@@ -137,7 +137,7 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 //$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 //$routes->get('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
 //$routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
-$routes->post('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
+$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 $routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
 //$routes->post('scan-qr/save/', 'QrAttendanceController::list');
 

@@ -438,7 +438,7 @@ $this->section('body'); // Start the body section
     // Fetch Coaches
     async function fetchCoach(planId) {
         try {                           
-            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+            const data = await $.get(`/fetchCoachPlan?planId=${planId}`);
             $('#coach').empty();
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {

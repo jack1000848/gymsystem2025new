@@ -71,9 +71,9 @@ $this->section('body'); // Start the body section
             console.error("Failed to stop scanner:", err);
         });
 
-        // Send data to backend
-        $.ajax({
-            url: "<?= base_url('/attendance/scan') ?>/" + decodedText,
+       // Send data to backend
+       $.ajax({
+            url: "<?= base_url('/attendance/scan'); ?>" + decodedText,
             type: "POST",
             success: function(response) {
                 console.log("Response from server:", response);
@@ -89,15 +89,16 @@ $this->section('body'); // Start the body section
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
                 setTimeout(() => {
                     reset();
-                }, 5000);
-        
-    },
-    error: function(error) {
-        console.error("Error:", error);
-        alert("Failed to process QR Code.");
-    }
-    
-    });
+
+        }, 10000);
+            },
+            error: function(error) {
+                console.error("Error saving QR Code:", error);
+                $("#loadingSpinner").hide();
+                alert("Failed to process QR Code.");
+                reset();
+            }
+        });
     }
    
 

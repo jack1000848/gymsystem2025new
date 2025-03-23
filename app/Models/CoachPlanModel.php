@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CoachPlanModel extends Model
 {
     protected $table            = 'coachplan';
-    protected $primaryKey       = 'CoachPlanID'; // If you have an auto-increment ID for this table
+    protected $primaryKey       = 'CoachID'; // If you have an auto-increment ID for this table
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

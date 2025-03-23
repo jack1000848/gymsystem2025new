@@ -56,72 +56,83 @@ $this->section('body'); // Start the body section
 </div>
     
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
         console.log("Scanned QR Code:", decodedText);
-        
+
         $("#loadingSpinner").show();
 
-        // Stop the scanner
+        // Stop the scanner to prevent multiple reads
         html5QrCode.stop().then(() => {
             console.log("QR Scanner stopped.");
         }).catch(err => {
             console.error("Failed to stop scanner:", err);
         });
 
-        // Send data to backend
         $.ajax({
             url: "<?= base_url('/scan-qr/save/'); ?>" + decodedText,
             type: "POST",
             success: function(response) {
                 console.log("Response from server:", response);
                 const customer = response.customer;
-                
-                // Hide loader & show scanned user info
+
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
-
-                // Populate scanned info (assuming response has user data)
                 $("#userId").text(customer.CustomerID || "N/A");
                 $("#fullName").text(customer.FullName || "N/A");
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
+
+                // ✅ Optional SweetAlert Pop-up based on status
+                if (response.status === 'check-in') {
+                    Swal.fire('✅ Success', 'Checked In Successfully!', 'success');
+                } else if (response.status === 'check-out') {
+                    Swal.fire('✅ Success', 'Checked Out Successfully!', 'success');
+                }
+
                 setTimeout(() => {
                     reset();
-
-        }, 10000);
+                }, 10000); // Auto-reset scanner after 10 seconds
             },
-            error: function(error) {
-                console.error("Error saving QR Code:", error);
+            error: function(xhr) {
                 $("#loadingSpinner").hide();
-                alert("Failed to process QR Code.");
+
+                let errorMsg = "Failed to process QR Code.";
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    errorMsg = xhr.responseJSON.error;
+                }
+
+                // ✅ SweetAlert for errors
+                Swal.fire('⚠️ Error', errorMsg, 'error');
                 reset();
             }
         });
     }
 
     function onScanFailure(error) {
-       
+        // Silent scan failure handler (optional console log)
     }
 
-    function reset(){
+    function reset() {
         $("#showInfo").hide();
 
-            // Restart QR Scanner
-            html5QrCode.start(
-                { facingMode: "environment" },  // Use back camera
-                { fps: 10, qrbox: 300 },
-                onScanSuccess,
-                onScanFailure
-            ).catch(err => {
-                console.error("Failed to restart scanner:", err);
-            });
+        // Restart QR Scanner
+        html5QrCode.start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: 300 },
+            onScanSuccess,
+            onScanFailure
+        ).catch(err => {
+            console.error("Failed to restart scanner:", err);
+        });
     }
 
-    // Start QR Scanner
+    // Start QR Scanner on load
     html5QrCode.start(
-        { facingMode: "environment" }, // Use back camera
+        { facingMode: "environment" },
         { fps: 10, qrbox: 300 },
         onScanSuccess,
         onScanFailure

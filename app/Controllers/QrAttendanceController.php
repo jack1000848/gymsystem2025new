@@ -10,70 +10,67 @@ use App\Models\QrAttendanceLogModel;
 class QrAttendanceController extends Controller
 {
     public function save($id)
-    {
-        $customerPlanModel = new CustomerPlanModel();
-        $qrAttendanceModel = new QrAttendanceModel();
+{
+    $customerPlanModel = new CustomerPlanModel();
+    $qrAttendanceModel = new QrAttendanceModel();
 
-        date_default_timezone_set('Asia/Manila'); // Optional: Set your timezone
-        $today = date('Y-m-d');
+    date_default_timezone_set('Asia/Manila');
+    $today = date('Y-m-d');
 
-        // Validate ID
-        if (empty($id) || !is_numeric($id)) {
-            return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
-        }
-
-        // Check if customer exists
-        $customer = $customerPlanModel->find($id);
-        if (!$customer) {
-            return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
-        }
-
-        // Check if already checked-in today
-        $attendance = $qrAttendanceModel
-            ->where('CustomerID', $id)
-            ->where('DATE(InDate)', $today)
-            ->first();
-
-        if (!$attendance) {
-            // ✅ Perform Check-In
-            $qrAttendanceModel->insert([
-                'CustomerID'   => $id,
-                'InDate' => date('Y-m-d H:i:s')
-            ]);
-            return $this->response->setJSON([
-                'success' => 'Checked In Successfully',
-                'status' => 'check-in',
-                'customer' => $customer
-            ]);
-        } else {
-            // ✅ Check if already checked-out
-            if ($attendance['CheckOut']) {
-                return $this->response->setJSON(['error' => 'Already completed check-out today.'])->setStatusCode(400);
-            }
-
-            // ✅ Check if 20 minutes have passed since check-in
-            $InDateTime = strtotime($attendance['InDate']);
-            $currentTime = time();
-
-            if (($currentTime - $InDateTime) < (20 * 60)) {
-                $remainingMinutes = 20 - floor(($currentTime - $InDateTime) / 60);
-                return $this->response->setJSON([
-                    'error' => "You can check-out after {$remainingMinutes} minute(s)."
-                ])->setStatusCode(400);
-            }
-
-            // ✅ Perform Check-Out
-            $qrAttendanceModel->update($attendance['ID'], [
-                'CheckOut' => date('Y-m-d H:i:s')
-            ]);
-
-            return $this->response->setJSON([
-                'success' => 'Checked Out Successfully',
-                'status' => 'check-out',
-                'customer' => $customer
-            ]);
-        }
+    if (empty($id) || !is_numeric($id)) {
+        return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
     }
+
+    $customer = $customerPlanModel->find($id);
+    if (!$customer) {
+        return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
+    }
+
+    $attendance = $qrAttendanceModel
+        ->where('CustomerID', $id)
+        ->where('DATE(InDate)', $today)
+        ->first();
+
+    if (!$attendance) {
+        // ✅ First tap - Check-in
+        $qrAttendanceModel->insert([
+            'CustomerID' => $id,
+            'InDate'     => date('Y-m-d H:i:s')
+        ]);
+        return $this->response->setJSON([
+            'success'  => 'Checked In Successfully',
+            'status'   => 'check-in',
+            'customer' => $customer
+        ]);
+    } else {
+        // ✅ Already checked-in, now validate check-out
+        if ($attendance['CheckOut']) {
+            return $this->response->setJSON(['error' => 'Already completed check-out today.'])->setStatusCode(400);
+        }
+
+        $InDateTime = strtotime($attendance['InDate']);
+        $currentTime = time();
+
+        if (($currentTime - $InDateTime) < (20 * 60)) {
+            $remainingMinutes = 20 - floor(($currentTime - $InDateTime) / 60);
+            return $this->response->setJSON([
+                'error' => "You can check-out after {$remainingMinutes} minute(s)."
+            ])->setStatusCode(400);
+        }
+
+        // ✅ Perform Check-Out (Fixed the primary key reference)
+        $qrAttendanceModel->update($attendance['AttendanceID'], [
+            'CheckOut' => date('Y-m-d H:i:s')
+        ]);
+
+        return $this->response->setJSON([
+            'success'  => 'Checked Out Successfully',
+            'status'   => 'check-out',
+            'customer' => $customer
+        ]);
+    }
+}
+
 
     public function viewqrcode()
     {

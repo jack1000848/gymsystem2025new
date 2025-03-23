@@ -73,8 +73,9 @@ $this->section('body'); // Start the body section
 
        // Send data to backend
        $.ajax({
-            url: "<?= base_url('scan-qr/save'); ?>" + decodedText,
-            type: "POST",
+                  url: "<?= base_url('scan-qr/save/'); ?>" + decodedText,
+                 type: "POST",
+                dataType: "json",  // Make sure you expect JSON
             success: function(response) {
                 console.log("Response from server:", response);
                 const customer = response.customer;

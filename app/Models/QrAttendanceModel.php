@@ -8,7 +8,7 @@ class QrAttendanceModel extends Model
 {
     protected $table = 'cattendance';
     protected $primaryKey = 'AttendanceID';
-    protected $allowedFields = ['CustomerID', 'InDate'];
+    protected $allowedFields = ['CustomerID', 'InDate', 'CheckOut'];
 
     public function insertAttendance($data)
     {

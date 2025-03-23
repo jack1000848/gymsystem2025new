@@ -1,6 +1,6 @@
 <?php
-$this->extend('layout/main');
-$this->section('body');
+$this->extend('layout/main'); // Extend the main layout
+$this->section('body'); // Start the body section
 ?>
 
 <!DOCTYPE html>
@@ -8,12 +8,11 @@ $this->section('body');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCAN YOUR QR CODE</title>
+    <title>SCAN YOUR QR CODE </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <style>
         #showInfo { display: none; font-size: 1.5rem; } 
         #loadingSpinner { display: none; } 
@@ -22,7 +21,6 @@ $this->section('body');
         .alert { font-size: 1.2rem; }
     </style>
 </head>
-
 <body>
 
 <div class="container mt-5">
@@ -30,20 +28,23 @@ $this->section('body');
         <div class="col-lg-6 col-md-8">
             <div class="card shadow-lg p-4">
                 <div class="card-header bg-primary text-white text-center">
-                    <h2>Please Tap Your QR Code</h2>
+                    <h2>Scan QR Code Baby!</h2>
                 </div>
                 <div class="card-body text-center">
+                    <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">
                         <p><strong>User ID:</strong> <span id="userId">-</span></p>
                         <p><strong>Full Name:</strong> <span id="fullName">-</span></p>
                         <p><strong>Expiration Date:</strong> <span id="expirationDate">-</span></p>
                     </div>
 
+                    <!-- Loader (Hidden Initially) -->
                     <div id="loadingSpinner" class="text-center my-3">
                         <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status"></div>
                         <p class="mt-3" style="font-size: 1.2rem;">Processing...</p>
                     </div>
 
+                    <!-- QR Scanner -->
                     <div id="reader" style="width: 100%; max-width: 400px; margin: auto;"></div>
                 </div>
                 <div class="card-footer text-center">
@@ -53,13 +54,14 @@ $this->section('body');
         </div>
     </div>
 </div>
+    
 
 <script>
-    const html5QrCode = new Html5Qrcode("reader");
+    let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
         console.log("Scanned QR Code:", decodedText);
-
+        
         $("#loadingSpinner").show();
 
         // Stop the scanner
@@ -69,59 +71,63 @@ $this->section('body');
             console.error("Failed to stop scanner:", err);
         });
 
-        // ✅ Correct PHP short tag with '=' sign for base_url()
+        // Send data to backend
         $.ajax({
-            url: "<?= base_url('scan-qr/save') ?>",
-            method: "POST",
-            data: { CustomerID: decodedText },
-            dataType: "json",
+            url: "<?= base_url('/scan-qr/save'); ?>" + decodedText,
+            type: "POST",
             success: function(response) {
+                console.log("Response from server:", response);
+                const customer = response.customer;
+                
+                // Hide loader & show scanned user info
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
-                $("#userId").text(response.userId);
-                $("#fullName").text(response.fullName);
-                $("#expirationDate").text(response.expirationDate);
+
+                // Populate scanned info (assuming response has user data)
+                $("#userId").text(customer.CustomerID || "N/A");
+                $("#fullName").text(customer.CustomerName || "N/A");
+                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                setTimeout(() => {
+                    reset();
+
+        }, 10000);
             },
-            error: function(xhr, status, error) {
+            error: function(error) {
+                console.error("Error saving QR Code:", error);
                 $("#loadingSpinner").hide();
-                $("#showInfo").hide();
-                alert("Error: " + error);
+                alert("Failed to process QR Code.");
+                reset();
             }
         });
     }
 
     function onScanFailure(error) {
-        // Optional: You can log scan failures here
-        console.warn(`QR scan failed: ${error}`);
+       
     }
 
-    function resetScanner() {
+    function reset(){
         $("#showInfo").hide();
 
-        html5QrCode.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 300 },
-            onScanSuccess,
-            onScanFailure
-        ).catch(err => {
-            console.error("Failed to restart scanner:", err);
-        });
+            // Restart QR Scanner
+            html5QrCode.start(
+                { facingMode: "environment" },  // Use back camera
+                { fps: 10, qrbox: 300 },
+                onScanSuccess,
+                onScanFailure
+            ).catch(err => {
+                console.error("Failed to restart scanner:", err);
+            });
     }
 
-    // ✅ Ensure the scanner starts on page load
-    $(document).ready(function() {
-        html5QrCode.start(
-            { facingMode: "environment" }, // Use the back camera
-            { fps: 10, qrbox: 300 },
-            onScanSuccess,
-            onScanFailure
-        ).catch(err => {
-            console.error("Unable to start scanning.", err);
-        });
-    });
+    // Start QR Scanner
+    html5QrCode.start(
+        { facingMode: "environment" }, // Use back camera
+        { fps: 10, qrbox: 300 },
+        onScanSuccess,
+        onScanFailure
+    );
 </script>
 
 </body>
 </html>
-
 <?php $this->endSection(); ?>

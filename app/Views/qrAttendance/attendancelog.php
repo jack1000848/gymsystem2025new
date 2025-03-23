@@ -78,7 +78,6 @@ $this->section('body'); // Start the body section
                     <th>Full Name</th>
                     <th>Check-In</th>
                     <th>Check-Out</th> <!-- Added this -->
-                    <th>Action</th>
                     
                 </tr>
             </thead>

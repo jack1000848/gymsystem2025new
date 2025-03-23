@@ -10,7 +10,7 @@ class AttendanceLogController extends Controller
     public function checkin()
     {
         $model = new AttendanceLogModel();
-        $data['attendance'] = $model->getCustomers();
+        $data['customers'] = $model->getCustomers();
 
         return view('/qrAttendance/attendancelog', $data);
     }

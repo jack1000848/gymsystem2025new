@@ -73,37 +73,30 @@ $this->section('body'); // Start the body section
 
        // Send data to backend
        $.ajax({
-    url: "<?= base_url('scan-qr/save'); ?>",
-    method: "POST",
-    data: { CustomerID: decodedText },
-    dataType: "json",
-    success: function (response) {
-        console.log(response);
-                console.log("Response from server:", response);
-                const customer = response.customer;
-                
-                // Hide loader & show scanned user info
+            url: "<? base_url('scan-qr/save/') ?>",
+            method: "POST",
+            data: { CustomerID: decodedText },
+            success: function(response) {
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
-
-                // Populate scanned info (assuming response has user data)
-                $("#userId").text(customer.CustomerID || "N/A");
-                $("#fullName").text(customer.CustomerName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
-                setTimeout(() => {
-                    reset();
-
-        }, 10000);
+                $("#userId").text(response.userId);
+                $("#fullName").text(response.fullName);
+                $("#expirationDate").text(response.expirationDate);
             },
-            error: function(error) {
-                console.error("Error saving QR Code:", error);
+            error: function(xhr, status, error) {
                 $("#loadingSpinner").hide();
-                alert("Failed to process QR Code.");
-                reset();
+                $("#showInfo").hide();
+                alert("Error: " + error);
             }
+        error: function(xhr, status, error) { // Error function
+            $("#loadingSpinner").hide();
+            $("#showInfo").hide();
+            alert("Error: " + error);
+        }
+            
         });
+        
     }
-   
 
     function onScanFailure(error) {
        

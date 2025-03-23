@@ -10,86 +10,35 @@ use App\Models\QrAttendanceLogModel;
 class QrAttendanceController extends Controller
 {
     public function save()
-    {
-        $qrCodeData = $this->request->getPost('CustomerID');
-        $attendanceModel = new QrAttendanceModel();
-        $customerModel = new CustomerPlanModel();
-    
-        if (!$qrCodeData) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'No QR data received'
-            ]);
-        }
-    
-        // Find customer by QR Code Data (assuming QR contains CustomerID)
-        $customer = $customerModel->where('CustomerID', $qrCodeData)->first();
-    
-        if (!$customer) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'Customer not found'
-            ]);
-        }
-    
-        date_default_timezone_set('Asia/Manila');
-        $currentDate = date('Y-m-d');
-        $currentTime = date('Y-m-d H:i:s');
-    
-        // Check existing attendance
-        $existingAttendance = $attendanceModel
-            ->where('CustomerID', $customer['CustomerID'])
-            ->where('DATE(InDate)', $currentDate)
-            ->first();
-    
-        if (!$existingAttendance) {
-            // Check-in
-            $attendanceModel->insert([
-                'CustomerID' => $customer['CustomerID'],
-                'InDate' => $currentTime,
-                'CheckOut' => null
-            ]);
-    
-            return $this->response->setJSON([
-                'status' => 'success',
-                'type' => 'checkin',
-                'message' => 'Check-in successful',
-                'customer' => $customer
-            ]);
-        } else {
-            // Already checked in, check out logic
-            if ($existingAttendance['CheckOut']) {
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Already checked out today',
-                    'customer' => $customer
-                ]);
-            }
-    
-            $checkInTime = strtotime($existingAttendance['InDate']);
-            $diffInMinutes = (strtotime($currentTime) - $checkInTime) / 60;
-    
-            if ($diffInMinutes < 30) {
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Please wait 30 minutes before checking out',
-                    'customer' => $customer
-                ]);
-            }
-    
-            // Checkout
-            $attendanceModel->update($existingAttendance['AttendanceID'], [
-                'CheckOut' => $currentTime
-            ]);
-    
-            return $this->response->setJSON([
-                'status' => 'success',
-                'type' => 'checkout',
-                'message' => 'Check-out successful',
-                'customer' => $customer
-            ]);
-        }
-    }
+ {
+     $customerID = $this->request->getPost('CustomerID');
+     if (!$customerID) {
+         return $this->response->setJSON(['status' => 'error', 'message' => 'Customer ID missing']);
+     }
+
+     $model = new AttendanceLogModel();
+
+     // Check if there's an existing check-in without a check-out
+     $existing = $model->where('CustomerID', $CustomerID)
+                       ->where('CheckOut IS NULL')
+                       ->first();
+
+     if ($existing) {
+         // Perform Check-Out
+         $model->update($CustomerID, ['CheckOut' => date('Y-m-d H:i:s')]);
+         $action = 'checkout';
+     } else {
+         // Perform Check-In
+         $model->update($CustomerID, ['CheckIn' => date('Y-m-d H:i:s'), 'CheckOut' => null]);
+         $action = 'checkin';
+     }
+
+     return $this->response->setJSON([
+        'status' => 'error',
+        'message' => 'Invalid QR Code or Customer not found!'
+     ]);
+ }
+
     public function list()
     {
         $scanModel = new QrAttendanceModel();

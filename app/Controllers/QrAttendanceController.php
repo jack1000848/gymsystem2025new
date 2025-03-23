@@ -31,14 +31,14 @@ class QrAttendanceController extends Controller
         // Check if already checked-in today
         $attendance = $qrAttendanceModel
             ->where('CustomerID', $id)
-            ->where('DATE(CheckIn)', $today)
+            ->where('DATE(InDate)', $today)
             ->first();
 
         if (!$attendance) {
             // ✅ Perform Check-In
             $qrAttendanceModel->insert([
                 'CustomerID'   => $id,
-                'CheckIn' => date('Y-m-d H:i:s')
+                'InDate' => date('Y-m-d H:i:s')
             ]);
             return $this->response->setJSON([
                 'success' => 'Checked In Successfully',
@@ -52,11 +52,11 @@ class QrAttendanceController extends Controller
             }
 
             // ✅ Check if 20 minutes have passed since check-in
-            $checkInTime = strtotime($attendance['CheckIn']);
+            $InDateTime = strtotime($attendance['InDate']);
             $currentTime = time();
 
-            if (($currentTime - $checkInTime) < (20 * 60)) {
-                $remainingMinutes = 20 - floor(($currentTime - $checkInTime) / 60);
+            if (($currentTime - $InDateTime) < (20 * 60)) {
+                $remainingMinutes = 20 - floor(($currentTime - $InDateTime) / 60);
                 return $this->response->setJSON([
                     'error' => "You can check-out after {$remainingMinutes} minute(s)."
                 ])->setStatusCode(400);

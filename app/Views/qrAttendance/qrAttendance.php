@@ -56,8 +56,6 @@ $this->section('body'); // Start the body section
 </div>
     
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
     let html5QrCode = new Html5Qrcode("reader");
 
@@ -66,7 +64,7 @@ $this->section('body'); // Start the body section
 
         $("#loadingSpinner").show();
 
-        // Stop the scanner to prevent multiple reads
+        // Stop the scanner to prevent multiple scans
         html5QrCode.stop().then(() => {
             console.log("QR Scanner stopped.");
         }).catch(err => {
@@ -82,20 +80,21 @@ $this->section('body'); // Start the body section
 
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
+
                 $("#userId").text(customer.CustomerID || "N/A");
                 $("#fullName").text(customer.FullName || "N/A");
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
 
-                // ✅ Optional SweetAlert Pop-up based on status
+                // Show a simple message in the console
                 if (response.status === 'check-in') {
-                    Swal.fire('✅ Success', 'Checked In Successfully!', 'success');
+                    console.log('Checked In Successfully!');
                 } else if (response.status === 'check-out') {
-                    Swal.fire('✅ Success', 'Checked Out Successfully!', 'success');
+                    console.log('Checked Out Successfully!');
                 }
 
                 setTimeout(() => {
                     reset();
-                }, 10000); // Auto-reset scanner after 10 seconds
+                }, 10000); // Reset scanner after 10 seconds
             },
             error: function(xhr) {
                 $("#loadingSpinner").hide();
@@ -105,21 +104,28 @@ $this->section('body'); // Start the body section
                     errorMsg = xhr.responseJSON.error;
                 }
 
-                // ✅ SweetAlert for errors
-                Swal.fire('⚠️ Error', errorMsg, 'error');
-                reset();
+                // Show the error inside the showInfo div
+                $("#showInfo").removeClass('alert-success').addClass('alert-danger').show().html(`
+                    <p><strong>Error:</strong> ${errorMsg}</p>
+                `);
+
+                console.error(errorMsg);
+
+                setTimeout(() => {
+                    reset();
+                }, 5000); // Reset scanner after 5 seconds on error
             }
         });
     }
 
     function onScanFailure(error) {
-        // Silent scan failure handler (optional console log)
+        // Optional: You can log scan failures silently
     }
 
     function reset() {
-        $("#showInfo").hide();
+        $("#showInfo").hide().removeClass('alert-danger').addClass('alert-success');
 
-        // Restart QR Scanner
+        // Restart the scanner
         html5QrCode.start(
             { facingMode: "environment" },
             { fps: 10, qrbox: 300 },
@@ -130,7 +136,7 @@ $this->section('body'); // Start the body section
         });
     }
 
-    // Start QR Scanner on load
+    // Start the scanner on page load
     html5QrCode.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: 300 },
@@ -138,6 +144,7 @@ $this->section('body'); // Start the body section
         onScanFailure
     );
 </script>
+
 
 </body>
 </html>

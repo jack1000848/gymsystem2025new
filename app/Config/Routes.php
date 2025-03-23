@@ -133,11 +133,12 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 
 
 ////qr code showing 
-$routes->get('scan-qr', 'QrAttendanceController::list');
+//$routes->get('scan-qr', 'QrAttendanceController::list');
 //$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 //$routes->get('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
 //$routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
-$routes->post('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
+//$routes->post('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
+$routes->match(['get', 'post'], 'scan-qr/save', 'QrAttendanceController::save');
 
 ///attendance for tapping qr
 $routes->get('/attendance', 'AttendanceLogController::checkin');

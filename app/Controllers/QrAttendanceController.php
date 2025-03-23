@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
 use App\Models\CustomerPlanModel;
+use App\Models\QrAttendanceLogModel;
 
 class QrAttendanceController extends Controller
 {

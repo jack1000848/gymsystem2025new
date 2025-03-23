@@ -138,6 +138,7 @@ $routes->get('scan-qr', 'QrAttendanceController::list');
 //$routes->get('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
 //$routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
 $routes->post('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
+$routes->post('scan-qr/save/', 'QrAttendanceController::list');
 
 ///attendance for tapping qr
 $routes->get('/attendance', 'AttendanceLogController::checkin');

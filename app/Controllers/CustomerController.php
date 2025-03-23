@@ -123,7 +123,7 @@ class CustomerController extends BaseController
        
 
        $data = [
-        'CustomerID'       => $this->request->getPost('gymcode'),                 // Maps directly
+                      // Maps directly
         'Firstname'        => $this->request->getPost('clients1Fname'),           // Maps directly
         ///'Middlename'       => $this->request->getPost('clients1Mname') ?? null,   // Add if required
         'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name

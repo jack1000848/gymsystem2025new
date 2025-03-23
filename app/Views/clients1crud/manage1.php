@@ -80,10 +80,7 @@ $this->section('body'); // Start the body section
             <div class="modal-body">
                 <form action="/clients1/store" method="POST">
                     <!-- Gym Code -->
-                    <div class="mb-3">
-                        <label for="gymcode" class="form-label">Gym Code</label>
-                        <input type="text" class="form-control" name="gymcode" value="<?= $next_id; ?>" disabled readonly>
-                    </div>
+                    
 
                     <!-- First Name -->
                     <div class="mb-3">

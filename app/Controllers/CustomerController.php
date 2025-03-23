@@ -29,9 +29,9 @@ class CustomerController extends BaseController
         $data['clients1'] = $fetchClients1 ->findAll();
       
     
-     /// $maxId = $fetchClients1->selectMax('customerid')->first(); 
-      ///$nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
-     // $data['next_id'] = $nextId;
+      $maxId = $fetchClients1->selectMax('customerid')->first(); 
+      $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
+      $data['next_id'] = $nextId;
 
       return view('clients1crud/manage1', $data);
 

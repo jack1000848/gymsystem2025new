@@ -13,6 +13,13 @@ class QrAttendanceController extends Controller
     {
         $customerPlanModel = new CustomerPlanModel();
         $qrAttendanceModel = new QrAttendanceModel();
+        
+        date_default_timezone_set('Asia/Manila');
+    $today = date('Y-m-d');
+
+    if (empty($id) || !is_numeric($id)) {
+        return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
+    }
     
         // Validate ID
         if (empty($id) || !is_numeric($id)) {

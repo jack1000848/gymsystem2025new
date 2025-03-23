@@ -74,10 +74,10 @@ $this->section('body'); // Start the body section
        // Send data to backend
        $.ajax({
     url: "<?= base_url('scan-qr/save'); ?>",
-    type: "POST",
+    method: "POST",
+    data: { CustomerID: decodedText },
     dataType: "json",
-    data: { CustomerID: decodedText }, // send QR code here
-    success: function(response) {
+    success: function (response) {
         console.log(response);
                 console.log("Response from server:", response);
                 const customer = response.customer;

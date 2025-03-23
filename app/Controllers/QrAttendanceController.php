@@ -8,48 +8,47 @@ use App\Models\CustomerPlanModel;
 
 class QrAttendanceController extends Controller
 {
-    public function save($qrCodeData)
+    public function save()
     {
+        $qrCodeData = $this->request->getPost('CustomerID');
         $attendanceModel = new QrAttendanceModel();
         $customerModel = new CustomerPlanModel();
-
-
-        // Insert attendance record
-        $data = ['CustomerID' => $id];
-        if ($qrAttendanceModel->insert($data)) {
+    
+        if (!$qrCodeData) {
             return $this->response->setJSON([
-                'success' => 'Attendance recorded successfully',
-                'customer' => $customer
+                'status' => 'error',
+                'message' => 'No QR data received'
             ]);
         }
+    
         // Find customer by QR Code Data (assuming QR contains CustomerID)
         $customer = $customerModel->where('CustomerID', $qrCodeData)->first();
-
+    
         if (!$customer) {
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Customer not found'
             ]);
         }
-
-        date_default_timezone_set('Asia/Manila'); // Adjust timezone if needed
+    
+        date_default_timezone_set('Asia/Manila');
         $currentDate = date('Y-m-d');
         $currentTime = date('Y-m-d H:i:s');
-
-        // Check if there's already a check-in for today
+    
+        // Check existing attendance
         $existingAttendance = $attendanceModel
             ->where('CustomerID', $customer['CustomerID'])
             ->where('DATE(InDate)', $currentDate)
             ->first();
-
+    
         if (!$existingAttendance) {
-            // No check-in today, perform check-in
+            // Check-in
             $attendanceModel->insert([
                 'CustomerID' => $customer['CustomerID'],
                 'InDate' => $currentTime,
                 'CheckOut' => null
             ]);
-
+    
             return $this->response->setJSON([
                 'status' => 'success',
                 'type' => 'checkin',
@@ -57,20 +56,18 @@ class QrAttendanceController extends Controller
                 'customer' => $customer
             ]);
         } else {
-            // Already checked in, check if can checkout
+            // Already checked in, check out logic
             if ($existingAttendance['CheckOut']) {
-                // Already checked out today
                 return $this->response->setJSON([
                     'status' => 'error',
                     'message' => 'Already checked out today',
                     'customer' => $customer
                 ]);
             }
-
-            // Check time difference for 30 minutes rule
+    
             $checkInTime = strtotime($existingAttendance['InDate']);
             $diffInMinutes = (strtotime($currentTime) - $checkInTime) / 60;
-
+    
             if ($diffInMinutes < 30) {
                 return $this->response->setJSON([
                     'status' => 'error',
@@ -78,12 +75,12 @@ class QrAttendanceController extends Controller
                     'customer' => $customer
                 ]);
             }
-
-            // Perform checkout
+    
+            // Checkout
             $attendanceModel->update($existingAttendance['AttendanceID'], [
                 'CheckOut' => $currentTime
             ]);
-
+    
             return $this->response->setJSON([
                 'status' => 'success',
                 'type' => 'checkout',

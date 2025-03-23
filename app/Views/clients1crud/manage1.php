@@ -425,7 +425,7 @@ $this->section('body'); // Start the body section
     // Fetch Plans
     async function fetchPlans() {
         try {
-            const data = await $.get("/fetchPlans");
+            const data = await $.get("<?= base_url('/fetchPlans'); ?>");
             $('#planSelect').empty();
             data.forEach(plan => {
                 $('#planSelect').append(`<option value="${plan.PlanID}">${plan.PlanName}</option>`);
@@ -437,8 +437,8 @@ $this->section('body'); // Start the body section
 
     // Fetch Coaches
     async function fetchCoach(planId) {
-        try {
-            const data = await $.get(`/fetchCoachPlan?planId=${planId}`);
+        try {                           
+            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
             $('#coach').empty();
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
@@ -452,7 +452,7 @@ $this->section('body'); // Start the body section
     // Edit Client
     async function editClient(id) {
     try {
-        const res = await $.get('/clients1/edit/' + id);
+        const res = await $.get('<?= base_url('/clients1/edit/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;
@@ -501,7 +501,7 @@ async function toggleFreeze(CustomerID) {
     });
 
     if (isConfirmed) {
-        try {
+        try {                                                             
             const response = await fetch('<?= base_url('/customer/toggleFreeze/'); ?>' + CustomerID, {
                 method: 'POST',
                 headers: {
@@ -544,7 +544,7 @@ async function toggleFreeze(CustomerID) {
 
 async function fetchEditPlans(selectedPlanId) {
     try {
-        const data = await $.get("/fetchPlans");
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
         $('#editPlanSelect').empty();
         
         data.forEach(plan => {
@@ -558,7 +558,7 @@ async function fetchEditPlans(selectedPlanId) {
 
 async function fetchEditCoach(planId, selectedCoachId = null) {
     try {
-        const data = await $.get(`/fetchCoachPlan?planId=${planId}`);
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#editCoach').empty();
         $('#editCoach').append('<option value="">Select a Coach</option>');
 

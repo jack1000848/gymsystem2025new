@@ -13,6 +13,15 @@ class QrAttendanceController extends Controller
         $attendanceModel = new QrAttendanceModel();
         $customerModel = new CustomerPlanModel();
 
+
+        // Insert attendance record
+        $data = ['CustomerID' => $id];
+        if ($qrAttendanceModel->insert($data)) {
+            return $this->response->setJSON([
+                'success' => 'Attendance recorded successfully',
+                'customer' => $customer
+            ]);
+        }
         // Find customer by QR Code Data (assuming QR contains CustomerID)
         $customer = $customerModel->where('CustomerID', $qrCodeData)->first();
 

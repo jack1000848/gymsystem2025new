@@ -364,7 +364,7 @@ $this->section('body'); // Start the body section
     if (isConfirmed) {
         try {
             const response = await $.ajax({
-                url: '/clients1/delete/' + id, // Adjust URL for your delete route
+                url: '<?= base_url('/clients1/delete/'); ?>' + id, // Adjust URL for your delete route
                 type: 'DELETE',
                 success: function(response) {
                     // Show success alert
@@ -489,7 +489,7 @@ $this->section('body'); // Start the body section
     }
 }
 
-async function toggleFreeze(clientId) {
+async function toggleFreeze(CustomerID) {
     const { isConfirmed } = await Swal.fire({
         title: 'Are you sure?',
         text: 'You are about to change the freeze status of this client.',
@@ -502,7 +502,7 @@ async function toggleFreeze(clientId) {
 
     if (isConfirmed) {
         try {
-            const response = await fetch('/customer/toggleFreeze/' + clientId, {
+            const response = await fetch('<?= base_url('/customer/toggleFreeze/'); ?>' + CustomerID, {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -595,9 +595,9 @@ async function updateClient() {
         alert("Please fill in all required fields.");
         return;
     }
-
+    
     $.ajax({
-        url: '/clients1/update/' + clientData.CustomerID,
+        url: '<?= base_url('/clients1/update/'); ?>' + clientData.CustomerID,
         type: 'POST',
         data: clientData,
         success: function(response) {

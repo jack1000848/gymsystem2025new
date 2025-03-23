@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CoachPlanView extends Model
 {
     protected $table            = 'coachplanview';  // The name of the view
-    protected $primaryKey       = 'CoachID';  // Optional, if the view has a unique identifier like CoachID
+    protected $primaryKey       = '';  // Optional, if the view has a unique identifier like CoachID
     protected $useAutoIncrement = false;  // Views don't typically auto-increment
     protected $returnType       = 'array';  // You want to return data as an array
     protected $useSoftDeletes   = false;  // Views generally don't have soft deletes

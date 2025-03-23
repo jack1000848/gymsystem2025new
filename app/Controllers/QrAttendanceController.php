@@ -95,7 +95,7 @@ class QrAttendanceController extends Controller
     public function list()
     {
         $scanModel = new QrAttendanceModel();
-        $data['scanned_qr_codes'] = $scanModel->findAll();
+        $data['scan-qr'] = $scanModel->findAll();
         return view('/qrAttendance/qrAttendance', $data);
     }
     

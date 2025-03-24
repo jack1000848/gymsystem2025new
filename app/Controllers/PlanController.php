@@ -58,6 +58,9 @@ class PlanController extends BaseController
     }
     public function storegymplan()
      {
+        if (!$this->request->getPost('Pname')) {
+            return redirect()->back()->with('error', 'Plan Name is required.');
+        }
         
         $planData = [
             'PlanName' => $this->request->getPost('Pname'),
@@ -66,14 +69,15 @@ class PlanController extends BaseController
             'GymTimeSlot' => $this->request->getPost('timeslot'),
             'Price' => $this->request->getPost('price'),
             'TrainerIncluded' => $this->request->getPost('trainer'),
-            'IsActive' => $this->request->getPost('active'),
+           'isActive' => $this->request->getPost('active') ? 1 : 0,
+
         ];
     
         $planModel = new PlanModel();
         $planID = $planModel->insert($planData);
         $coachIDs = $this->request->getPost('coaches'); 
         $coachPlanModel = new CoachPlanModel();
-        if($coachIDs){
+        if($coachIDs != null){
             foreach ($coachIDs as $coachID) {
                 $coachPlanModel->insert([
                     'CoachID' => $coachID,

@@ -118,7 +118,8 @@
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label"> Creation Date </label>
-              <input type="date" class="form-control" id="creation" name="creation"required>
+         <input type="checkbox" class="form-check-input" id="active" name="active" value="1">
+
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label"> Active </label>
@@ -165,7 +166,7 @@
         const data = new FormData(this);
         const isActive = $("#active").is(":checked");
 
-        data.append('active', isActive);
+        ////data.append('active', isActive);
 
         const { isConfirmed } = await Swal.fire({
         title: 'Are you sure?',

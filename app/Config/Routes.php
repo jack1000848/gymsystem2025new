@@ -7,7 +7,6 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('/logout', 'Admin::logout');
 
 $routes->get('/joinus', 'Home::joinus');
 
@@ -174,3 +173,6 @@ $routes->get('/gymplans/store', 'PlanController::storegymplan');
 $routes->get('/gymplans/edit/(:num)', 'PlanController::edit/$1');
 $routes->post('/gymplans/update/(:num)', 'PlanController::update/$1');
 $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
+
+///Logout...
+$routes->get('/logout', 'Admin::logout');

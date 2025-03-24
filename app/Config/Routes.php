@@ -37,7 +37,7 @@ $routes->get('/member-login', 'LoginClientController::LoginClient');
 $routes->post('/login/authenticate', 'LoginClientController::authenticate');
 $routes->post('/logout', 'LoginClientController::logout');
 ///// client dashboard/
-$routes->get('/clientdashboard', 'ClientsDashboardController::index');
+$routes->get('/clientdashboard', 'ClientsDashboardController::index',['filter' => 'login']);
 ///client dashboard viewqrcode
 $routes->get('/myqrcode', 'ClientsDashboardController::myqrcode');
 $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
@@ -45,7 +45,7 @@ $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
 
 
 ///coach dashboard/login 
-$routes->get('/coachdashboard', 'CoachDashboardController::index');
+$routes->get('/coachdashboard', 'CoachDashboardController::index', ['filter' => 'login']);
 $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 

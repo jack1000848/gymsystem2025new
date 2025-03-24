@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/admin', 'Admin::index');
+
 $routes->get('/logout', 'Admin::logout');
 
 $routes->get('/joinus', 'Home::joinus');
@@ -109,13 +109,7 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 
 
 /// clients1 routes   client dashboard
-$routes->get('/clients1', 'CustomerController::index', ['filter' => 'login']);
-$routes->get('/clients1/create', 'CustomerController::createClients1');
-$routes->post('/clients1/store', 'CustomerController::storeClients1');
-$routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');
-$routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
-$routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
-$routes->get('clients1/renew', 'CustomerController::renew');
+
 $routes->get('test-db', 'CustomerController::testDatabase');
 ///freeze
 $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
@@ -138,16 +132,30 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 //$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 //$routes->get('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
 //$routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
-$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
-$routes->get('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
-$routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
+
 //$routes->post('scan-qr/save/', 'QrAttendanceController::list');
 
 ///attendance for tapping qr
+
+
+
+                ////////////////////ADMIN DASHBOARD/////////////////////
+ /// Dashboard, Scan your ID, Participant Log, Manage Client, Manage Coach, Manage Equipment,Plans, Logout///
+ 
+ $routes->get('/admin', 'Admin::index');
+                    ///Scan ur ID...
+ $routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
+$routes->get('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
+$routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
+                ////participant log...
 $routes->get('/attendance', 'AttendanceLogController::checkin');
 $routes->get('/checkout/(:any)', 'AttendanceLogController::checkout/$1');
-
-
-
-
+                ////Manage Client (clients1)...
+$routes->get('/clients1', 'CustomerController::index',);
+$routes->get('/clients1/create', 'CustomerController::createClients1');
+$routes->post('/clients1/store', 'CustomerController::storeClients1');
+$routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');
+$routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
+$routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
+$routes->get('clients1/renew', 'CustomerController::renew');
 

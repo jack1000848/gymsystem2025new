@@ -15,9 +15,10 @@ class PlanController extends BaseController
         $fetchPlan =new PlanModel();
         $fetchCoaches = new CoachModel();
         $data['coaches'] = $fetchCoaches->findAll();
-        $data['plan'] = $fetchPlan ->findAll();
+        $data['gymplans'] = $fetchPlan ->findAll();
 
         return view('gymplan/manageplan', $data);
+        ///return view('gymplan/manageplan');
     }
 
     public function edit($id)

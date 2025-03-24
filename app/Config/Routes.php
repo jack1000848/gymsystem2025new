@@ -40,7 +40,7 @@ $routes->post('/logout', 'LoginClientController::logout');
 $routes->get('/clientdashboard', 'ClientsDashboardController::index',['filter' => 'login']);
 ///client dashboard viewqrcode
 $routes->get('/myqrcode', 'ClientsDashboardController::myqrcode');
-$routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
+
 
 
 
@@ -50,11 +50,7 @@ $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 
 ///coach dashboard/manage-sched
-$routes->get('/coach-manage', 'CoachDashboardController::coachManage');
-$routes->post('/coach-manage/store', 'CoachDashboardController::storemanage');
-$routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
-$routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');
-$routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
+
 /////coach dashboard/time-sched
 $routes->get('/coach-timemanage', 'CoachDashboardController::coachtimeManage');
 $routes->post('/coach-timemanage/store', 'CoachDashboardController::timestore');
@@ -84,25 +80,13 @@ $routes->get('/coach/(:num)', 'CoachController::deleteClient/$1');
 //$routes->get('/qr-attendance', 'QrAttendanceController::scanQrCode');
 
 ///gym equipment!  admin dashboard
-$routes->get('/gymequipment', 'EquipmentController::index');
-///$routes->get('/gymequipment/create', 'CoachController::create');
-$routes->post('/gymequipment/store', 'EquipmentController::storeEquipment');
-$routes->get('/gymequipment/(:num)', 'EquipmentController::deleteEquipment/$1');
-$routes->post('/gymequipment/(:num)', 'EquipmentController::updateEquipment/$1');
-$routes->get('/gymequipment/edit/(:num)', 'EquipmentController::edit/$1');
-$routes->post('/gymequipment/update/(:num)', 'EquipmentController::update/$1');
-$routes->delete('/gymequipment/delete/(:num)', 'EquipmentController::deleteEquipment/$1');
+
 
 $routes->get('/fetchPlans', 'CustomerController::getPlans');
 $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 
 ///admin dashboard gym plans kunno
-$routes->get('/gymplans', 'PlanController::indexgymplan');
-$routes->post('/gymplans/store', 'PlanController::storegymplan');
-$routes->get('/gymplans/store', 'PlanController::storegymplan');
-$routes->get('/gymplans/edit/(:num)', 'PlanController::edit/$1');
-$routes->post('/gymplans/update/(:num)', 'PlanController::update/$1');
-$routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
+
 
 
 
@@ -111,8 +95,8 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 /// clients1 routes   client dashboard
 
 $routes->get('test-db', 'CustomerController::testDatabase');
-///freeze
-$routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
+
+
 
 
 
@@ -143,14 +127,17 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
  /// Dashboard, Scan your ID, Participant Log, Manage Client, Manage Coach, Manage Equipment,Plans, Logout///
  
  $routes->get('/admin', 'Admin::index');
-                    ///Scan ur ID...
- $routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
+                    
+ ///Scan ur ID...
+$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 $routes->get('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 $routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
-                ////participant log...
+                
+////participant log...
 $routes->get('/attendance', 'AttendanceLogController::checkin');
 $routes->get('/checkout/(:any)', 'AttendanceLogController::checkout/$1');
-                ////Manage Client (clients1)...
+                
+////Manage Client.... (clients1,(edit,update,delete,store)) ////
 $routes->get('/clients1', 'CustomerController::index',);
 $routes->get('/clients1/create', 'CustomerController::createClients1');
 $routes->post('/clients1/store', 'CustomerController::storeClients1');
@@ -159,3 +146,31 @@ $routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1'
 $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
 $routes->get('clients1/renew', 'CustomerController::renew');
 
+///Freeze/// | ///View///...
+$routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
+$routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
+
+///Manage Coach... (coach,(edit,update,delete,store)) ////
+$routes->get('/coach-manage', 'CoachDashboardController::coachManage');
+$routes->post('/coach-manage/store', 'CoachDashboardController::storemanage');
+$routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
+$routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');
+$routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
+
+///Manage Equipment... (gymequipment,(edit,update,delete,store)) ////
+$routes->get('/gymequipment', 'EquipmentController::index');
+///$routes->get('/gymequipment/create', 'CoachController::create');
+$routes->post('/gymequipment/store', 'EquipmentController::storeEquipment');
+$routes->get('/gymequipment/(:num)', 'EquipmentController::deleteEquipment/$1');
+$routes->post('/gymequipment/(:num)', 'EquipmentController::updateEquipment/$1');
+$routes->get('/gymequipment/edit/(:num)', 'EquipmentController::edit/$1');
+$routes->post('/gymequipment/update/(:num)', 'EquipmentController::update/$1');
+$routes->delete('/gymequipment/delete/(:num)', 'EquipmentController::deleteEquipment/$1');
+
+///Manage Plans... (gymplans,(edit,update,delete,store)) ////
+$routes->get('/gymplans', 'PlanController::indexgymplan');
+$routes->post('/gymplans/store', 'PlanController::storegymplan');
+$routes->get('/gymplans/store', 'PlanController::storegymplan');
+$routes->get('/gymplans/edit/(:num)', 'PlanController::edit/$1');
+$routes->post('/gymplans/update/(:num)', 'PlanController::update/$1');
+$routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');

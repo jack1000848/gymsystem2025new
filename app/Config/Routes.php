@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/admin', 'Admin::index');
+$routes->get('/admin', 'Admin::index',['filter' => 'login']);
 $routes->get('/logout', 'Admin::logout');
 
 $routes->get('/joinus', 'Home::joinus');
@@ -109,7 +109,7 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 
 
 /// clients1 routes   client dashboard
-$routes->get('/clients1', 'CustomerController::index');
+$routes->get('/clients1', 'CustomerController::index', ['filter' => 'login']);
 $routes->get('/clients1/create', 'CustomerController::createClients1');
 $routes->post('/clients1/store', 'CustomerController::storeClients1');
 $routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');

@@ -79,7 +79,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form id="planForm" action="<?php echo site_url('/gymplans/store/'); ?>" method="POST" enctype="multipart/form-data">
+      <form id="planForm" action="<?= site_url('gymplans/store'); ?>" method="POST" enctype="multipart/form-data">
+        
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Plan Name</label>
               <input type="text" class="form-control" name="Pname" id="planName" required>
@@ -209,7 +210,7 @@
         }
 
         $.ajax({
-        url: '<?= base_url('/gymplans/store/'); ?>',
+        url: "<?= site_url('gymplans/store') ?>",
         type: 'POST',
         data: data,
         processData: false, 

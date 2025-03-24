@@ -39,7 +39,7 @@ use App\Models\CustomerModel;
         if ($client['Password'] === $password) {  // For production, use password hashing
             session()->set('CustomerID', $client['CustomerID']);
             session()->set('role', 'Client');
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/clientdashboard/index');
         } else {
             return redirect()->back()->with('error', 'Invalid credentials.');
         }
@@ -61,7 +61,7 @@ use App\Models\CustomerModel;
                     'Email' => $user['Email'],
                     'logged_in' => true,
                 ]);
-                return redirect()->to('/clientdashboard'); // Redirect to the client dashboard
+                return redirect()->to('/clientdashboard/index'); // Redirect to the client dashboard
             } else {
                 // Password mismatch
                 return redirect()->back()->with('error', 'Invalid password.');

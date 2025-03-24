@@ -59,6 +59,13 @@ class PlanController extends BaseController
     public function storegymplan()
      {
         
+        log_message('debug', 'Pname: ' . $this->request->getPost('Pname'));
+
+        if (!$this->request->getPost('Pname')) {
+            return redirect()->back()->with('error', 'Plan Name is required.');
+        }
+    
+        
         $planData = [
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),

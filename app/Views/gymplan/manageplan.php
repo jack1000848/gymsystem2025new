@@ -181,7 +181,7 @@
         if(editId !== 0){
             data.append('id', editId);
             $.ajax({
-            url: '/gymplans/update/' + editId,
+            url: '<?= base_url('/gymplans/update//'); ?>' + editId,
             type: 'POST',
             data: data,
             processData: false, 
@@ -209,7 +209,7 @@
         }
 
         $.ajax({
-        url: 'gymplans/store',
+        url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
         data: data,
         processData: false, 
@@ -239,7 +239,7 @@
     async function editPlan(id){
 
         console.log
-        const plan = await $.get('/gymplans/edit/' + id);
+        const plan = await $.get('<?= base_url('/gymplans/edit/'); ?>' + id);
         
         if (plan !== null) {
            
@@ -273,7 +273,7 @@
         if (!isConfirmed) return;
 
        const response = await  $.ajax({        
-        url: '/gymplans/delete/' + id,
+        url: '<?= base_url('/gymplans/delete/'); ?>' + id,
         type: 'DELETE',
         success: function(res) {
             Swal.fire({

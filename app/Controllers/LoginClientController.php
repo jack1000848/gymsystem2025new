@@ -14,7 +14,9 @@ use App\Models\ClientloginModel;
  
 
     public function authenticate()
-    { $session = session();
+    { 
+        
+        $session = session();
         $model = new ClientloginModel();
 
         $email = $this->request->getVar('email');
@@ -22,7 +24,28 @@ use App\Models\ClientloginModel;
 
         $user = $model->getUserByEmail($email);
 
-        
+        $customerModel = new CustomerModel();
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
+
+    $client = $customerModel->where('Email', $email)->first();
+
+    if ($client) {
+        if ($client['is_frozen']) {
+            return redirect()->back()->with('error', 'Your account is frozen. Please contact admin.');
+        }
+
+        if ($client['Password'] === $password) {  // For production, use password hashing
+            session()->set('CustomerID', $client['CustomerID']);
+            session()->set('role', 'Client');
+            return redirect()->to('/client/dashboard');
+        } else {
+            return redirect()->back()->with('error', 'Invalid credentials.');
+        }
+    } else {
+        return redirect()->back()->with('error', 'No account found.');
+    }
+    
         if ($user) {
             // Check if the user is verified
             if ($user['is_verified'] == 0) { // Assuming 0 means not verified

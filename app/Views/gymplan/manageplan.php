@@ -79,6 +79,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <form action="<?php echo site_url('/gymplans/store/'); ?>" method="POST" enctype="multipart/form-data">
       <form id="planForm">
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Plan Name</label>
@@ -209,7 +210,7 @@
         }
 
         $.ajax({
-        url: '<?php echo site_url('/gymplans/store'); ?>',
+        url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
         data: data,
         processData: false, 

@@ -15,66 +15,51 @@ use App\Models\CustomerModel;
  
 
     public function authenticate()
-    { 
-        
-        $session = session();
-        $model = new ClientloginModel();
+{ 
+    $session = session();
+    $customerModel = new CustomerModel();
 
-        $email = $this->request->getVar('email');
-        $password = $this->request->getVar('password');
-
-        $user = $model->getUserByEmail($email);
-
-        $customerModel = new CustomerModel();
+    // Get email and password from the POST request
     $email = $this->request->getPost('email');
     $password = $this->request->getPost('password');
 
+    // Fetch the client record by email
     $client = $customerModel->where('Email', $email)->first();
 
-    if ($client) {
-        if ($client['is_frozen']) {
-            return redirect()->back()->with('error', 'Your account is Disable. Please contact admin.');
-        }
-
-        if ($client['Password'] === $password) {  // For production, use password hashing
-            session()->set('CustomerID', $client['CustomerID']);
-            session()->set('role', 'Client');
-            return redirect()->to('/clientdashboard');
-        } else {
-            return redirect()->back()->with('error', 'Invalid credentials.');
-        }
-    } else {
+    if (!$client) {
         return redirect()->back()->with('error', 'No account found.');
     }
 
-        if ($user) {
-            // Check if the user is verified
-            if ($user['is_verified'] == 0) { // Assuming 0 means not verified
-                return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
-            }
-        
-            // Compare the password (Replace this with hashed password checking later)
-            if ($password == $user['Password']) { 
-                // Store user data in session
-                $session->set([
-                    'CustomerID' => $user['CustomerID'],
-                    'Email' => $user['Email'],
-                    'logged_in' => true,
-                ]);
-                return redirect()->to('/clientdashboard'); // Redirect to the client dashboard
-            } else {
-                // Password mismatch
-                return redirect()->back()->with('error', 'Invalid password.');
-            }
-        } else {
-            // User not found
-            return redirect()->back()->with('error', 'Email not found.');
-        }
-        
-
+    // Check if account is frozen/disabled
+    if ($client['is_frozen']) {
+        return redirect()->back()->with('error', 'Your account is disabled. Please contact admin.');
     }
 
-    
+    // Check if the account is verified
+    if ($client['is_verified'] == 0) {  // Assuming 0 means not verified
+        return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
+    }
+
+    // Check the password (Use password_verify if password is hashed)
+    if ($client['Password'] === $password) {  // Change to password_verify() if needed
+        // Set session data
+        $session->set([
+            'isLoggedIn' => true,
+            'CustomerID' => $client['CustomerID'],
+            'Email' => $client['Email'],
+            'role' => 'Client',
+            'logged_in' => true, // Optional but if you use it somewhere, keep it
+        ]);
+
+        // Optional: If you want to set CustomerID again as you requested
+        session()->set('CustomerID', $client['CustomerID']); 
+
+        return redirect()->to('/clientdashboard');
+    } else {
+        return redirect()->back()->with('error', 'Invalid password.');
+    }
+}
+
     
 
     public function logout()

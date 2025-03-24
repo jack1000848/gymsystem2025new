@@ -73,7 +73,7 @@ class PlanController extends BaseController
         $planID = $planModel->insert($planData);
         $coachIDs = $this->request->getPost('coaches'); 
         $coachPlanModel = new CoachPlanModel();
-        if($coachIDs != null){
+        if($coachIDs){
             foreach ($coachIDs as $coachID) {
                 $coachPlanModel->insert([
                     'CoachID' => $coachID,

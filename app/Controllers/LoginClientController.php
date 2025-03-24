@@ -33,7 +33,7 @@ use App\Models\CustomerModel;
 
     if ($client) {
         if ($client['is_frozen']) {
-            return redirect()->back()->with('error', 'Your account is frozen. Please contact admin.');
+            return redirect()->back()->with('error', 'Your account is Disable. Please contact admin.');
         }
 
         if ($client['Password'] === $password) {  // For production, use password hashing

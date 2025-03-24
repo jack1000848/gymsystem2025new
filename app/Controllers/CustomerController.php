@@ -267,9 +267,7 @@ public function viewClient($id)
     $customerModel = new CustomerModel();
     $client = $customerModel->find($id);
 
-    if (!$client) {
-        return redirect()->to('/clients1')->with('error', 'Client not found.');
-    }
+    
 
     return view('clients1crud/client_view', ['client' => $client]);
 

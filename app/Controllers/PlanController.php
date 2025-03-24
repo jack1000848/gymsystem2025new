@@ -59,16 +59,25 @@ class PlanController extends BaseController
     public function storegymplan()
      {
     
-        
+            $PlanName = $this->request->getPost('Pname');
+            $Description = $this->request->getPost('Description');
+            $Duration = $this->request->getPost('Duration');
+            $GymTimeSlot = $this->request->getPost('GymTimeSlot');
+            $TrainerIncluded = $this->request->getPost('TrainerIncluded');
+            $Price = $this->request->getPost('Price');
+            $IsActive = $this->request->getPost('active'); 
+            if (empty($PlanName)) {
+                return redirect()->back()->with('error', 'Plan Name is required!');
+            }
+            
         $planData = [
-            'PlanName' => $this->request->getPost('Pname'),
-            'Description' => $this->request->getPost('description'),
-            'Duration' => $this->request->getPost('durationim'),
-            'GymTimeSlot' => $this->request->getPost('timeslot'),
-            'Price' => $this->request->getPost('price'),
-            'TrainerIncluded' => $this->request->getPost('trainer'),
-            'IsActive' => $this->request->getPost('active') ? 1 : 0,
-
+           'PlanName' => $PlanName,
+            'Description' => $Description,
+            'Duration' => $Duration,
+            'GymTimeSlot' => $GymTimeSlot,
+            'TrainerIncluded' => $TrainerIncluded,
+            'Price' => $Price,
+            'IsActive' => $IsActive ? 1 : 0,
         ];
     
         $planModel = new PlanModel();

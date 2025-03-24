@@ -210,7 +210,7 @@
         }
 
         $.ajax({
-        url: "<?= site_url('gymplans/store') ?>",
+        url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
         data: data,
         processData: false, 

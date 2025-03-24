@@ -79,8 +79,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="<?php echo site_url('/gymplans/store/'); ?>" method="POST" enctype="multipart/form-data">
-      <form id="planForm">
+      <form id="planForm" action="<?php echo site_url('/gymplans/store/'); ?>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Plan Name</label>
               <input type="text" class="form-control" name="Pname" id="planName" required>

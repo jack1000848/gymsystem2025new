@@ -99,7 +99,7 @@ $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 ///admin dashboard gym plans kunno
 $routes->get('/gymplans', 'PlanController::indexgymplan');
 $routes->post('/gymplans/store', 'PlanController::storegymplan');
-$routes->get('/gymplans/store', 'PlanController::storegymplan');
+///$routes->get('/gymplans/store', 'PlanController::storegymplan');
 $routes->get('/gymplans/edit/(:num)', 'PlanController::edit/$1');
 $routes->post('/gymplans/update/(:num)', 'PlanController::update/$1');
 $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');

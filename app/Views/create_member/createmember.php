@@ -158,7 +158,7 @@
 
     async function fetchCoach(planId) {
     try {
-        const data = await $.get(`/fetchCoachPlan?planId=${planId}`);  
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);  
 
         $('#coach').empty();
 
@@ -185,7 +185,7 @@
 async function fetchPlans() {
     try {
         // Make an AJAX GET request to the server
-        const data = await $.get("/fetchPlans");  // Correct URL based on route
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");  // Correct URL based on route
         
         // Clear the existing options before appending new options
         $('#planSelect').empty();

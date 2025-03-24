@@ -331,16 +331,6 @@ $this->section('body'); // Start the body section
 
         });
 
-        document.getElementById("clients1Emailaddress").addEventListener("input", function() {
-    var emailInput = this.value;
-    var emailError = document.getElementById("emailError");
-    
-    if (!emailInput.endsWith("@gmail.com")) {
-        emailError.style.display = "block";
-    } else {
-        emailError.style.display = "none";
-    }
-    });
         // Fetch Plans and Coaches
         fetchPlans();
         $('#planSelect').on('change', function () {
@@ -356,7 +346,7 @@ $this->section('body'); // Start the body section
     }
 });
     
-
+    
 
     // Delete Client
     async function deleteClient(id) {

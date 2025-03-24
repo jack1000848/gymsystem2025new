@@ -111,6 +111,7 @@
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Email</label>
               <input type="text" class="form-control" name="clientEmail"required>
+              <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
     </div> 
 
     <div class="mb-3">
@@ -203,7 +204,17 @@
 
          
   });
-   
+
+  document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    var emailInput = this.value;
+    var emailError = document.getElementById("emailError");
+    
+    if (!emailInput.endsWith("@gmail.com")) {
+        emailError.style.display = "block";
+    } else {
+        emailError.style.display = "none";
+    }
+    });
 
     async function editCoach(id) {
     try {

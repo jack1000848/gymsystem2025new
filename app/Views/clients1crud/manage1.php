@@ -113,6 +113,7 @@ $this->section('body'); // Start the body section
                     <div class="mb-3">
                         <label for="clients1Emailaddress" class="form-label">Email Address</label>
                         <input type="email" class="form-control" name="clients1Emailaddress" placeholder="juan.delacruz@gmail.com" required>
+                        <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
                     </div>
 
                     <!-- Password -->
@@ -344,8 +345,17 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-
     
+document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    var emailInput = this.value;
+    var emailError = document.getElementById("emailError");
+    
+    if (!emailInput.endsWith("@gmail.com")) {
+        emailError.style.display = "block";
+    } else {
+        emailError.style.display = "none";
+    }
+    });
 
     // Delete Client
     async function deleteClient(id) {

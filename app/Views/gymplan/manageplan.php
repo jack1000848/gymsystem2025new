@@ -119,7 +119,7 @@
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label"> Creation Date </label>
-         <input type="checkbox" class="form-check-input" id="active" name="active" value="1">
+         <input type="calendar" class="form-check-input" id="active" name="active" value="1">
 
     </div> 
     <div class="mb-3">

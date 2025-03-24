@@ -109,6 +109,7 @@
     </div> 
 
     <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Coach</label>
     <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
     <?php foreach ($coaches as $coach): ?>
         <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
@@ -122,9 +123,9 @@
 
     </div> 
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label"> Active </label>
-              <input type="checkbox" class="form-control" id="active" name="active"required>
-    </div> 
+    <label for="active" class="form-label">Active</label>
+    <input type="checkbox" class="form-check-input" id="active" name="active" value="1">
+</div> 
 
     </div>
       <div class="modal-footer">

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ClientloginModel;
+use App\Models\CustomerModel;
 
     class LoginClientController extends BaseController
 {
@@ -45,7 +46,7 @@ use App\Models\ClientloginModel;
     } else {
         return redirect()->back()->with('error', 'No account found.');
     }
-    
+
         if ($user) {
             // Check if the user is verified
             if ($user['is_verified'] == 0) { // Assuming 0 means not verified

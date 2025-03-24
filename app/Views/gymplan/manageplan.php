@@ -210,11 +210,10 @@
         });
             return;        
         }
-        console.log($('#Pname').val());
+
         $.ajax({
         url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
-        
         data: data,
         processData: false, 
         contentType: false, 

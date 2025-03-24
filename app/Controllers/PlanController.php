@@ -66,7 +66,7 @@ class PlanController extends BaseController
             'GymTimeSlot' => $this->request->getPost('timeslot'),
             'Price' => $this->request->getPost('price'),
             'TrainerIncluded' => $this->request->getPost('trainer'),
-            'IsActive' => 1
+            'IsActive' => $this->request->getPost('active'),
         ];
     
         $planModel = new PlanModel();
@@ -83,7 +83,7 @@ class PlanController extends BaseController
         }
         
 
-        return redirect()->to('/gymplans')->with('success', 'Equipment Added Successfully!');
+        return redirect()->to('/gymplans')->with('success', 'Gym Plan Added Successfully!');
 
     }
     

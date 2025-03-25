@@ -134,7 +134,8 @@ class CustomerController extends BaseController
        
     }
     
-       
+       // Generate unique token
+    $token = bin2hex(random_bytes(50));
 
        $data = [
                       // Maps directly
@@ -154,13 +155,21 @@ class CustomerController extends BaseController
         'CurrentPlanID'    => null,                   // Adjusted field name
               
         'WorkoutPlanID'    =>  null, // Add if necessary
+
+         'verification_token' => $token,
+            'is_verified' => 0
      ];
-    
+     
 
         $insertClients->insert($data);
-
-        return redirect()->to('/clients1')->with('success', 'Clients Added Successfully!');
-    }
+        {
+            // Send verification email
+            $this->sendVerificationEmail($data['Email'], $token);
+    
+            session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
+            return redirect()->to('/clients1');
+        
+    }}
     public function editClients1($id)
     {
         $clients1Model = new CustomerModel();

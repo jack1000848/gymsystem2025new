@@ -42,6 +42,18 @@ class CoachController extends BaseController
     public function storeClient()
     {
         $insertClients = new CoachModel();
+         // Retrieve the email from the form input
+    $email = $this->request->getPost('clients1Emailaddress');
+
+    // Check if email is retrieved properly
+    if (empty($email)) {
+        return redirect()->back()->with('error', 'Email field is required.');
+    }
+
+    // Check if the email is a Gmail address
+    if (!preg_match("/^[a-zA-Z0-9._%+-]+@gmail\.com$/", $email)) {
+        return redirect()->back()->with('error', 'Only Gmail addresses are allowed.');
+    }
 
         if($img = $this->request->getFile('clientProfile'))  {
              if($img->isValid() && ! $img->hasMoved())  {

@@ -5,10 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
-
-
-$routes->get('/joinus', 'Home::joinus');
 
 //// member joining and creating account.
 $routes->get('join-now', 'CreateMemberController::index');
@@ -36,95 +32,19 @@ $routes->get('/member-login', 'LoginClientController::LoginClient');
 $routes->post('/login/authenticate', 'LoginClientController::authenticate');
 $routes->post('/logout', 'LoginClientController::logout');
 ///// client dashboard/
-$routes->get('/clientdashboard', 'ClientsDashboardController::index',['filter' => 'login']);
-///client dashboard viewqrcode
-$routes->get('/myqrcode', 'ClientsDashboardController::myqrcode');
 
 
 
 
-///coach dashboard/login 
-$routes->get('/coachdashboard', 'CoachDashboardController::index', ['filter' => 'login']);
-$routes->get('/coach-login', 'LoginCoachController::LoginCoach');
-$routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
-
-///coach dashboard/manage-sched
-
-/////coach dashboard/time-sched
-$routes->get('/coach-timemanage', 'CoachDashboardController::coachtimeManage');
-$routes->post('/coach-timemanage/store', 'CoachDashboardController::timestore');
-$routes->get('/coach-timemanage/edit/(:num)', 'CoachDashboardController::editTime/$1');
-$routes->post('/coach-timemanage/update/(:num)', 'CoachDashboardController::updateTime/$1');
-$routes->delete('/coach-timemanage/delete/(:num)', 'CoachDashboardController::deleteTime/$1');
-
-
-
-////coach view all clients
-$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
-
-
-
-
-
-//clientx coach na to! routes  admin dashboard
-$routes->get('/coach', 'CoachController::index');
-//$routes->get('/client/create', 'CoachController::createClient');
-$routes->post('/coach/store', 'CoachController::storeClient');
-$routes->get('/coach/edit/(:num)', 'CoachController::edit/$1');
-$routes->post('/coach/update/(:num)', 'CoachController::update/$1');
-$routes->delete('/coach/delete/(:num)', 'CoachController::deleteCoach/$1');
-$routes->get('/coach/(:num)', 'CoachController::deleteClient/$1');
-
-//QR ATTENDANCE
-//$routes->get('/qr-attendance', 'QrAttendanceController::scanQrCode');
-
-///gym equipment!  admin dashboard
-
-
-$routes->get('/fetchPlans', 'CustomerController::getPlans');
-$routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
-
-///admin dashboard gym plans kunno
-
-
-
-
-
-
-/// clients1 routes   client dashboard
-
-$routes->get('test-db', 'CustomerController::testDatabase');
-
-
-
-
-
-///viewing gym equipments forclients dashboard
-$routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
-
-
-////qr code practice
-
-//routes->get('/qrcode', 'QrCodeController::index');
-///$routes->post('/qrcode/generate', 'QrCodeController::generate');
-///$routes->get('/qrcode/list', 'QrCodeController::list');
-
-
-////qr code showing 
-//$routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
-//$routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
-//$routes->get('scan-qr/save/(:any)', 'QrAttendanceController::save/$1');
-//$routes->post('/scan-qr/delete/(:num)', 'QrAttendanceController::delete/$1');
-
-//$routes->post('scan-qr/save/', 'QrAttendanceController::list');
-
-///attendance for tapping qr
-
+          ////LANDINGPAGE\\\\\
+ $routes->get('/', 'Home::index');
 
 
                 ////////////////////ADMIN DASHBOARD/////////////////////
- /// Dashboard, Scan your ID, Participant Log, Manage Client, Manage Coach, Manage Equipment,Plans, Logout///
+ // admin login/ Dashboard, Scan your ID, Participant Log, Manage Client, Manage Coach, Manage Equipment,Plans, Logout///
  
+ $routes->get('/joinus', 'Home::joinus');
+ ///admin dashboard
  $routes->get('/admin', 'Admin::index');
                     
  ///Scan ur ID...
@@ -145,16 +65,18 @@ $routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1'
 $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
 $routes->get('clients1/renew', 'CustomerController::renew');
 
-///Freeze/// | ///View///...
+///BUTTONS/// Freeze | View \\\\\\
 $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
 $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
 
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
-$routes->get('/coach-manage', 'CoachDashboardController::coachManage');
-$routes->post('/coach-manage/store', 'CoachDashboardController::storemanage');
-$routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
-$routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');
-$routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
+$routes->get('/coach', 'CoachController::index');
+//$routes->get('/client/create', 'CoachController::createClient');
+$routes->post('/coach/store', 'CoachController::storeClient');
+$routes->get('/coach/edit/(:num)', 'CoachController::edit/$1');
+$routes->post('/coach/update/(:num)', 'CoachController::update/$1');
+$routes->delete('/coach/delete/(:num)', 'CoachController::deleteCoach/$1');
+$routes->get('/coach/(:num)', 'CoachController::deleteClient/$1');
 
 ///Manage Equipment... (gymequipment,(edit,update,delete,store)) ////
 $routes->get('/gymequipment', 'EquipmentController::index');
@@ -173,6 +95,54 @@ $routes->get('/gymplans/store', 'PlanController::storegymplan');
 $routes->get('/gymplans/edit/(:num)', 'PlanController::edit/$1');
 $routes->post('/gymplans/update/(:num)', 'PlanController::update/$1');
 $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
+/// adding fetching  plans and coaches
+$routes->get('/fetchPlans', 'CustomerController::getPlans');
+$routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 
 ///Logout...
 $routes->get('/logout', 'Admin::logout');
+
+
+///////////////////////CLIENT DASHBOARD/////////////////////    
+ /// Dashboard, My QR Code, Todo List, View Gym Equipment, Body Information, Logout///
+ $routes->get('/clientdashboard', 'ClientsDashboardController::index',['filter' => 'login']);
+
+///My QR Code...
+$routes->get('/myqrcode', 'ClientsDashboardController::myqrcode');
+
+///Todo List...
+
+///View Gym Equipment...
+$routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
+
+///Body Information...
+
+///Logout...
+
+
+///////////////////////COACH DASHBOARD/////////////////////   
+ //// Coach Login/ Coach Dashboard, Manage my Schedule, View my CLients, View Gym Equipment, Logout/// 
+ $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
+$routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
+// Coach Dashboard
+$routes->get('/coachdashboard', 'CoachDashboardController::index', ['filter' => 'login']);
+
+/// Manage my Schedule
+///Manage Coach... (coach,(edit,update,delete,store)) ////
+$routes->get('/coach-manage', 'CoachDashboardController::coachManage');
+$routes->post('/coach-manage/store', 'CoachDashboardController::storemanage');
+$routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
+$routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');
+$routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
+
+///View my Clients... and time manage
+$routes->get('/coach-timemanage', 'CoachDashboardController::coachtimeManage');
+$routes->post('/coach-timemanage/store', 'CoachDashboardController::timestore');
+$routes->get('/coach-timemanage/edit/(:num)', 'CoachDashboardController::editTime/$1');
+$routes->post('/coach-timemanage/update/(:num)', 'CoachDashboardController::updateTime/$1');
+$routes->delete('/coach-timemanage/delete/(:num)', 'CoachDashboardController::deleteTime/$1');
+///$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
+
+///View Gym Equipment...
+
+///Logout...

@@ -117,12 +117,28 @@ $(document).ready(function(){
 
     $('input[name="datetimes"]').daterangepicker({
     timePicker: true,
+    singleDatePicker: true,
     startDate: moment().startOf('hour'),
     endDate: moment().startOf('hour').add(32, 'hour'),
     locale: {
-      format: 'M/DD hh:mm A'
+        format: 'M/DD hh:mm A'
     }
-  });
+}, function(start, end, label) {
+    // This callback fires when a date is selected
+    let selectedDate = start.format('M/DD/YYYY');
+    let startTime = start.format('hh:mm A');
+    let endTime = end.format('hh:mm A');
+
+    console.log('Selected Date: ' + selectedDate);
+    console.log('Start Time: ' + startTime);
+    console.log('End Time: ' + endTime);
+
+    // Example: You can also update your HTML or input values here
+    // $('#selectedDate').text(selectedDate);
+    // $('#startTime').text(startTime);
+    // $('#endTime').text(endTime);
+});
+
 
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {
         editId = 0;

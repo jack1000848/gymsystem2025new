@@ -15,6 +15,7 @@ $routes->get('redirect', 'CreateMemberController::redirect');
 $routes->post('/resend-verification', 'CreateMemberController::resendVerification');
 $routes->get('/resendtoken', 'CreateMemberController::resendToken');
 $routes->get('/verify/(:any)', 'CreateMemberController::verify/$1');
+$routes->get('/verify/(:any)', 'CustomerController::verify/$1');
 
 /// user forget password
 $routes->get('forgot-password', 'CreateMemberController::forgotPassword');

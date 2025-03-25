@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CustomerModel;
 use App\Models\PlanModel;
 use App\Models\CoachPlanView;
-
+use App\Models\CreateMemberModel;
 // eto sa qr
 
 use App\Models\QrCodeModel;
@@ -199,6 +199,20 @@ Thank you for signing up! To complete your registration and verify your email ad
             session()->setFlashdata('error', 'Invalid verification link.');
             return redirect()->to('/member-login');
         }
+    }
+    public function verify($token)
+    {
+        $userModel = new CreateMemberModel(); // Ensure using correct model
+        $user = $userModel->where('verification_token', $token)->first();
+
+        if (!$user) {
+            return redirect()->to('/loginclient')->with('error', 'Invalid or expired verification token.');
+        }
+
+        // Mark user as verified
+        $userModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
+
+        return redirect()->to('/loginclient')->with('success', 'Your account has been verified. You can now log in.');
     }
     public function editClients1($id)
     {

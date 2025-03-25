@@ -6,8 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
 //use App\Models\Clients1Model;
-
 use CodeIgniter\HTTP\ResponseInterface;
+
 class CoachDashboardController extends BaseController 
 {
     public function __construct()
@@ -35,7 +35,7 @@ class CoachDashboardController extends BaseController
     {
         $model = new CoachScheduleModel();
 
-        // Validate POST data (optional but recommended)
+        // Validate POST data
         $validation = \Config\Services::validation();
         $validation->setRules([
             'startdate' => 'required',
@@ -48,7 +48,7 @@ class CoachDashboardController extends BaseController
             return $this->response->setJSON([
                 'status' => 'error',
                 'errors' => $validation->getErrors()
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST); // ✅ This will work now
         }
 
         // Get the inputs
@@ -58,7 +58,7 @@ class CoachDashboardController extends BaseController
         $endTime   = $this->request->getPost('endtime');
         $coachID   = session()->get('CoachID'); // Assuming the coach is logged in
 
-        // Combine date and time into one datetime format if needed
+        // Combine date and time into one datetime format
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
         $end   = date('Y-m-d H:i:s', strtotime($endDate . ' ' . $endTime));
 
@@ -68,15 +68,15 @@ class CoachDashboardController extends BaseController
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,
-            'CustomerID'   => null // or fetch if you assign customer here
+            'CustomerID'   => null // You can update this if you have CustomerID
         ]);
 
         return $this->response->setJSON([
             'status' => 'success',
             'message' => 'Schedule saved successfully'
         ]);
-    
     }
+
 
 
     public function edit($id)

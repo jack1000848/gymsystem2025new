@@ -39,7 +39,7 @@
 <?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<th scope="row"><?=$coachcoachSched['ID']; ?></th>
+<th scope="row"><?=$coachSched['ID']; ?></th>
 <td><?= $coachSched['StartTime']; ?></td>
 <td><?= $coachSched['EndTime']; ?></td>
 <td><?= $coachSched['CustomerName']; ?></td>

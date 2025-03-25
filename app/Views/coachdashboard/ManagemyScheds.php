@@ -84,10 +84,7 @@
 	<input type="text" class="date end" />
 </div>
 
- <div class="mb-3">
-     <label for="exampleFormControlInput1" class="form-label">Day</label>
-     <input type="text" name="datetimes" />
-</div>
+ 
     
 <div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Workout Plan</label>

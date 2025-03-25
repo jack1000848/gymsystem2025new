@@ -56,7 +56,7 @@ class CoachDashboardController extends BaseController
         $startTime = $this->request->getPost('starttime');
         $endDate   = $this->request->getPost('enddate');
         $endTime   = $this->request->getPost('endtime');
-        $coachID   = session()->get('coach_id'); // Assuming the coach is logged in
+        $coachID   = session()->get('CoachID'); // Assuming the coach is logged in
 
         // Combine date and time into one datetime format if needed
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
@@ -64,7 +64,7 @@ class CoachDashboardController extends BaseController
 
         // Save to DB
         $model->insert([
-            'CoachID'      => $coachID,
+            'CoachID'      => null,
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,

@@ -7,7 +7,7 @@ use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
 //use App\Models\Clients1Model;
 
-
+use CodeIgniter\HTTP\ResponseInterface;
 class CoachDashboardController extends BaseController 
 {
     public function __construct()
@@ -64,7 +64,7 @@ class CoachDashboardController extends BaseController
 
         // Save to DB
         $model->insert([
-            'CoachID'      => null,
+            'CoachID'      => $coachID,
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,

@@ -186,6 +186,20 @@ Thank you for signing up! To complete your registration and verify your email ad
         }
     }
 
+    public function verifyEmail($token)
+    {
+        $memberModel = new CreateMemberModel();
+        $user = $memberModel->where('verification_token', $token)->first();
+    
+        if ($user) {
+            $memberModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
+            session()->setFlashdata('success', 'Email verified successfully! You can now log in.');
+            return redirect()->to('/member-login');
+        } else {
+            session()->setFlashdata('error', 'Invalid verification link.');
+            return redirect()->to('/member-login');
+        }
+    }
     public function editClients1($id)
     {
         $clients1Model = new CustomerModel();

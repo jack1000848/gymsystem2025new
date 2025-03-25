@@ -431,6 +431,8 @@ $this->section('body'); // Start the body section
         emailError.style.display = "none";
     }
     });
+
+    
     // Fetch Plans
     async function fetchPlans() {
         try {

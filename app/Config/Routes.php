@@ -133,7 +133,6 @@ $routes->get('/coachdashboard', 'CoachDashboardController::index');
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
 $routes->get('/coach-manage', 'CoachDashboardController::coachManage' );
 $routes->post('/coach-manage/store', 'CoachDashboardController::storemanage');
-$routes->get('/coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
 $routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');
 $routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');

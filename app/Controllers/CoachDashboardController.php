@@ -48,7 +48,7 @@ class CoachDashboardController extends BaseController
             return $this->response->setJSON([
                 'status' => 'error',
                 'errors' => $validation->getErrors()
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+            ]);
         }
 
         // Get the inputs

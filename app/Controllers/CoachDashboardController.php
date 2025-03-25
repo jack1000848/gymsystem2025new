@@ -27,7 +27,6 @@ class CoachDashboardController extends BaseController
         $timesched = new TimeScheduleModel();
         $data['sched'] = $daysched->findAll(); // Fetch all schedules from the database
         $data['time'] = $timesched->findAll(); // Fetch all schedules from the database
-        
         return view('/coachdashboard/ManagemyScheds', $data);
     }
     
@@ -148,9 +147,11 @@ class CoachDashboardController extends BaseController
 
         public function coachtimeManage(){
 
-            $model = new TimeScheduleModel(); // Change to your actual model name
-            $data['time'] = $model->findAll(); // Fetch all schedules from the database
-            
+           
+            $db = \Config\Database::connect();
+            $sql = "SELECT * FROM ViewCoachSchedule";
+            $query = $db->query($sql);
+            $data['coachSched'] = $query->getResult();
             return view('/coachdashboard/TimeSheds', $data);
         }
         public function timestore()

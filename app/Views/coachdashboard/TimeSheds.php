@@ -36,20 +36,20 @@
     </tr>
 </thead>
 <tbody>
-<?php foreach ($time as $timeschedule): ?>
+<?php foreach ($time as $coachSched): ?>
 
 <tr>
-<th scope="row"><?=$timeschedule['ID']; ?></th>
-<td><?= $timeschedule['StartTime']; ?></td>
-<td><?= $timeschedule['EndTime']; ?></td>
-<td><?= $timeschedule['CustomerID']; ?></td>
-<td><?= $timeschedule['ScheduleID']; ?></td>
+<th scope="row"><?=$coachSched['ID']; ?></th>
+<td><?= $coachSched['StartTime']; ?></td>
+<td><?= $coachSched['EndTime']; ?></td>
+<td><?= $coachSched['CustomerID']; ?></td>
+<td><?= $coachSched['ScheduleID']; ?></td>
  
 
 <td>
 <div class="btn-group">
-<button type="button" class="btn btn-primary" onclick="editPlan(<?=$timeschedule['ID']; ?>)"> Edit</button>
-<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$timeschedule['ID']; ?>)"> Delete</button>
+<button type="button" class="btn btn-primary" onclick="editPlan(<?=$coachSched['ID']; ?>)"> Edit</button>
+<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$coachSched['ID']; ?>)"> Delete</button>
 </div>
 </td>
 

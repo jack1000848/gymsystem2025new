@@ -4,14 +4,14 @@
 
     ?>
 
-< <div class="p-2 row mb-3">
+<div class="p-2 row mb-3">
 
 <div class="col-12 mb-2">
 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal">Add a coachSchedule</button>
 
 </div>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <?php if (session()->getFlashdata('success')) :?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -77,7 +77,7 @@
   <form id="planForm">
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Start Time</label>
-              <input type="time" class="form-control" name="start" id="starts" required>
+         <input type="time" class="form-control" name="start" id="starts" required>
     </div>
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">End Time</label>
@@ -100,7 +100,8 @@
 <script   script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 
 <script>
@@ -145,8 +146,8 @@ $(document).ready(function(){
     if(editId !== 0){
         data.append('id', editId);
         $.ajax({
-        url: '/coach-timemanage/update/' + editId,
-        type: 'POST',
+        url: '<?= base_url('/coach-timemanage/update//'); ?>' + editId,
+        type: 'POST',   
         data: data,
         processData: false, 
         contentType: false, 
@@ -173,7 +174,7 @@ $(document).ready(function(){
     }
 
     $.ajax({
-    url: '/coach-timemanage/store',
+    url: '<?= base_url('/coach-timemanage/store/'); ?>',
     type: 'POST',
     data: data,
     processData: false, 
@@ -261,7 +262,7 @@ async function deletePlan(id) {
     });
 }
 
-
+   
 
 </script>
 

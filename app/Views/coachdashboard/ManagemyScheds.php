@@ -11,7 +11,7 @@
 
 </div>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <?php if (session()->getFlashdata('success')) :?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -72,18 +72,11 @@
   </div>
   <div class="modal-body">
   <form id="planForm">
-  <div class="mb-3">
-                  <label for="Workout Schedule" class="form-label">Workout Schedule</label>
-                 <select id="Workout Schedule" class="form-control" id="wschedules" name="wschedule"required>
-                   <option value="Monday Class">Morning Class</option>
-                      <option value="Tuesday Class">Tuesday Class</option>   
-                      <option value="Wednesday Class">Wednesday Class</option>
-                      <option value="Thursday Class">Thursday Class</option>
-                      <option value="Friday Class">Friday Class</option>
-                      <option value="Saturday Class">Satruday Class</option>
-                      <option value="Sunday Class">Saturday Class</option>
-                    </select>
-                 </div>
+ <div class="mb-3">
+     <label for="exampleFormControlInput1" class="form-label">Day</label>
+     <input type="text" name="datetimes" />
+</div>
+    
 <div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Workout Plan</label>
           <input type="text" class="form-control" name="wplan" id="wplans" required>
@@ -105,7 +98,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 <script>
 
@@ -264,6 +258,18 @@ async function deletePlan(id) {
     });
 }
 
+<script>
+$(function() {
+  $('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+});
+</script>
 
 
 </script>

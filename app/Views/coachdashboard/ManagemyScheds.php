@@ -117,7 +117,6 @@ $(document).ready(function(){
 
     $('input[name="datetimes"]').daterangepicker({
     timePicker: true,
-    singleDatePicker: true,
     startDate: moment().startOf('hour'),
     endDate: moment().startOf('hour').add(32, 'hour'),
     locale: {

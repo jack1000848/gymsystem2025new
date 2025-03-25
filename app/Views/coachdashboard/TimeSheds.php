@@ -7,7 +7,7 @@
 < <div class="p-2 row mb-3">
 
 <div class="col-12 mb-2">
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal">Add a Schedule</button>
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#managePlanModal">Add a coachSchedule</button>
 
 </div>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -29,27 +29,27 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer</th>
-        <th>Schedule</th>
+        <th>coachSchedule</th>
         <th>Action</th>
 
 
     </tr>
 </thead>
 <tbody>
-<?php foreach ($sched as $coachSched): ?>
+<?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<th scope="row"><?=$sched['ID']; ?></th>
-<td><?= $sched['StartTime']; ?></td>
-<td><?= $sched['EndTime']; ?></td>
-<td><?= $sched['CustomerName']; ?></td>
-<td><?= $sched['Day']; ?></td>
+<th scope="row"><?=$coachcoachSched['ID']; ?></th>
+<td><?= $coachSched['StartTime']; ?></td>
+<td><?= $coachSched['EndTime']; ?></td>
+<td><?= $coachSched['CustomerName']; ?></td>
+<td><?= $coachSched['Day']; ?></td>
  
 
 <td>
 <div class="btn-group">
-<button type="button" class="btn btn-primary" onclick="editPlan(<?=$sched['ID']; ?>)"> Edit</button>
-<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$sched['ID']; ?>)"> Delete</button>
+<button type="button" class="btn btn-primary" onclick="editPlan(<?=$coachSched['ID']; ?>)"> Edit</button>
+<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$coachSched['ID']; ?>)"> Delete</button>
 </div>
 </td>
 
@@ -70,7 +70,7 @@
 <div class="modal-dialog">
 <div class="modal-content">
   <div class="modal-header">
-    <h1 class="modal-title fs-5" id="exampleModalLabel">Time Schedules</h1>
+    <h1 class="modal-title fs-5" id="exampleModalLabel">Time coachSchedules</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
@@ -208,7 +208,7 @@ async function editPlan(id){
     
     if (plan !== null) {
        
-        editId = plan.ScheduleID;
+        editId = plan.coachScheduleID;
         console.log(plan);
         
         $("#planName").val(plan.PlanName);

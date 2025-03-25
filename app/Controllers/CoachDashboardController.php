@@ -32,13 +32,7 @@ class CoachDashboardController extends BaseController
     }
     
     public function storemanage()
-    {
-
-         // Check if the request is POST
-         if ($this->request->getMethod() !== 'post') {
-        return redirect()->to('/coach-manage')->with('error', 'Invalid request.');
-    }
-
+    { 
         $model = new CoachScheduleModel();
 
         // Validate POST data
@@ -81,6 +75,7 @@ class CoachDashboardController extends BaseController
             'status' => 'success',
             'message' => 'Schedule saved successfully'
         ]);
+    
     }
 
 

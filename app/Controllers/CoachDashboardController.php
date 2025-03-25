@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\WorkoutScheduleModel;
+use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
 //use App\Models\Clients1Model;
 
@@ -12,7 +12,7 @@ class CoachDashboardController extends BaseController
 {
     public function __construct()
     {
-        $this->workoutModel = new WorkoutScheduleModel();
+        $this->workoutModel = new CoachScheduleModel();
         $this->timeModel = new TimeScheduleModel();
     }
     public function index()
@@ -23,56 +23,65 @@ class CoachDashboardController extends BaseController
     ///here's the coach manage my schedules
     public function coachManage(){
 
-        $daysched = new WorkoutScheduleModel(); // Change to your actual model name
-        $timesched = new TimeScheduleModel();
+        $daysched = new CoachScheduleModel(); // Change to your actual model name
+        ///$timesched = new TimeScheduleModel();
         
         $data['sched'] = $daysched->findAll(); // Fetch all schedules from the database
-        $data['time'] = $timesched->findAll(); // Fetch all schedules from the database
+       // $data['time'] = $timesched->findAll(); // Fetch all schedules from the database
         return view('/coachdashboard/ManagemyScheds', $data);
     }
     
-    public function storemanage(){
+    public function storemanage()
+    {
+        $model = new CoachScheduleModel();
 
-        
-        // Load the validation service
-    $validation = \Config\Services::validation();
-    $validation->setRules([
-        'wschedule'   => 'required',
-        'wplan' => 'required'
-    ]);
-
-    // Validate the input
-    if (!$this->validate($validation->getRules())) {
-        return $this->response->setStatusCode(400)->setJSON([
-            'error' => 'All fields are required.'
+        // Validate POST data (optional but recommended)
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'startdate' => 'required',
+            'starttime' => 'required',
+            'enddate'   => 'required',
+            'endtime'   => 'required'
         ]);
-    }
 
-    // Prepare data for insertion
-    $scheduleData = [
-        'Day'           => $this->request->getPost('wschedule'),
-        'WorkoutPlanID' => $this->request->getPost('wplan')
-    ];
+        if (!$validation->withRequest($this->request)->run()) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'errors' => $validation->getErrors()
+            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+        }
 
-    // Insert data using the model
-    $scheduleModel = new WorkoutScheduleModel();
-    $scheduleID = $scheduleModel->insert($scheduleData);
+        // Get the inputs
+        $startDate = $this->request->getPost('startdate');
+        $startTime = $this->request->getPost('starttime');
+        $endDate   = $this->request->getPost('enddate');
+        $endTime   = $this->request->getPost('endtime');
+        $coachID   = session()->get('coach_id'); // Assuming the coach is logged in
 
-    if ($scheduleID) {
-        return $this->response->setStatusCode(200)->setJSON([
-            'success' => 'Workout Schedule added successfully.'
+        // Combine date and time into one datetime format if needed
+        $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
+        $end   = date('Y-m-d H:i:s', strtotime($endDate . ' ' . $endTime));
+
+        // Save to DB
+        $model->insert([
+            'CoachID'      => $coachID,
+            'ScheduleDate' => $startDate,
+            'Start'        => $start,
+            'End'          => $end,
+            'CustomerID'   => null // or fetch if you assign customer here
         ]);
-    } else {
-        return $this->response->setStatusCode(500)->setJSON([
-            'error' => 'Failed to add workout schedule.'
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Schedule saved successfully'
         ]);
-    }
+    
     }
 
 
     public function edit($id)
     {
-        $scheduleModel = new WorkoutScheduleModel();
+        $scheduleModel = new CoachScheduleModel();
     
         // Find the schedule by ScheduleID
         $schedule = $scheduleModel->find($id);
@@ -91,7 +100,7 @@ class CoachDashboardController extends BaseController
 
     public function update($id)
     {
-        $scheduleModel = new WorkoutScheduleModel();
+        $scheduleModel = new CoachScheduleModel();
     
         // Validate input
         $validation = \Config\Services::validation();
@@ -128,7 +137,7 @@ class CoachDashboardController extends BaseController
 
     public function delete($id)
     {
-        $model = new WorkoutScheduleModel();
+        $model = new CoachScheduleModel();
     
         // Check if the record exists
         $schedule = $model->find($id);

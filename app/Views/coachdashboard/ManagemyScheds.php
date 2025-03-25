@@ -47,8 +47,9 @@
 
 <tr>
 <th scope="row"><?=$schedule['ScheduleID']; ?></th>
-<td><?= $schedule['Day']; ?></td>
-<td><?= $schedule['WorkoutPlanID']; ?></td>
+<td><?= $schedule['ScheduleDate']; ?></td>
+<td><?= $schedule['Start']; ?></td>
+<td><?= $schedule['End']; ?></td>
  
 
 <td>

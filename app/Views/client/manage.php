@@ -205,7 +205,7 @@
          
   });
 
-  document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+  document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;
     var emailError = document.getElementById("emailError");
     

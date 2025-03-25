@@ -43,7 +43,7 @@ class CoachController extends BaseController
     {
         $insertClients = new CoachModel();
          // Retrieve the email from the form input
-    $email = $this->request->getPost('clients1Emailaddress');
+    $email = $this->request->getPost('clientEmail');
 
     // Check if email is retrieved properly
     if (empty($email)) {

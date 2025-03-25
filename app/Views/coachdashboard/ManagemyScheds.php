@@ -18,6 +18,8 @@
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <?php if (session()->getFlashdata('success')) :?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
 <?= session()->getFlashdata('success') ?>
@@ -78,10 +80,17 @@
   <div class="modal-body">
   <form id="planForm">
  <div class="mb-3">
-     <label for="exampleFormControlInput1" class="form-label">Day</label>
-     <input type="text" name="datetimes" />
+     <label for="exampleFormControlInput1" class="form-label">Start Date:</label>
+     <input type="text" name="startdate" id="start_date">
 </div>
-    
+<div class="mb-3">
+     <label for="exampleFormControlInput1" class="form-label">Start Time:</label>
+     <input type="text" name="starttime"  id="start_time">
+</div>
+<div class="mb-3">
+     <label for="exampleFormControlInput1" class="form-label">End Time:</label>
+     <input type="text" name="endtime"  id="end_time">
+</div>
 <div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Workout Plan</label>
           <input type="text" class="form-control" name="wplan" id="wplans" required>
@@ -106,6 +115,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 
 let editId = 0;
@@ -115,28 +126,11 @@ $(document).ready(function(){
         responsive: true
     });
 
-    $('input[name="datetimes"]').daterangepicker({
-    timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
-    locale: {
-        format: 'M/DD hh:mm A'
-    }
-}, function(start, end, label) {
-    // This callback fires when a date is selected
-    let selectedDate = start.format('M/DD/YYYY');
-    let startTime = start.format('hh:mm A');
-    let endTime = end.format('hh:mm A');
+    flatpickr("#start_date", { dateFormat: "Y-m-d" });
+    flatpickr("#start_time", { enableTime: true, noCalendar: true, dateFormat: "H:i" });
 
-    console.log('Selected Date: ' + selectedDate);
-    console.log('Start Time: ' + startTime);
-    console.log('End Time: ' + endTime);
-
-    // Example: You can also update your HTML or input values here
-    // $('#selectedDate').text(selectedDate);
-    // $('#startTime').text(startTime);
-    // $('#endTime').text(endTime);
-});
+    //flatpickr("#end_date", { dateFormat: "Y-m-d" });
+    flatpickr("#end_time", { enableTime: true, noCalendar: true, dateFormat: "H:i" });
 
 
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {

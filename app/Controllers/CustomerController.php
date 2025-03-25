@@ -170,6 +170,22 @@ class CustomerController extends BaseController
             return redirect()->to('/clients1');
         
     }}
+    private function sendVerificationEmail($email, $token)
+    {
+        $emailService = service('email');
+    
+        $emailService->setTo($email);
+        $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
+        $emailService->setSubject('Email Verification');
+        $emailService->setMessage("Hello,
+
+Thank you for signing up! To complete your registration and verify your email address, please click the link below: <a href='" . base_url("verify-email/$token") . "'>Verify Email</a>");
+    
+        if (!$emailService->send()) {
+            log_message('error', $emailService->printDebugger(['headers']));
+        }
+    }
+
     public function editClients1($id)
     {
         $clients1Model = new CustomerModel();

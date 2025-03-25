@@ -214,7 +214,7 @@ flatpickr("#end_time", {
     }
 
     $.ajax({
-    url: '<?= base_url('/coach-manage/store/'); ?>',
+     url: '<?= site_url('coach-manage/store'); ?>',
     type: 'POST',
     data: data,
     processData: false, 

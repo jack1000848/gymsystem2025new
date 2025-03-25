@@ -10,6 +10,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('join-now', 'CreateMemberController::index');
 $routes->post('join-now/store', 'CreateMemberController::storeClient');
 $routes->get('verify-email/(:any)', 'CreateMemberController::verifyEmail/$1');
+$routes->get('verify-email/(:any)', 'CustomerController::verifyEmail/$1');
 $routes->get('redirect', 'CreateMemberController::redirect');
 $routes->post('/resend-verification', 'CreateMemberController::resendVerification');
 $routes->get('/resendtoken', 'CreateMemberController::resendToken');

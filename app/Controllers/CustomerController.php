@@ -130,8 +130,10 @@ class CustomerController extends BaseController
 
     // Check if the email is a Gmail address
     if (!preg_match("/^[a-zA-Z0-9._%+-]+@gmail\.com$/", $email)) {
-        return redirect()->back()->with('error', 'Only Gmail addresses are allowed.');
+        return redirect()->to('/clients1')->with('error', 'Only Gmail addresses are allowed.');
+       
     }
+    
        
 
        $data = [

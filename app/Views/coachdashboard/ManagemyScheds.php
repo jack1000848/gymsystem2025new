@@ -126,11 +126,28 @@ $(document).ready(function(){
         responsive: true
     });
 
-    flatpickr("#start_date", { dateFormat: "Y-m-d" });
-    flatpickr("#start_time", { enableTime: true, noCalendar: true, dateFormat: "H:i" });
+    ///this is the timeline of calendar day/time
+    flatpickr("#start_date", { 
+    dateFormat: "Y-m-d" 
+});
 
-    //flatpickr("#end_date", { dateFormat: "Y-m-d" });
-    flatpickr("#end_time", { enableTime: true, noCalendar: true, dateFormat: "H:i" });
+flatpickr("#start_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",   // h = hour 12-hour, i = minute, K = AM/PM
+    time_24hr: false
+});
+
+flatpickr("#end_date", { 
+    dateFormat: "Y-m-d" 
+});
+
+flatpickr("#end_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",
+    time_24hr: false
+});
 
 
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {

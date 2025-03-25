@@ -149,7 +149,7 @@ $(document).ready(function(){
     if(editId !== 0){
         data.append('id', editId);
         $.ajax({
-        url: '/coach-manage/update/' + editId,
+        url: '<?= base_url('/coach-manage/update//'); ?>' + editId,
         type: 'POST',
         data: data,
         processData: false, 
@@ -177,7 +177,7 @@ $(document).ready(function(){
     }
 
     $.ajax({
-    url: 'coach-manage/store',
+    url: '<?= base_url('/coach-manage/store/'); ?>',
     type: 'POST',
     data: data,
     processData: false, 
@@ -206,7 +206,7 @@ $(document).ready(function(){
 
 async function editPlan(id){
 
-    const plan = await $.get('/coach-manage/edit/' + id);
+    const plan = await $.get('<?= base_url('/coach-manage/edit/'); ?>' + id);
 
     
     if (plan !== null) {

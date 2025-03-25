@@ -42,8 +42,8 @@
 <th scope="row"><?=$coachSched['ID']; ?></th>
 <td><?= $coachSched['StartTime']; ?></td>
 <td><?= $coachSched['EndTime']; ?></td>
-<td><?= $coachSched['CustomerID']; ?></td>
-<td><?= $coachSched['ScheduleID']; ?></td>
+<td><?= $coachSched['CustomerName']; ?></td>
+<td><?= $coachSched['Day']; ?></td>
  
 
 <td>

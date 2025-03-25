@@ -92,6 +92,10 @@
      <input type="text" name="endtime"  id="end_time">
 </div>
 <div class="mb-3">
+     <label for="exampleFormControlInput1" class="form-label">End Date:</label>
+     <input type="text" name="enddate"  id="end_date">
+</div>
+<div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Workout Plan</label>
           <input type="text" class="form-control" name="wplan" id="wplans" required>
 </div>

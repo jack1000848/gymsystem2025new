@@ -218,7 +218,7 @@
 
     async function editCoach(id) {
     try {
-        const res = await $.get('/coach/edit/' + id);
+        const res = await $.get('<?= base_url('/coach/edit') ?>' + id);
         console.log(res)
         if (res && res.data) {
             const coach = res.data;
@@ -270,7 +270,7 @@
    // }
 
     $.ajax({
-        url: '/coach/update/' + CoachData.CoachID, // Adjust URL for your update route
+        url: '<?= base_url('/coach/update') ?>' + CoachData.CoachID, // Adjust URL for your update route
         type: 'POST',
         data: CoachData, 
         success: function(response) {
@@ -301,7 +301,7 @@
     if (isConfirmed) {
         try {
             const response = await $.ajax({
-                url: '/coach/delete/' + id,
+                url: '<?= base_url('/coach/delete') ?>' + id,
                 type: 'DELETE', // Use POST instead of DELETE
                 data: { _method: 'DELETE' }, // Send _method override
                 success: function(response) {
@@ -350,7 +350,7 @@
     if (isConfirmed) {
         try {
             const response = await $.ajax({
-                url: '/coach/delete/' + id,
+                url: '<?= base_url('/coach/delete') ?>' + id,
                 type: 'DELETE', // Use POST instead of DELETE
                 data: { _method: 'DELETE' }, // Send _method override
                 success: function(response) {

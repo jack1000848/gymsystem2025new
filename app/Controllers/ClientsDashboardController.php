@@ -28,6 +28,7 @@ class ClientsDashboardController extends BaseController
         return redirect()->to('/member-login'); // Redirect if not logged in
     }
 
+    dd(session()->get('CustomerID')); // <--- Paste this here and test
     $customerID = session()->get('CustomerID'); // Get logged-in Coach ID
     $data['client'] = $this->coachModel->find($customerID); // Fetch coach details
 

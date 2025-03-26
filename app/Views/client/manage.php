@@ -327,20 +327,19 @@
     }
 }
             // Function to generate QR Code
-    function generateQRCode(coachid) {
-        const qr = new QRious({
-            element: document.createElement('canvas'),
-            value: `${coachid}`,
-            size: 200,
-            background: 'white',
-            foreground: 'black',
-        });
+            function generateQRCode(coachID) {
+    const qr = new QRious({
+        value: coachID, // QR code content
+        size: 100, // Adjust the size if needed
+        background: 'white',
+        foreground: 'black'
+    });
 
-        const qrImageElement = document.getElementById('qrCodeImage' + coachid);
+    const qrImageElement = document.getElementById('qrCodeImage' + coachID);
     if (qrImageElement) {
-        qrImageElement.src = qr.toDataURL();
-        }
+        qrImageElement.src = qr.toDataURL(); // Convert QR to image
     }
+}
 
     // Generate QR Codes for all Coach
     window.onload = function () {

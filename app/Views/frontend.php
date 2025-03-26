@@ -48,7 +48,7 @@
         </div>
 
         <div class="home-img" data-aos="zoom-in">
-            <img src="<?= base_url('assets/img/alex.jpg.png') ?>" alt="HeroImage">
+            <img src="<?= base_url('assets/img/alexfront.jpg.png') ?>" alt="HeroImage">
         </div>
     </section>
 

@@ -238,35 +238,26 @@ flatpickr("#end_time", {
     });
         return;        
     }
-    $('#btn-save').on('click', function() {
-        var data = new FormData($("#planForm")[0]);
-    $.ajax({
-    url: '<?= site_url('coach-manage/store'); ?>',
-    type: 'POST',
-    data: data,
-    processData: false, 
-    contentType: false, 
-    success: function(res) {
-        Swal.fire({
-            title: 'Success!',
-            text: "Plan Added Successfully",
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.reload();
-        });
-    },
-    error: function(xhr) {
-        Swal.fire({
-            title: 'Error!',
-            text: "Something went wrong. Please try again.",
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    }
-});
-});
+   $('#btn-save').on('click', function(e) {
+    e.preventDefault(); // optional safety
 
+    var data = new FormData($('#planForm')[0]);
+
+    $.ajax({
+        url: '<?= site_url('coach-manage/store'); ?>', // Must match POST route
+        type: 'POST',
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            Swal.fire('Success!', 'Data saved.', 'success');
+            // Optionally reload or redirect
+        },
+        error: function() {
+            Swal.fire('Error!', 'Saving failed.', 'error');
+        }
+    });
+});
 });
 
 async function editPlan(id){

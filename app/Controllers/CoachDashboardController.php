@@ -230,7 +230,15 @@ class CoachDashboardController extends BaseController
         return view ('/coachdashboard/viewmyclient');
     }
 
+/////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
+public function logout()
+    {
+        // Destroy the entire session
+        session()->destroy();
 
+        // Optional: Redirect to login or home page
+        return redirect()->to('/login')->with('success', 'You have been logged out.');
+    }
     
 }
 

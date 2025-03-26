@@ -13,56 +13,47 @@ class CoachDashboardController extends BaseController
     public function __construct()
     {
         $this->coachScheduleModel = new CoachScheduleModel();
+         $this->timeModel = new TimeScheduleModel();
     }
-    public function index()
+    public function dashboardindex()
     {
-        $coachID = session()->get('CoachID'); // Get the logged-in coach's ID from session
 
-        if (!$coachID) {
-            // Optional: handle kung walang CoachID sa session
-            return redirect()->to('/login')->with('error', 'Please login first.');
-        }
-    
-        // Filter the schedule based on the logged-in coach
-        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
         return view('coachdashboard/index');
     }
 
     ///here's the coach manage my schedules
-    public function coachManage(){
+    public function coachManage()
+    {
+        $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
-        $daysched = new CoachScheduleModel(); // Change to your actual model name
-        ///$timesched = new TimeScheduleModel();
-        
-        $data['sched'] = $daysched->findAll(); // Fetch all schedules from the database
-       // $data['time'] = $timesched->findAll(); // Fetch all schedules from the database
+        if (!$coachID) {
+            return redirect()->to('/login')->with('error', 'Please login first.');
+        }
+
+        // Filter schedules by the logged-in coach only
+        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
+
         return view('/coachdashboard/ManagemyScheds', $data);
     }
-    
-     // Store Schedule
-     public function storemanage()
-     {
 
-       
-         // Validate input (optional but recommended)
-         $validation = \Config\Services::validation();
-         $rules = [
-             'startdate' => 'required',
-             'starttime' => 'required',
-             'enddate'   => 'required',
-             'endtime'   => 'required',
-         ];
- 
-         if (!$this->validate($rules)) {
-             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-         }
- 
-         // Combine date and time
-         $startDateTime = $this->request->getPost('startdate') . ' ' . $this->request->getPost('starttime');
-         $endDateTime   = $this->request->getPost('enddate') . ' ' . $this->request->getPost('endtime');
- 
-         // Example: Get CoachID from session (adjust based on your logic)
-         $coachID = session()->get('CoachID');
+    // Store Schedule
+    public function storemanage()
+    {
+        $validation = \Config\Services::validation();
+        $rules = [
+            'startdate' => 'required',
+            'starttime' => 'required',
+            'enddate'   => 'required',
+            'endtime'   => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $startDateTime = $this->request->getPost('startdate') . ' ' . $this->request->getPost('starttime');
+        $endDateTime   = $this->request->getPost('enddate') . ' ' . $this->request->getPost('endtime');
+        $coachID = session()->get('CoachID');
 
         if (!$coachID) {
             return redirect()->back()->with('error', 'CoachID not found in session.');
@@ -74,14 +65,11 @@ class CoachDashboardController extends BaseController
             'Start'        => $startDateTime,
             'End'          => $endDateTime,
         ];
- 
-         $this->coachScheduleModel->insert($data);
-         
- 
-         return redirect()->to('/coach-manage')->with('success', 'Schedule added successfully.');
-     }
-    
-    
+
+        $this->coachScheduleModel->insert($data);
+
+        return redirect()->to('/coach-manage')->with('success', 'Schedule added successfully.');
+    }
 
 
 

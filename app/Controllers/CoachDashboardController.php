@@ -31,7 +31,7 @@ class CoachDashboardController extends BaseController
         return view('/coachdashboard/ManagemyScheds', $data);
     }
     
-    ppublic function storemanage()
+    public function storemanage()
     { 
         $model = new CoachScheduleModel();
     

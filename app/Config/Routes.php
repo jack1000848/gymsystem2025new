@@ -120,6 +120,7 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 ///Body Information...
 
 ///Logout...
+$routes->get('/logout', 'ClientsDashboardController::logout');
 
 
 ///////////////////////COACH DASHBOARD/////////////////////   

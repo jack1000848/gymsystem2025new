@@ -53,7 +53,7 @@
             <div class="offcanvas-body p-0">
                 <nav class="mt-2">
                     <ul class="nav flex-column" role="menu">
-                        <li class="nav-item menu-open">
+                    <li class="nav-item menu-open">
                             <a href="<?= base_url('coachdashboard') ?>" class="nav-link active">
                                 <i class="bi bi-speedometer nav-icon"></i> Coach Dashboard
                             </a>
@@ -62,7 +62,7 @@
                             <a href="<?= base_url('coach-manage') ?>" class="nav-link">Manage My Schedules</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">To-Do</a>
+                            <a href="<?= base_url('coach-timemanage') ?>" class="nav-link">View my Clients</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>

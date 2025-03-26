@@ -18,6 +18,15 @@ class ClientsDashboardController extends BaseController
     public function myqrcode(){
         return view('clientdashboard/myqrcode');
     }
+
+    public function logout()
+    {
+        // Destroy the entire session
+        session()->destroy();
+
+        // Optional: Redirect to login or home page
+        return redirect()->to('/login')->with('success', 'You have been logged out.');
+    }
 }
 
 ?>

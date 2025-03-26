@@ -16,6 +16,15 @@ class CoachDashboardController extends BaseController
     }
     public function index()
     {
+        $coachID = session()->get('CoachID'); // Get the logged-in coach's ID from session
+
+        if (!$coachID) {
+            // Optional: handle kung walang CoachID sa session
+            return redirect()->to('/login')->with('error', 'Please login first.');
+        }
+    
+        // Filter the schedule based on the logged-in coach
+        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
         return view('coachdashboard/index');
     }
 

@@ -31,7 +31,7 @@ class ClientsDashboardController extends BaseController
 
     public function logout()
     {
-        // Destroy the entire session
+        ///// Destroy the entire session//
         session()->destroy();
 
         // Optional: Redirect to login or home page

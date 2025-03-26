@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('/myqrcode') ?>" class="nav-link">My Qr Code</a>
+                            <a href="<?= base_url('/client-qr') ?>" class="nav-link">My Qr Code</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">To-Do</a>
@@ -97,7 +97,7 @@
                             
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/myqrcode') ?>" class="nav-link"> 
+                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
                                 <i class=""></i>
                                 <p>My QR CODE</p>
                             </a> 

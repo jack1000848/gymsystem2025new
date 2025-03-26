@@ -12,8 +12,7 @@ class CoachDashboardController extends BaseController
 {
     public function __construct()
     {
-        $this->workoutModel = new CoachScheduleModel();
-        $this->timeModel = new TimeScheduleModel();
+        $this->coachScheduleModel = new CoachScheduleModel();
     }
     public function index()
     {
@@ -31,69 +30,42 @@ class CoachDashboardController extends BaseController
         return view('/coachdashboard/ManagemyScheds', $data);
     }
     
-    public function storemanage()
-    {  
-        $model = new CoachScheduleModel();
-    
-        // Validate POST data
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'startdate'   => 'required',
-            'starttime'   => 'required',
-            'enddate'     => 'required',
-            'endtime'     => 'required',
-            'customer_id' => 'required'  // ✅ Make sure CustomerID is required or properly handled
-        ]);
-    
-        if (!$validation->withRequest($this->request)->run()) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'errors' => $validation->getErrors()
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
-        }
-    
-        // Get the inputs
-        $startDate  = $this->request->getPost('startdate');
-        $startTime  = $this->request->getPost('starttime');
-        $endDate    = $this->request->getPost('enddate');
-        $endTime    = $this->request->getPost('endtime');  // ✅ FIXED: Fetch the end time properly
-        $customerID = $this->request->getPost('customer_id');  // ✅ Get CustomerID from the form
-        $coachID    = session()->get('CoachID'); // ✅ Assuming the coach is logged in and stored in session
-    
-        // ✅ Check if CoachID exists
-        if (!$coachID) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'CoachID is missing from session.'
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
-        }
-    
-        // ✅ Check if CustomerID is valid
-        if (!$customerID) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'CustomerID is required.'
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
-        }
-    
-        // Combine date and time into one datetime format
-        $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
-        $end   = date('Y-m-d H:i:s', strtotime($endDate . ' ' . $endTime));
-    
-        // Save to DB
-        $model->insert([
-            'CoachID'      => $coachID,
-            'ScheduleDate' => $startDate,
-            'Start'        => $start,
-            'End'          => $end,
-            'CustomerID'   => $customerID  // ✅ Use the actual CustomerID (no null)
-        ]);
-    
-        return $this->response->setJSON([
-            'status'  => 'success',
-            'message' => 'Schedule saved successfully'
-        ]);
-    }
+     // Store Schedule
+     public function store()
+     {
+         // Validate input (optional but recommended)
+         $validation = \Config\Services::validation();
+         $rules = [
+             'startdate' => 'required',
+             'starttime' => 'required',
+             'enddate'   => 'required',
+             'endtime'   => 'required',
+         ];
+ 
+         if (!$this->validate($rules)) {
+             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+         }
+ 
+         // Combine date and time
+         $startDateTime = $this->request->getPost('startdate') . ' ' . $this->request->getPost('starttime');
+         $endDateTime   = $this->request->getPost('enddate') . ' ' . $this->request->getPost('endtime');
+ 
+         // Example: Get CoachID from session (adjust based on your logic)
+         $coachID = session()->get('user_id'); // Assuming you store coach id on login session
+ 
+         // Insert data
+         $data = [
+             'CoachID'      => $coachID,
+             'ScheduleDate' => $this->request->getPost('startdate'),
+             'Start'        => $startDateTime,
+             'End'          => $endDateTime,
+             // 'CustomerID' => NULL or optional if not used
+         ];
+ 
+         $this->coachScheduleModel->insert($data);
+ 
+         return redirect()->to('/coach-manage')->with('success', 'Schedule added successfully.');
+     }
     
     
 

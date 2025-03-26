@@ -29,7 +29,7 @@ class CoachDashboardController extends BaseController
         $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
         if (!$coachID) {
-            return redirect()->to('/login')->with('error', 'Please login first.');
+            return redirect()->to('/coach-login')->with('error', 'Please login first.');
         }
 
         // Filter schedules by the logged-in coach only

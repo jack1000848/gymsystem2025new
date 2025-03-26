@@ -186,7 +186,7 @@ $this->section('body');
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "<?= site_url('/coach-manage/delete/') ?>" + id,
+                    url: "<?= site_url('/coach-manage/delete/') ?>" + id, // Add the slash correctly
                     method: "POST",
                     success: function () {
                         Swal.fire('Deleted!', 'Schedule has been deleted.', 'success')

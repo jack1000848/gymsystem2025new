@@ -14,6 +14,7 @@ class CoachDashboardController extends BaseController
     {
         $this->coachScheduleModel = new CoachScheduleModel();
          $this->timeModel = new TimeScheduleModel();
+         $this->scheduleModel = model(ScheduleModel::class);
     }
     public function dashboardindex()
     {
@@ -75,27 +76,34 @@ class CoachDashboardController extends BaseController
 
     public function edit($id)
     {
-        $schedule = $this->coachScheduleModel->find($id);
-        return $this->response->setJSON($schedule);
+        $schedule = $this->scheduleModel->find($id);
+        if ($schedule) {
+            return $this->response->setJSON($schedule);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON(['message' => 'Schedule not found']);
+        }
     }
 
     public function update()
     {
-        $id = $this->request->getPost('ID');
-        $this->coachScheduleModel->update($id, [
+        $id = $this->request->getPost('id');
+        $data = [
             'ScheduleDate' => $this->request->getPost('startdate'),
-            'Start' => $this->request->getPost('starttime'),
-            'End' => $this->request->getPost('endtime')
-        ]);
+            'Start'        => $this->request->getPost('starttime'),
+            'End'          => $this->request->getPost('endtime'),
+        ];
+        $this->scheduleModel->update($id, $data);
+
         return $this->response->setJSON(['status' => 'success']);
     }
 
     public function delete($id)
     {
-        $this->coachScheduleModel->delete($id);
-        return $this->response->setJSON(['status' => 'deleted']);
+        $this->scheduleModel->delete($id);
+        return $this->response->setJSON(['status' => 'success']);
     }
-    
+
+   
 
         ////here's the time schedule//
 

@@ -130,8 +130,16 @@ $(document).ready(function(){
     });
 
     ///this is the timeline of calendar day/time
-    flatpickr("#start_date", { 
-    dateFormat: "Y-m-d" 
+    let startDatePicker = flatpickr("#start_date", { 
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        // When start date changes, set the minDate of end date
+        endDatePicker.set('minDate', dateStr);
+    }
+});
+
+let endDatePicker = flatpickr("#end_date", { 
+    dateFormat: "Y-m-d"
 });
 
 flatpickr("#start_time", { 
@@ -139,10 +147,6 @@ flatpickr("#start_time", {
     noCalendar: true, 
     dateFormat: "h:i K",   // h = hour 12-hour, i = minute, K = AM/PM
     time_24hr: false
-});
-
-flatpickr("#end_date", { 
-    dateFormat: "Y-m-d" 
 });
 
 flatpickr("#end_time", { 

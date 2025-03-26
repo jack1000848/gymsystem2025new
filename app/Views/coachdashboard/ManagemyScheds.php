@@ -123,6 +123,7 @@ $this->section('body');
 </div>
 
 <!-- JS Scripts -->
+<!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -130,37 +131,69 @@ $this->section('body');
 
 <script>
     $(document).ready(function () {
-        // DataTable Initialization
-        new DataTable('#clientTable', {
-            responsive: true
-        });
+        new DataTable('#clientTable', { responsive: true });
 
-        // Initialize Flatpickr for Add Modal
         flatpickr("#start_date", { dateFormat: "Y-m-d" });
         flatpickr("#start_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
         flatpickr("#end_date", { dateFormat: "Y-m-d" });
         flatpickr("#end_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
 
-        // Initialize Flatpickr for Edit Modal
         flatpickr("#edit_start_date", { dateFormat: "Y-m-d" });
         flatpickr("#edit_start_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
         flatpickr("#edit_end_date", { dateFormat: "Y-m-d" });
         flatpickr("#edit_end_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
+
+        // Update Schedule AJAX
+        $('#editClientForm').submit(function (e) {
+            e.preventDefault();
+            let formData = $(this).serialize();
+            $.ajax({
+                url: "<?= site_url('coach-manage/update') ?>",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    $('#editClientModal').modal('hide');
+                    Swal.fire('Updated!', 'Schedule has been updated.', 'success')
+                        .then(() => { location.reload(); });
+                }
+            });
+        });
     });
 
-    // Example functions (add your logic)
     function editPlan(id) {
-        console.log("Edit Schedule ID:", id);
-        $('#editClientModal').modal('show');
+        $.ajax({
+            url: "<?= site_url('coach-manage/edit') ?>/" + id,
+            method: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                $('#editClientId').val(data.ID);
+                $('#edit_start_date').val(data.ScheduleDate);
+                $('#edit_start_time').val(data.Start);
+                $('#edit_end_date').val(data.ScheduleDate);
+                $('#edit_end_time').val(data.End);
+                $('#editClientModal').modal('show');
+            }
+        });
     }
 
     function deletePlan(id) {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You want to delete schedule ID: " + id,
+            text: "You are about to delete this schedule.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= site_url('coach-manage/delete') ?>/" + id,
+                    method: "POST",
+                    success: function () {
+                        Swal.fire('Deleted!', 'Schedule has been deleted.', 'success')
+                            .then(() => { location.reload(); });
+                    }
+                });
+            }
         });
     }
 </script>

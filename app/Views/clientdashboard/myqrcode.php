@@ -5,7 +5,7 @@
 
 <div class="card">
     <h3>My QR Code</h3>
-    <img id="qrCodeImage" src="" alt="QR Code" style="width: 201px;">
+    <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px;">
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
@@ -28,5 +28,6 @@
         const customerID = <?= json_encode(session()->get('CustomerID')); ?>; // Get CoachID from session
         generateQRCode(customerID);
     };
+
 </script>
 <?php $this->endSection(); ?> 

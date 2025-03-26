@@ -81,6 +81,7 @@
   </div>
   <div class="modal-body">
   <form id="planForm" action = "<?= site_url('coach-manage/store'); ?>" method="POST">
+
  <div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Start Date:</label>
      <input type="text" name="startdate" id="start_date">
@@ -175,7 +176,9 @@ flatpickr("#end_time", {
     dateFormat: "h:i K",
     time_24hr: false
 });
-
+$("#btn-save").on('click', function() {
+    $("#planForm").submit();
+});
 
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {
         editId = 0;
@@ -263,6 +266,7 @@ flatpickr("#end_time", {
     }
 });
 });
+
 
 async function editPlan(id){
 

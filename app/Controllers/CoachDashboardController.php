@@ -53,16 +53,18 @@ class CoachDashboardController extends BaseController
          $endDateTime   = $this->request->getPost('enddate') . ' ' . $this->request->getPost('endtime');
  
          // Example: Get CoachID from session (adjust based on your logic)
-         $coachID = session()->get('user_id'); // Assuming you store coach id on login session
- 
-         // Insert data
-         $data = [
-             'CoachID'      => $coachID,
-             'ScheduleDate' => $this->request->getPost('startdate'),
-             'Start'        => $startDateTime,
-             'End'          => $endDateTime,
-             // 'CustomerID' => NULL or optional if not used
-         ];
+         $coachID = session()->get('CoachID');
+
+        if (!$coachID) {
+            return redirect()->back()->with('error', 'CoachID not found in session.');
+        }
+
+        $data = [
+            'CoachID'      => $coachID,
+            'ScheduleDate' => $this->request->getPost('startdate'),
+            'Start'        => $startDateTime,
+            'End'          => $endDateTime,
+        ];
  
          $this->coachScheduleModel->insert($data);
          

@@ -262,6 +262,7 @@ flatpickr("#end_time", {
         });
     }
 });
+});
 
 async function editPlan(id){
 

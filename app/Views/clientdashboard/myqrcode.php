@@ -1,8 +1,7 @@
 <?php
-    $this ->extend('layout/maincoach');
+    $this ->extend('layout/mainclient');
     $this ->section('body');
 
-    ?>
 
 <div class="card">
     <h3>My QR Code</h3>

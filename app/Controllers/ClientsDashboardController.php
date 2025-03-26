@@ -21,9 +21,9 @@ class ClientsDashboardController extends BaseController
     }
 
     $coachID = session()->get('CoachID'); // Get logged-in Coach ID
-    $data['coach'] = $this->coachModel->find($coachID); // Fetch coach details
+    $data['client'] = $this->coachModel->find($coachID); // Fetch coach details
 
-    if (!$data['coach']) {
+    if (!$data['client']) {
         return redirect()->to('/dashboard')->with('error', 'Coach not found.');
     }
         return view('clientdashboard/myqrcode');

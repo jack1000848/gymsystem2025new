@@ -127,7 +127,7 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
  $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 // Coach Dashboard
-$routes->get('/coachdashboard', 'CoachDashboardController::index', ['filter' => 'login']);
+$routes->get('/coachdashboard', 'CoachDashboardController::index');
 
 /// Manage my Schedule
 ///Manage Coach... (coach,(edit,update,delete,store)) ////

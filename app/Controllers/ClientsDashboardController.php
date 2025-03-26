@@ -33,16 +33,16 @@ class ClientsDashboardController extends BaseController
         $customerID = session()->get('CustomerID'); // Get logged-in Customer ID
 
         // Debugging: Ensure session is working
-        // dd($customerID); // If this prints a valid number, session is OK
+        // dd($customerID); // ✅ If this prints a valid number, session is OK
 
-        // Fetch client details from the correct table
+        // ✅ Fetch client details from the correct table
         $data['client'] = $this->clientsModel->find($customerID); 
 
         if (!$data['client']) {
             return redirect()->to('/clientdashboard')->with('error', 'Client not found.');
         }
 
-        return view('clientdashboard/myqrcode', $data); // Pass client data to the view
+        return view('clientdashboard/myqrcode', $data); // ✅ Pass client data to the view
     }
 
     public function logout()

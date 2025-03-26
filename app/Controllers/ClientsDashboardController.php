@@ -15,7 +15,8 @@ class ClientsDashboardController extends BaseController
     
     /////heres the viewqrcode in dashboard
 
-    public function myqrcode(){
+    public function myqrcode()
+    {
         return view('clientdashboard/myqrcode');
     }
 

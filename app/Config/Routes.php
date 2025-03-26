@@ -110,7 +110,7 @@ $routes->get('/logout', 'Admin::logout');
  $routes->get('/clientdashboard', 'ClientsDashboardController::index');
 
 ///My QR Code...
-$routes->get('/myqrcode', 'ClientsDashboardController::myqrcode');
+$routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
 
 ///Todo List...
 

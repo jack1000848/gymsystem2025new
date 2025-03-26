@@ -212,7 +212,7 @@ class CoachDashboardController extends BaseController
         $data['coach'] = $this->coachModel->find($customerID); // Fetch coach details
 
         if (!$data['coach']) {
-            return redirect()->to('/dashboard')->with('error', 'Coach not found.');
+            return redirect()->to('/coachdashboard')->with('error', 'Coach not found.');
         }
 
         return view('coachdashboard/myqrcode', $data);

@@ -181,6 +181,9 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
 <script>
     $(document).ready(function(){
 
@@ -328,23 +331,28 @@
 }
              // Function to generate QR Code
     function generateQRCode(coachID) {
+        if (!coachID) return; // Avoid errors if coachID is undefined
+
         const qr = new QRious({
-            value: `${coachID}`, // QR code content
-            size: 100, // Adjust the size if needed
+            value: String(coachID), // Convert to string
+            size: 100,
             background: 'white',
             foreground: 'black'
         });
 
         const qrImageElement = document.getElementById('qrCodeImage' + coachID);
         if (qrImageElement) {
-            qrImageElement.src = qr.toDataURL(); // Convert QR to image
+            qrImageElement.src = qr.toDataURL(); // Set QR code as image source
+            console.log("QR Code generated for:", coachID);
+        } else {
+            console.error("QR Image element not found for:", coachID);
         }
     }
 
-    // Generate QR Codes for all Coaches
+    // Generate QR Codes for all Coaches on page load
     window.onload = function () {
         <?php foreach ($coaches as $coach) : ?>
-            generateQRCode("<?= $coach['CoachID']; ?>");
+            generateQRCode(<?= json_encode($coach['CoachID']); ?>);
         <?php endforeach; ?>
     };
 

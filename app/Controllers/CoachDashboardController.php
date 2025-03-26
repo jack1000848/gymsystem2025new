@@ -202,7 +202,7 @@ class CoachDashboardController extends BaseController
     public function coachqr()
     {
 
-        return view ('/coachdashbboar/myqrcode');
+        return view ('/coachdashboard/myqrcode');
 
     }
 

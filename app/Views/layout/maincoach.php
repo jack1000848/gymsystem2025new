@@ -95,6 +95,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('coach-manage') ?>" class="nav-link">Manage My Schedules</a>
                         </li>
                         <li class="nav-item">

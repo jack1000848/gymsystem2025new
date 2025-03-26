@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
 use App\Model\CoachModel;
+
 //use App\Models\Clients1Model;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -16,6 +17,7 @@ class CoachDashboardController extends BaseController
         $this->coachScheduleModel = new CoachScheduleModel();
          $this->timeModel = new TimeScheduleModel();
          $this->scheduleModel = model(CoachScheduleModel::class);
+         $this->coachModel = new CoachModel();
     }
     public function dashboardindex()
     {

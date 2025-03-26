@@ -131,8 +131,8 @@ $routes->get('/coachdashboard', 'CoachDashboardController::index');
 
 /// Manage my Schedule
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
-$routes->get('/coach-manage', 'CoachDashboardController::coachManage' );
-$routes->post('coach-manage/store', 'CoachDashboardController::storemanage'  ,['filter' => 'login']);
+$routes->get('/coach-manage', 'CoachDashboardController::coachManage', ['filter' => 'login']);
+$routes->post('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
 $routes->post('/coach-manage/update/(:num)', 'CoachDashboardController::update/$1');

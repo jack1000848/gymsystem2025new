@@ -47,7 +47,7 @@
         <td><?= $coach['Password']; ?></td>
         <td></td>
         <td><?= $coach['Email']; ?></td>
-        <<td><img id="qrCodeImage<?= $client['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
+        <<td><img id="qrCodeImage<?= $coach['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
         <td>
 
     <span onclick="editCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">

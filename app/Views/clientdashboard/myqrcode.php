@@ -1,38 +1,33 @@
-<?= $this->extend('layout/main'); ?>
-<?= $this->section('body'); 
-?>
+<?php
+    $this ->extend('layout/maincoach');
+    $this ->section('body');
 
-<td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
+    ?>
+
+<div class="card">
+    <h3>My QR Code</h3>
+    <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px;">
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
-    // Function to generate QR Code
-    function generateQRCode(clientId) {
-        if (!clientId) return; // Avoid errors if clientId is undefined
+    function generateQRCode(customerID) {
+        if (!customerID) return;
 
         const qr = new QRious({
-            value: String(clientId), // Convert to string for safety
-            size: 100, // Adjust the size if needed
+            value: String(customerID), // Convert to string
+            size: 200, // Adjust size for dashboard
             background: 'white',
             foreground: 'black'
         });
 
-        const qrImageElement = document.getElementById('qrCodeImage' + clientId);
-        if (qrImageElement) {
-            qrImageElement.src = qr.toDataURL(); // Set QR code as image source
-            console.log("QR Code generated for:", clientId);
-        } else {
-            console.error("QR Image element not found for:", clientId);
-        }
+        document.getElementById('qrCodeImage').src = qr.toDataURL();
     }
 
-    // Generate QR Codes for all clients on page load
+    // Fetch Coach ID from session (make sure session data is available in your controller)
     window.onload = function () {
-        <?php foreach ($clients1 as $client) : ?>
-            generateQRCode(<?= json_encode($client['CustomerID']); ?>);
-        <?php endforeach; ?>
+        const customerID = <?= json_encode(session()->get('CustomerID')); ?>; // Get CoachID from session
+        generateQRCode(customerID);
     };
 </script>
-
-
-<?= $this->endSection(); ?>
+<?php $this->endSection(); ?> 

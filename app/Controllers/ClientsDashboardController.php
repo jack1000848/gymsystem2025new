@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 //use App\Models\Clients1Model;
+use App\Models\CustomerModel;
 
 
 class ClientsDashboardController extends BaseController 
@@ -35,7 +36,7 @@ class ClientsDashboardController extends BaseController
         // dd($customerID); // If this prints a valid number, session is OK
 
         // Fetch client details from the correct table
-        $data['client'] = $this->clientsModel->find($customerID); 
+        $data['client'] = $this->coachModel->find($customerID); 
 
         if (!$data['client']) {
             return redirect()->to('/clientdashboard')->with('error', 'Client not found.');

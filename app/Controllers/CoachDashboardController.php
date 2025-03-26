@@ -75,14 +75,14 @@ class CoachDashboardController extends BaseController
 
     public function edit($id)
     {
-        $schedule = $this->CoachScheduleModel->find($id);
+        $schedule = $this->scheduleModel->find($id);
         return $this->response->setJSON($schedule);
     }
 
     public function update()
     {
         $id = $this->request->getPost('id');
-        $this->CoachScheduleModel->update($id, [
+        $this->scheduleModel->update($id, [
             'ScheduleDate' => $this->request->getPost('startdate'),
             'Start' => $this->request->getPost('starttime'),
             'End' => $this->request->getPost('endtime')
@@ -92,7 +92,7 @@ class CoachDashboardController extends BaseController
 
     public function delete($id)
     {
-        $this->CoachScheduleModel->delete($id);
+        $this->scheduleModel->delete($id);
         return $this->response->setJSON(['status' => 'deleted']);
     }
     

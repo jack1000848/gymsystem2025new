@@ -3,6 +3,8 @@
 $this->extend('layout/maincoach'); // Extend the main layout
 $this->section('body'); // Start the body section
 ?>
+    <<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
  
 <div class="p-2 row mb-3">
     <!-- Add Client Button -->
@@ -159,52 +161,7 @@ $this->section('body'); // Start the body section
         });
 
         });
-         ///this is the timeline of calendar day/time
-    let startDate = '';
-let endDate = '';});
-
-// Initialize start date picker
-let startDatePicker = flatpickr("#start_date", { 
-    dateFormat: "Y-m-d",
-    onChange: function(selectedDates, dateStr) {
-        startDate = dateStr;
-        // Set minDate of end date picker
-        endDatePicker.set('minDate', dateStr);
-    }
-});
-
-// Initialize end date picker with SweetAlert validation
-let endDatePicker = flatpickr("#end_date", { 
-    dateFormat: "Y-m-d",
-    onChange: function(selectedDates, dateStr) {
-        endDate = dateStr;
-        // Validate if end date is earlier than start date
-        if (startDate && new Date(endDate) < new Date(startDate)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid Date Range',
-                text: 'End date cannot be earlier than start date!',
-                confirmButtonText: 'OK'
-            });
-            endDatePicker.clear(); // Clear the wrong date
-        }
-    }
-});
-
-// Time pickers
-flatpickr("#start_time", { 
-    enableTime: true, 
-    noCalendar: true, 
-    dateFormat: "h:i K",
-    time_24hr: false
-});
-
-flatpickr("#end_time", { 
-    enableTime: true, 
-    noCalendar: true, 
-    dateFormat: "h:i K",
-    time_24hr: false
-});
+        
 
         // Fetch Plans and Coaches
         fetchPlans();
@@ -220,7 +177,6 @@ flatpickr("#end_time", {
         fetchEditCoach(planId);
     }
 });
-
     
 
 

@@ -64,7 +64,7 @@ class CoachDashboardController extends BaseController
     
         // Save to DB
         $model->insert([
-            'CoachID'      => $coachID,
+            'CoachID'      => null,
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,

@@ -31,10 +31,10 @@ class CoachDashboardController extends BaseController
         return view('/coachdashboard/ManagemyScheds', $data);
     }
     
-    public function storemanage()
+    ppublic function storemanage()
     { 
         $model = new CoachScheduleModel();
-
+    
         // Validate POST data
         $validation = \Config\Services::validation();
         $validation->setRules([
@@ -43,40 +43,40 @@ class CoachDashboardController extends BaseController
             'enddate'   => 'required',
             'endtime'   => 'required'
         ]);
-
+    
         if (!$validation->withRequest($this->request)->run()) {
             return $this->response->setJSON([
                 'status' => 'error',
                 'errors' => $validation->getErrors()
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST); // ✅ This will work now
+            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
         }
-
+    
         // Get the inputs
         $startDate = $this->request->getPost('startdate');
         $startTime = $this->request->getPost('starttime');
         $endDate   = $this->request->getPost('enddate');
-      ///  $endTime   = $this->request->getPost('endtime');
+        $endTime   = $this->request->getPost('endtime');  // ✅ FIXED: Fetch the end time properly
         $coachID   = session()->get('CoachID'); // Assuming the coach is logged in
-
+    
         // Combine date and time into one datetime format
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
         $end   = date('Y-m-d H:i:s', strtotime($endDate . ' ' . $endTime));
-
+    
         // Save to DB
         $model->insert([
-            'CoachID'      => null,
+            'CoachID'      => $coachID,
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,
             'CustomerID'   => null // You can update this if you have CustomerID
         ]);
-
+    
         return $this->response->setJSON([
             'status' => 'success',
             'message' => 'Schedule saved successfully'
         ]);
-    
     }
+    
 
 
 

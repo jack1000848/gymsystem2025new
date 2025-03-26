@@ -5,7 +5,7 @@
 
 <div class="card">
     <h3>My QR Code</h3>
-    <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px;">
+    <img id="qrCodeImage" src="" alt="QR Code" style="width: 400px;">
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>

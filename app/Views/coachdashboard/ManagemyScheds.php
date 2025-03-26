@@ -38,8 +38,8 @@ $this->section('body');
                         <td><?= $schedule['End']; ?></td>
                         <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary" onclick="editPlan(<?= $schedule['ScheduleID']; ?>)">Edit</button>
-                                <button type="button" class="btn btn-danger" onclick="deletePlan(<?= $schedule['ScheduleID']; ?>)">Delete</button>
+                                <button type="button" class="btn btn-primary" onclick="editPlan(<?= $schedule['ID']; ?>)">Edit</button>
+                                <button type="button" class="btn btn-danger" onclick="deletePlan(<?= $schedule['ID']; ?>)">Delete</button>
                             </div>
                         </td>
                     </tr>

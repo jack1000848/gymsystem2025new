@@ -5,6 +5,7 @@
 
 <div class="card" style="text-align: center; padding: 20px;">
     <h3>My QR Code</h3>
+    <canvas id="qrCanvas" style="display: none;"></canvas> <!-- Hidden Canvas -->
     <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px; display: block; margin: 0 auto;">
     <br>
     <a id="downloadQR" class="btn btn-primary" download="MyQRCode.png">Download QR Code</a>
@@ -13,18 +14,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
     function generateQRCode(customerID) {
-        if (!customerID) return;
+        if (!customerID) {
+            console.error("CustomerID is missing.");
+            return;
+        }
+
+        console.log("Generating QR for:", customerID); // Debugging
 
         // Adjust size based on screen width
-        let qrSize = window.innerWidth < 768 ? 300 : 200; // 300px for mobile, 200px for desktop
+        let qrSize = window.innerWidth < 768 ? 300 : 200;
 
+        // Generate QR Code in a hidden canvas
         const qr = new QRious({
-            value: String(customerID), // Convert to string
-            size: qrSize, // Adjust size dynamically
+            element: document.getElementById('qrCanvas'),
+            value: String(customerID),
+            size: qrSize,
             background: 'white',
             foreground: 'black'
         });
 
+        // Set the generated QR Code as image src
         const qrImage = document.getElementById('qrCodeImage');
         qrImage.src = qr.toDataURL();
 

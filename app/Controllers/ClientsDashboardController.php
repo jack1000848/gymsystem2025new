@@ -24,18 +24,24 @@ class ClientsDashboardController extends BaseController
     /////heres the viewqrcode in dashboard
 
     public function myqrcode()
-    {   if (!session()->has('CustomerID')) {
-        return redirect()->to('/member-login'); // Redirect if not logged in
-    }
+    {   
+        if (!session()->has('CustomerID')) {
+            return redirect()->to('/member-login'); // Redirect if not logged in
+        }
 
-    dd(session()->get('CustomerID')); // <--- Paste this here and test
-    $customerID = session()->get('CustomerID'); // Get logged-in Coach ID
-    $data['client'] = $this->coachModel->find($customerID); // Fetch coach details
+        $customerID = session()->get('CustomerID'); // Get logged-in Customer ID
 
-    if (!$data['client']) {
-        return redirect()->to('/clientdashboard')->with('error', 'Coach not found.');
-    }
-        return view('clientdashboard/myqrcode');
+        // Debugging: Ensure session is working
+        // dd($customerID); // If this prints a valid number, session is OK
+
+        // Fetch client details from the correct table
+        $data['client'] = $this->clientsModel->find($customerID); 
+
+        if (!$data['client']) {
+            return redirect()->to('/clientdashboard')->with('error', 'Client not found.');
+        }
+
+        return view('clientdashboard/myqrcode', $data); // Pass client data to the view
     }
 
     public function logout()

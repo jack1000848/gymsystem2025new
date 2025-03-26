@@ -45,12 +45,7 @@ use App\Models\LoginCoachModel;
         }
     }
 
-    public function logout()
-    {
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/loginclient');
-    }
+
 
     
 

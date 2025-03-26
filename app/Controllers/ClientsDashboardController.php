@@ -14,7 +14,7 @@ class ClientsDashboardController extends BaseController
     public function __construct()
     {
     
-         $this->clientsModel = model(ClientsModel::class);
+         $this->clientsModel = model(CustomerModel::class);
     }
     
     public function index()

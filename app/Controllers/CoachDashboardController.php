@@ -55,7 +55,7 @@ class CoachDashboardController extends BaseController
         $startDate = $this->request->getPost('startdate');
         $startTime = $this->request->getPost('starttime');
         $endDate   = $this->request->getPost('enddate');
-        $endTime   = $this->request->getPost('endtime');
+      ///  $endTime   = $this->request->getPost('endtime');
         $coachID   = session()->get('CoachID'); // Assuming the coach is logged in
 
         // Combine date and time into one datetime format

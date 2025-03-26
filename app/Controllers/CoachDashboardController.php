@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
+use App\Model\CoachModel;
 //use App\Models\Clients1Model;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -23,7 +24,7 @@ class CoachDashboardController extends BaseController
     }
 
     ///here's the coach manage my schedules
-    public function coachManage()
+     public function coachManage()
     {
         $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
@@ -193,6 +194,16 @@ class CoachDashboardController extends BaseController
     ///////////// this is the coach client list!
     public function coachclientlist(){
         return view ('/coachdashboard/viewmyclient');
+    }
+
+
+    //////////////// COACH QRCODE\\\\\\\\\\\\\\
+
+    public function coachqr()
+    {
+
+        return view ('/coachdashbboar/myqrcode');
+
     }
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\

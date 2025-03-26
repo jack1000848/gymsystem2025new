@@ -150,7 +150,7 @@ $routes->post('/coach-timemanage/update/(:num)', 'CoachDashboardController::upda
 $routes->delete('/coach-timemanage/delete/(:num)', 'CoachDashboardController::deleteTime/$1');
 ///$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
 
-///View Gym Equipment...
-
+///coach-qr
+$routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
 ///Logout...
 $routes->get('/logout', 'CoachDashboardController::logout');

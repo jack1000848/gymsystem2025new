@@ -326,27 +326,27 @@
         }
     }
 }
-            // Function to generate QR Code
-            function generateQRCode(coachID) {
-    const qr = new QRious({
-        value: coachID, // QR code content
-        size: 100, // Adjust the size if needed
-        background: 'white',
-        foreground: 'black'
-    });
+             // Function to generate QR Code
+    function generateQRCode(coachID) {
+        const qr = new QRious({
+            value: `${coachID}`, // QR code content
+            size: 100, // Adjust the size if needed
+            background: 'white',
+            foreground: 'black'
+        });
 
-    const qrImageElement = document.getElementById('qrCodeImage' + coachID);
-    if (qrImageElement) {
-        qrImageElement.src = qr.toDataURL(); // Convert QR to image
+        const qrImageElement = document.getElementById('qrCodeImage' + coachID);
+        if (qrImageElement) {
+            qrImageElement.src = qr.toDataURL(); // Convert QR to image
+        }
     }
-}
 
-    // Generate QR Codes for all Coach
+    // Generate QR Codes for all Coaches
     window.onload = function () {
-    <?php foreach ($coaches as $coach) : ?>
-        generateQRCode("<?= $coach['CoachID']; ?>");
-    <?php endforeach; ?>
-};
+        <?php foreach ($coaches as $coach) : ?>
+            generateQRCode("<?= $coach['CoachID']; ?>");
+        <?php endforeach; ?>
+    };
 
     document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;

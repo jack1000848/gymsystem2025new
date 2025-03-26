@@ -202,7 +202,7 @@ public function logout()
         session()->destroy();
 
         // Optional: Redirect to login or home page
-        return redirect()->to('/login')->with('success', 'You have been logged out.');
+        return redirect()->to('/coach-login')->with('success', 'You have been logged out.');
     }
     
 }

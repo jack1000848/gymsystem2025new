@@ -16,11 +16,11 @@ class ClientsDashboardController extends BaseController
     /////heres the viewqrcode in dashboard
 
     public function myqrcode()
-    {   if (!session()->has('CoachID')) {
+    {   if (!session()->has('CustomerID')) {
         return redirect()->to('/member-login'); // Redirect if not logged in
     }
 
-    $coachID = session()->get('CoachID'); // Get logged-in Coach ID
+    $coachID = session()->get('CustomerID'); // Get logged-in Coach ID
     $data['client'] = $this->coachModel->find($coachID); // Fetch coach details
 
     if (!$data['client']) {

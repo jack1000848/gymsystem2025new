@@ -191,14 +191,32 @@
             responsive: true
         });
 
-        
-
         $("#btn-update").on('click', function(){
           updateCoach();
-         });
-
-         
+         });      
   });
+   // Function to generate QR Code
+   function generateQRCode(clientId) {
+        const qr = new QRious({
+            element: document.createElement('canvas'),
+            value: `${clientId}`,
+            size: 200,
+            background: 'white',
+            foreground: 'black',
+        });
+
+        const qrImageElement = document.getElementById('qrCodeImage' + clientId);
+    if (qrImageElement) {
+        qrImageElement.src = qr.toDataURL();
+        }
+    }
+
+    // Generate QR Codes for all clients
+    window.onload = function () {
+        <?php foreach ($clients1 as $client) : ?>
+            generateQRCode(<?= $client['CustomerID']; ?>);
+        <?php endforeach; ?>
+    };
 
   document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;
@@ -329,32 +347,7 @@
         }
     }
 }
-             // Function to generate QR Code
-    function generateQRCode(coachID) {
-        if (!coachID) return; // Avoid errors if coachID is undefined
-
-        const qr = new QRious({
-            value: String(coachID), // Convert to string
-            size: 100,
-            background: 'white',
-            foreground: 'black'
-        });
-
-        const qrImageElement = document.getElementById('qrCodeImage' + coachID);
-        if (qrImageElement) {
-            qrImageElement.src = qr.toDataURL(); // Set QR code as image source
-            console.log("QR Code generated for:", coachID);
-        } else {
-            console.error("QR Image element not found for:", coachID);
-        }
-    }
-
-    // Generate QR Codes for all Coaches on page load
-    window.onload = function () {
-        <?php foreach ($coaches as $coach) : ?>
-            generateQRCode(<?= json_encode($coach['CoachID']); ?>);
-        <?php endforeach; ?>
-    };
+           
 
     document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;

@@ -114,10 +114,7 @@
               <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
     </div> 
 
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Client Profile</label>
-              <input type="file" class="form-control" name="clientProfile"required>
-    </div> 
+    
 
 
       </div>

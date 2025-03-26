@@ -31,7 +31,7 @@ class CoachDashboardController extends BaseController
     }
     
      // Store Schedule
-     public function store()
+     public function storemanage()
      {
          // Validate input (optional but recommended)
          $validation = \Config\Services::validation();

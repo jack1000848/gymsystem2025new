@@ -136,6 +136,7 @@ $routes->post('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');
 $routes->get('coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
+$routes->post('coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
 
 $routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
 

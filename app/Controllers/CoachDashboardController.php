@@ -75,74 +75,25 @@ class CoachDashboardController extends BaseController
 
     public function edit($id)
     {
-        $scheduleModel = new CoachScheduleModel();
-    
-        // Find the schedule by ScheduleID
-        $schedule = $scheduleModel->find($id);
-    
-        if (!$schedule) {
-            // If no record found, return 404 JSON response
-            return $this->response->setStatusCode(404)->setJSON([
-                'error' => 'Schedule not found.'
-            ]);
-        }
-    
-        // Return the schedule data as JSON
-        return $this->response->setStatusCode(200)->setJSON($schedule);
+        $schedule = $this->scheduleModel->find($id);
+        return $this->response->setJSON($schedule);
     }
-    
 
-    public function update($id)
+    public function update()
     {
-        $scheduleModel = new CoachScheduleModel();
-    
-        // Validate input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'wschedule'   => 'required',
-            'wplan' => 'required'
+        $id = $this->request->getPost('id');
+        $this->scheduleModel->update($id, [
+            'ScheduleDate' => $this->request->getPost('startdate'),
+            'Start' => $this->request->getPost('starttime'),
+            'End' => $this->request->getPost('endtime')
         ]);
-    
-        if (!$this->validate($validation->getRules())) {
-            return $this->response->setStatusCode(400)->setJSON([
-                'error' => 'All fields are required.'
-            ]);
-        }
-    
-        // Prepare data for update
-        $data = [
-            'Day'   => $this->request->getPost('wschedule'),
-            'WorkoutPlanID' => $this->request->getPost('wplan')
-        ];
-    
-        // Update the schedule
-        $updated = $scheduleModel->update($id, $data);
-    
-        if ($updated) {
-            return $this->response->setStatusCode(200)->setJSON([
-                'success' => 'Workout schedule updated successfully.'
-            ]);
-        } else {
-            return $this->response->setStatusCode(500)->setJSON([
-                'error' => 'Failed to update workout schedule.'
-            ]);
-        }
+        return $this->response->setJSON(['status' => 'success']);
     }
 
     public function delete($id)
     {
-        $model = new CoachScheduleModel();
-    
-        // Check if the record exists
-        $schedule = $model->find($id);
-        if (!$schedule) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Schedule not found'])->setStatusCode(404);
-        }
-    
-        // Delete the schedule
-        $model->delete($id);
-    
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Schedule deleted successfully']);
+        $this->scheduleModel->delete($id);
+        return $this->response->setJSON(['status' => 'deleted']);
     }
     
 

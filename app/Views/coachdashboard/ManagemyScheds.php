@@ -131,7 +131,7 @@ $(document).ready(function(){
 
     ///this is the timeline of calendar day/time
     let startDate = '';
-let endDate = '';
+let endDate = '';});
 
 // Initialize start date picker
 let startDatePicker = flatpickr("#start_date", { 

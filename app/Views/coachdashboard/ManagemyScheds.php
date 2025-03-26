@@ -158,10 +158,10 @@ $this->section('body');
             $('#editClientModal').modal('hide');
             Swal.fire('Updated!', 'Schedule has been updated.', 'success')
                 .then(() => { location.reload(); });
-        }
+                }
+            });
+        });
     });
-});
-
 
     function editPlan(id) {
         $.ajax({

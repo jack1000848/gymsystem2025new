@@ -204,14 +204,14 @@ class CoachDashboardController extends BaseController
 
     public function coachqr()
     {
-        if (!session()->has('CoachID')) {
+        if (!session()->has('CustomerID')) {
             return redirect()->to('/member-login'); // Redirect if not logged in
         }
 
-        $coachID = session()->get('CoachID'); // Get logged-in Coach ID
-        $data['coach'] = $this->coachModel->find($coachID); // Fetch coach details
+        $customerID = session()->get('CustomerID'); // Get logged-in Coach ID
+        $data['client'] = $this->coachModel->find($customerID); // Fetch coach details
 
-        if (!$data['coach']) {
+        if (!$data['client']) {
             return redirect()->to('/dashboard')->with('error', 'Coach not found.');
         }
 

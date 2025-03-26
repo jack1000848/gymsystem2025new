@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CoachModel extends Model
 {
     protected $table            = 'coach';
-    protected $primaryKey       = 'Coachid';
+    protected $primaryKey       = 'CoachID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

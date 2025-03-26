@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
 use App\Models\TimeScheduleModel;
-use App\Model\CoachModel;
+use App\Models\CoachModel;
 
 //use App\Models\Clients1Model;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -205,21 +205,17 @@ class CoachDashboardController extends BaseController
     public function coachqr()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/member-login'); // Redirect to login if not logged in
+            return redirect()->to('/member-login'); // Redirect if not logged in
         }
-    
-        // Debugging: Check if CoachID exists in session
-        dd(session()->get('CoachID')); // <--- Paste this here and test
-    
-        $coachID = session()->get('CoachID'); // Get the logged-in Coach ID
-    
-        // Fetch coach details
-        $data['coach'] = $this->coachModel->find($coachID);
+
+        $coachID = session()->get('CoachID'); // Get logged-in Coach ID
+        $data['coach'] = $this->coachModel->find($coachID); // Fetch coach details
+
         if (!$data['coach']) {
             return redirect()->to('/dashboard')->with('error', 'Coach not found.');
         }
-        return view ('/coachdashboard/myqrcode' , $data);
 
+        return view('coachdashboard/myqrcode', $data);
     }
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\

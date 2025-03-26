@@ -14,7 +14,7 @@ class CoachDashboardController extends BaseController
     {
         $this->coachScheduleModel = new CoachScheduleModel();
          $this->timeModel = new TimeScheduleModel();
-         $this->scheduleModel = model(ScheduleModel::class);
+         $this->scheduleModel = model(CoachScheduleModel::class);
     }
     public function dashboardindex()
     {
@@ -99,7 +99,7 @@ class CoachDashboardController extends BaseController
 
     public function delete($id)
 {
-    $this->scheduleModel = new \App\Models\ScheduleModel(); // Load the model
+    $this->scheduleModel = new \App\Models\CoachScheduleModel(); // Load the model
     $this->scheduleModel->delete($id);
     return $this->response->setJSON(['status' => 'success']);
 }

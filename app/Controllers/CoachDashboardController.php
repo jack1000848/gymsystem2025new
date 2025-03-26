@@ -86,7 +86,7 @@ class CoachDashboardController extends BaseController
 
     public function update()
 {
-    $id = $this->request->getPost('ID');  // lowercase
+    $id = $this->request->getPost('id');  // lowercase
     $data = [
         'ScheduleDate' => $this->request->getPost('startdate'),
         'Start'        => $this->request->getPost('starttime'),

@@ -218,7 +218,7 @@
 
     async function editCoach(id) {
     try {
-        const res = await $.get('<?= base_url('/coach/edit') ?>' + id);
+        const res = await $.get('<?= base_url('/coach/edit/') ?>' + id);
         console.log(res)
         if (res && res.data) {
             const coach = res.data;

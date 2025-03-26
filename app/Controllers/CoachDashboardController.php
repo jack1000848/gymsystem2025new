@@ -63,6 +63,7 @@ class CoachDashboardController extends BaseController
          ];
  
          $this->coachScheduleModel->insert($data);
+         dd(session()->get());
  
          return redirect()->to('/coach-manage')->with('success', 'Schedule added successfully.');
      }

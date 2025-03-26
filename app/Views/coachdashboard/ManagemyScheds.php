@@ -130,6 +130,7 @@ $(document).ready(function(){
         responsive: true
     });
 
+    
     ///this is the timeline of calendar day/time
     let startDate = '';
 let endDate = '';});
@@ -177,7 +178,7 @@ flatpickr("#end_time", {
     time_24hr: false
 });
 
-
+    
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {
         editId = 0;
     });
@@ -238,8 +239,7 @@ flatpickr("#end_time", {
         return;        
     }
     $('#btn-save').on('click', function() {
-    var data = new FormData($("#planForm")[0]);
-
+        var data = new FormData($("#planForm")[0]);
     $.ajax({
     url: '<?= site_url('coach-manage/store'); ?>',
     type: 'POST',
@@ -267,6 +267,7 @@ flatpickr("#end_time", {
 });
 });
 
+});
 
 async function editPlan(id){
 

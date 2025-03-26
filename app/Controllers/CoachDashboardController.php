@@ -33,6 +33,8 @@ class CoachDashboardController extends BaseController
      // Store Schedule
      public function storemanage()
      {
+
+        dd(session()->get());
          // Validate input (optional but recommended)
          $validation = \Config\Services::validation();
          $rules = [
@@ -63,7 +65,7 @@ class CoachDashboardController extends BaseController
          ];
  
          $this->coachScheduleModel->insert($data);
-         dd(session()->get());
+         
  
          return redirect()->to('/coach-manage')->with('success', 'Schedule added successfully.');
      }

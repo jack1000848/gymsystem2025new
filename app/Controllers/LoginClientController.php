@@ -62,13 +62,7 @@ use App\Models\CustomerModel;
 
     
 
-    public function logout()
-    {
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/loginclient');
-    }
-
+    
 
 
 

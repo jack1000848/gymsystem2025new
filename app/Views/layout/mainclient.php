@@ -127,6 +127,13 @@
                         </li>
 
                         </li>
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>Logout</p>
+                            </a>
+
+                        </li>
                     </ul>
                 </nav>
             </div>

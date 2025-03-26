@@ -148,7 +148,7 @@ $this->section('body');
             e.preventDefault();
             let formData = $(this).serialize();
             $.ajax({
-                url: "<?= site_url('coach-manage/update') ?>",
+                url: "<?= site_url('coach-manage/update/') ?>",
                 method: "POST",
                 data: formData,
                 success: function (response) {
@@ -186,7 +186,7 @@ $this->section('body');
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "<?= site_url('coach-manage/delete') ?>/" + id,
+                    url: "<?= site_url('coach-manage/delete') ?>" + id,
                     method: "POST",
                     success: function () {
                         Swal.fire('Deleted!', 'Schedule has been deleted.', 'success')

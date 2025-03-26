@@ -176,9 +176,7 @@ flatpickr("#end_time", {
     dateFormat: "h:i K",
     time_24hr: false
 });
-$("#btn-save").on('click', function() {
-    $("#planForm").submit();
-});
+
 
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {
         editId = 0;
@@ -239,6 +237,8 @@ $("#btn-save").on('click', function() {
     });
         return;        
     }
+    $('#btn-save').on('click', function() {
+    var data = new FormData($("#planForm")[0]);
 
     $.ajax({
     url: '<?= site_url('coach-manage/store'); ?>',

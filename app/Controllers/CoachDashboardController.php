@@ -98,10 +98,12 @@ class CoachDashboardController extends BaseController
     }
 
     public function delete($id)
-    {
-        $this->scheduleModel->delete($id);
-        return $this->response->setJSON(['status' => 'success']);
-    }
+{
+    $this->scheduleModel = new \App\Models\ScheduleModel(); // Load the model
+    $this->scheduleModel->delete($id);
+    return $this->response->setJSON(['status' => 'success']);
+}
+
 
    
 

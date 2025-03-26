@@ -8,6 +8,14 @@ use App\Controllers\BaseController;
 
 class ClientsDashboardController extends BaseController 
 {
+    protected $coachModel; // Declare the model
+
+    public function __construct()
+    {
+    
+         $this->coachModel = model(CoachModel::class);
+    }
+    
     public function index()
     {
         return view('clientdashboard/index');
@@ -20,8 +28,8 @@ class ClientsDashboardController extends BaseController
         return redirect()->to('/member-login'); // Redirect if not logged in
     }
 
-    $coachID = session()->get('CustomerID'); // Get logged-in Coach ID
-    $data['client'] = $this->coachModel->find($coachID); // Fetch coach details
+    $customerID = session()->get('CustomerID'); // Get logged-in Coach ID
+    $data['client'] = $this->coachModel->find($customerID); // Fetch coach details
 
     if (!$data['client']) {
         return redirect()->to('/clientdashboard')->with('error', 'Coach not found.');

@@ -238,7 +238,7 @@ flatpickr("#end_time", {
     }
 
     $.ajax({
-     url: '<?= site_url('coach-manage/store'); ?>',
+    url: '<?= site_url('coach-manage/store'); ?>',
     type: 'POST',
     data: data,
     processData: false, 
@@ -261,8 +261,6 @@ flatpickr("#end_time", {
             confirmButtonText: 'OK'
         });
     }
-    });
-    });
 });
 
 async function editPlan(id){

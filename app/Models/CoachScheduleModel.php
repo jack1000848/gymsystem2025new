@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CoachScheduleModel extends Model
 {
     protected $table            = 'CoachSched';
-    protected $primaryKey       = 'ID ';
+    protected $primaryKey       = 'ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

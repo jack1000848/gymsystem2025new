@@ -159,23 +159,8 @@ $this->section('body'); // Start the body section
         });
 
         });
-
-        // Fetch Plans and Coaches
-        fetchPlans();
-        $('#planSelect').on('change', function () {
-            var planId = $(this).val();
-            if (planId) {
-                fetchCoach(planId);
-            }
-        });
-        $('#editPlanSelect').on('change', function () {
-    var planId = $(this).val();
-    if (planId) {
-        fetchEditCoach(planId);
-    }
-});
-     ///this is the timeline of calendar day/time
-     let startDate = '';
+         ///this is the timeline of calendar day/time
+    let startDate = '';
 let endDate = '';});
 
 // Initialize start date picker
@@ -220,6 +205,23 @@ flatpickr("#end_time", {
     dateFormat: "h:i K",
     time_24hr: false
 });
+
+        // Fetch Plans and Coaches
+        fetchPlans();
+        $('#planSelect').on('change', function () {
+            var planId = $(this).val();
+            if (planId) {
+                fetchCoach(planId);
+            }
+        });
+        $('#editPlanSelect').on('change', function () {
+    var planId = $(this).val();
+    if (planId) {
+        fetchEditCoach(planId);
+    }
+});
+
+    
 
 
     // Delete Client

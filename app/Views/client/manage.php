@@ -166,12 +166,7 @@
               <input type="text" id="email" class="form-control" name="clientEmail"required>
     </div> 
 
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Client Profile</label>
-              <input type="file" id="cprofile"class="form-control" name="clientProfile"required>
-    </div> 
-
-
+    
 
       </div>
       <div class="modal-footer">
@@ -350,14 +345,14 @@
         }
     }
 
-    // Generate QR Codes for all clients
+    // Generate QR Codes for all Coach
     window.onload = function () {
         <?php foreach ($coaches as $coach) : ?>
             generateQRCode(<?= $coach['CoachID']; ?>);
         <?php endforeach; ?>
     };
 
-    document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;
     var emailError = document.getElementById("emailError");
     

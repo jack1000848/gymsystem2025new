@@ -9,12 +9,12 @@ use App\Models\CustomerModel;
 
 class ClientsDashboardController extends BaseController 
 {
-    protected $coachModel; // Declare the model
+    protected $clientsModel; // Declare the model
 
     public function __construct()
     {
     
-         $this->coachModel = model(CoachModel::class);
+         $this->clientsModel = model(ClientsModel::class);
     }
     
     public function index()
@@ -36,7 +36,7 @@ class ClientsDashboardController extends BaseController
         // dd($customerID); // If this prints a valid number, session is OK
 
         // Fetch client details from the correct table
-        $data['client'] = $this->coachModel->find($customerID); 
+        $data['client'] = $this->clientsModel->find($customerID); 
 
         if (!$data['client']) {
             return redirect()->to('/clientdashboard')->with('error', 'Client not found.');

@@ -177,146 +177,68 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-    
+    ///this is the timeline of calendar day/time
+    let startDate = '';
+let endDate = '';
 
+// Initialize start date picker
+let startDatePicker = flatpickr("#start_date", { 
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        startDate = dateStr;
+        // Set minDate of end date picker
+        endDatePicker.set('minDate', dateStr);
+    }
+});
 
-    // Delete Client
-    async function deleteClient(id) {
-    const { isConfirmed } = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    });
-
-    if (isConfirmed) {
-        try {
-            const response = await $.ajax({
-                url: '<?= base_url('/clients1/delete/'); ?>' + id, // Adjust URL for your delete route
-                type: 'DELETE',
-                success: function(response) {
-                    // Show success alert
-                    Swal.fire({
-                        title: 'Deleted!',
-                        text: 'The client has been deleted successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    });
-                        window.location.reload();
-                    
-                },
-                error: function(xhr, status, error) {
-                    // Handle AJAX error
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Something went wrong. Please try again later.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        } catch (error) {
+// Initialize end date picker with SweetAlert validation
+let endDatePicker = flatpickr("#end_date", { 
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        endDate = dateStr;
+        // Validate if end date is earlier than start date
+        if (startDate && new Date(endDate) < new Date(startDate)) {
             Swal.fire({
-                title: 'Error!',
-                text: 'There was an error processing your request.',
                 icon: 'error',
+                title: 'Invalid Date Range',
+                text: 'End date cannot be earlier than start date!',
                 confirmButtonText: 'OK'
             });
+            endDatePicker.clear(); // Clear the wrong date
         }
     }
-}
+});
+
+// Time pickers
+flatpickr("#start_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",
+    time_24hr: false
+});
+
+flatpickr("#end_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",
+    time_24hr: false
+});
+
+
+    $("#managePlanModal").on('hidden.bs.modal', function(evt) {
+        editId = 0;
+    });
+
+
+
+    
+
 
 
     
 
     // Edit Client
-    async function editClient(id) {
-    try {
-        const res = await $.get('<?= base_url('/clients1/edit/'); ?>' + id);
-
-        if (res && res.data) {
-            const client = res.data;
-
-            $("#editClientId").val(client.id);
-            $("#editGymcode").val(client.gym_code);
-            $("#editClients1Fname").val(client.first_name);
-            $("#editClients1Lname").val(client.last_name);
-            $("#editClients1Username").val(client.user_name);
-            $("#editClients1Emailaddress").val(client.email_address);
-            $("#editPassword").val(client.password);
-            $("#editGender").val(client.gender);
-            $("#editDateofregistration").val(client.date_of_registration);
-            $("#edittimeslot").val(client.timeslot);
-            $("#editTworkout").val(client.workout_type);
-            $("#editPlans").val(client.plans);
-            $("#editAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#editDuration").val(client.duration);
-            $("#editCoach").val(client.coach);
-
-            $("#editClientModal").modal('show');
-
-            // Fetch plans and set the selected one
-            await fetchEditPlans(client.PlanID);
-
-            // Fetch coaches for the selected plan
-            await fetchEditCoach(client.PlanID, client.CoachID);
-
-        } else {
-            console.error('No data found in the response:', res);
-        }
-    } catch (error) {
-        console.error('Error fetching client data:', error);
-    }
-}
-
-
-
-async function updateClient() {
-    let clientData = {
-        CustomerID: $("#editClientId").val().trim(),
-       // gym_code: $("#editGymcode").val().trim(),
-       Firstname: $("#editClients1Fname").val().trim(),
-       Lastname: $("#editClients1Lname").val().trim(),
-        user_name: $("#edituser").val().trim(),
-        Email: $("#editClients1Emailaddress").val().trim(),
-        Password: $("#editPassword").val().trim(),
-        Gender: $("#editGender").val().trim(),
-        RegisteredDate: $("#editDateofregistration").val().trim(),
-        types_of_workout: $("#editTworkout").val().trim(),
-        GymTimeSlot: $("#timeslot").val().trim(),
-        amount: $("#editAmount").val().trim(),
-        duration: $("#editDuration").val().trim(),
-        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
-        coach: $("#editCoach").val() // Include the coach
-    };
-
-    if (!clientData.first_name || !clientData.last_name || !clientData.email_address ||
-        !clientData.amount || !clientData.duration || !clientData.plan) {
-        alert("Please fill in all required fields.");
-        return;
-    }
     
-    $.ajax({
-        url: '<?= base_url('/clients1/update/'); ?>' + clientData.CustomerID,
-        type: 'POST',
-        data: clientData,
-        success: function(response) {
-            if (response.status === 'success') {
-                alert("Client updated successfully!");
-                window.location.reload();
-            } else {
-                alert("Failed to update client: " + response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error during the update:", error);
-            alert("There was an error updating the client.");
-        }
-    });
-}
 
 
     

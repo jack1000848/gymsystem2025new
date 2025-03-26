@@ -130,22 +130,42 @@ $(document).ready(function(){
     });
 
     ///this is the timeline of calendar day/time
-    let startDatePicker = flatpickr("#start_date", { 
+    let startDate = '';
+let endDate = '';
+
+// Initialize start date picker
+let startDatePicker = flatpickr("#start_date", { 
     dateFormat: "Y-m-d",
     onChange: function(selectedDates, dateStr) {
-        // When start date changes, set the minDate of end date
+        startDate = dateStr;
+        // Set minDate of end date picker
         endDatePicker.set('minDate', dateStr);
     }
 });
 
+// Initialize end date picker with SweetAlert validation
 let endDatePicker = flatpickr("#end_date", { 
-    dateFormat: "Y-m-d"
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        endDate = dateStr;
+        // Validate if end date is earlier than start date
+        if (startDate && new Date(endDate) < new Date(startDate)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date Range',
+                text: 'End date cannot be earlier than start date!',
+                confirmButtonText: 'OK'
+            });
+            endDatePicker.clear(); // Clear the wrong date
+        }
+    }
 });
 
+// Time pickers
 flatpickr("#start_time", { 
     enableTime: true, 
     noCalendar: true, 
-    dateFormat: "h:i K",   // h = hour 12-hour, i = minute, K = AM/PM
+    dateFormat: "h:i K",
     time_24hr: false
 });
 

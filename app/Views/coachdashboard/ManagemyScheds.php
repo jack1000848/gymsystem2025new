@@ -154,7 +154,7 @@ $this->section('body');
         method: "POST",
         data: formData,
         success: function (response) {
-            console.log(response); // DEBUG
+            console.log('Serialized:', formData); // <-- CHECK THIS OUTPUT!
             $('#editClientModal').modal('hide');
             Swal.fire('Updated!', 'Schedule has been updated.', 'success')
                 .then(() => { location.reload(); });
@@ -169,7 +169,8 @@ $this->section('body');
             method: "GET",
             dataType: "JSON",
             success: function (data) {
-                $('#editClientId').val(data.ID);
+                $('#editClientId').val(data.ID);  // data.ID should be valid (like 1, 2, 3)
+
                 $('#edit_start_date').val(data.ScheduleDate);
                 $('#edit_start_time').val(data.Start);
                 $('#edit_end_date').val(data.ScheduleDate);

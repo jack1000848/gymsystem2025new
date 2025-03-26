@@ -86,18 +86,22 @@ class CoachDashboardController extends BaseController
 
     public function update()
 {
-    $id = $this->request->getPost('id');  // lowercase
+    $id = $this->request->getPost('id');  // must match name="id"
+    
+    if (!$id) {
+        return $this->response->setStatusCode(400)->setJSON(['status' => 'failed', 'message' => 'Invalid ID']);
+    }
+
     $data = [
         'ScheduleDate' => $this->request->getPost('startdate'),
         'Start'        => $this->request->getPost('starttime'),
         'End'          => $this->request->getPost('endtime'),
     ];
 
-    if ($id) {
-        $this->scheduleModel->update($id, $data);
+    if ($this->scheduleModel->update($id, $data)) {
         return $this->response->setJSON(['status' => 'success']);
     } else {
-        return $this->response->setStatusCode(400)->setJSON(['status' => 'failed', 'message' => 'Invalid ID']);
+        return $this->response->setStatusCode(500)->setJSON(['status' => 'failed', 'message' => 'Failed to update']);
     }
 }
 

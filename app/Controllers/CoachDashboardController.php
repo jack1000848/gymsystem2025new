@@ -32,16 +32,17 @@ class CoachDashboardController extends BaseController
     }
     
     public function storemanage()
-    { 
+    {  
         $model = new CoachScheduleModel();
     
         // Validate POST data
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'startdate' => 'required',
-            'starttime' => 'required',
-            'enddate'   => 'required',
-            'endtime'   => 'required'
+            'startdate'   => 'required',
+            'starttime'   => 'required',
+            'enddate'     => 'required',
+            'endtime'     => 'required',
+            'customer_id' => 'required'  // ✅ Make sure CustomerID is required or properly handled
         ]);
     
         if (!$validation->withRequest($this->request)->run()) {
@@ -52,11 +53,28 @@ class CoachDashboardController extends BaseController
         }
     
         // Get the inputs
-        $startDate = $this->request->getPost('startdate');
-        $startTime = $this->request->getPost('starttime');
-        $endDate   = $this->request->getPost('enddate');
-        $endTime   = $this->request->getPost('endtime');  // ✅ FIXED: Fetch the end time properly
-        $coachID = session()->get('CoachID'); // Assuming the coach is logged in
+        $startDate  = $this->request->getPost('startdate');
+        $startTime  = $this->request->getPost('starttime');
+        $endDate    = $this->request->getPost('enddate');
+        $endTime    = $this->request->getPost('endtime');  // ✅ FIXED: Fetch the end time properly
+        $customerID = $this->request->getPost('customer_id');  // ✅ Get CustomerID from the form
+        $coachID    = session()->get('CoachID'); // ✅ Assuming the coach is logged in and stored in session
+    
+        // ✅ Check if CoachID exists
+        if (!$coachID) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'CoachID is missing from session.'
+            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+        }
+    
+        // ✅ Check if CustomerID is valid
+        if (!$customerID) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'CustomerID is required.'
+            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+        }
     
         // Combine date and time into one datetime format
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
@@ -68,14 +86,15 @@ class CoachDashboardController extends BaseController
             'ScheduleDate' => $startDate,
             'Start'        => $start,
             'End'          => $end,
-            'CustomerID'   => null // You can update this if you have CustomerID
+            'CustomerID'   => $customerID  // ✅ Use the actual CustomerID (no null)
         ]);
     
         return $this->response->setJSON([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Schedule saved successfully'
         ]);
     }
+    
     
 
 

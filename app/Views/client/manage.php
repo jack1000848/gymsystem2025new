@@ -347,10 +347,10 @@
 
     // Generate QR Codes for all Coach
     window.onload = function () {
-        <?php foreach ($coaches as $coach) : ?>
-            generateQRCode(<?= $coach['CoachID']; ?>);
-        <?php endforeach; ?>
-    };
+    <?php foreach ($coaches as $coach) : ?>
+        generateQRCode("<?= $coach['CoachID']; ?>");
+    <?php endforeach; ?>
+};
 
     document.getElementById("clientEmail").addEventListener("input", function() {
     var emailInput = this.value;

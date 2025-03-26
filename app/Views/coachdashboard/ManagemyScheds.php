@@ -145,20 +145,23 @@ $this->section('body');
 
         // Update Schedule AJAX
         $('#editClientForm').submit(function (e) {
-            e.preventDefault();
-            let formData = $(this).serialize();
-            $.ajax({
-                url: "<?= site_url('/coach-manage/update/') ?>",
-                method: "POST",
-                data: formData,
-                success: function (response) {
-                    $('#editClientModal').modal('hide');
-                    Swal.fire('Updated!', 'Schedule has been updated.', 'success')
-                        .then(() => { location.reload(); });
-                }
-            });
-        });
+    e.preventDefault();
+    let formData = $(this).serialize();
+    console.log('Serialized Data:', formData); // DEBUG
+
+    $.ajax({
+        url: "<?= site_url('/coach-manage/update/') ?>",
+        method: "POST",
+        data: formData,
+        success: function (response) {
+            console.log(response); // DEBUG
+            $('#editClientModal').modal('hide');
+            Swal.fire('Updated!', 'Schedule has been updated.', 'success')
+                .then(() => { location.reload(); });
+        }
     });
+});
+
 
     function editPlan(id) {
         $.ajax({

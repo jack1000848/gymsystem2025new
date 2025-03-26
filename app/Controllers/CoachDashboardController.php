@@ -17,7 +17,7 @@ class CoachDashboardController extends BaseController
         $this->coachScheduleModel = new CoachScheduleModel();
          $this->timeModel = new TimeScheduleModel();
          $this->scheduleModel = model(CoachScheduleModel::class);
-         $this->coachModel = new CoachModel();
+         $this->coachModel = model(CoachModel::class);
     }
     public function dashboardindex()
     {

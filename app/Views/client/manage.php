@@ -213,8 +213,8 @@
 
     // Generate QR Codes for all clients
     window.onload = function () {
-        <?php foreach ($clients1 as $client) : ?>
-            generateQRCode(<?= $client['CustomerID']; ?>);
+        <?php foreach ($coaches as $coach) : ?>
+            generateQRCode(<?= $coach['CoachID']; ?>);
         <?php endforeach; ?>
     };
 

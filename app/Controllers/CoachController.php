@@ -56,13 +56,8 @@ class CoachController extends BaseController
       
     }
 
-        if($img = $this->request->getFile('clientProfile'))  {
-             if($img->isValid() && ! $img->hasMoved())  {
-              $imageName = $img->getRandomName();
-             $img->move('uploads/', $imageName); 
-
-             }
-        }
+        
+        
     
         $data = array(
             'Firstname'  => $this->request->getPost('clientFirst'),
@@ -70,7 +65,7 @@ class CoachController extends BaseController
             'Password'   => $this->request->getPost('password'),
             'address'    => $this->request->getPost('clientAdress'), // Add 'address' to $allowedFields if not present
             'Email'      => $this->request->getPost('clientEmail'),
-            'Avatar'     => $imageName,
+           // 'Avatar'     => $imageName,
             'RegisteredDate' => date('Y-m-d H:i:s'), // Automatically set registration date
         );
         

@@ -80,7 +80,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
-  <form id="planForm" method="POST">
+  <form id="planForm" action = "<?= site_url('coach-manage/store'); ?>" method="POST">
 
  <div class="mb-3">
      <label for="exampleFormControlInput1" class="form-label">Start Date:</label>
@@ -105,7 +105,7 @@
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
   </div>
-</form>
+
   
   
 </div>
@@ -130,7 +130,6 @@ $(document).ready(function(){
         responsive: true
     });
 
-    
     ///this is the timeline of calendar day/time
     let startDate = '';
 let endDate = '';});
@@ -178,7 +177,7 @@ flatpickr("#end_time", {
     time_24hr: false
 });
 
-    
+
     $("#managePlanModal").on('hidden.bs.modal', function(evt) {
         editId = 0;
     });
@@ -238,27 +237,31 @@ flatpickr("#end_time", {
     });
         return;        
     }
-   $('#btn-save').on('click', function(e) {
-    e.preventDefault(); // optional safety
+
+    $('#btn-save').on('click', function (e) {
+    e.preventDefault(); // STOP default GET behavior
 
     var data = new FormData($('#planForm')[0]);
 
     $.ajax({
-        url: '<?= site_url('coach-manage/store'); ?>', // Must match POST route
-        type: 'POST',
+        url: "<?= site_url('coach-manage/store') ?>", // POST route mo
+        type: "POST",
         data: data,
         contentType: false,
         processData: false,
-        success: function(response) {
+        success: function (response) {
+            console.log(response);
             Swal.fire('Success!', 'Data saved.', 'success');
-            // Optionally reload or redirect
         },
-        error: function() {
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
             Swal.fire('Error!', 'Saving failed.', 'error');
         }
     });
 });
+
 });
+
 
 async function editPlan(id){
 

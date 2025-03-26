@@ -1,3 +1,9 @@
+<?php
+    $this ->extend('layout/maincoach');
+    $this ->section('body');
+
+    ?>
+
 <div class="card">
     <h3>My QR Code</h3>
     <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px;">
@@ -24,3 +30,4 @@
         generateQRCode(coachID);
     };
 </script>
+<?php $this->endSection(); ?> 

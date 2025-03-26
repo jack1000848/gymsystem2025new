@@ -34,7 +34,7 @@ class CoachDashboardController extends BaseController
      public function storemanage()
      {
 
-        dd(session()->get());
+       
          // Validate input (optional but recommended)
          $validation = \Config\Services::validation();
          $rules = [

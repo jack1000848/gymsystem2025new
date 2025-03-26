@@ -140,9 +140,17 @@ $this->section('body'); // Start the body section
 
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script   script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
     $(document).ready(function () {
         // Initialize DataTable
@@ -166,7 +174,52 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-    
+     ///this is the timeline of calendar day/time
+     let startDate = '';
+let endDate = '';});
+
+// Initialize start date picker
+let startDatePicker = flatpickr("#start_date", { 
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        startDate = dateStr;
+        // Set minDate of end date picker
+        endDatePicker.set('minDate', dateStr);
+    }
+});
+
+// Initialize end date picker with SweetAlert validation
+let endDatePicker = flatpickr("#end_date", { 
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        endDate = dateStr;
+        // Validate if end date is earlier than start date
+        if (startDate && new Date(endDate) < new Date(startDate)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date Range',
+                text: 'End date cannot be earlier than start date!',
+                confirmButtonText: 'OK'
+            });
+            endDatePicker.clear(); // Clear the wrong date
+        }
+    }
+});
+
+// Time pickers
+flatpickr("#start_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",
+    time_24hr: false
+});
+
+flatpickr("#end_time", { 
+    enableTime: true, 
+    noCalendar: true, 
+    dateFormat: "h:i K",
+    time_24hr: false
+});
 
 
     // Delete Client

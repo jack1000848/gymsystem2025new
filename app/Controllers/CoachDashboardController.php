@@ -12,6 +12,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class CoachDashboardController extends BaseController 
 {
+    protected $coachModel; // Declare the model
     public function __construct()
     {
         $this->coachScheduleModel = new CoachScheduleModel();

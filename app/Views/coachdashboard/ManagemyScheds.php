@@ -32,7 +32,7 @@ $this->section('body');
             <tbody>
                 <?php foreach ($sched as $schedule): ?>
                     <tr>
-                        <th scope="row"><?= $schedule['ScheduleID']; ?></th>
+                        <th scope="row"><?= $schedule['ID']; ?></th>
                         <td><?= $schedule['ScheduleDate']; ?></td>
                         <td><?= $schedule['Start']; ?></td>
                         <td><?= $schedule['End']; ?></td>

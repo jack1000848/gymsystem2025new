@@ -32,7 +32,7 @@
             <th>Password</th>
             <th>Address</th>
             <th>Email</th>
-            <th>Create Profile</th>
+            <th>QR Code</th>
             <th>Action</th>
 
 
@@ -47,7 +47,7 @@
         <td><?= $coach['Password']; ?></td>
         <td></td>
         <td><?= $coach['Email']; ?></td>
-        <td><img src="/uploads/<?= $coach['Avatar']; ?>" alt="Profile" width="100"></td>
+        <<td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
         <td>
 
     <span onclick="editCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">
@@ -334,6 +334,40 @@
         }
     }
 }
+            // Function to generate QR Code
+    function generateQRCode(coachid) {
+        const qr = new QRious({
+            element: document.createElement('canvas'),
+            value: `${coachid}`,
+            size: 200,
+            background: 'white',
+            foreground: 'black',
+        });
+
+        const qrImageElement = document.getElementById('qrCodeImage' + coachid);
+    if (qrImageElement) {
+        qrImageElement.src = qr.toDataURL();
+        }
+    }
+
+    // Generate QR Codes for all clients
+    window.onload = function () {
+        <?php foreach ($coaches as $coach) : ?>
+            generateQRCode(<?= $coach['CoachID']; ?>);
+        <?php endforeach; ?>
+    };
+
+    document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    var emailInput = this.value;
+    var emailError = document.getElementById("emailError");
+    
+    if (!emailInput.endsWith("@gmail.com")) {
+        emailError.style.display = "block";
+    } else {
+        emailError.style.display = "none";
+    }
+    });
+
 
   }
   async function deleteCoach(id) {

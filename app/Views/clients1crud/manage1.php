@@ -60,7 +60,7 @@ $this->section('body'); // Start the body section
                                  class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">
                                     <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
                            </span>
-                           <a href="/clients1/view/<?= $client['CustomerID']; ?>" class="btn btn-sm btn-info">View</a>
+                           <a href="<?= base_url('clients1/view/' . $client['CustomerID']); ?>" class="btn btn-sm btn-info">View</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

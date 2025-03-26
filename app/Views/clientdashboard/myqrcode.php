@@ -11,17 +11,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
     function generateQRCode(customerID) {
-        if (!customerID) return;
+    if (!customerID) return;
 
-        const qr = new QRious({
-            value: String(customerID), // Convert to string
-            size: 200, // Adjust size for dashboard
-            background: 'white',
-            foreground: 'black'
-        });
+    // Adjust size based on screen width
+    let qrSize = window.innerWidth < 768 ? 300 : 200; // 300px for mobile, 200px for desktop
 
-        document.getElementById('qrCodeImage').src = qr.toDataURL();
-    }
+    const qr = new QRious({
+        value: String(customerID), // Convert to string
+        size: qrSize, // Adjust size dynamically
+        background: 'white',
+        foreground: 'black'
+    });
+
+    document.getElementById('qrCodeImage').src = qr.toDataURL();
+}
 
     // Fetch Coach ID from session (make sure session data is available in your controller)
     window.onload = function () {

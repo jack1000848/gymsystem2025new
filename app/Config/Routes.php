@@ -127,11 +127,11 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
  $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 // Coach Dashboard
-$routes->get('/coachdashboard', 'CoachDashboardController::index');
+$routes->get('/coachdashboard', 'CoachDashboardController::index', ['filter' => 'login']);
 
 /// Manage my Schedule
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
-$routes->get('/coach-manage', 'CoachDashboardController::coachManage', ['filter' => 'login']);
+$routes->get('/coach-manage', 'CoachDashboardController::coachManage');
 $routes->post('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('coach-manage/store', 'CoachDashboardController::storemanage');
 $routes->get('/coach-manage/edit/(:num)', 'CoachDashboardController::edit/$1');

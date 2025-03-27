@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($viewequipment as $equipment): ?>
+    <?php foreach ($viewequipment1 as $equipment): ?>
 
 <tr>
 <td><?= $equipment['Description']; ?></td>

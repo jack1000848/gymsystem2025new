@@ -68,7 +68,7 @@
                             <a href="<?= base_url('coach-timemanage') ?>" class="nav-link">View my Clients</a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
+                            <a href="<?= base_url('viewequipment1') ?>" class="nav-link">View Gym Equipment</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
@@ -104,7 +104,7 @@
                             <a href="<?= base_url('coach-timemanage') ?>" class="nav-link">View my Clients</a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
+                            <a href="<?= base_url('viewequipment1') ?>" class="nav-link">View Gym Equipment</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>

@@ -72,23 +72,26 @@
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="hold-transition sidebar-mini">
-    <div class="app-wrapper"> <!--begin::Header-->
-        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-                
-            <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+
+        <!-- Navbar -->
+        <nav class="app-header navbar navbar-expand bg-body">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+
+                <!-- Hamburger Button for mobile -->
+                <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
                     <i class="bi bi-list fs-3"></i>
                 </button>
-                <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                    
-                    <li class="nav-item dropdown"> 
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    
-                                </div> <!--end::Message-->
-                            </a>
-                            <!-- Sidebar Offcanvas (for mobile) -->
+
+                <div class="d-none d-md-block">
+                    <!-- Optional additional Navbar content -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar Offcanvas (for mobile) -->
         <div class="offcanvas offcanvas-start bg-body-secondary shadow" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title">ISHOW FITNESS GYM</h5>
@@ -120,12 +123,6 @@
                 </nav>
             </div>
         </div>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                            </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
-                    
                     
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
                             <li class="user-footer">

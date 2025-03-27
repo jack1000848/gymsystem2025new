@@ -22,6 +22,10 @@ class CustomerController extends BaseController
 
 
 {
+    public function __construct()
+    {
+        $this->session = session(); // Initialize session
+    }
  
     public function index()
     {

@@ -35,7 +35,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'frozenCheck' => \App\Filters\FrozenCheck::class,
-        'login'     => \App\Filters\LoginCheck::class,  // ✅ Add this
+        'loginCheck'     => \App\Filters\LoginCheck::class,  // ✅ Add this
     ];
 
     /**

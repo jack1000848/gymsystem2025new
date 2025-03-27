@@ -15,50 +15,47 @@ use App\Models\CustomerModel;
  
 
     public function authenticate()
-{ 
-    $session = session();
-    $customerModel = new CustomerModel();
+    {
+        $session = session();
+        $customerModel = new CustomerModel();
+        $coachModel = new LoginCoachModel();
 
-    // Get email and password from the POST request
-    $email = $this->request->getPost('email');
-    $password = $this->request->getPost('password');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+        $role = $this->request->getPost('role');
 
-    // Fetch the client record by email
-    $client = $customerModel->where('Email', $email)->first();
+        if ($role == 'Client') {
+            $user = $customerModel->where('Email', $email)->first();
+            $dashboard = '/clientdashboard';
+        } else {
+            $user = $coachModel->where('Email', $email)->first();
+            $dashboard = '/coachdashboard';
+        }
 
-    if (!$client) {
-        return redirect()->back()->with('error', 'No account found.');
+        if (!$user) {
+            return redirect()->back()->with('error', 'No account found.');
+        }
+
+        if (isset($user['is_frozen']) && $user['is_frozen']) {
+            return redirect()->back()->with('error', 'Your account is disabled. Please contact admin.');
+        }
+
+        if (isset($user['is_verified']) && $user['is_verified'] == 0) {
+            return redirect()->back()->with('error', 'Your account is not verified. Please check your email.');
+        }
+
+        if ($user['Password'] === $password) { 
+            $session->set([
+                'isLoggedIn' => true,
+                'UserID' => $user['CustomerID'] ?? $user['CoachID'], 
+                'Email' => $user['Email'],
+                'role' => $role
+            ]);
+            return redirect()->to($dashboard);
+        } else {
+            return redirect()->back()->with('error', 'Invalid password.');
+        }
     }
-
-    // Check if account is frozen/disabled
-    if ($client['is_frozen']) {
-        return redirect()->back()->with('error', 'Your account is disabled. Please contact admin.');
-    }
-
-    // Check if the account is verified
-    if ($client['is_verified'] == 0) {  // Assuming 0 means not verified
-        return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
-    }
-
-    // Check the password (Use password_verify if password is hashed)
-    if ($client['Password'] === $password) {  // Change to password_verify() if needed
-        // Set session data
-        $session->set([
-            'isLoggedIn' => true,
-            'CustomerID' => $client['CustomerID'],
-            'Email' => $client['Email'],
-            'role' => 'Client',
-            'logged_in' => true, // Optional but if you use it somewhere, keep it
-        ]);
-
-        // Optional: If you want to set CustomerID again as you requested
-        session()->set('CustomerID', $client['CustomerID']); 
-
-        return redirect()->to('/clientdashboard');
-    } else {
-        return redirect()->back()->with('error', 'Invalid password.');
-    }
-}
 
     
 

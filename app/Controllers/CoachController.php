@@ -20,7 +20,12 @@ class CoachController extends BaseController
 
 
     public function index()
-    {
+    {   
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
+
+
         $fetchClient = new CoachModel();
         $data['coaches'] = $fetchClient->findAll();
         $maxId = $fetchClient->selectMax('coachid')->first(); 
@@ -44,11 +49,8 @@ class CoachController extends BaseController
     }
 
     public function storeClient()
-
+    
     {
-        if (!$this->session->has('logged_in')) {
-            return redirect()->to('/joinus')->with('error', 'Please log in first.');
-        }
         $insertClients = new CoachModel();
          // Retrieve the email from the form input
     $email = $this->request->getPost('clientEmail');

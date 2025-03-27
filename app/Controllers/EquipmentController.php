@@ -9,8 +9,17 @@ use App\Models\EquipmentModel;
 class EquipmentController extends BaseController
 {
 
+    public function __construct()
+    {
+        $this->session = session(); // Initialize session
+    }
     public function index()
 {
+
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+    }
+    
     $fetchEquipment =new EquipmentModel();
         $data['gymequipment'] = $fetchEquipment ->findAll();
 

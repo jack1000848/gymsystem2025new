@@ -32,6 +32,9 @@ class CoachDashboardController extends BaseController
     ///here's the coach manage my schedules
      public function coachManage()
     {
+        if (!session()->has('CoachID')) {
+            return redirect()->to('/member-login'); // Redirect if not logged in
+        }
         $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
         if (!$coachID) {
@@ -47,6 +50,9 @@ class CoachDashboardController extends BaseController
     // Store Schedule
     public function storemanage()
     {
+        if (!session()->has('CoachID')) {
+            return redirect()->to('/member-login'); // Redirect if not logged in
+        }
         $validation = \Config\Services::validation();
         $rules = [
             'startdate' => 'required',

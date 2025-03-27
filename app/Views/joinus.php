@@ -38,7 +38,7 @@
                 <h1>Welcome to</h1>
                 <h1>Admin Login</h1>
             </div>
-            <form action="<?= base_url('auth/login') ?>" method="post">
+            <form action="<?= base_url('admin-login') ?>" method="post">
     <input type="text" name="username" id="username" placeholder="Username" required>
     <input type="password" name="password" id="password" placeholder="Password" required>
     <button type="submit">Login</button>

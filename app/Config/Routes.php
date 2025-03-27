@@ -152,5 +152,8 @@ $routes->delete('/coach-timemanage/delete/(:num)', 'CoachDashboardController::de
 
 ///coach-qr
 $routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
+
+//// view equipments
+$routes->get('/viewequipment1', 'ViewEquipmentController::indexviewequipment1');
 ///Logout...
 $routes->get('/logout', 'CoachDashboardController::logout');

@@ -18,6 +18,15 @@ class ViewEquipmentController extends BaseController
         return view('clientdashboard/ViewGymEquipment', $data);
     }
 
+    public function indexviewequipment1()
+    {
+      
+        $fetchview =new ViewEquipmentModel();
+        $data['viewequipment1'] = $fetchview ->findAll();
+
+        return view('coachdashboard/viewequipment', $data);
+    }
+
     
    // public function indexviewequipment()
    // {

@@ -78,11 +78,12 @@
                 
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
                     
-                button id="menu-toggle" class="btn btn-primary d-lg-none" style="position: fixed; top: 10px; left: 10px; z-index: 1050;">
-        <i class="bi bi-list"></i>
-    </button>
+                    <li class="nav-item dropdown"> 
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                                     
-                                    <div class="app-wrapper">
+                                <div class="app-wrapper">
         <!-- Sidebar -->
         <aside id="sidebar" class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="transform: translateX(-100%); transition: transform 0.3s ease-in-out;">
             <div class="sidebar-brand"> 

@@ -30,7 +30,10 @@ class Admin extends BaseController
 
     public function index()
     {
-        
+        if (!session()->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please login first.');
+        }
+    
 
         // Call the private function using $this
         $totalClient = $this->getCount('coach');

@@ -19,6 +19,9 @@ class ClientsDashboardController extends BaseController
     
     public function index()
     {
+        if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
         return view('clientdashboard/index');
     }
     

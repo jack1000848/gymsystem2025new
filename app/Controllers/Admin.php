@@ -6,6 +6,17 @@ use Config\Database;
 
 class Admin extends BaseController
 {
+
+    public function __construct()
+{
+    helper('url');
+    $this->session = session();
+
+    // Prevent back button after logout
+    header("Cache-Control: no-cache, no-store, must-revalidate");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+}
     private function getCount($tableName)
     {
         $db = \Config\Database::connect();
@@ -43,8 +54,12 @@ class Admin extends BaseController
 
     public function logout()
 {
-    session()->destroy(); // Destroy all session data
-    return redirect()->to('/joinus')->with('success', 'You have been logged out.');
+    $session = session();
+    $session->destroy();
+    return redirect()->to('/joinus')->withHeaders([
+        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+        'Pragma' => 'no-cache',
+    ]);
 }
 
 

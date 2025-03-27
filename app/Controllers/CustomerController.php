@@ -121,6 +121,7 @@ class CustomerController extends BaseController
     }
     public function storeClients1()
      {
+        
         $insertClients = new CustomerModel ();
 
         // Retrieve the email from the form input

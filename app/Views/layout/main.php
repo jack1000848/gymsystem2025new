@@ -72,57 +72,43 @@
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="hold-transition sidebar-mini">
-
-    <!-- App Wrapper -->
-    <div class="app-wrapper">
-
-        <!-- Navbar -->
-        <nav class="app-header navbar navbar-expand bg-body">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-
-                <!-- Hamburger Button for mobile -->
-                <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+    <div class="app-wrapper"> <!--begin::Header-->
+        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Start Navbar Links-->
+                
+            <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
                     <i class="bi bi-list fs-3"></i>
                 </button>
-
-                <div class="d-none d-md-block">
-                    <!-- Optional additional Navbar content -->
-                </div>
-            </div>
-        </nav>
-
-        <!-- Sidebar Offcanvas (for mobile) -->
-        <div class="offcanvas offcanvas-start bg-body-secondary shadow" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title">ISHOW FITNESS GYM</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-
-            <!-- Sidebar Content -->
-            <div class="offcanvas-body p-0">
-                <nav class="mt-2">
-                    <ul class="nav flex-column" role="menu">
-                        <li class="nav-item menu-open">
-                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active">
-                                <i class="bi bi-speedometer nav-icon"></i> Home
+                <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
+                    
+                    <li class="nav-item dropdown"> 
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
+                                    
+                                </div> <!--end::Message-->
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/client-qr') ?>" class="nav-link">My Qr Code</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">To-Do</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                
+                            </a>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
+                                    <div class="flex-grow-1">
+                                        <h3 class="dropdown-item-title">
+                                            Nora Silvester
+                                            <span class="float-end fs-7 text-warning"> <i class="bi bi-star-fill"></i> </span>
+                                        </h3>
+                                        <p class="fs-7">The subject goes here</p>
+                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+                                        </p>
+                                    </div>
+                                </div> <!--end::Message-->
+                            </a>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        </div>
+                    </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
+                    
                     
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
                             <li class="user-footer">

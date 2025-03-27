@@ -46,6 +46,7 @@ $routes->post('/logout', 'LoginClientController::logout');
  // admin login/ Dashboard, Scan your ID, Participant Log, Manage Client, Manage Coach, Manage Equipment,Plans, Logout///
  
  $routes->get('/joinus', 'Home::joinus');
+ $routes->post('/admin-login', 'Admin::login');
  ///admin dashboard
  $routes->get('/admin', 'Admin::index' );
                     

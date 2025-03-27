@@ -129,7 +129,9 @@ class CoachDashboardController extends BaseController
 
         public function coachtimeManage(){
 
-           
+            if (!session()->has('CoachID')) {
+                return redirect()->to('/coach-login'); // Redirect if not logged in
+            }
             $db = \Config\Database::connect();
             $sql = "SELECT * FROM ViewCoachSchedule";
             $query = $db->query($sql);

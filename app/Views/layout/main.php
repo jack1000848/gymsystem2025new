@@ -71,11 +71,14 @@
     </style>
 </head> <!--end::Head--> <!--begin::Body-->
 
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
+<body class="hold-transition sidebar-mini">
     <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 
+            <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
                     
                     <li class="nav-item dropdown"> 

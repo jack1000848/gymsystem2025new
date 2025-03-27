@@ -30,7 +30,7 @@ class ClientsDashboardController extends BaseController
     public function myqrcode()
     {   
         if (!session()->has('CustomerID')) {
-            return redirect()->to('/member-login'); // Redirect if not logged in
+            return redirect()->to('/member-login')->with('error', 'Please login first.'); // Redirect if not logged in
         }
 
         $customerID = session()->get('CustomerID'); // Get logged-in Customer ID

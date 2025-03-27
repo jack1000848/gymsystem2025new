@@ -25,6 +25,9 @@ class CustomerController extends BaseController
  
     public function index()
     {
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
         $fetchClients1 =new CustomerModel();
         $data['clients1'] = $fetchClients1 ->findAll();
       

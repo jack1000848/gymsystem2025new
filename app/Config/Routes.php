@@ -47,7 +47,7 @@ $routes->post('/logout', 'LoginClientController::logout');
  
  $routes->get('/joinus', 'Home::joinus');
  ///admin dashboard
- $routes->get('/admin', 'Admin::index' );
+ $routes->get('/admin', 'Admin::index' ,['filter' => 'loginCheck']);
                     
  ///Scan ur ID...
 $routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');

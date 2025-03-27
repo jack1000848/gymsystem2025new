@@ -11,6 +11,9 @@ class ViewEquipmentController extends BaseController
 
     public function indexviewequipment()
     {
+        if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
       
         $fetchview =new ViewEquipmentModel();
         $data['viewequipment'] = $fetchview ->findAll();

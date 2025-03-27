@@ -34,12 +34,6 @@
                 <label for="password"></label>
                 <input type="password" name="password" id="password" placeholder="Password" required>
 
-                <label for="role">Login as:</label>
-                <select name="role" id="role" required>
-                    <option value="Client">Member</option>
-                    <option value="Coach">Coach</option>
-                </select>
-                
                 <br><br>
                 <button type="submit">Login</button>
                 <a href="<?= base_url('join-now') ?>" class="register">Signup</a>

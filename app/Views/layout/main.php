@@ -88,22 +88,39 @@
                                     
                                 </div> <!--end::Message-->
                             </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                
+                            <!-- Sidebar Offcanvas (for mobile) -->
+        <div class="offcanvas offcanvas-start bg-body-secondary shadow" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">ISHOW FITNESS GYM</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <!-- Sidebar Content -->
+            <div class="offcanvas-body p-0">
+                <nav class="mt-2">
+                    <ul class="nav flex-column" role="menu">
+                        <li class="nav-item menu-open">
+                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active">
+                                <i class="bi bi-speedometer nav-icon"></i> Home
                             </a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Nora Silvester
-                                            <span class="float-end fs-7 text-warning"> <i class="bi bi-star-fill"></i> </span>
-                                        </h3>
-                                        <p class="fs-7">The subject goes here</p>
-                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div> <!--end::Message-->
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('/client-qr') ?>" class="nav-link">My Qr Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">To-Do</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                             </a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                         </div>

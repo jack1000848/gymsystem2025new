@@ -9,8 +9,19 @@ use App\Models\QrAttendanceLogModel;
 
 class QrAttendanceController extends Controller
 {
+    protected $session; // Declare session variable
+
+    public function __construct()
+    {
+        $this->session = session(); // Initialize session
+    }
+
     public function save($id)
 {
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+    }
+
     $customerPlanModel = new CustomerPlanModel();
     $qrAttendanceModel = new QrAttendanceModel();
 

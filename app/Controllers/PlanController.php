@@ -10,8 +10,18 @@ use App\Models\CoachPlanModel;
 
 class PlanController extends BaseController
 {
+    protected $session; // Declare session variable
+
+    public function __construct()
+    {
+        $this->session = session(); // Initialize session
+    }
     public function indexgymplan()
     {
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
+            
         $fetchPlan =new PlanModel();
         $fetchCoaches = new CoachModel();
         $data['coaches'] = $fetchCoaches->findAll();

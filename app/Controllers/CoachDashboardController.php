@@ -22,9 +22,7 @@ class CoachDashboardController extends BaseController
     }
     public function dashboardindex()
     {
-        if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
-            return redirect()->to('/coach-login')->with('error', 'Please login first.');
-        }
+        
         return view('coachdashboard/index');
     }
 

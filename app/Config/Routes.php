@@ -156,4 +156,4 @@ $routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
 //// view equipments
 $routes->get('/viewequipment1', 'ViewEquipmentController::indexviewequipment1');
 ///Logout...
-$routes->get('/logout', 'CoachDashboardController::logout');
+$routes->get('/coach-logout', 'CoachDashboardController::logout');

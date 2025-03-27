@@ -128,7 +128,7 @@
 
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
+                            <a href="<?= base_url('/coach-logout') ?>" class="nav-link"> 
                                 <i class=""></i>
                                 <p>Logout</p>
                             </a>

@@ -22,6 +22,9 @@ class CoachDashboardController extends BaseController
     }
     public function dashboardindex()
     {
+        if (!session()->has('CoachID')) {
+            return redirect()->to('/member-login'); // Redirect if not logged in
+        }
         
         return view('coachdashboard/index');
     }

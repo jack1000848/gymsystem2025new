@@ -117,7 +117,7 @@
 
 
             
-        <button type="submit" class="btn btn-primary">Submit</button><br>
+        <button type="submit" class="btn btn-primary">Submit</button><br> <br>
          
         <a href="<?= base_url('member-login') ?>" class="register">Back to Login</a>
 

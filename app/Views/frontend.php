@@ -29,7 +29,7 @@
         </ul>
 
         <div class="top-btn">
-            <a href="<?= base_url('joinus') ?>" class="nav-btn">Join Us</a>
+            <a href="<?= base_url('join-now') ?>" class="nav-btn">Join Us</a>
         </div>
     </header>
 
@@ -43,7 +43,7 @@
             <p>Lorem ipsum dolor sit, bus earum, aliquam ipsa repellat iusto esse laudantium animi vitae consectetur
                 obcaecati.</p>
 
-            <a href="<?= base_url('joinus') ?>" class="btn">Join Us</a>
+            <a href="<?= base_url('join-now') ?>" class="btn">Join Us</a>
             
         </div>
 
@@ -136,7 +136,7 @@
                     <li>Smart workout plan</li>
                     <li>At home workouts</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -149,7 +149,7 @@
                     <li>Smart workout plan</li>
                     <li>At home workouts</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -164,7 +164,7 @@
                     <li>At home workouts</li>
                     <li>Personal Training</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>

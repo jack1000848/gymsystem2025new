@@ -18,7 +18,7 @@ use App\Models\CustomerModel;
     {
         $session = session();
         $customerModel = new CustomerModel();  // Model for Clients
-        $coachModel = new LoginCoachModel();   // Model for Coaches
+        $coachModel = new ClientloginModel();   // Model for Coaches
 
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');

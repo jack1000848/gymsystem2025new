@@ -77,7 +77,9 @@
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                    
+                <button id="menu-toggle" class="btn btn-primary d-lg-none" style="position: fixed; top: 10px; left: 10px; z-index: 1050;">
+        <i class="bi bi-list"></i>
+    </button>
                     <li class="nav-item dropdown"> 
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
                                 <div class="d-flex">
@@ -294,6 +296,15 @@
         cardHeaders.forEach((cardHeader) => {
             cardHeader.style.cursor = "move";
         });
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            if (sidebar.style.transform === 'translateX(-100%)') {
+                sidebar.style.transform = 'translateX(0)';
+            } else {
+                sidebar.style.transform = 'translateX(-100%)';
+            }
+        });
+
     </script> <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script> <!-- ChartJS -->
     <script>

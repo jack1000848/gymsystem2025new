@@ -16,6 +16,9 @@ use Endroid\QrCode\Color\Color;
 class CoachController extends BaseController
 
 {
+   
+
+
     public function index()
     {
         $fetchClient = new CoachModel();

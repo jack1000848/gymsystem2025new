@@ -6,11 +6,13 @@ use Config\Database;
 
 class Admin extends BaseController
 {
+    
 
     public function __construct()
 {
     helper('url');
     $this->session = session();
+    
 
     // Prevent back button after logout
     header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -30,7 +32,9 @@ class Admin extends BaseController
 
     public function index()
     {
-        
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
     
 
         // Call the private function using $this
@@ -53,6 +57,24 @@ class Admin extends BaseController
         return view('/admin/index', $data);
     }
 
+    public function login()
+    {
+        $session = session();
+        $request = service('request');
+
+        // Get form input
+        $username = $request->getPost('username');
+        $password = $request->getPost('password');
+
+        // Hardcoded admin credentials (replace with database check)
+        if ($username === 'admin' && $password === 'admin') {
+            $session->set('logged_in', true);
+            return redirect()->to('/admin');
+        } else {
+            return redirect()->to('/joinus')->with('error', 'Invalid username or password.');
+        }
+    }
+    
     public function logout()
 {
     $session = session();

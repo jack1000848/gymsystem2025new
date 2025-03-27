@@ -69,15 +69,12 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
      */
-    public array $globals = [
+    public $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'auth' => ['except' => ['login', 'logout', 'joinus']], // Protect all except login and logout
         ],
         'after' => [
-            // 'honeypot',
-            // 'secureheaders',
+            'auth' => ['except' => ['admin', 'dashboard']], // Prevent back navigation after logout
         ],
     ];
 

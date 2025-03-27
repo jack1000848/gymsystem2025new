@@ -23,7 +23,7 @@ class CoachDashboardController extends BaseController
     public function dashboardindex()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/member-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login'); // Redirect if not logged in
         }
         
         return view('coachdashboard/index');
@@ -33,7 +33,7 @@ class CoachDashboardController extends BaseController
      public function coachManage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/member-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login'); // Redirect if not logged in
         }
         $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
@@ -51,7 +51,7 @@ class CoachDashboardController extends BaseController
     public function storemanage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/member-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login'); // Redirect if not logged in
         }
         $validation = \Config\Services::validation();
         $rules = [
@@ -214,7 +214,7 @@ class CoachDashboardController extends BaseController
     public function coachqr()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/member-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login'); // Redirect if not logged in
         }
 
         $coachID = session()->get('CoachID'); // Get logged-in Coach ID

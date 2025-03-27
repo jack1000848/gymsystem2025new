@@ -71,12 +71,11 @@
     </style>
 </head> <!--end::Head--> <!--begin::Body-->
 
-<body class="hold-transition sidebar-mini">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 
-            
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
                     
                     <li class="nav-item dropdown"> 

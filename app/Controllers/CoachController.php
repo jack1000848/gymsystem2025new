@@ -34,6 +34,7 @@ class CoachController extends BaseController
     
     public function createClient() : string
     {
+        
         $data['clientPassword'] = '20_'. uniqid();
         
         $gymcode = '2_' . uniqid();
@@ -43,7 +44,11 @@ class CoachController extends BaseController
     }
 
     public function storeClient()
+
     {
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
         $insertClients = new CoachModel();
          // Retrieve the email from the form input
     $email = $this->request->getPost('clientEmail');

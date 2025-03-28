@@ -102,6 +102,9 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 $routes->get('/fetchPlans', 'CustomerController::getPlans');
 $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 
+///View Schedule...
+$routes->get('/view-schedule', 'ViewScheduleForAllUserController::adminview');
+
 ///Logout...
 $routes->get('/logout', 'Admin::logout');
 

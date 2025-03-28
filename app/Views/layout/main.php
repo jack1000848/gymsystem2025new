@@ -138,6 +138,11 @@
                                 <i class="bi bi-list-task"></i>
                                 <p>Plans</p>
                             </a> 
+                            <li class="nav-item"> 
+                            <a href="<?= base_url('/view-schedule') ?>" class="nav-link"> 
+                                <i class="bi bi-box-arrow-right"></i>
+                                <p>View Schedules</p>
+                            </a> 
                         </li>
                         <li class="nav-item"> 
                             <a href="<?= base_url('/logout') ?>" class="nav-link"> 

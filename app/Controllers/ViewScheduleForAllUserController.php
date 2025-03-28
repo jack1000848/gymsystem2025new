@@ -8,6 +8,13 @@ use App\Models\CoachScheduleModel;
 
 class ViewScheduleForAllUserController extends BaseController
 {
+    public function __construct()
+    {
+        $this->coachScheduleModel = new CoachScheduleModel();
+       //  $this->timeModel = new TimeScheduleModel();
+    }
+        
+    
     public function adminview()
     {
         return view('clients1crud/adminviewsched');

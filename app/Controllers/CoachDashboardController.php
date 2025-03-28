@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
-use App\Models\TimeScheduleModel;
+
 use App\Models\CoachModel;
 
 //use App\Models\Clients1Model;
@@ -16,7 +16,7 @@ class CoachDashboardController extends BaseController
     public function __construct()
     {
         $this->coachScheduleModel = new CoachScheduleModel();
-         $this->timeModel = new TimeScheduleModel();
+       //  $this->timeModel = new TimeScheduleModel();
          $this->scheduleModel = model(CoachScheduleModel::class);
          $this->coachModel = model(CoachModel::class);
     }
@@ -123,87 +123,6 @@ class CoachDashboardController extends BaseController
 
 
    
-
-        ////here's the time schedule//
-
-
-        public function coachtimeManage(){
-
-            if (!session()->has('CoachID')) {
-                return redirect()->to('/coach-login'); // Redirect if not logged in
-            }
-            $db = \Config\Database::connect();
-            $sql = "SELECT * FROM ViewCoachSchedule";
-            $query = $db->query($sql);
-            $data['coach'] = $query->getResult();
-            return view('/coachdashboard/TimeSheds', $data);
-        }
-        public function timestore()
-        {
-            // Load model if not loaded in constructor
-            $this->timeModel = new \App\Models\TimeScheduleModel();
-        
-            $startTime = $this->request->getPost('start');
-            $endTime = $this->request->getPost('end');
-        
-            // Validate required fields
-            if (empty($startTime) || empty($endTime)) {
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Start Time and End Time are required.'
-                ]);
-            }
-        
-            $data = [
-                'StartTime' => $startTime,
-                'EndTime'   => $endTime
-            ];
-        
-            // Insert to database
-            if ($this->timeModel->insert($data)) {
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'message' => 'Time Schedule added successfully.'
-                ]);
-            } else {
-                // Get error from the model
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Failed to add time schedule.',
-                    'error' => $this->timeModel->errors()
-                ]);
-            }
-        }
-        
-        public function editTime($id)
-    {
-        $time = $this->timeModel->find($id);
-        return $this->response->setJSON($time);
-    }
-
-    // Update Time Schedule
-    public function updateTime($id)
-    {
-        $data = [
-            'ID'        => $id,
-            'StartTime' => $this->request->getPost('start'),
-            'EndTime'   => $this->request->getPost('end'),
-        ];
-        $this->timeModel->save($data);
-        return $this->response->setJSON(['status' => 'updated']);
-    }
-
-    // Delete Time Schedule
-    public function deleteTime($id)
-    {
-        $this->timeModel->delete($id);
-        return $this->response->setJSON(['status' => 'deleted']);
-    }
-        
-
-
-
-
 
     ///////////// this is the coach client list!
     public function coachclientlist(){

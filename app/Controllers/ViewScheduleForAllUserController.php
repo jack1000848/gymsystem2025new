@@ -34,7 +34,7 @@ class ViewScheduleForAllUserController extends BaseController
 
     $fetchview = new ViewScheduleForAllUserModel();
     $data['coach2'] = $fetchview->where('CustomerID', $customerID)->findAll();
-       return view('clients1crud/viewmyscheds');
+       return view('clients1crud/viewmyscheds', $data);
     }
 
     public function coachview()

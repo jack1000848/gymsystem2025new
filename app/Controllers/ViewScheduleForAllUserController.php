@@ -22,6 +22,8 @@ class ViewScheduleForAllUserController extends BaseController
     {
         $fetchview = new ViewScheduleForAllUserModel();
         $data['coach'] = $fetchview->findAll();
+        // Filter schedules by the logged-in coach only
+        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
         return view('coachdashboard/TimeSheds', $data);
     }
 }

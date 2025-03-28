@@ -12,7 +12,7 @@ class ViewScheduleForAllUserController extends BaseController
     {
         return view('clients1crud/adminviewsched');
     }
-1
+
     public function clientview()
     {
         return view('clients1crud/adminviewsched');

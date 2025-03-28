@@ -35,9 +35,9 @@
     <?php foreach ($coach as $coachSched): ?>
             
             <tr>
-            <td><?= $coachSched['ScheduleDate']; ?></td>
-            <td><?= $coachSched['StartTime']; ?></td>
-            <td><?= $coachSched['EndTime']; ?></td>
+            <th scope="row"><?= $coachSched['ScheduleDate']; ?></th>
+            <td><?= $coachSched['Start']; ?></td>
+            <td><?= $coachSched['End']; ?></td>
             <td><?= $coachSched['CustomerName']; ?></td>
     
     

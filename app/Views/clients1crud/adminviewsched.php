@@ -1,5 +1,5 @@
 <?php
-    $this ->extend('layout/maincoach');
+    $this ->extend('layout/main');
     $this ->section('body');
 
     ?>

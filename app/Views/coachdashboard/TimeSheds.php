@@ -1,5 +1,5 @@
 <?php
-    $this ->extend('layout/main');
+    $this ->extend('layout/maincoach');
     $this ->section('body');
 
     ?>
@@ -28,7 +28,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer</th>
-        <th>Coach Name</th>
+        
     </tr>
 </thead>
 <tbody>

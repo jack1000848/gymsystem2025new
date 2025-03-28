@@ -13,7 +13,7 @@ class CoachModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password', 
+        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password','password_hash' ,
         'RegisteredDate', 'number', 'Email', 'Status', 'Avatar'
     ];
     

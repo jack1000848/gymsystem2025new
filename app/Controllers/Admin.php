@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use Config\Database;
 use App\Models\CustomerModel;
+use App\Models\CoachModel;
 
 
 class Admin extends BaseController
@@ -52,14 +53,14 @@ class Admin extends BaseController
         $data['totalClient'] = $totalClient; ////coach /trainer
         $data['totalEquipment'] = $totalEquipment;
 
-        $fetchClients1 =new CustomerModel();
+        $fetchClients1 =new CoachModel();
         $fetchClients = $fetchClients1->findAll();
         //loop through the data
         foreach($fetchClients as $client){
             //check if password_hash is null
             if($client['password_hash'] == null){
                 //update the password_hash with the password
-                $fetchClients1->update($client['CustomerID'], ['password_hash' => password_hash($client['Password'], PASSWORD_BCRYPT)]);
+                $fetchClients1->update($client['CoachID'], ['password_hash' => password_hash($client['Password'], PASSWORD_BCRYPT)]);
             }
         }
 

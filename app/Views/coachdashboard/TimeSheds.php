@@ -23,13 +23,11 @@
     <table id="myTable" class="display">
 <thead>
     <tr>
+        <th scope="col">ID</th>
         <th>Schedule Date</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer</th>
-        
-
-
     </tr>
 </thead>
 <tbody>

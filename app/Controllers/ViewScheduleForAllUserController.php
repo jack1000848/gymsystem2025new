@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ViewSheduleForAllUserModel;
+use App\Models\CoachScheduleModel;
 
 
 class ViewSheduleForAllUserController extends BaseController

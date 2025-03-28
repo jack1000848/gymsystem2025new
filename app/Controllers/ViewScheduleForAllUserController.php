@@ -28,7 +28,7 @@ class ViewScheduleForAllUserController extends BaseController
         $session = session();
     $customerID = $session->get('CustomerID');
 
-    if (!$coachID) {
+    if (!$customerID) {
         return redirect()->to('/member-login')->with('error', 'You must be logged in');
     }
 

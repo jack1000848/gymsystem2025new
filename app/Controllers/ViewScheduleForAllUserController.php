@@ -25,7 +25,7 @@ class ViewScheduleForAllUserController extends BaseController
 
     public function clientview()
     {
-       return view('clients1crud/viewmycheds');
+       return view('clients1crud/viewmyscheds');
     }
 
     public function coachview()

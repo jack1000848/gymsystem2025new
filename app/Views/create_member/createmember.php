@@ -30,10 +30,11 @@
     
             
 
-             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="text" class="form-control" name="password">
-             </div>
+          <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password" id="password" minlength="8" required>
+    <small class="text-danger d-none" id="passwordError">Password must be at least 8 characters long.</small>
+</div>
 
             <div class="mb-3">
                 <label for="clients1Fulladdress" class="form-label">Full Address</label>
@@ -105,8 +106,7 @@
     <input type="text" id="priceInput" class="form-control" name="amount" readonly>
 </div>
 
-<script>
-</script>
+
 
     <div class="mb-3">
         <label for ="duration" class="form-label">Duration </label>
@@ -144,6 +144,17 @@
 
 
 });
+
+document.getElementById("password").addEventListener("input", function() {
+        let passwordInput = this.value;
+        let errorText = document.getElementById("passwordError");
+
+        if (passwordInput.length < 8) {
+            errorText.classList.remove("d-none"); // Show error message
+        } else {
+            errorText.classList.add("d-none"); // Hide error message
+        }
+    });
 
     document.getElementById("clients1Emailaddress").addEventListener("input", function() {
     var emailInput = this.value;

@@ -32,25 +32,15 @@
 </thead>
 <tbody>
 <?php foreach ($coach as $coachSched): ?>
-
 <tr>
-<th scope="row"><?= $coachSched['ID']; ?></th>
-            <td><?= $coachSched['ScheduleDate']; ?></td>
-            <td><?= $coachSched['Start']; ?></td>
-            <td><?= $coachSched['End']; ?></td>
-            <td><?= $coachSched['CustomerName']; ?></td>
-    
- 
-</th>
-<td>
-
-</td>
-
-
-    </tr>
-
-    <?php endforeach; ?>
-    </tbody>
+    <th scope="row"><?= $coachSched['ID']; ?></th>
+    <td><?= $coachSched['ScheduleDate']; ?></td>
+    <td><?= $coachSched['Start']; ?></td>
+    <td><?= $coachSched['End']; ?></td>
+    <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
 </table>
 
     </div>

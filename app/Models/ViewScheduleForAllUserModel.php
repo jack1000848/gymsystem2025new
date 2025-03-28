@@ -13,7 +13,7 @@ class ViewScheduleForAllUserModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'ID ', 'CoachID','CustomerID', 'ScheduleID','ScheduleDate', 'Start','End', 'CustomerName', 'CoachName'
+        'ID', 'CoachID','CustomerID', 'ScheduleID','ScheduleDate', 'Start','End', 'CustomerName', 'CoachName'
     ];
     
 

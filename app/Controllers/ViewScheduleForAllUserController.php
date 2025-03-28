@@ -22,7 +22,7 @@ public function clientview ()
 }
 public function coachview ()
 {
-    $fetchview =new CoachScheduleModel();
+    $fetchview =new ViewSheduleForAllUserModel();
     $data['coach'] = $fetchview ->findAll();
     return view('coachdashboard/TimeSheds');
 }

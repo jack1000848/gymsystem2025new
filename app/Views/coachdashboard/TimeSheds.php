@@ -39,17 +39,14 @@
 
 <tr>
 <th scope="row"><?= $coachSched['ScheduleDate']; ?></th>
-    <td><?= $coachSched->Start; ?></td>
-    <td><?= $coachSched->End; ?></td>
-    <td><?= $coachSched->CustomerName; ?></td>
+            <td><?= $coachSched['Start']; ?></td>
+            <td><?= $coachSched['End']; ?></td>
+            <td><?= $coachSched['CustomerName']; ?></td>
    
  
 
 <td>
-<div class="btn-group">
-<button type="button" class="btn btn-primary" onclick="editPlan(<?=$coachSched->ID; ?>)"> Edit</button>
-<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$coachSched->ID; ?>)"> Delete</button>
-</div>
+
 </td>
 
 

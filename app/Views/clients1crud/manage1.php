@@ -127,13 +127,7 @@ $this->section('body'); // Start the body section
                     </div>
 
                      <!-- Gymtimeslot -->
-                     <div class="mb-3">
-                        <label for="timeslot" class="form-label">Gym Time SLot</label>
-                        <select id="timeslot" class="form-control" name="timeslot" required>
-                            <option value="Day Class">Day Class</option>
-                            <option value="Evening Class">Evening Class</option>
-                        </select>
-                        </div>
+                    
 
                     <!-- Types of Workout -->
                     <div class="mb-3">
@@ -255,13 +249,7 @@ $this->section('body'); // Start the body section
                     </div>
 
                      <!-- Gymtimeslot -->
-                     <div class="mb-3">
-                        <label for="edittimeslot" class="form-label">Gym Time SLot</label>
-                        <select id="edittimeslot" class="form-control" name="edittimeslot" required>
-                            <option value="Day Class">Day Class</option>
-                            <option value=">Evening Class">Evening Class</option>
-                        </select>
-                        </div>
+                     
 
                     <!-- Types of Workout -->
                     <div class="mb-3">
@@ -592,7 +580,7 @@ async function updateClient() {
         Gender: $("#editGender").val().trim(),
         RegisteredDate: $("#editDateofregistration").val().trim(),
         types_of_workout: $("#editTworkout").val().trim(),
-        GymTimeSlot: $("#timeslot").val().trim(),
+      ///  GymTimeSlot: $("#timeslot").val().trim(),
         amount: $("#editAmount").val().trim(),
         duration: $("#editDuration").val().trim(),
         Membesrship_plan: $("#editPlanSelect").val(), // Include the plan

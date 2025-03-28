@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TimeScheduleModel extends Model
+class ViewSheduleForAllUserModel extends Model
 {
-    protected $table            = 'timeschedule';
-    protected $primaryKey       = 'ID ';
+    protected $table            = 'viewschedule';
+    protected $primaryKey       = 'ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'ID ', 'StartTime', 'EndTime','CustomerID','ScheduleID',
+        'ID ', 'CoachID','CustomerID', 'ScheduleID', 'Start','End', 'ScheduleDate', 'CustomerName', 'CoachName'
     ];
     
 

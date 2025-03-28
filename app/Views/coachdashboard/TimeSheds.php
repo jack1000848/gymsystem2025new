@@ -25,13 +25,12 @@
 <table id="myTable" class="display">
 <thead>
     <tr>
-        <th>TIMEID</th>
+        <th>Schedule Date</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th>Customer</th>
+        <th>Customer Name</th>
         <th>coachSchedule</th>
-        <th>Action</th>
-
+        
 
     </tr>
 </thead>
@@ -39,9 +38,9 @@
 <?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<th scope="row"><?= $coachSched->ID; ?></th>
-    <td><?= $coachSched->StartTime; ?></td>
-    <td><?= $coachSched->EndTime; ?></td>
+<th scope="row"><?= $coachSched->ScheduleDate; ?></th>
+    <td><?= $coachSched->Start; ?></td>
+    <td><?= $coachSched->End; ?></td>
     <td><?= $coachSched->CustomerName; ?></td>
     <td><?= $coachSched->Day; ?></td>
  
@@ -76,14 +75,21 @@
   <div class="modal-body">
   <form id="planForm">
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Start Time</label>
+         <label for="exampleFormControlInput1" class="form-label">Schedule Date</label>
          <input type="time" class="form-control" name="start" id="starts" required>
+    </div>
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Start Time</label>
+              <input type="time" class="form-control" name="end" id="ends" required>
     </div>
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">End Time</label>
               <input type="time" class="form-control" name="end" id="ends" required>
     </div>
-
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+              <input type="time" class="form-control" name="end" id="ends" required>
+    </div>
    
 </div>
   <div class="modal-footer">

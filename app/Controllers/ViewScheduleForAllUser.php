@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ViewEquipmentModel;
+use App\Models\CoachScheduleModel;
 
 
-class ViewEquipmentController extends BaseController
+class ViewSheduleForAllUser extends BaseController
 {
 public function adminview ()
 {
@@ -22,7 +22,7 @@ public function clientview ()
 public function coachview ()
 {
 
-    return view('clients1crud/adminviewsched');
+    return view('coachdashboard/TimeSheds');
 }
 
 }

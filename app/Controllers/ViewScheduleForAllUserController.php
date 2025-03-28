@@ -16,7 +16,8 @@ class ViewScheduleForAllUserController extends BaseController
         
     
     public function adminview()
-    {
+    {  
+         $session = session();
         $coachID = $session->get('CoachID');
 
     $fetchview = new ViewScheduleForAllUserModel();

@@ -27,6 +27,13 @@ class ViewScheduleForAllUserController extends BaseController
 
     public function coachview()
     {
+        $session = session(); // Start session
+        $coachID = $session->get('CoachID'); // Retrieve logged-in coach's ID
+    
+        if (!$coachID) {
+            return redirect()->to('/coach-login')->with('error', 'You must be logged in');
+        }
+
         $fetchview = new ViewScheduleForAllUserModel();
         $data['coach'] = $fetchview->findAll();
         // Filter schedules by the logged-in coach only

@@ -34,11 +34,11 @@
 
     /* Navigation Items */
     .sidebar-menu .nav-item {
-        margin: 8px 0; /* More space between each nav button */
+        margin: 5px 0; /* More space between each nav button */
     }
 
     .sidebar-menu .nav-link {
-        font-size: 15px; /* Increase font size */
+        font-size: 20px; /* Increase font size */
         padding: 10px 20px; /* Increase padding for bigger buttons */
         border-radius: 8px; /* Rounded corners */
         transition: background 0.3s ease-in-out;

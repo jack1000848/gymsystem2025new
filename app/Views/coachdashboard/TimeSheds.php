@@ -41,8 +41,7 @@
 <th scope="row"><?= $coachSched['ScheduleDate']; ?></th>
             <td><?= $coachSched['Start']; ?></td>
             <td><?= $coachSched['End']; ?></td>
-            <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
-
+            <td><?= $coachSched['CustomerName']; ?></td>
    
  
 

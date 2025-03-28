@@ -25,6 +25,15 @@ class ViewScheduleForAllUserController extends BaseController
 
     public function clientview()
     {
+        $session = session();
+    $customerID = $session->get('CustomerID');
+
+    if (!$coachID) {
+        return redirect()->to('/member-login')->with('error', 'You must be logged in');
+    }
+
+    $fetchview = new ViewScheduleForAllUserModel();
+    $data['coach2'] = $fetchview->where('CustomerID', $customerID)->findAll();
        return view('clients1crud/viewmyscheds');
     }
 

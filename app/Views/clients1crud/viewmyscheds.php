@@ -32,7 +32,7 @@
     </tr>
 </thead>
 <tbody>
-<?php foreach ($coach1 as $coachSched): ?>
+<?php foreach ($coach2 as $coachSched): ?>
 <tr>
     <th scope="row"><?= $coachSched['ID']; ?></th>
     <td><?= $coachSched['ScheduleDate']; ?></td>

@@ -29,7 +29,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer Name</th>
-        <th>coachSchedule</th>
+       
         
 
     </tr>

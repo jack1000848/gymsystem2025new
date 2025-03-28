@@ -42,7 +42,7 @@
 <td><?= $coachSched['Start']; ?></td>
 <td><?= $coachSched['End']; ?></td>
 <td><?= $coachSched['CustomerName']; ?></td>
-<td><?= $coachSched['Day']; ?></td>
+
 
  
 

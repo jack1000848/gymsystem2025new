@@ -28,9 +28,9 @@
         <th>Schedule Date</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th>Customer Name</th>
-        <th>coachSchedule</th>
-        
+        <th>Customer</th>
+        <th>Action</th>
+
 
     </tr>
 </thead>
@@ -38,11 +38,12 @@
 <?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<th scope="row"><?= $coachSched->ScheduleDate; ?></th>
+<th scope="row"><?= $coachSched->ID; ?></th>
+    <td><?= $coachSched->ScheduleDate; ?></td>
     <td><?= $coachSched->Start; ?></td>
     <td><?= $coachSched->End; ?></td>
     <td><?= $coachSched->CustomerName; ?></td>
-    
+
  
 
 <td>
@@ -75,7 +76,7 @@
   <div class="modal-body">
   <form id="planForm">
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Schedule Date</label>
+         <label for="exampleFormControlInput1" class="form-label">Start Time</label>
          <input type="time" class="form-control" name="start" id="starts" required>
     </div>
     <div class="mb-3">

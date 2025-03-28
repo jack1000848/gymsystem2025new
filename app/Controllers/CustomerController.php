@@ -154,7 +154,7 @@ class CustomerController extends BaseController
         'Gender'           => $this->request->getPost('gender'),                  // Maps directly
       // 'PhoneNumber'      => $this->request->getPost('phone_number'),            // Add phone field
         'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
-        'Password'         => $this->request->getPost('password'),
+        'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
         'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
         'types_of_workout'   => $this->request->getPost('tworkout'), 
         'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly

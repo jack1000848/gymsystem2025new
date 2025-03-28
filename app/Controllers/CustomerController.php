@@ -157,7 +157,7 @@ class CustomerController extends BaseController
         'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
         'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
         'types_of_workout'   => $this->request->getPost('tworkout'), 
-        'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
+       // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
         'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
         'WorkoutTypeID'    => null,                // Adjusted field name
         'CurrentPlanID'    => null,                   // Adjusted field name

@@ -3,29 +3,26 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ViewScheduleForAllUserController;
+use App\Models\ViewScheduleForAllUserModel;
 use App\Models\CoachScheduleModel;
 
-
-class ViewSheduleForAllUserController extends BaseController
+class ViewScheduleForAllUserController extends BaseController
 {
-public function adminview()
-{
+    public function adminview()
+    {
+        return view('clients1crud/adminviewsched');
+    }
+1
+    public function clientview()
+    {
+        return view('clients1crud/adminviewsched');
+    }
 
-    return view('clients1crud/adminviewsched');
-}
-
-public function clientview()
-{
-    
-    return view('clients1crud/adminviewsched');
-}
-public function coachview()
-{
-    $fetchview =new ViewSheduleForAllUserModel();
-    $data['coach'] = $fetchview ->findAll();
-    return view('coachdashboard/TimeSheds');
-}
-
+    public function coachview()
+    {
+        $fetchview = new ViewScheduleForAllUserModel();
+        $data['coach'] = $fetchview->findAll();
+        return view('coachdashboard/TimeSheds', $data);
+    }
 }
 ?>

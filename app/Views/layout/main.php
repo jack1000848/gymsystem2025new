@@ -38,7 +38,7 @@
     }
 
     .sidebar-menu .nav-link {
-        font-size: 20px; /* Increase font size */
+        font-size: 15px; /* Increase font size */
         padding: 10px 20px; /* Increase padding for bigger buttons */
         border-radius: 8px; /* Rounded corners */
         transition: background 0.3s ease-in-out;
@@ -200,7 +200,14 @@
                     <?= $this->renderSection('body') ?>
 
         </main> <!--end::App Main--> <!--begin::Footer-->
-        
+        <footer class="app-footer"> <!--begin::To the end-->
+            <div class="float-end d-none d-sm-inline">ikaw ba'y buo?</div> <!--end::To the end--> <!--begin::Copyright--> <strong>
+                Copyright &copy; 2024-2025&nbsp;
+                <a href="https://www.instagram.com/miguelito_tayson/" class="text-decoration-none">Migsmapagmahal</a>.
+            </strong>
+            All rights reserved.
+            <!--end::Copyright-->
+        </footer> <!--end::Footer-->
     </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->

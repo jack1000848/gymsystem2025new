@@ -38,14 +38,10 @@
 <?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<<th scope="row"><?= $coachSched['ScheduleDate']; ?></th>
+<th scope="row"><?= $coachSched['ScheduleDate']; ?></th>
 <td><?= $coachSched['Start']; ?></td>
 <td><?= $coachSched['End']; ?></td>
 <td><?= $coachSched['CustomerName']; ?></td>
-
-
- 
-
 <td>
 
 </td>

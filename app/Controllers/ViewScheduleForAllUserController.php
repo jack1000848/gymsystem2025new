@@ -37,11 +37,7 @@ class ViewScheduleForAllUserController extends BaseController
     $fetchview = new ViewScheduleForAllUserModel();
     $data['coach'] = $fetchview->where('CoachID', $coachID)->findAll();
 
-    // Debugging: Print data to check if CustomerName exists
-    echo '<pre>';
-    print_r($data['coach']);
-    echo '</pre>';
-    exit();
+    
 
     return view('coachdashboard/TimeSheds', $data);
 }

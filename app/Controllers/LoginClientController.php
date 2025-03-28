@@ -10,6 +10,8 @@ use App\Models\CustomerModel;
 
     public function LoginClient()
     {
+        if($this->session())
+
         return view('/clientdashboard/loginclient');     ///loginview 
     }
  

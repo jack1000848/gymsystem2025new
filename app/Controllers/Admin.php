@@ -32,16 +32,6 @@ class Admin extends BaseController
     }
     
 
-/*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Display the admin dashboard
-     * 
-     * This function displays the admin dashboard and counts the number of clients, coaches, and equipment.
-     * It also checks if the password_hash is null for each coach and updates the password_hash with the password if it is null.
-     * 
-     * @return void
-     */
-/******  ba4258d2-aa60-4b4e-8ec0-3a047b7d1548  *******/
     public function index()
     {
         if (!$this->session->has('logged_in')) {

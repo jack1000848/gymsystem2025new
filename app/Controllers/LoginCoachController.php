@@ -27,13 +27,15 @@ use App\Models\LoginCoachModel;
 
         if ($user) {
             // Compare the password (Note: replace with hashed password checking later)
-            if ($password == $user['Password']) { 
-                // Store user data in session
+            if (password_verify($password, $user['password_hash'])) {  // Change to password_verify() if needed
+                // Set session data
                 $session->set([
                     'CoachID' => $user['CoachID'],
                     'Email' => $user['Email'],
                     'logged_in' => true,
                 ]);
+                session()->set('Role', "Coach"); // Set the role to "Coach"
+
                 return redirect()->to('/coachdashboard'); // Redirect to the client dashboard
             } else {
                 // Password mismatch

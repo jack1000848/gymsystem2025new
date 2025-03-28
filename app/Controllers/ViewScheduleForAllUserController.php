@@ -16,7 +16,8 @@ public function adminview ()
 
 public function clientview ()
 {
-
+    $fetchview =new CoachScheduleModel();
+        $data['coach'] = $fetchview ->findAll();
     return view('clients1crud/adminviewsched');
 }
 public function coachview ()

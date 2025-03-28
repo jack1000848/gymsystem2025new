@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ViewSheduleForAllUserModel extends Model
+class ViewScheduleForAllUserModel extends Model
 {
     protected $table            = 'viewschedule';
     protected $primaryKey       = 'ID';

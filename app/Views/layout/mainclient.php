@@ -68,6 +68,9 @@
                             <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
                         </li>
                     </ul>
@@ -125,7 +128,9 @@
                                 <p>Body Information</p>
                             </a> 
                         </li>
-
+                        <li class="nav-item">
+                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
+                        </li>
                         </li>
                         <li class="nav-item"> 
                             <a href="<?= base_url('/logout') ?>" class="nav-link"> 

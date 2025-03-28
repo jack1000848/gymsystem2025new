@@ -123,6 +123,9 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 
 ///Body Information...
 
+// view my schedule
+$routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
+
 ///Logout...
 $routes->get('/logout', 'ClientsDashboardController::logout');
 

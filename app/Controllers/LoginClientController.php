@@ -42,7 +42,7 @@ use App\Models\CustomerModel;
     }
 
     // Check the password (Use password_verify if password is hashed)
-    if ($client['Password'] === $password) {  // Change to password_verify() if needed
+    if (password_verify($password, $client['password_hash'])) {  // Change to password_verify() if needed
         // Set session data
         $session->set([
             'isLoggedIn' => true,

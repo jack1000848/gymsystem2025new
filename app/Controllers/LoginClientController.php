@@ -11,9 +11,9 @@ use App\Models\CustomerModel;
     public function LoginClient()
     {
         $session = session();
-        if ($session->get('isLoggedIn')) {
-            return redirect()->to('/clientdashboard'); // Redirect to the client dashboard if already logged in
-        }
+       // if ($session->get('isLoggedIn')) {
+        //    return redirect()->to('/clientdashboard'); // Redirect to the client dashboard if already logged in
+       // }
         // Load the login view if not logged in
 
         return view('/clientdashboard/loginclient');     ///loginview 

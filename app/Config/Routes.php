@@ -144,11 +144,8 @@ $routes->post('coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1
 $routes->delete('/coach-manage/delete/(:num)', 'CoachDashboardController::delete/$1');
 
 ///View my Clients... and time manage
-$routes->get('/coach-timemanage', 'CoachDashboardController::coachtimeManage' );
-$routes->post('/coach-timemanage/store', 'CoachDashboardController::timestore');
-$routes->get('/coach-timemanage/edit/(:num)', 'CoachDashboardController::editTime/$1');
-$routes->post('/coach-timemanage/update/(:num)', 'CoachDashboardController::updateTime/$1');
-$routes->delete('/coach-timemanage/delete/(:num)', 'CoachDashboardController::deleteTime/$1');
+$routes->get('/viewmyclients', 'CoachDashboardController::adminview' );
+
 ///$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
 
 ///coach-qr

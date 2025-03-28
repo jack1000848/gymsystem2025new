@@ -29,7 +29,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer Name</th>
-        
+        <th>coachSchedule</th>
         
 
     </tr>
@@ -43,9 +43,13 @@
     <td><?= $coachSched->End; ?></td>
     <td><?= $coachSched->CustomerName; ?></td>
     <td><?= $coachSched->Day; ?></td>
+ 
 
 <td>
-
+<div class="btn-group">
+<button type="button" class="btn btn-primary" onclick="editPlan(<?=$coachSched->ID; ?>)"> Edit</button>
+<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$coachSched->ID; ?>)"> Delete</button>
+</div>
 </td>
 
 
@@ -75,14 +79,10 @@
          <input type="time" class="form-control" name="start" id="starts" required>
     </div>
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Start Time</label>
-              <input type="time" class="form-control" name="end" id="ends" required>
-    </div>
-    <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">End Time</label>
               <input type="time" class="form-control" name="end" id="ends" required>
     </div>
-    
+
    
 </div>
   <div class="modal-footer">

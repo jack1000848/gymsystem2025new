@@ -77,83 +77,35 @@
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 
                 <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
-                <button id="menu-toggle" class="btn btn-primary d-lg-none" style="position: fixed; top: 10px; left: 10px; z-index: 1050;">
-        <i class="bi bi-list"></i>
-    </button>
+                    
                     <li class="nav-item dropdown"> 
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                                     
-                                <div class="app-wrapper">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="transform: translateX(-100%); transition: transform 0.3s ease-in-out;">
-            <div class="sidebar-brand"> 
-                <a href="<?= base_url('/') ?>" class="brand-link"> 
-                    <img src="<?= base_url('admin-assets/img/logo.png') ?>" alt="" class="brand-image opacity-75 shadow"> 
-                    <span class="brand-text fw-light">ISHOW FITNESS GYM</span>
-                </a>
-            </div> 
-            <div class="sidebar-wrapper">
-                <nav class="mt-2">
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open"> 
-                            <a href="<?= base_url('admin') ?>" class="nav-link active"> 
-                                <i class="nav-icon bi bi-speedometer"></i>
-                                <p>Dashboard</p>
+                                </div> <!--end::Message-->
                             </a>
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('scan-qr') ?>" class="nav-link"> 
-                                <i class="bi bi-qr-code"></i>
-                                <p>Scan your ID</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('attendance') ?>" class="nav-link"> 
-                                <i class="bi bi-card-checklist"></i>
-                                <p>Participant log</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('clients1') ?>" class="nav-link"> 
-                                <i class="bi bi-people"></i>
-                                <p>Manage Client</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('coach') ?>" class="nav-link"> 
-                                <i class="bi bi-person-badge"></i>
-                                <p>Manage Coach</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('gymequipment') ?>" class="nav-link"> 
-                                <i class="bi bi-tools"></i>
-                                <p>Manage Equipment</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('gymplans') ?>" class="nav-link"> 
-                                <i class="bi bi-list-task"></i>
-                                <p>Plans</p>
-                            </a> 
-                            <li class="nav-item"> 
-                            <a href="<?= base_url('/view-schedule') ?>" class="nav-link"> 
-                                <i class="bi bi-box-arrow-right"></i>
-                                <p>View Schedules</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
-                                <i class="bi bi-box-arrow-right"></i>
-                                <p>LOGOUT</p>
-                            </a> 
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                
+                            </a>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"> <img src="../../dist/assets/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
+                                    <div class="flex-grow-1">
+                                        <h3 class="dropdown-item-title">
+                                            Nora Silvester
+                                            <span class="float-end fs-7 text-warning"> <i class="bi bi-star-fill"></i> </span>
+                                        </h3>
+                                        <p class="fs-7">The subject goes here</p>
+                                        <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+                                        </p>
+                                    </div>
+                                </div> <!--end::Message-->
+                            </a>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        </div>
+                    </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
+                    
                     
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
                             <li class="user-footer">
@@ -174,7 +126,7 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open"> 
+                    <li class="nav-item menu-open"> 
                             <a href="<?= base_url('admin') ?>" class="nav-link active"> 
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
@@ -237,7 +189,6 @@
                                  <p>LOGOUT</p>
                          </a> 
                         </li>
-
 
 
 
@@ -304,15 +255,6 @@
         cardHeaders.forEach((cardHeader) => {
             cardHeader.style.cursor = "move";
         });
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            var sidebar = document.getElementById('sidebar');
-            if (sidebar.style.transform === 'translateX(-100%)') {
-                sidebar.style.transform = 'translateX(0)';
-            } else {
-                sidebar.style.transform = 'translateX(-100%)';
-            }
-        });
-
     </script> <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script> <!-- ChartJS -->
     <script>

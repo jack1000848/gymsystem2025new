@@ -32,7 +32,6 @@ $this->section('body'); // Start the body section
                     <th style="display: none">Password</th>
                     <th>Register Date</th>
                     <th>Types of Workout</th>
-                    <th>Gym Time SLot</th>
                     <th>Membership Plan</th>
                     <th>QR Code</th>
                     <th>Action</th>
@@ -50,7 +49,6 @@ $this->section('body'); // Start the body section
                         <td style="display: none"><?= $client['Password']; ?></td>
                         <td><?= $client['RegisteredDate']; ?></td>
                         <td><?= $client['types_of_workout']; ?></td>
-                        <td><?= $client['GymTimeSlot']; ?></td>
                         <td><?= $client['Membesrship_plan']; ?></td>
                         <td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
                         <td>

@@ -17,7 +17,7 @@ class ViewScheduleForAllUserController extends BaseController
     
     public function adminview()
     {  
-        $fetchClients1 =new iewScheduleForAllUserModel();
+        $fetchClients1 =new ViewScheduleForAllUserModel();
         $data['coach1'] = $fetchClients1 ->findAll();
 
         return view('clients1crud/adminviewsched' ,$data) ;

@@ -54,6 +54,7 @@ use App\Models\CustomerModel;
 
         // Optional: If you want to set CustomerID again as you requested
         session()->set('CustomerID', $client['CustomerID']); 
+        session()->set('Role', "Customer");
 
         return redirect()->to('/clientdashboard');
     } else {

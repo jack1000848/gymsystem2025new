@@ -36,6 +36,10 @@ class Admin extends BaseController
         if (!$this->session->has('logged_in')) {
             return redirect()->to('/joinus')->with('error', 'Please log in first.');
         }
+
+        if(!$this->session->get('Role') == null || $this->session->get('Role') != 'Admin'){
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        }
     
 
         // Call the private function using $this

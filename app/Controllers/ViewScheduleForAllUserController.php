@@ -20,12 +20,12 @@ class ViewScheduleForAllUserController extends BaseController
         $fetchClients1 =new ViewScheduleForAllUserModel();
         $data['coach1'] = $fetchClients1 ->findAll();
 
-        return view('clients1crud/adminviewsched' ,$data) ;
+        return view('client/adminviewsched' ,$data) ;
     }
 
     public function clientview()
     {
-       // return view('clients1crud/adminviewsched');
+       return view('clients1crud/viewmycheds');
     }
 
     public function coachview()

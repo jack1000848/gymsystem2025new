@@ -227,7 +227,10 @@
                                 <p>Plans</p>
                             </a> 
                         </li>
-
+                        <a href="<?= base_url('/view-schedule') ?>" class="nav-link"> 
+                                <i class="bi bi-box-arrow-right"></i>
+                                <p>View Schedules</p>
+                            </a> 
                         <li class="nav-item1"> 
                          <a href="<?= base_url('/logout') ?>" class="nav-link"> 
                               <i class=""></i>

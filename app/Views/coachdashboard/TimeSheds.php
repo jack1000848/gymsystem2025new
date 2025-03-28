@@ -28,6 +28,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Customer</th>
+        <th>Coach Name</th>
     </tr>
 </thead>
 <tbody>
@@ -38,6 +39,7 @@
     <td><?= $coachSched['Start']; ?></td>
     <td><?= $coachSched['End']; ?></td>
     <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+    <td><?= isset($coachSched['CoachName']) ? $coachSched['CoachName'] : 'N/A'; ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

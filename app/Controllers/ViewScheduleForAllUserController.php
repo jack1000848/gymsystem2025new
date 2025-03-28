@@ -9,18 +9,18 @@ use App\Models\CoachScheduleModel;
 
 class ViewSheduleForAllUserController extends BaseController
 {
-public function adminview ()
+public function adminview()
 {
 
     return view('clients1crud/adminviewsched');
 }
 
-public function clientview ()
+public function clientview()
 {
     
     return view('clients1crud/adminviewsched');
 }
-public function coachview ()
+public function coachview()
 {
     $fetchview =new ViewSheduleForAllUserModel();
     $data['coach'] = $fetchview ->findAll();

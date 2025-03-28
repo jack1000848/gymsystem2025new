@@ -22,9 +22,9 @@ use App\Models\CustomerModel;
 
     public function authenticate()
 { 
-    if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
-        return redirect()->to('/member-login')->with('error', 'Please login first.');
-    }
+   // if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
+      //  return redirect()->to('/member-login')->with('error', 'Please login first.');
+   // }
     $session = session();
     $customerModel = new CustomerModel();
 

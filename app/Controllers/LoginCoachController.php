@@ -15,6 +15,9 @@ use App\Models\LoginCoachModel;
 
     public function authenticate1()
     {
+        if (!session()->has('CoachID')) {
+            return redirect()->to('/coach-login'); // Redirect if not logged in
+        }
         $session = session();
         $model = new LoginCoachModel();
 

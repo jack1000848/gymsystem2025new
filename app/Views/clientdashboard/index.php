@@ -16,9 +16,9 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 20px;
-            color: white;
+            color: black;
             text-align: center;
-            background-color: #2c3e50;
+            background-color: #f8f8f8;
         }
         .container {
             max-width: 800px;
@@ -26,20 +26,18 @@
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            background: #2c3e50;
+            background: white;
         }
         h1 {
             font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 10px;
-            color: #ecf0f1;
         }
         p {
             font-size: 1.2rem;
             line-height: 1.6;
             opacity: 0.9;
             text-align: justify;
-            color: #bdc3c7;
         }
         .highlight {
             color: #f39c12;
@@ -57,6 +55,7 @@
     </div>
 </body>
 </html>
+
 
 
 

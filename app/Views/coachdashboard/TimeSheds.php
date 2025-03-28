@@ -38,19 +38,16 @@
 <?php foreach ($coach as $coachSched): ?>
 
 <tr>
-<<th scope="row"><?= $coachSched['ID']; ?></th>
+<th scope="row"><?= $coachSched['ID']; ?></th>
             <td><?= $coachSched['ScheduleDate']; ?></td>
             <td><?= $coachSched['Start']; ?></td>
             <td><?= $coachSched['End']; ?></td>
             <td><?= $coachSched['CustomerName']; ?></td>
     
  
-
+</th>
 <td>
-<div class="btn-group">
-<button type="button" class="btn btn-primary" onclick="editPlan(<?=$coachSched->ID; ?>)"> Edit</button>
-<button type="button" class="btn btn-danger" onclick="deletePlan(<?=$coachSched->ID; ?>)"> Delete</button>
-</div>
+
 </td>
 
 

@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
 
 
-class ViewSheduleForAllUser extends BaseController
+class ViewSheduleForAllUserController extends BaseController
 {
 public function adminview ()
 {
@@ -16,13 +16,13 @@ public function adminview ()
 
 public function clientview ()
 {
-    $fetchview =new CoachScheduleModel();
-        $data['coach'] = $fetchview ->findAll();
+    
     return view('clients1crud/adminviewsched');
 }
 public function coachview ()
 {
-
+    $fetchview =new CoachScheduleModel();
+    $data['coach'] = $fetchview ->findAll();
     return view('coachdashboard/TimeSheds');
 }
 

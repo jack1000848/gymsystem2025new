@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CoachScheduleModel;
+use App\Models\ViewSheduleForAllUserModel;
 
 
 class ViewSheduleForAllUserController extends BaseController

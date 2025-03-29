@@ -34,8 +34,8 @@ class QrAttendanceController extends Controller
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
         ->where('DATE(InDate)', $currentDate)
         ->first();
-
-    $currentTime = date('Y-m-d H:i:s');
+            ////12hrbebe
+        $currentTime = date('Y-m-d h:i A');
 
     if ($todayRecord) {
         if ($todayRecord['CheckOut'] === null) {

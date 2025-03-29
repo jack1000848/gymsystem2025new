@@ -114,7 +114,7 @@ $routes->get('/logout', 'Admin::logout');
  $routes->get('/clientdashboard', 'ClientsDashboardController::index');
 
  /// view my attendance
-$routes->get('/view-attendance/(:num)', 'ClientsDashboardController::viewAttendance/$1');
+$routes->get('/view-attendance', 'ClientsDashboardController::viewAttendance');
 ///My QR Code...
 $routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
 

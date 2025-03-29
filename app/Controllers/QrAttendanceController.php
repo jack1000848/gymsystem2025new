@@ -28,7 +28,7 @@ class QrAttendanceController extends Controller
         }
     
         // Get the last attendance record
-        $lastRecord = $qrAttendanceModel->where('CustomerID', $id)->orderBy('CheckIn', 'DESC')->first();
+        $lastRecord = $qrAttendanceModel->where('CustomerID', $id)->orderBy('InDate', 'DESC')->first();
     
         $currentTime = date('Y-m-d H:i:s');
     
@@ -44,7 +44,7 @@ class QrAttendanceController extends Controller
             // Otherwise, create a new Check-In record
             $qrAttendanceModel->insert([
                 'CustomerID' => $id,
-                'CheckIn' => $currentTime,
+                'InDate' => $currentTime,
                 'CheckOut' => null
             ]);
             return $this->response->setJSON([

@@ -44,9 +44,9 @@ class QrAttendanceController extends Controller
     public function viewqrcode()
     {
 
-        if (!$this->session->has('logged_in')) {
-            return redirect()->to('/joinus')->with('error', 'Please log in first.');
-        }
+       // if (!$this->session->has('logged_in')) {
+       //     return redirect()->to('/joinus')->with('error', 'Please log in first.');
+       // }
     
         $scanModel = new QrAttendanceModel();
         $data['scan-qr'] = $scanModel->findAll();

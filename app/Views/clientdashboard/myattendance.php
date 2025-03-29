@@ -72,7 +72,7 @@
 </head>
 <body>
 <div class="container">
-        <center> <h2>Customer and Coach Schedules</h2> </center>
+        <center> <h2>MY LOGS</h2> </center>
         <?php if (!empty($attendance)) : ?>
         <table id="customerTable" class="display">
             <thead>

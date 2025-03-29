@@ -3,105 +3,45 @@
     $this ->section('body');
 
     ?>
-    <div class="p-2 row mb-3">
-
-    <div class="col-12 mb-2">
-    
-    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Records</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Attendance Records</h2>
+        
+        <?php if (!empty($attendance)) : ?>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Attendance ID</th>
+                        <th>Customer ID</th>
+                        <th>Check-in Time</th>
+                        <th>Check-out Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($attendance as $row) : ?>
+                        <tr>
+                            <td><?= esc($row['AttendanceID']) ?></td>
+                            <td><?= esc($row['CustomerID']) ?></td>
+                            <td><?= esc($row['InDate']) ?></td>
+                            <td><?= !empty($row['CheckOut']) ? esc($row['CheckOut']) : 'Not checked out' ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <div class="alert alert-warning">No attendance records found.</div>
+        <?php endif; ?>
     </div>
-
-    
-    <?php if (session()->getFlashdata('success')) :?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <?= session()->getFlashdata('success') ?>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-        <?php endif;?>
-
-    
-    <div class="col-12">
-    <table id="myTable" class="display">
-<thead>
-    <tr>
-                    <th>Customer ID</th>
-                    <th>Full Name</th>
-                    <th>Check-In</th>
-                    <th>Check-Out</th> <!-- Added this -->
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($attendance as $$myattendance): ?>
-<tr>
-    <th scope="row"><?= $myattendance['AttendanceID']; ?></th>
-    <td><?= $myattendance['FullName']; ?></td>
-    <td><?= $myattendance['CheckIn']; ?></td>
-    <td><?= $myattendance['CheckOut']; ?></td>
-</tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-
-    </div>
-
-
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-    
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-    </div>
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Equipment Picture</label>
-              <input type="file" class="form-control" name="equipmentpic"required>
-    </div> 
-    <div class="mb-3">
-         <label for="exampleFormControlTextarea1" class="form-label">Amount</label>
-             <input type="text" class="form-control" name="Eamount"required>
-</div>
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-              <input type="text" class="form-control" name="Equantity"required>
-    </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">description</label>
-              <input type="text" class="form-control" name="Ediscription"required>
-    </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Purchase Date</label>
-              <input type="date" class="form-control" name="Epurchasedate"required>
-    </div> 
-
-    </div>
-   
-    
-    </div>
-  </div>
-</div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script>
-    $(document).ready(function(){
-
-        let table = new DataTable('#myTable', {
-            responsive: true
-        });
-
-        $("#btn-save").on('click', function(){
-
-            alert('Client Added Successfully!')
-
-        });
-
-    });
-   
-</script>
+</body>
+</html>
 
 
 

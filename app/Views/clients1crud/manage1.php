@@ -78,7 +78,7 @@ $this->section('body'); // Start the body section
             </div>
             <div class="modal-body">
                 <form action="<?php echo site_url('/clients1/store'); ?>" method="POST">
-                    <!-- Gym Code -->
+                    
                     
 
                     <!-- First Name -->

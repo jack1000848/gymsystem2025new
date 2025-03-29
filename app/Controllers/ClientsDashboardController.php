@@ -45,8 +45,9 @@ class ClientsDashboardController extends BaseController
             ->orderBy('InDate', 'DESC')
             ->findAll();
     
+            return view ('clientdashboard/myattendance', ['attendance' => $attendanceRecords]);
         // Return records as JSON
-        return $this->response->setJSON(['attendance' => $attendanceRecords]);
+       // return $this->response->setJSON(['attendance' => $attendanceRecords]);
     }
     
 

@@ -29,51 +29,44 @@ class QrAttendanceController extends Controller
 
     // Get the current date (YYYY-MM-DD) for daily check-in restriction
     $currentDate = date('Y-m-d');
-
-    // Get the latest attendance record
-    $lastRecord = $qrAttendanceModel->where('CustomerID', $id)
-        ->orderBy('InDate', 'DESC')
+    
+    // Check if the user has already checked in today
+    $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
+        ->where('DATE(InDate)', $currentDate)
         ->first();
+            ////12hrbebe
+        $currentTime = date('Y-m-d h:i A');
+        
 
-    // Get current time in 12-hour format
-    $currentTime = date('Y-m-d h:i A');
-
-    if ($lastRecord) {
-        // Convert stored time to timestamp for time difference calculation
-        $lastCheckInTime = strtotime($lastRecord['InDate']);
-        $now = strtotime(date('Y-m-d H:i:s')); // Current time in timestamp
-        $timeDifference = $now - $lastCheckInTime; // Difference in seconds
-
-        if ($timeDifference < 120) { // 120 seconds = 2 minutes
-            return $this->response->setJSON([
-                'error' => 'Please wait at least 2 minutes before scanning again.'
-            ])->setStatusCode(400);
-        }
-
-        if ($lastRecord['CheckOut'] === null) {
-            // If the last record exists and CheckOut is NULL, update with CheckOut time
-            $qrAttendanceModel->update($lastRecord['AttendanceID'], ['CheckOut' => $currentTime]);
+    if ($todayRecord) {
+        if ($todayRecord['CheckOut'] === null) {
+            // If already checked in today but not checked out, update CheckOut
+            $qrAttendanceModel->update($todayRecord['AttendanceID'], ['CheckOut' => $currentTime]);
             return $this->response->setJSON([
                 'status' => 'check-out',
                 'customer' => $customer,
                 'message' => 'Checked out successfully.'
             ]);
+        } else {
+            // If already checked in and checked out today, deny new check-in
+            return $this->response->setJSON([
+                'error' => 'You have already checked in today.'
+            ])->setStatusCode(400);
         }
+    } else {
+        // If no record for today, allow check-in
+        $qrAttendanceModel->insert([
+            'CustomerID' => $id,
+            'InDate' => $currentTime,
+            'CheckOut' => null
+        ]);
+        return $this->response->setJSON([
+            'status' => 'check-in',
+            'customer' => $customer,
+            'message' => 'Checked in successfully.'
+        ]);
     }
-
-    // If no record or CheckOut is filled, allow new check-in
-    $qrAttendanceModel->insert([
-        'CustomerID' => $id,
-        'InDate' => $currentTime,
-        'CheckOut' => null
-    ]);
-    return $this->response->setJSON([
-        'status' => 'check-in',
-        'customer' => $customer,
-        'message' => 'Checked in successfully.'
-    ]);
 }
-
 
 
 

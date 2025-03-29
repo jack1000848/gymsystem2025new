@@ -50,11 +50,11 @@ class QrAttendanceController extends Controller
             'status'   => 'check-in',
             'customer' => $customer
         ]);
-    } else {
+   // } else {
         // ✅ Already checked-in, now validate check-out
-        if ($attendance['CheckOut']) {
-            return $this->response->setJSON(['error' => 'Already completed check-in today.'])->setStatusCode(400);
-        }
+        //if ($attendance['CheckOut']) {
+       ////     return $this->response->setJSON(['error' => 'Already completed check-in today.'])->setStatusCode(400);
+       // }
 
     ///    $InDateTime = strtotime($attendance['InDate']);
       ///  $currentTime = time();

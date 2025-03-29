@@ -1,113 +1,111 @@
 <?php
-    $this ->extend('layout/main');
-    $this ->section('body');
+$this->extend('layout/main'); // Extend the main layout
+$this->section('body'); // Start the body section
+?>
 
-    ?>
-    <div class="p-2 row mb-3">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
 
-    <div class="col-12 mb-2">
-    
-    
-    </div>
-
-    
-    <?php if (session()->getFlashdata('success')) :?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <?= session()->getFlashdata('success') ?>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-        <?php endif;?>
-
-    
-    <div class="col-12">
-    <table id="myTable" class="display">
-<thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th>Schedule Date</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Customer Name</th>
-        <th>Coach Name</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($coach1 as $coachSched): ?>
-<tr>
-    <th scope="row"><?= $coachSched['ID']; ?></th>
-    <td><?= $coachSched['ScheduleDate']; ?></td>
-    <td><?= $coachSched['Start']; ?></td>
-    <td><?= $coachSched['End']; ?></td>
-    <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
-    <td><?= isset($coachSched['CoachName']) ? $coachSched['CoachName'] : 'N/A'; ?></td>
-</tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-
-    </div>
-
-
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-    
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-    </div>
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Equipment Picture</label>
-              <input type="file" class="form-control" name="equipmentpic"required>
-    </div> 
-    <div class="mb-3">
-         <label for="exampleFormControlTextarea1" class="form-label">Amount</label>
-             <input type="text" class="form-control" name="Eamount"required>
-</div>
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-              <input type="text" class="form-control" name="Equantity"required>
-    </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">description</label>
-              <input type="text" class="form-control" name="Ediscription"required>
-    </div> 
-
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Purchase Date</label>
-              <input type="date" class="form-control" name="Epurchasedate"required>
-    </div> 
-
-    </div>
-   
-    
-    </div>
-  </div>
-</div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script>
-    $(document).ready(function(){
-
-        let table = new DataTable('#myTable', {
-            responsive: true
+        $(document).ready(function() {
+            $('#customerTable').DataTable();
         });
+    </script>
+    <style>
+       
+        body {
+           
+            background-color: #f4f4f4;
+            text-align: center;
+        }
 
-        $("#btn-save").on('click', function(){
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 20px;
+        }
 
-            alert('Client Added Successfully!')
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #ffffff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-        });
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
 
-    });
-   
-</script>
+        th {
+            background: #3498db;
+            color: white;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        tr:hover {
+            background: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <center> <h2>Customer Schedules</h2> </center>
+        <table id="customerTable" class="display">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                  <th>Schedule Date</th>
+                 <th>Start Time</th>
+                 <th>End Time</th>
+                  <th>Customer Name</th>
+                 <th>Coach Name</th>               
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($coach1 as $coachSched): ?>
+                    <tr>
+                     <th scope="row"><?= $coachSched['ID']; ?></th>
+                        <td><?= $coachSched['ScheduleDate']; ?></td>
+                        <td><?= $coachSched['Start']; ?></td>
+                        <td><?= $coachSched['End']; ?></td>
+                        <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+                        <td><?= isset($coachSched['CoachName']) ? $coachSched['CoachName'] : 'N/A'; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    </body>
+    </html>
+    
+        <script>
+            $(document).ready(function() {
+               $('#customerTable').DataTable();
+                });
+           </script>
 
 
-
-
-<?php $this->endSection(); ?> 
+        </body>
+        </html>
+<?php $this->endSection(); ?>

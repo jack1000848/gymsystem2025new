@@ -29,6 +29,10 @@ class ClientsDashboardController extends BaseController
     //// here the client view their attendance log
     public function viewAttendance()
     {
+        // Ensure the user is logged in
+    if (!session()->has('CustomerID')) {
+        return redirect()->to('/login')->with('error', 'Please log in first.');
+    }
         // Get customer ID from session
         $customerID = session()->get('CustomerID');
     

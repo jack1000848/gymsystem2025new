@@ -34,7 +34,7 @@ class QrAttendanceController extends Controller
     
         if ($lastRecord && $lastRecord['CheckOut'] == null) {
             // If the last record exists and CheckOut is NULL, update with CheckOut time
-            $qrAttendanceModel->update($lastRecord['id'], ['CheckOut' => $currentTime]);
+            $qrAttendanceModel->update($lastRecord['AttendanceID'], ['CheckOut' => $currentTime]);
             return $this->response->setJSON([
                 'status' => 'check-out',
                 'customer' => $customer,

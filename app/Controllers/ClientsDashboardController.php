@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 //use App\Models\Clients1Model;
 use App\Models\CustomerModel;
+use App\Models\QrAttendanceModel;
 
 
 class ClientsDashboardController extends BaseController 

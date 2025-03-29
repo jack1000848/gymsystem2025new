@@ -113,6 +113,8 @@ $routes->get('/logout', 'Admin::logout');
  /// Dashboard, My QR Code, Todo List, View Gym Equipment, Body Information, Logout///
  $routes->get('/clientdashboard', 'ClientsDashboardController::index');
 
+ /// view my attendance
+$routes->get('/view-attendance/(:num)', 'AttendanceLogController::viewAttendance/$1');
 ///My QR Code...
 $routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
 

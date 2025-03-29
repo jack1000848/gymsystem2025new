@@ -98,6 +98,13 @@
                                 </p>
                             </a>
                             
+                            <li class="nav-item"> 
+                            <a href="<?= base_url('/view-attendance') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>View My Attendance</p>
+                            </a> 
+                           </li>
+
                         </li>
                         <li class="nav-item"> 
                             <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 

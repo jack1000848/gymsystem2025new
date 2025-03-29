@@ -24,7 +24,16 @@ class ClientsDashboardController extends BaseController
         }
         return view('clientdashboard/index');
     }
-    
+
+    //// here the client view their attendance log
+    public function viewAttendance($customerID)
+    {
+        $data['customerID'] = $customerID;
+        return view('clientdashboard/myattendance', $data);
+    }
+
+
+
     /////heres the viewqrcode in dashboard
 
     public function myqrcode()

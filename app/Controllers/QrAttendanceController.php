@@ -56,15 +56,15 @@ class QrAttendanceController extends Controller
             return $this->response->setJSON(['error' => 'Already completed check-in today.'])->setStatusCode(400);
         }
 
-        $InDateTime = strtotime($attendance['InDate']);
-        $currentTime = time();
+    ///    $InDateTime = strtotime($attendance['InDate']);
+      ///  $currentTime = time();
 
-        if (($currentTime - $InDateTime) < (1 * 60)) {
-            $remainingMinutes = 1 - floor(($currentTime - $InDateTime) / 60);
-            return $this->response->setJSON([
-                'error' => "You can check-out after {$remainingMinutes} minute(s)."
-            ])->setStatusCode(400);
-        }
+      ///  if (($currentTime - $InDateTime) < (1 * 60)) {
+     ///       $remainingMinutes = 1 - floor(($currentTime - $InDateTime) / 60);
+     ///       return $this->response->setJSON([
+      ///          'error' => "You can check-out after {$remainingMinutes} minute(s)."
+      //      ])->setStatusCode(400);
+      ///  }
 
         // ✅ Perform Check-Out (Fixed the primary key reference)
         $qrAttendanceModel->update($attendance['AttendanceID'], [

@@ -67,9 +67,16 @@ class QrAttendanceController extends Controller
         }
 
         // ✅ Perform Check-Out (Fixed the primary key reference)
-        $qrAttendanceModel->update($attendance['AttendanceID'], [
+        $updateStatus = $qrAttendanceModel->update($attendance['AttendanceID'], [
             'CheckOut' => date('Y-m-d H:i:s')
         ]);
+
+        if (!$updateStatus) {
+            log_message('error', "Failed to update check-out for Customer ID {$id}.");
+            return $this->response->setJSON(['error' => 'Failed to check-out. Please try again.'])->setStatusCode(500);
+        }
+
+        log_message('info', "Customer ID {$id} checked out successfully.");
 
         return $this->response->setJSON([
             'success'  => 'Checked Out Successfully',

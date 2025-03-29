@@ -45,7 +45,7 @@ class QrAttendanceController extends Controller
             $qrAttendanceModel->insert([
                 'CustomerID' => $id,
                 'InDate' => $currentTime,
-                'CheckOut' => $currentTime // Set CheckOut to NULL for new check-in
+                'CheckOut' => null
             ]);
             return $this->response->setJSON([
                 'status' => 'check-in',

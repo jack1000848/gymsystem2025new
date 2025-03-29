@@ -77,8 +77,7 @@
         <table id="customerTable" class="display">
             <thead>
                 <tr>
-                   <th>Attendance ID</th>
-                   <th>Customer ID</th>
+                 
                    <th>Check-in Time</th>
                    <th>Check-out Time</th>
                     </tr>
@@ -86,8 +85,7 @@
             <tbody>
             <?php foreach ($attendance as $row) : ?>
                         <tr>
-                            <td><?= esc($row['AttendanceID']) ?></td>
-                            <td><?= esc($row['CustomerID']) ?></td>
+                            
                             <td><?= esc($row['InDate']) ?></td>
                             <td><?= !empty($row['CheckOut']) ? esc($row['CheckOut']) : 'Not checked out' ?></td>
                         </tr>

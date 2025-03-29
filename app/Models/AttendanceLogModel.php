@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class AttendanceLogModel extends Model
 {
     protected $table = 'viewcustomerattendance'; // Replace with your actual table/view name
-    protected $primaryKey = 'CustomerID';
+    protected $primaryKey = 'AttendanceID';
     protected $allowedFields = ['CustomerID', 'FullName', 'CheckIn' , 'CheckOut']; 
 
     public function getCustomers()

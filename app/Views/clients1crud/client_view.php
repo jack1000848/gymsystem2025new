@@ -14,7 +14,6 @@
             <p class="card-text">Email: <?= $client['Email']; ?></p>
             <p class="card-text">Registered Date: <?= $client['RegisteredDate']; ?></p>
             <p class="card-text">Types of Workout: <?= $client['types_of_workout']; ?></p>
-            <p class="card-text">Gym Time Slot: <?= $client['GymTimeSlot']; ?></p>
             <p class="card-text">Membership Plan: <?= $client['Membesrship_plan']; ?></p>
             <h5>QR Code:</h5>
             <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px; ">

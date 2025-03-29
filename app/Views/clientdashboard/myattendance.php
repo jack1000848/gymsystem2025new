@@ -95,8 +95,12 @@
             </tbody>
         </table>
     </div>
-    </body>
-    </html>
+    <?php else : ?>
+        <div class="container">
+            <h2>No attendance records found.</h2>
+        </div>
+    <?php endif; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
         <script>
             $(document).ready(function() {

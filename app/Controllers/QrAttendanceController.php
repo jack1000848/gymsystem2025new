@@ -27,17 +27,32 @@ class QrAttendanceController extends Controller
             return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
         }
     
-        // Insert attendance record
-        $data = ['CustomerID' => $id];
-        if ($qrAttendanceModel->insert($data)) {
+        // Get the last attendance record
+        $lastRecord = $qrAttendanceModel->where('CustomerID', $id)->orderBy('CheckIn', 'DESC')->first();
+    
+        $currentTime = date('Y-m-d H:i:s');
+    
+        if ($lastRecord && $lastRecord['CheckOut'] == null) {
+            // If the last record exists and CheckOut is NULL, update with CheckOut time
+            $qrAttendanceModel->update($lastRecord['id'], ['CheckOut' => $currentTime]);
             return $this->response->setJSON([
-                'success' => 'Attendance recorded successfully',
-                'customer' => $customer
+                'status' => 'check-out',
+                'customer' => $customer,
+                'message' => 'Checked out successfully.'
+            ]);
+        } else {
+            // Otherwise, create a new Check-In record
+            $qrAttendanceModel->insert([
+                'CustomerID' => $id,
+                'CheckIn' => $currentTime,
+                'CheckOut' => null
+            ]);
+            return $this->response->setJSON([
+                'status' => 'check-in',
+                'customer' => $customer,
+                'message' => 'Checked in successfully.'
             ]);
         }
-    
-        // Handle insertion failure
-        return $this->response->setJSON(['error' => 'Failed to record attendance'])->setStatusCode(500);
     }
 
 

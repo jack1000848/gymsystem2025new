@@ -26,29 +26,28 @@ class ClientsDashboardController extends BaseController
     }
 
     //// here the client view their attendance log
-    public function viewAttendance($customerID)
+    public function viewAttendance()
     {
-        ///$data['customerID'] = $customerID;$qrAttendanceModel = new QrAttendanceModel();
-
-    // Validate ID
-    if (empty($customerID) || !is_numeric($customerID)) {
-        return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
+        // Get customer ID from session
+        $customerID = session()->get('CustomerID');
+    
+        // Validate ID
+        if (empty($customerID) || !is_numeric($customerID)) {
+            return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
+        }
+    
+        $qrAttendanceModel = new QrAttendanceModel();
+    
+        // Fetch attendance records
+        $attendanceRecords = $qrAttendanceModel
+            ->where('CustomerID', $customerID)
+            ->orderBy('InDate', 'DESC')
+            ->findAll();
+    
+        // Return records as JSON
+        return $this->response->setJSON(['attendance' => $attendanceRecords]);
     }
-
-    // Fetch attendance records for the client
-    $attendanceRecords = $qrAttendanceModel
-        ->where('CustomerID', $customerID)
-        ->orderBy('InDate', 'DESC')
-        ->findAll();
-
-    // Check if records exist
-    if (!$attendanceRecords) {
-        return $this->response->setJSON(['error' => 'No attendance records found.']);
-    }
-
-    return $this->response->setJSON(['myattendance' => $attendanceRecords]);
-       /// return view('clientdashboard/myattendance', $data);
-    }
+    
 
 
 

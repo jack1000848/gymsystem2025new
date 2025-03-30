@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
-use app\Models\eCoachAttendanceModel;
+use App\Models\eCoachAttendanceModel; // Correct model name
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;
@@ -12,7 +12,7 @@ use App\Models\CoachModel;
 
 class QrAttendanceController extends Controller
 {
-    protected $session; // Declare session variable
+    protected $session;
     protected $coachModel;
     protected $attendanceModel;
 
@@ -20,6 +20,17 @@ class QrAttendanceController extends Controller
     {
         $this->coachModel = new CoachModel();
      ///   $this->attendanceModel = new CoachAttendanceModel();
+
+     helper(['url', 'form']); // Load helpers
+
+     // Initialize models
+     $this->coachModel = new CoachModel();
+     $this->attendanceModel = new eCoachAttendanceModel(); // Correct model instance
+
+     // Debugging check
+     if (!$this->attendanceModel) {
+         die("Error: eCoachAttendanceModel failed to load.");
+     }
     }
     public function save($id)
 {
@@ -112,9 +123,11 @@ class QrAttendanceController extends Controller
             return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
         }
 
-       // if (!$this->attendanceModel) {
-           // die("Error: attendanceModel is null. Check model initialization.");
-      // }
+        // Check if attendanceModel is properly initialized
+        if (!$this->attendanceModel) {
+            return $this->response->setJSON(['error' => 'Attendance model not loaded'])->setStatusCode(500);
+        }
+
         // Check for last attendance record (to determine check-in or check-out)
         $lastAttendance = $this->attendanceModel
             ->where('CoachID', $coachID)
@@ -151,4 +164,5 @@ class QrAttendanceController extends Controller
             ]);
         }
     }
+
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CoachAttendanceModel extends Model
+class eCoachAttendanceModel extends Model
 {
     protected $table            = 'coachattendance';
     protected $primaryKey       = 'id';

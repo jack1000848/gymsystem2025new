@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
-use app\Models\eCoachAttendanceModel;
+use app\Models\CoachAttendanceModel;
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;
@@ -19,9 +19,7 @@ class QrAttendanceController extends Controller
     public function __construct()
     {
         $this->coachModel = new CoachModel();
-     ///   $this->attendanceModel = new eCoachAttendanceModel();
-     $this->attendanceModel = model(eCoachAttendanceModel::class);
-     $this->scheduleModel = model(CoachScheduleModel::class);
+     ///   $this->attendanceModel = new CoachAttendanceModel();
     }
     public function save($id)
 {
@@ -104,60 +102,50 @@ class QrAttendanceController extends Controller
     }
     public function save1($coachID)
     {
-        $qrCode = $coachID; // Assuming the QR code is the CoachID
+        // Get current timestamp
+        $timestamp = date('Y-m-d H:i:s');
 
-        // Validate the QR code (CoachID)
-        if (empty($qrCode)) {
-            return $this->response->setJSON(['error' => 'Invalid QR Code'])->setStatusCode(400);
-        }
-
-        // Load models
-        $this->attendanceModel = new eCoachAttendanceModel();
-        $this->customerPlanModel = new CustomerPlanModel();
-        $this->coachModel = new CoachModel();
-        $this->scheduleModel = new CoachScheduleModel();
-    {
-
-        $customerPlanModel = new CustomerPlanModel();
-       // $AttendanceModel = new eCoachAttendanceModel();
-        // Find the coach based on the scanned QR code
-        $coach = $this->coachModel->where('CoachID', $qrCode)->first();
+        // Find the coach details
+        $coach = $this->coachModel->where('CoachID', $coachID)->first();
 
         if (!$coach) {
             return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
         }
 
-        $coachID = $coach['CoachID'];
-        $fullName = $coach['Firstname'] . ' ' . $coach['Lastname'];
-
         // Check for last attendance record (to determine check-in or check-out)
         $lastAttendance = $this->attendanceModel
             ->where('CoachID', $coachID)
-            ->orderBy('Timestamp', 'DESC')
+            ->orderBy('CheckInTime', 'DESC')
             ->first();
 
-        // Determine if it's a check-in or check-out
-        $action = 'check-in';
-
-        if ($lastAttendance && $lastAttendance['CheckOutTime'] === null) {
-            // If last record exists and there is no check-out time, mark it as check-out
-            $this->attendanceModel->update($lastAttendance['id'], ['CheckOutTime' => date('Y-m-d H:i:s')]);
-            $action = 'check-out';
-        } else {
-            // Otherwise, create a new check-in record
+        if (!$lastAttendance || $lastAttendance['CheckOutTime'] !== null) {
+            // If no previous record or already checked out, do Check-In
             $this->attendanceModel->insert([
-                'CoachID' => $coachID,
-                'CheckInTime' => date('Y-m-d H:i:s')
+                'CoachID'     => $coachID,
+                'CheckInTime' => $timestamp,
+                'CheckOutTime' => null
+            ]);
+
+            return $this->response->setJSON([
+                'status'   => 'check-in',
+                'message'  => 'Check-in successful',
+                'coach'    => [
+                    'CoachID'   => $coach['CoachID'],
+                    'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
+                ]
+            ]);
+        } else {
+            // Otherwise, do Check-Out
+            $this->attendanceModel->update($lastAttendance['id'], ['CheckOutTime' => $timestamp]);
+
+            return $this->response->setJSON([
+                'status'   => 'check-out',
+                'message'  => 'Check-out successful',
+                'coach'    => [
+                    'CoachID'   => $coach['CoachID'],
+                    'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
+                ]
             ]);
         }
-
-        return $this->response->setJSON([
-            'status' => $action,
-            'coach' => [
-                'CoachID' => $coachID,
-                'FullName' => $fullName,
-            ]
-        ]);
-    }
     }
 }

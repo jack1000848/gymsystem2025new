@@ -59,7 +59,7 @@ class QrAttendanceController extends Controller
     } else {
         // If no record for today, allow check-in
         $qrAttendanceModel->insert([
-            'CustomerID' => $id,
+            'CustomerID' => $customer['CustomerID'],
             'InDate' => $currentTime,
             'CheckOut' => null
         ]);

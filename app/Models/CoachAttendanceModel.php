@@ -11,5 +11,5 @@ class CoachAttendanceModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['CoachID', 'CheckInTime', 'CheckOutTime'];
+    protected $allowedFields    = ['id','CoachID', 'CheckInTime', 'CheckOutTime'];
 }

@@ -112,9 +112,9 @@ class QrAttendanceController extends Controller
             return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
         }
 
-        if (!$this->attendanceModel) {
-            die("Error: attendanceModel is null. Check model initialization.");
-        }
+       // if (!$this->attendanceModel) {
+           // die("Error: attendanceModel is null. Check model initialization.");
+      // }
         // Check for last attendance record (to determine check-in or check-out)
         $lastAttendance = $this->attendanceModel
             ->where('CoachID', $coachID)

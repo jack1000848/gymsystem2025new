@@ -196,16 +196,16 @@
          });      
   });
    // Function to generate QR Code
-   function generateQRCode(clientId) {
+   function generateQRCode(coachId) {
         const qr = new QRious({
             element: document.createElement('canvas'),
-            value: `${clientId}`,
+            value: `${coachId}`,
             size: 200,
             background: 'white',
             foreground: 'black',
         });
 
-        const qrImageElement = document.getElementById('qrCodeImage' + clientId);
+        const qrImageElement = document.getElementById('qrCodeImage' + coachId);
     if (qrImageElement) {
         qrImageElement.src = qr.toDataURL();
         }

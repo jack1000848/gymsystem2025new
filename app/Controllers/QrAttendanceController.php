@@ -10,7 +10,14 @@ use App\Models\QrAttendanceLogModel;
 class QrAttendanceController extends Controller
 {
     protected $session; // Declare session variable
+    protected $coachModel;
+    protected $attendanceModel;
 
+    public function __construct()
+    {
+        $this->coachModel = new CoachModel();
+        $this->attendanceModel = new CoachAttendanceModel();
+    }
     public function save($id)
 {
     $customerPlanModel = new CustomerPlanModel();
@@ -86,8 +93,49 @@ class QrAttendanceController extends Controller
     public function viewqrcodecoach()
     {
         $scanModel = new QrAttendanceModel();
-        $data['scan-qr'] = $scanModel->findAll();
+        $data['coachattendanceqr'] = $scanModel->findAll();
         return view('/clients1crud/qrattendancecoach', $data);
 
+    }
+    public function save1($qrCode)
+    {
+        // Find the coach based on the scanned QR code
+        $coach = $this->coachModel->where('CoachID', $qrCode)->first();
+
+        if (!$coach) {
+            return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
+        }
+
+        $coachID = $coach['CoachID'];
+        $fullName = $coach['Firstname'] . ' ' . $coach['Lastname'];
+
+        // Check for last attendance record (to determine check-in or check-out)
+        $lastAttendance = $this->attendanceModel
+            ->where('CoachID', $coachID)
+            ->orderBy('Timestamp', 'DESC')
+            ->first();
+
+        // Determine if it's a check-in or check-out
+        $action = 'check-in';
+
+        if ($lastAttendance && $lastAttendance['CheckOutTime'] === null) {
+            // If last record exists and there is no check-out time, mark it as check-out
+            $this->attendanceModel->update($lastAttendance['id'], ['CheckOutTime' => date('Y-m-d H:i:s')]);
+            $action = 'check-out';
+        } else {
+            // Otherwise, create a new check-in record
+            $this->attendanceModel->insert([
+                'CoachID' => $coachID,
+                'CheckInTime' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => $action,
+            'coach' => [
+                'CoachID' => $coachID,
+                'FullName' => $fullName,
+            ]
+        ]);
     }
 }

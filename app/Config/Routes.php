@@ -57,7 +57,7 @@ $routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
 ///coachqrattendance
 $routes->get('coachattendanceqr', 'QrAttendanceController::viewqrcodecoach');
 $routes->post('coachattendanceqr/save/(:num)', 'QrAttendanceController::save1/$1');
-
+$routes->get('coachattendanceqr/save/(:num)', 'QrAttendanceController::save1/$1');
                 
 ////participant log...
 $routes->get('/attendance', 'AttendanceLogController::checkin');

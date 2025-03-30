@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class eCoachAttendanceModel extends Model
 {
-    protected $table            = 'coachattendance1';
+    protected $table            = 'coachattendance';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

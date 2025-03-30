@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
-use app\Models\CoachAttendanceModel;
+use app\Models\eCoachAttendanceModel;
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;

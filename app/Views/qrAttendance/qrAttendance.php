@@ -152,6 +152,16 @@ $this->section('body'); // Start the body section
         onScanSuccess,
         onScanFailure
     );
+
+    function redirectToPage() {
+        let userType = document.getElementById("userType").value;
+
+        if (userType === "client") {
+            window.location.href = "client_dashboard.php"; // Change to your actual client view
+        } else if (userType === "coach") {
+            window.location.href = "coach_dashboard.php"; // Change to your actual coach view
+        }
+    }
 </script>
 
 

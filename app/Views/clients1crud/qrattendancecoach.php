@@ -65,6 +65,16 @@ $this->section('body'); // Start the body section
     
 
 <script>
+
+function redirectToPage() {
+        let userType = document.getElementById("userType").value;
+
+        if (userType === "Coach") {
+            window.location.href = "coachattendanceqr"; // Change to your actual client view
+       } else if (userType === "Client") {
+          window.location.href = "scan-qr"; // Change to your actual coach view
+        }
+    }
     let html5QrCode = new Html5Qrcode("reader");
 
     function onScanSuccess(decodedText, decodedResult) {
@@ -152,15 +162,7 @@ $this->section('body'); // Start the body section
         onScanFailure
     );
 
-    function redirectToPage() {
-        let userType = document.getElementById("userType").value;
-
-        if (userType === "Coach") {
-            window.location.href = "coachattendanceqr"; // Change to your actual client view
-       } else if (userType === "Client") {
-          window.location.href = "scan-qr"; // Change to your actual coach view
-        }
-    }
+    
 </script>
 
 

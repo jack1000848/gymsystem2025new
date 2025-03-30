@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
-use app\Models\CoachAttendanceModel;
+use app\Models\eCoachAttendanceModel;
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;
@@ -19,8 +19,8 @@ class QrAttendanceController extends Controller
     public function __construct()
     {
         $this->coachModel = new CoachModel();
-     ///   $this->attendanceModel = new CoachAttendanceModel();
-     $this->attendanceModel = model(CoachAttendanceModel::class);
+     ///   $this->attendanceModel = new eCoachAttendanceModel();
+     $this->attendanceModel = model(eCoachAttendanceModel::class);
      $this->scheduleModel = model(CoachScheduleModel::class);
     }
     public function save($id)
@@ -112,14 +112,14 @@ class QrAttendanceController extends Controller
         }
 
         // Load models
-        $this->attendanceModel = new CoachAttendanceModel();
+        $this->attendanceModel = new eCoachAttendanceModel();
         $this->customerPlanModel = new CustomerPlanModel();
         $this->coachModel = new CoachModel();
         $this->scheduleModel = new CoachScheduleModel();
     {
 
         $customerPlanModel = new CustomerPlanModel();
-       // $AttendanceModel = new CoachAttendanceModel();
+       // $AttendanceModel = new eCoachAttendanceModel();
         // Find the coach based on the scanned QR code
         $coach = $this->coachModel->where('CoachID', $qrCode)->first();
 

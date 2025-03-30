@@ -34,7 +34,6 @@ $this->section('body'); // Start the body section
 <div class="mb-3">
     <label for="userType" class="form-label"><strong>Select Role:</strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
-        <option value="" disabled selected>Select Role</option>
         <option value="client">Client</option>
         <option value="coach">Coach</option>
     </select>
@@ -157,7 +156,7 @@ $this->section('body'); // Start the body section
         let userType = document.getElementById("userType").value;
 
         if (userType === "client") {
-            window.location.href = "client_dashboard.php"; // Change to your actual client view
+            window.location.href = "scan-qr"; // Change to your actual client view
         } else if (userType === "coach") {
             window.location.href = "coach_dashboard.php"; // Change to your actual coach view
         }

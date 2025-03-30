@@ -89,5 +89,5 @@ class QrAttendanceController extends Controller
         $data['scan-qr'] = $scanModel->findAll();
         return view('/clients1crud/qrattendancecoach', $data);
 
-    
+    }
 }

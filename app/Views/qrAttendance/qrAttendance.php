@@ -30,7 +30,7 @@ $this->section('body'); // Start the body section
                 <div class="card-header bg-primary text-white text-center">
                     <h2>Tap Your Own QR Code!</h2>
                 </div>
-                <a href="<?= base_url('clients1/renew/' . $client['CustomerID']); ?>" class="btn btn-sm btn-outline-success">Renew</span>
+                <a href="<?= base_url('clients1/renew/') ?>" class="btn btn-sm btn-outline-success">Renew</span>
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">

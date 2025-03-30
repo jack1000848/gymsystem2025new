@@ -31,7 +31,7 @@ class QrAttendanceController extends Controller
     }
 
     // Get the current date (YYYY-MM-DD) for daily check-in restriction
-    $currentDate = date('Y-m-d');
+    $currentDate = date('Y-m-d h:i A');
     
     // Check if the user has already checked in today
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
@@ -59,7 +59,7 @@ class QrAttendanceController extends Controller
     } else {
         // If no record for today, allow check-in
         $qrAttendanceModel->insert([
-            'CustomerID' => $customer['CustomerID'],
+            'CustomerID' => $id,
             'InDate' => $currentTime,
             'CheckOut' => null
         ]);

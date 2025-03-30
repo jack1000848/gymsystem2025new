@@ -31,7 +31,7 @@ class QrAttendanceController extends Controller
         return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
     }
 
-    // Check if customer exists
+    ///// Check if customer exists
     $customer = $customerPlanModel->find($id);
     if (!$customer) {
         return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);

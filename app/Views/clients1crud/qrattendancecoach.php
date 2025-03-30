@@ -34,8 +34,8 @@ $this->section('body'); // Start the body section
 <div class="mb-3">
     <label for="userType" class="form-label"><strong>Select Role:</strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
-        <option value="client"<?= base_url('/scan-qr')?>;>Coach</option>
-        <option value="coach">Client</option>
+        <option value="coach">Coach</option>
+        <option value="client">Client</option>
     </select>
 </div>
                 <div class="card-body text-center">
@@ -69,11 +69,11 @@ $this->section('body'); // Start the body section
 function redirectToPage() {
         let userType = document.getElementById("userType").value;
 
-      //  if (userType === "coach") {
-      //      window.location.href = "coachattendanceqr"; // Change to your actual client view
-      // } else if (userType === "client") {
-      //    window.location.href = "<?= base_url('/scan-qr'); ?>"; // Change to your actual coach view
-//}
+        if (userType === "coach") {
+            window.location.href = "coachattendanceqr"; // Change to your actual client view
+       } else if (userType === "client") {
+          window.location.href = "<?= base_url('/scan-qr'); ?>"; // Change to your actual coach view
+        }
     }
     let html5QrCode = new Html5Qrcode("reader");
 

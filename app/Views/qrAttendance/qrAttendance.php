@@ -32,7 +32,7 @@ $this->section('body'); // Start the body section
                 </div>
                 <!-- Role Selection -->
 <div class="mb-3">
-    <label for="userType" class="form-label"><strong>Select Role:</strong></label>
+    <label for="userType" class="form-label"><strong></strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
         <option value="client">Client</option>
         <option value="coach">Coach</option>

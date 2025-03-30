@@ -6,6 +6,7 @@ use CodeIgniter\Controller;
 use App\Models\QrAttendanceModel;
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
+use App\Models\CoachModel;
 
 class QrAttendanceController extends Controller
 {

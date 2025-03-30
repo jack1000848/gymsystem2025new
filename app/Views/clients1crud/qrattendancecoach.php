@@ -72,7 +72,7 @@ function redirectToPage() {
         if (userType === "coach") {
             window.location.href = "coachattendanceqr"; // Change to your actual client view
        } else if (userType === "client") {
-          window.location.href = "scan-qr"; // Change to your actual coach view
+          window.location.href = "<?= base_url('/scan-qr'); ?>"; // Change to your actual coach view
         }
     }
     let html5QrCode = new Html5Qrcode("reader");

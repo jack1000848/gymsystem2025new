@@ -30,6 +30,16 @@ $this->section('body'); // Start the body section
                 <div class="card-header bg-primary text-white text-center">
                     <h2>Tap Your Own QR Code!</h2>
                 </div>
+
+                 <!-- Role Selection -->
+                 <div class="mb-3">
+                        <label for="userType" class="form-label"><strong>Select Role:</strong></label>
+                        <select id="userType" class="form-select">
+                            <option value="client">Client</option>
+                            <option value="coach">Coach</option>
+                        </select>
+                    </div>
+
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">
@@ -59,90 +69,90 @@ $this->section('body'); // Start the body section
 <script>
     let html5QrCode = new Html5Qrcode("reader");
 
-    function onScanSuccess(decodedText, decodedResult) {
-        console.log("Scanned QR Code:", decodedText);
+function onScanSuccess(decodedText, decodedResult) {
+    console.log("Scanned QR Code:", decodedText);
 
-        $("#loadingSpinner").show();
+    $("#loadingSpinner").show();
 
-        // Stop the scanner to prevent multiple scans
-        html5QrCode.stop().then(() => {
-            console.log("QR Scanner stopped.");
-        }).catch(err => {
-            console.error("Failed to stop scanner:", err);
-        });
+    // Stop the scanner to prevent multiple scans
+    html5QrCode.stop().then(() => {
+        console.log("QR Scanner stopped.");
+    }).catch(err => {
+        console.error("Failed to stop scanner:", err);
+    });
 
-        $.ajax({
-            url: "<?= base_url('/scan-qr/save/'); ?>" + decodedText,
-            type: "POST",
-            success: function(response) {
-                console.log("Response from server:", response);
-                const customer = response.customer;
+    let userType = $("#userType").val(); // Get selected user type (client/coach)
 
-                $("#loadingSpinner").hide();
-                $("#showInfo").show();
+    $.ajax({
+        url: "<?= base_url('/scan-qr/save/'); ?>" + decodedText,
+        type: "POST",
+        data: { userType: userType }, // Send user type to backend
+        success: function(response) {
+            console.log("Response from server:", response);
+            const user = response.user;
 
-                $("#userId").text(customer.CustomerID || "N/A");
-                $("#fullName").text(customer.FullName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+            $("#loadingSpinner").hide();
+            $("#showInfo").show();
 
-                // Show a simple message in the console
-                if (response.status === 'check-in') {
-                    console.log('Checked In Successfully!');
-                } else if (response.status === 'check-out') {
-                    console.log('Checked Out Successfully!');
-                }
+            $("#userId").text(user.UserID || "N/A");
+            $("#fullName").text(user.FullName || "N/A");
+            $("#expirationDate").text(user.ExpirationDate || "N/A");
 
-                setTimeout(() => {
-                    reset();
-                }, 10000); // Reset scanner after 10 seconds
-            },
-            error: function(xhr) {
-                $("#loadingSpinner").hide();
-
-                let errorMsg = "Failed to process QR Code.";
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    errorMsg = xhr.responseJSON.error;
-                }
-
-                // Show the error inside the showInfo div
-                $("#showInfo").removeClass('alert-success').addClass('alert-danger').show().html(`
-                    <p><strong>Error:</strong> ${errorMsg}</p>
-                `);
-
-                console.error(errorMsg);
-
-                setTimeout(() => {
-                    reset();
-                }, 5000); // Reset scanner after 5 seconds on error
+            if (response.status === 'check-in') {
+                console.log(userType.charAt(0).toUpperCase() + userType.slice(1) + ' Checked In Successfully!');
+            } else if (response.status === 'check-out') {
+                console.log(userType.charAt(0).toUpperCase() + userType.slice(1) + ' Checked Out Successfully!');
             }
-        });
-    }
 
-    function onScanFailure(error) {
-        // Optional: You can log scan failures silently
-    }
+            setTimeout(() => {
+                reset();
+            }, 10000);
+        },
+        error: function(xhr) {
+            $("#loadingSpinner").hide();
 
-    function reset() {
-        $("#showInfo").hide().removeClass('alert-danger').addClass('alert-success');
+            let errorMsg = "Failed to process QR Code.";
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                errorMsg = xhr.responseJSON.error;
+            }
 
-        // Restart the scanner
-        html5QrCode.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 300 },
-            onScanSuccess,
-            onScanFailure
-        ).catch(err => {
-            console.error("Failed to restart scanner:", err);
-        });
-    }
+            $("#showInfo").removeClass('alert-success').addClass('alert-danger').show().html(`
+                <p><strong>Error:</strong> ${errorMsg}</p>
+            `);
 
-    // Start the scanner on page load
+            console.error(errorMsg);
+
+            setTimeout(() => {
+                reset();
+            }, 5000);
+        }
+    });
+}
+
+function onScanFailure(error) {
+    // Optional: Log scan failures silently
+}
+
+function reset() {
+    $("#showInfo").hide().removeClass('alert-danger').addClass('alert-success');
+
     html5QrCode.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: 300 },
         onScanSuccess,
         onScanFailure
-    );
+    ).catch(err => {
+        console.error("Failed to restart scanner:", err);
+    });
+}
+
+// Start the scanner on page load
+html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 300 },
+    onScanSuccess,
+    onScanFailure
+);
 </script>
 
 

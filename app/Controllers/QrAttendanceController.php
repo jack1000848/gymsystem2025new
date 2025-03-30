@@ -102,7 +102,20 @@ class QrAttendanceController extends Controller
         return view('/clients1crud/qrattendancecoach', $data);
 
     }
-    public function save1($qrCode)
+    public function save1($coachID)
+    {
+        $qrCode = $coachID; // Assuming the QR code is the CoachID
+
+        // Validate the QR code (CoachID)
+        if (empty($qrCode)) {
+            return $this->response->setJSON(['error' => 'Invalid QR Code'])->setStatusCode(400);
+        }
+
+        // Load models
+        $this->attendanceModel = new CoachAttendanceModel();
+        $this->customerPlanModel = new CustomerPlanModel();
+        $this->coachModel = new CoachModel();
+        $this->scheduleModel = new CoachScheduleModel();
     {
 
         $customerPlanModel = new CustomerPlanModel();
@@ -145,5 +158,6 @@ class QrAttendanceController extends Controller
                 'FullName' => $fullName,
             ]
         ]);
+    }
     }
 }

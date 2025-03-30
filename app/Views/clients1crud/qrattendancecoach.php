@@ -41,9 +41,8 @@ $this->section('body'); // Start the body section
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">
-                        <p><strong>User ID:</strong> <span id="userId">-</span></p>
+                        <p><strong>User ID:</strong> <span id="coachId">-</span></p>
                         <p><strong>Full Name:</strong> <span id="fullName">-</span></p>
-                        <p><strong>Expiration Date:</strong> <span id="expirationDate">-</span></p>
                     </div>
 
                     <!-- Loader (Hidden Initially) -->
@@ -90,7 +89,7 @@ function redirectToPage() {
         });
 
         $.ajax({
-            url: "<?= base_url('/scan-qr/save/'); ?>" + decodedText,
+            url: "<?= base_url('/coachattendanceqr/save/'); ?>" + decodedText,
             type: "POST",
             success: function(response) {
                 console.log("Response from server:", response);
@@ -99,7 +98,7 @@ function redirectToPage() {
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
 
-                $("#userId").text(customer.CustomerID || "N/A");
+                $("#coachId").text(customer.CoachID || "N/A");
                 $("#fullName").text(customer.FullName || "N/A");
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
 
@@ -120,7 +119,7 @@ function redirectToPage() {
                 let errorMsg = "Failed to process QR Code.";
                 if (xhr.responseJSON && xhr.responseJSON.error) {
                     errorMsg = xhr.responseJSON.error;
-                }
+            
 
                 // Show the error inside the showInfo div
                 $("#showInfo").removeClass('alert-success').addClass('alert-danger').show().html(`
@@ -132,7 +131,7 @@ function redirectToPage() {
                 setTimeout(() => {
                     reset();
                 }, 5000); // Reset scanner after 5 seconds on error
-            }
+            }}
         });
     }
 

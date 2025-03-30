@@ -54,6 +54,8 @@ $routes->post('/logout', 'LoginClientController::logout');
 $routes->post('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 $routes->get('scan-qr/save/(:num)', 'QrAttendanceController::save/$1');
 $routes->get('scan-qr', 'QrAttendanceController::viewqrcode');
+///coachqrattendance
+$routes->get('coachattendanceqr', 'QrAttendanceController::viewqrcodecoach');
                 
 ////participant log...
 $routes->get('/attendance', 'AttendanceLogController::checkin');
@@ -117,6 +119,7 @@ $routes->get('/logout', 'Admin::logout');
 $routes->get('/view-attendance', 'ClientsDashboardController::viewAttendance');
 ///My QR Code...
 $routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
+
 
 ///Todo List...
 

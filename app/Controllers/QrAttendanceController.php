@@ -83,5 +83,11 @@ class QrAttendanceController extends Controller
         ////c
     }
 
+    public function viewqrcodecoach()
+    {
+        $scanModel = new QrAttendanceModel();
+        $data['scan-qr'] = $scanModel->findAll();
+        return view('/clients1crud/qrattendancecoach', $data);
+
     
 }

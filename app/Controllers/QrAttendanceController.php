@@ -7,6 +7,7 @@ use App\Models\QrAttendanceModel;
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;
+use app\Models\CoachAttendanceModel;
 
 class QrAttendanceController extends Controller
 {

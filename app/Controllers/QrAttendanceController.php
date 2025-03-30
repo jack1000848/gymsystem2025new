@@ -16,9 +16,6 @@ class QrAttendanceController extends Controller
     $customerPlanModel = new CustomerPlanModel();
     $qrAttendanceModel = new QrAttendanceModel();
 
-    // Siguraduhin na tama ang column names
-    $customer = $customerPlanModel->where('CustomerID', $id)->first();
-
     // Validate ID
     if (empty($id) || !is_numeric($id)) {
         return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
@@ -31,7 +28,7 @@ class QrAttendanceController extends Controller
     }
 
     // Get the current date (YYYY-MM-DD) for daily check-in restriction
-    $currentDate = date('Y-m-d h:i A');
+    $currentDate = date('Y-m-d');
     
     // Check if the user has already checked in today
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)

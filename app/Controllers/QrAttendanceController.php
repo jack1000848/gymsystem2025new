@@ -16,6 +16,9 @@ class QrAttendanceController extends Controller
     $customerPlanModel = new CustomerPlanModel();
     $qrAttendanceModel = new QrAttendanceModel();
 
+    // Siguraduhin na tama ang column names
+    $customer = $customerPlanModel->where('CustomerID', $id)->first();
+
     // Validate ID
     if (empty($id) || !is_numeric($id)) {
         return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);

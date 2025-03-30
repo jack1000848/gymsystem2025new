@@ -20,6 +20,7 @@ class QrAttendanceController extends Controller
     {
         $this->coachModel = new CoachModel();
      ///   $this->attendanceModel = new CoachAttendanceModel();
+     $this->attendanceModel = new CoachAttendanceModel();
     }
     public function save($id)
 {

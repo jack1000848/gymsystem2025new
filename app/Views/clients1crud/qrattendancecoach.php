@@ -69,9 +69,9 @@ $this->section('body'); // Start the body section
 function redirectToPage() {
         let userType = document.getElementById("userType").value;
 
-        if (userType === "Coach") {
+        if (userType === "coach") {
             window.location.href = "coachattendanceqr"; // Change to your actual client view
-       } else if (userType === "Client") {
+       } else if (userType === "client") {
           window.location.href = "scan-qr"; // Change to your actual coach view
         }
     }

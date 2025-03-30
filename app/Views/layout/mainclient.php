@@ -58,6 +58,12 @@
                                 <i class="bi bi-speedometer nav-icon"></i> Home
                             </a>
                         </li>
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/view-attendance') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>View My Attendance</p>
+                            </a> 
+                           </li>
                         <li class="nav-item">
                             <a href="<?= base_url('/client-qr') ?>" class="nav-link">My Qr Code</a>
                         </li>

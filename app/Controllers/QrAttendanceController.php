@@ -106,7 +106,7 @@ class QrAttendanceController extends Controller
     {
 
         $customerPlanModel = new CustomerPlanModel();
-        $AttendanceModel = new CoachAttendanceModel();
+       // $AttendanceModel = new CoachAttendanceModel();
         // Find the coach based on the scanned QR code
         $coach = $this->coachModel->where('CoachID', $qrCode)->first();
 

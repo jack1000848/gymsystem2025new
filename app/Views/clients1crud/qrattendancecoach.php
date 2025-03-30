@@ -35,7 +35,7 @@ $this->section('body'); // Start the body section
     <label for="userType" class="form-label"><strong>Select Role:</strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
         <option value="client">Client</option>
-        <option value="coach">Coach</option>
+      
     </select>
 </div>
                 <div class="card-body text-center">

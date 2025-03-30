@@ -34,7 +34,6 @@ $this->section('body'); // Start the body section
 <div class="mb-3">
     <label for="userType" class="form-label"><strong>Select Role:</strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
-        <option value="" disabled selected>Select Role</option>
         <option value="client">Client</option>
         <option value="coach">Coach</option>
     </select>

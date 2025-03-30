@@ -158,7 +158,7 @@ $this->section('body'); // Start the body section
         if (userType === "client") {
             window.location.href = "scan-qr"; // Change to your actual client view
         } else if (userType === "coach") {
-            window.location.href = "coach_dashboard.php"; // Change to your actual coach view
+            window.location.href = "coachattendanceqr"; // Change to your actual coach view
         }
     }
 </script>

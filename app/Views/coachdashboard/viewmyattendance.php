@@ -86,8 +86,8 @@
             <?php foreach ($attendance as $row) : ?>
                         <tr>
                             
-                            <td><?= esc($row['InDate']) ?></td>
-                            <td><?= !empty($row['CheckOut']) ? esc($row['CheckOut']) : 'Not checked out' ?></td>
+                            <td><?= esc($row['CheckInTime']) ?></td>
+                            <td><?= !empty($row['CheckOutTime']) ? esc($row['CheckOutTime']) : 'Not checked out' ?></td>
                         </tr>
                     <?php endforeach; ?>
             </tbody>

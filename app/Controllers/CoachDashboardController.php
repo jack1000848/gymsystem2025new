@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CoachScheduleModel;
+use App\Models\eCoachAttendanceModel;
 
 use App\Models\CoachModel;
 
@@ -13,8 +14,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 class CoachDashboardController extends BaseController 
 {
     protected $coachModel; // Declare the model
+    protected $attendanceModel;
+    protected $session;
+
     public function __construct()
     {
+        $this->attendanceModel = new eCoachAttendanceModel(); // Load the model
+        $this->session = session(); // Load session
+    
         $this->coachScheduleModel = new CoachScheduleModel();
        //  $this->timeModel = new TimeScheduleModel();
          $this->scheduleModel = model(CoachScheduleModel::class);
@@ -121,7 +128,25 @@ class CoachDashboardController extends BaseController
     return $this->response->setJSON(['status' => 'success']);
 }
 
+///// this is coach attendance log\\\\\\\
+public function mylogs()
+{
+    // Ensure coach is logged in
+    if (!$this->session->has('logged_in') || $this->session->get('role') !== 'coach') {
+        return redirect()->to('/Coach-login')->with('error', 'Please log in first.');
+    }
 
+    // Get the logged-in coach ID
+    $coachID = $this->session->get('CoachID');
+
+    // Fetch attendance records for the logged-in coach
+    $data['attendance'] = $this->attendanceModel
+        ->where('CoachID', $coachID)
+        ->orderBy('CheckInTime', 'DESC')
+        ->findAll();
+
+    return view('coachdashboard/viewmyattendance', $data);
+}
    
 
     ///////////// this is the coach client list!
@@ -147,6 +172,8 @@ class CoachDashboardController extends BaseController
 
         return view('coachdashboard/myqrcode', $data);
     }
+
+
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()

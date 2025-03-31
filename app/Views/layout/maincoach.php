@@ -59,6 +59,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attended Session</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>
                         </li>
                         <li class="nav-item">
@@ -93,6 +96,9 @@
                             <a href="<?= base_url('coachdashboard') ?>" class="nav-link active">
                                 <i class="bi bi-speedometer nav-icon"></i> Coach Dashboard
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attended Session</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>

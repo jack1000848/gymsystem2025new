@@ -145,7 +145,8 @@ $routes->get('/logout', 'ClientsDashboardController::logout');
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 // Coach Dashboard
 $routes->get('/coachdashboard', 'CoachDashboardController::dashboardindex');
-
+///coach view my attendance\\\\
+$routes->get('/mylogs', 'CoachDashboardController::mylogs');
 /// Manage my Schedule
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
 $routes->get('/coach-manage', 'CoachDashboardController::coachManage');

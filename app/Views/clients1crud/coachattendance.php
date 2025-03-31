@@ -69,13 +69,6 @@ $this->section('body'); // Start the body section
     </style>
 </head>
 <body>
-<div class="mb-3">
-    <label for="userType" class="form-label"><strong>Select Role:</strong></label>
-    <select id="userType" class="form-select" onchange="redirectToPage()">
-        <option value="coach">Coach</option>
-        <option value="client">Client</option>
-    </select>
-</div>
 <div class="container">
         <center> <h2>Customer List who tapped the QR code</h2> </center>
         <table id="customerTable" class="display">

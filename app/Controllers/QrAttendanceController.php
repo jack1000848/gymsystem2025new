@@ -152,7 +152,7 @@ class QrAttendanceController extends Controller
             ]);
         } else {
             // Otherwise, do Check-Out
-            $this->attendanceModel->update($lastAttendance['id'], ['CheckOutTime' => $timestamp]);
+            $this->attendanceModel->update($lastAttendance['ID'], ['CheckOutTime' => $timestamp]);
 
             return $this->response->setJSON([
                 'status'   => 'check-out',

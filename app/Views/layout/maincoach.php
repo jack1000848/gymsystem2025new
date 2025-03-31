@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attended Session</a>
+                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attendance</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>
@@ -98,7 +98,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attended Session</a>
+                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attendance</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>

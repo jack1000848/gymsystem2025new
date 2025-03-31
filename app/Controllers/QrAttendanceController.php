@@ -51,11 +51,12 @@ class QrAttendanceController extends Controller
     // Get the current date (YYYY-MM-DD) for daily check-in restriction
     $currentDate = date('Y-m-d');
     
-    // Check if the coach has already checked in today
-    $existingAttendance = $this->attendanceModel
-        ->where('CoachID', $coachID)
-        ->where('DATE(CheckInTime)', $today) // Ensure it's for the same day
+    // Check if the user has already checked in today
+    $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
+        ->where('DATE(InDate)', $currentDate)
         ->first();
+            ////12hrbebe
+        $currentTime = date('Y-m-d h:i A');
         
 
     if ($todayRecord) {
@@ -111,57 +112,56 @@ class QrAttendanceController extends Controller
 
     }
     public function save1($coachID)
-    {
-        // Get current timestamp
-        $timestamp = date('Y-m-d H:i:s');
+{
+    // Get current timestamp and today's date
+    $timestamp = date('Y-m-d H:i:s');
+    $today = date('Y-m-d');
 
-        // Find the coach details
-        $coach = $this->coachModel->where('CoachID', $coachID)->first();
+    // Find the coach details
+    $coach = $this->coachModel->where('CoachID', $coachID)->first();
 
-        if (!$coach) {
-            return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
-        }
-
-        // Check if attendanceModel is properly initialized
-        if (!$this->attendanceModel) {
-            return $this->response->setJSON(['error' => 'Attendance model not loaded'])->setStatusCode(500);
-        }
-
-        // Check for last attendance record (to determine check-in or check-out)
-        $lastAttendance = $this->attendanceModel
-            ->where('CoachID', $coachID)
-            ->orderBy('CheckInTime', 'DESC')
-            ->first();
-
-        if (!$lastAttendance || $lastAttendance['CheckOutTime'] !== null) {
-            // If no previous record or already checked out, do Check-In
-            $this->attendanceModel->insert([
-                'CoachID'     => $coachID,
-                'CheckInTime' => $timestamp,
-                'CheckOutTime' => null
-            ]);
-
-            return $this->response->setJSON([
-                'status'   => 'check-in',
-                'message'  => 'Check-in successful',
-                'coach'    => [
-                    'CoachID'   => $coach['CoachID'],
-                    'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
-                ]
-            ]);
-        } else {
-            // Otherwise, do Check-Out
-            $this->attendanceModel->update($lastAttendance['id'], ['CheckOutTime' => $timestamp]);
-
-            return $this->response->setJSON([
-                'status'   => 'check-out',
-                'message'  => 'Check-out successful',
-                'coach'    => [
-                    'CoachID'   => $coach['CoachID'],
-                    'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
-                ]
-            ]);
-        }
+    if (!$coach) {
+        return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
     }
+
+    // Check if attendanceModel is properly initialized
+    if (!$this->attendanceModel) {
+        return $this->response->setJSON(['error' => 'Attendance model not loaded'])->setStatusCode(500);
+    }
+
+    // Check if the coach has already checked in today
+    $existingAttendance = $this->attendanceModel
+        ->where('CoachID', $coachID)
+        ->where('DATE(CheckInTime)', $today) // Ensure it's for the same day
+        ->first();
+
+    if ($existingAttendance) {
+        return $this->response->setJSON([
+            'status'  => 'error',
+            'message' => 'You have already checked in today.',
+            'coach'   => [
+                'CoachID'   => $coach['CoachID'],
+                'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
+            ]
+        ])->setStatusCode(400);
+    }
+
+    // If no check-in for today, proceed with Check-In
+    $this->attendanceModel->insert([
+        'CoachID'     => $coachID,
+        'CheckInTime' => $timestamp,
+        'CheckOutTime' => null
+    ]);
+
+    return $this->response->setJSON([
+        'status'  => 'check-in',
+        'message' => 'Check-in successful',
+        'coach'   => [
+            'CoachID'   => $coach['CoachID'],
+            'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
+        ]
+    ]);
+}
+
 
 }

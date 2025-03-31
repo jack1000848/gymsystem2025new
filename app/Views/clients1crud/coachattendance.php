@@ -13,7 +13,18 @@ $this->section('body'); // Start the body section
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
+function redirectToPage() {
+        let userType = document.getElementById("userType").value;
 
+        if (userType === "coach") {
+            window.location.href = "<?= base_url('/coachattendance'); ?>"; // Change to your actual client view
+       } else if (userType === "client") {
+          window.location.href = "<?= base_url('/attendance'); ?>"; // Change to your actual coach view
+        }
+    }
+        $(document).ready(function() {
+            $('#customerTable').DataTable();
+        });
         $(document).ready(function() {
             $('#customerTable').DataTable();
         });
@@ -69,6 +80,13 @@ $this->section('body'); // Start the body section
     </style>
 </head>
 <body>
+<div class="mb-3">
+    <label for="userType" class="form-label"><strong>Select Role:</strong></label>
+    <select id="userType" class="form-select" onchange="redirectToPage()">
+        <option value="coach">Coach</option>
+        <option value="client">Client</option>
+    </select>
+</div>
 <div class="container">
         <center> <h2>Coach List who tapped the QR code</h2> </center>
         <table id="customerTable" class="display">

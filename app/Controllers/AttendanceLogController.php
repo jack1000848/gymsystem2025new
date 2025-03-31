@@ -50,8 +50,11 @@ public function coachattendance()
     if (!$this->session->has('logged_in')) {
         return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
-    $model = new AttendanceLogModel();
-    $data['coachatt'] = $model->getCustomers();
+    $data['customers'] = $this->eCoachAttendanceModel
+        ->select('coachattendance.ID, coachattendance.CoachID, coachattendance.CheckInTime, coachattendance.CheckOutTime, coaches.Firstname, coaches.Lastname')
+        ->join('coaches', 'coaches.CoachID = coachattendance.CoachID')
+        ->orderBy('coachattendance.CheckInTime', 'DESC')
+        ->findAll();
 
     return view('/clients1crud/coachattendance', $data);
     

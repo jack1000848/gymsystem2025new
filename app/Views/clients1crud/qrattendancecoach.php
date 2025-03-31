@@ -111,7 +111,7 @@ function redirectToPage() {
 
                 setTimeout(() => {
                     reset();
-                }, 10000); // Reset scanner after 10 seconds
+                }, 3000); // Reset scanner after 10 seconds
             },
             error: function(xhr) {
                 $("#loadingSpinner").hide();

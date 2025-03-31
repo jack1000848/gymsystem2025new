@@ -51,12 +51,11 @@ class QrAttendanceController extends Controller
     // Get the current date (YYYY-MM-DD) for daily check-in restriction
     $currentDate = date('Y-m-d');
     
-    // Check if the user has already checked in today
-    $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
-        ->where('DATE(InDate)', $currentDate)
+    // Check if the coach has already checked in today
+    $existingAttendance = $this->attendanceModel
+        ->where('CoachID', $coachID)
+        ->where('DATE(CheckInTime)', $today) // Ensure it's for the same day
         ->first();
-            ////12hrbebe
-        $currentTime = date('Y-m-d h:i A');
         
 
     if ($todayRecord) {

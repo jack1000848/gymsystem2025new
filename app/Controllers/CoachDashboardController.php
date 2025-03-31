@@ -132,9 +132,9 @@ class CoachDashboardController extends BaseController
 public function mylogs()
 {
     // Ensure coach is logged in
-    if (!$this->session->has('logged_in') || $this->session->get('role') !== 'coach') {
-       return redirect()->to('/coach-login')->with('error', 'Please log in first.');
-    }
+   // if (!$this->session->has('logged_in') || $this->session->get('role') !== 'coach') {
+   //    return redirect()->to('/coach-login')->with('error', 'Please log in first.');
+   // }
 
     // Get the logged-in coach ID
     $coachID = $this->session->get('CoachID');

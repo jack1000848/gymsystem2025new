@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class eCoachAttendanceModel extends Model
 {
     protected $table            = 'coachattendance';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id','CoachID', 'CheckInTime', 'CheckOutTime'];
+    protected $allowedFields    = ['ID','CoachID', 'CheckInTime', 'CheckOutTime'];
 
     
 

@@ -84,7 +84,7 @@ $this->section('body'); // Start the body section
             <tbody>
                 <?php foreach ($customers as $coach): ?>
                     <tr>
-                        <td><?= esc($coach['id']) ?></td>
+                         <td><?= esc($coach['ID']) ?></td>
                         <td><?= esc($coach['CoachID']) ?></td>
                         <td><?= esc($coach['CheckInTime']) ?></td>
                         <td><?= esc($coach['CheckOutTime']) ?></td> <!-- Added this -->

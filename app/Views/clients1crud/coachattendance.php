@@ -74,7 +74,7 @@ $this->section('body'); // Start the body section
         <table id="customerTable" class="display">
             <thead>
                 <tr>
-                    <th>Coach ID</th>
+                    <th>Attendance ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
                     <th>Check-Out</th> <!-- Added this -->

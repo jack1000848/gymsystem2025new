@@ -18,7 +18,7 @@ function redirectToPage() {
         let userType = document.getElementById("userType").value;
 
         if (userType === "coach") {
-            window.location.href = "coachattendanceqr"; // Change to your actual client view
+            window.location.href = "<?= base_url('/coachattendance'); ?>"; // Change to your actual client view
        } else if (userType === "client") {
           window.location.href = "<?= base_url('/attendance'); ?>"; // Change to your actual coach view
         }
@@ -81,8 +81,8 @@ function redirectToPage() {
 <div class="mb-3">
     <label for="userType" class="form-label"><strong>Select Role:</strong></label>
     <select id="userType" class="form-select" onchange="redirectToPage()">
-        <option value="coach">Coach</option>
-        <option value="client">Client</option>
+        <option value="coach">Client</option>
+        <option value="client">Coach</option>
     </select>
 </div>
 <div class="container">

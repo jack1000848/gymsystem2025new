@@ -20,7 +20,7 @@ function redirectToPage() {
         if (userType === "coach") {
             window.location.href = "<?= base_url('/coachattendance'); ?>"; // Change to your actual client view
        } else if (userType === "client") {
-          window.location.href = "<?= base_url('/attendance'); ?>"; // Change to your actual coach view
+          window.location.href = "<?= base_url('/coachattendance'); ?>"; // Change to your actual coach view
         }
     }
         $(document).ready(function() {

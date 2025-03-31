@@ -143,7 +143,7 @@ class QrAttendanceController extends Controller
                 'CoachID'   => $coach['CoachID'],
                 'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
             ]
-        ])->setStatusCode(400);
+        ]);
     }
 
     // If no check-in for today, proceed with Check-In

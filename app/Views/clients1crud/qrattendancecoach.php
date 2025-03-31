@@ -100,7 +100,7 @@ function redirectToPage() {
 
                 $("#coachId").text(customer.CoachID || "N/A");
                 $("#fullName").text(customer.FullName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+               // $("#expirationDate").text(customer.ExpirationDate || "N/A");
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {

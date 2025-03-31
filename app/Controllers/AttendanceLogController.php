@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AttendanceLogModel;
+use App\Models\eCoachAttendanceModel; 
 use CodeIgniter\Controller;
 
 class AttendanceLogController extends Controller

@@ -54,8 +54,8 @@ public function coachattendance()
         return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
     $data['coachatt'] = $this->eCoachAttendanceModel
-        ->select('coachattendance.ID, coachattendance.CoachID, coachattendance.CheckInTime, coachattendance.CheckOutTime, coaches.Firstname, coaches.Lastname')
-        ->join('coaches', 'coaches.CoachID = coachattendance.CoachID')
+        ->select('coachattendance.ID, coachattendance.CoachID, coachattendance.CheckInTime, coachattendance.CheckOutTime, coach.Firstname, coach.Lastname')
+        ->join('coach', 'coach.CoachID = coachattendance.CoachID')
         ->orderBy('coachattendance.CheckInTime', 'DESC')
         ->findAll();
 

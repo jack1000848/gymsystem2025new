@@ -62,6 +62,8 @@ $routes->get('coachattendanceqr/save/(:num)', 'QrAttendanceController::save1/$1'
 ////participant log...
 $routes->get('/attendance', 'AttendanceLogController::checkin');
 $routes->get('/checkout/(:any)', 'AttendanceLogController::checkout/$1');
+$routes->get('/coachattendance', 'AttendanceLogController::coachattendance');
+$routes->get('/coachattendance/(:any)', 'AttendanceLogController::coachattendance/$1');
                 
 ////Manage Client.... (clients1,(edit,update,delete,store)) ////
 $routes->get('/clients1', 'CustomerController::index');

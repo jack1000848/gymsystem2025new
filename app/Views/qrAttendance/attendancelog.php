@@ -14,6 +14,15 @@ $this->section('body'); // Start the body section
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
 
+function redirectToPage() {
+        let userType = document.getElementById("userType").value;
+
+        if (userType === "coach") {
+            window.location.href = "coachattendanceqr"; // Change to your actual client view
+       } else if (userType === "client") {
+          window.location.href = "<?= base_url('/attendance'); ?>"; // Change to your actual coach view
+        }
+    }
         $(document).ready(function() {
             $('#customerTable').DataTable();
         });

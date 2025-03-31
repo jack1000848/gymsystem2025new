@@ -70,11 +70,11 @@ $this->section('body'); // Start the body section
 </head>
 <body>
 <div class="container">
-        <center> <h2>Customer List who tapped the QR code</h2> </center>
+        <center> <h2>Coach List who tapped the QR code</h2> </center>
         <table id="customerTable" class="display">
             <thead>
                 <tr>
-                    <th>Customer ID</th>
+                    <th>Coach ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
                     <th>Check-Out</th> <!-- Added this -->
@@ -82,12 +82,12 @@ $this->section('body'); // Start the body section
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($customers as $customer): ?>
+                <?php foreach ($customers as $coach): ?>
                     <tr>
-                        <td><?= esc($customer['CustomerID']) ?></td>
-                        <td><?= esc($customer['FullName']) ?></td>
-                        <td><?= esc($customer['CheckIn']) ?></td>
-                        <td><?= esc($customer['CheckOut']) ?></td> <!-- Added this -->
+                        <td><?= esc($coach['id']) ?></td>
+                        <td><?= esc($coach['CoachID']) ?></td>
+                        <td><?= esc($coach['CheckInTime']) ?></td>
+                        <td><?= esc($coach['CheckOutTime']) ?></td> <!-- Added this -->
                         
                         
                     </tr>

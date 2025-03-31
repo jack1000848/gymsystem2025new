@@ -82,7 +82,7 @@ $this->section('body'); // Start the body section
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($customers as $coach): ?>
+                <?php foreach ($coachatt as $coach): ?>
                     <tr>
                          <td><?= esc($coach['ID']) ?></td>
                         <td><?= esc($coach['CoachID']) ?></td>

@@ -51,7 +51,7 @@ public function coachattendance()
         return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
     $model = new AttendanceLogModel();
-    $data['customers'] = $model->getCustomers();
+    $data['coachatt'] = $model->getCustomers();
 
     return view('/clients1crud/coachattendance', $data);
     

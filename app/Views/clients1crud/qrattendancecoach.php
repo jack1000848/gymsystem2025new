@@ -100,7 +100,7 @@ function redirectToPage() {
 
                 $("#coachId").text(customer.CoachID || "N/A");
                 $("#fullName").text(customer.FullName || "N/A");
-               // $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                $("#expirationDate").text(customer.ExpirationDate || "N/A");
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {
@@ -125,12 +125,6 @@ function redirectToPage() {
                 $("#showInfo").removeClass('alert-success').addClass('alert-danger').show().html(`
                     <p><strong>Error:</strong> ${errorMsg}</p>
                 `);
-                error: function(xhr) {
-        if (xhr.status === 400) {
-            let response = JSON.parse(xhr.responseText);
-            alert(response.message); // This will show the "You have already checked in today." message
-        }
-    }
 
                 console.error(errorMsg);
 
@@ -139,7 +133,6 @@ function redirectToPage() {
                 }, 5000); // Reset scanner after 5 seconds on error
             }}
         });
-        
     }
 
     function onScanFailure(error) {

@@ -9,9 +9,12 @@ use CodeIgniter\Controller;
 class AttendanceLogController extends Controller
 {
     protected $session; // Declare session variable
-
+    protected $eCoachAttendanceModel;
+    protected $session;
     public function __construct()
     {
+        $this->session = session(); // Initialize session
+        $this->eCoachAttendanceModel = new eCoachAttendanceModel(); // Initialize model
         $this->session = session(); // Initialize session
     }
     public function checkin()

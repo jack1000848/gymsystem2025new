@@ -339,10 +339,10 @@ public function toggleFreeze($id)
 }
     public function renew ()
     {
-        $clients1Model = new CustomerModel();
+        $renewModel = new CustomerModel();
 
         // Fetch the Client data by ID
-        $editclient = $clients1Model->find($id);
+        $renewclient = $renewModel->find($id);
     
         if (!$editclient) {
             return $this->response->setJSON([
@@ -353,7 +353,7 @@ public function toggleFreeze($id)
     
         return $this->response->setJSON([
             'status' => 'success',
-            'data' => $editclient
+            'data' => $renewclient
         ]);
 
     }

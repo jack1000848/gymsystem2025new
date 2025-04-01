@@ -305,16 +305,16 @@ $this->section('body'); // Start the body section
 </div>
 
 <!-- renew Client Modal -->
-<div class="modal fade" id="renewClientModal" tabindex="-1" aria-labelledby="renrewClientModalLabel" aria-hidden="true">
+<div class="modal fade" id="renewClientModal" tabindex="-1" aria-labelledby="renewClientModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="renrewClientModalLabel">Edit Client</h1>
+                <h1 class="modal-title fs-5" id="renewClientModalLabel">Edit Client</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editClientForm">
-                    <input type="hidden" id="editClientId" name="id">
+                <form id="renewClientForm">
+                    <input type="hidden" id="renewClientId" name="id">
 
                    
 
@@ -696,13 +696,6 @@ async function updateClient() {
             const client = res.data;
 
             $("#editClientId").val(client.id);
-            $("#editGymcode").val(client.gym_code);
-            $("#editClients1Fname").val(client.first_name);
-            $("#editClients1Lname").val(client.last_name);
-            $("#editClients1Username").val(client.user_name);
-            $("#editClients1Emailaddress").val(client.email_address);
-            $("#editPassword").val(client.password);
-            $("#editGender").val(client.gender);
             $("#editDateofregistration").val(client.date_of_registration);
             $("#edittimeslot").val(client.timeslot);
             $("#editTworkout").val(client.workout_type);

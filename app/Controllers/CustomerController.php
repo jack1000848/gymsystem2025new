@@ -337,26 +337,31 @@ public function toggleFreeze($id)
         ]);
     }
 }
-    public function renew ()
-    {
-        $renewModel = new CustomerModel();
+public function renew($id = null) // Accept ID from URL
+{
+    $renewModel = new CustomerModel();
 
-        // Fetch the Client data by ID
-        $renewclient = $renewModel->find($id);
-    
-        if (!$editclient) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'Client not found'
-            ]);
-        }
-    
+    if ($id === null) {
         return $this->response->setJSON([
-            'status' => 'success',
-            'data' => $renewclient
+            'status' => 'error',
+            'message' => 'No client ID provided'
         ]);
-
     }
+
+    $renewClient = $renewModel->find($id);
+
+    if (!$renewClient) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Client not found'
+        ]);
+    }
+
+    return $this->response->setJSON([
+        'status' => 'success',
+        'data' => $renewClient
+    ]);
+}
 public function viewClient($id)
 {
     $customerModel = new CustomerModel();

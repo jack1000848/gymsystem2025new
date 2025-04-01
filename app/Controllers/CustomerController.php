@@ -337,7 +337,7 @@ public function toggleFreeze($id)
         ]);
     }
 }
-public function renew($id = null) // Accept ID from URL
+public function renew($id ) // Accept ID from URL
 {
     $renewModel = new CustomerModel();
 

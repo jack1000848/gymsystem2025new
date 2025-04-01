@@ -386,6 +386,8 @@ $this->section('body'); // Start the body section
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -692,13 +694,13 @@ async function updateClient() {
 
     // renew Client
     async function renewClient(id) {
-        
+    console.log('Renew Client ID:', id);  // Debugging line
+
     try {
         const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;
-
             $("#renewClientId").val(client.id);
             $("#renewDateofregistration").val(client.date_of_registration);
             $("#renewTworkout").val(client.workout_type);
@@ -706,11 +708,12 @@ async function updateClient() {
             $("#editPriceInput").val(parseFloat(client.amount).toFixed(2));
             $("#editDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
-            $("#renewClientModal").modal('show');
+
+            const modal = new bootstrap.Modal(document.getElementById('renewClientModal'));
+            modal.show();
 
             // Fetch plans and set the selected one
             await fetchEditPlans(client.PlanID);
-
             // Fetch coaches for the selected plan
             await fetchEditCoach(client.PlanID, client.CoachID);
         } else {
@@ -720,6 +723,8 @@ async function updateClient() {
         console.error('Error fetching client data:', error);
     }
 }
+
+
 }
 
 

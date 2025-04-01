@@ -317,55 +317,6 @@ $this->section('body'); // Start the body section
                 <form id="editClientForm">
                     <input type="hidden" id="editClientId" name="id">
 
-                    <!-- Gym Code
-                     <div class="mb-3">
-                        <label for="editGymcode" class="form-label">Gym Code</label>
-                        <input type="text" class="form-control" id="editGymcode" name="gymcode" disabled readonly>
-                    </div> -->
-                    
-
-                    <!-- First Name -->
-                    <div class="mb-3">
-                        <label for="editClients1Fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="editClients1Fname" name="clients1Fname" required>
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="mb-3">
-                        <label for="editClients1Lname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="editClients1Lname" name="clients1Lname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edituser" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="edituser" name="clients1Username" required>
-                    </div>
-
-                    <!-- Address -->
-                    <div class="mb-3">
-                        <label for="editaddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="editaddress" name="clients1Username" required>
-                    </div>
-
-                    <!-- Gender -->
-                    <div class="mb-3">
-                        <label for="editGender" class="form-label">Gender</label>
-                        <select id="editGender" class="form-control" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="mb-3">
-                        <label for="editClients1Emailaddress" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="editClients1Emailaddress" name="clients1Emailaddress" required>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="editPassword" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="editPassword" name="password" required>
-                    </div>
 
                     <!-- Date of Registration -->
                     <div class="mb-3">
@@ -629,16 +580,8 @@ async function renew(id) {
         if (res && res.data) {
             const client = res.data;
 
-            $("#editClientId").val(client.id);
-            $("#editGymcode").val(client.gym_code);
-            $("#editClients1Fname").val(client.first_name);
-            $("#editClients1Lname").val(client.last_name);
-            $("#editClients1Username").val(client.user_name);
-            $("#editClients1Emailaddress").val(client.email_address);
-            $("#editPassword").val(client.password);
-            $("#editGender").val(client.gender);
+            
             $("#editDateofregistration").val(client.date_of_registration);
-            $("#edittimeslot").val(client.timeslot);
             $("#editTworkout").val(client.workout_type);
             $("#editPlans").val(client.plans);
             $("#editAmount").val(parseFloat(client.amount).toFixed(2));

@@ -585,10 +585,9 @@ async function renew(id) {
         if (res && res.data) {
             const client = res.data;
 
-            
             $("#renewDateofregistration").val(client.date_of_registration);
             $("#renewTworkout").val(client.workout_type);
-            $("#renewPlans").val(client.plans);
+            $("#renewPlans").val(client.plans);  // Ensure this matches the dropdown ID
             $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
             $("#renewDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
@@ -596,7 +595,7 @@ async function renew(id) {
             $("#tryClientModal").modal('show');
 
             // Fetch plans and set the selected one
-            await fetchrenewCoach(client.PlanID);
+            await fetchrenewPlans(client.PlanID);  // <== Added this line
 
             // Fetch coaches for the selected plan
             await fetchrenewCoach(client.PlanID, client.CoachID);
@@ -608,6 +607,36 @@ async function renew(id) {
         console.error('Error fetching client data:', error);
     }
 }
+
+async function fetchrenewCoach(planId, selectedCoachId = null) {
+    try {
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        $('#renewCoach').empty();
+        $('#renewCoach').append('<option value="">Select a Coach</option>');
+
+        data.forEach(coach => {
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching coaches:", error);
+    }
+}
+
+async function fetchrenewPlans(selectedPlanId) {
+    try {
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+        $('#renewPlans').empty(); // Ensure this matches the ID in `renew(id)`
+
+        data.forEach(plan => {
+            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
+            $('#renewPlans').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+    }
+}
+
 
 async function toggleFreeze(CustomerID) {
     const { isConfirmed } = await Swal.fire({
@@ -660,33 +689,7 @@ async function toggleFreeze(CustomerID) {
     }
 }
 
-async function fetchrenewCoach(planId, selectedCoachId = null) {
-    try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
-        $('#renewCoach').empty();
-        $('#renewCoach').append('<option value="">Select a Coach</option>');
 
-        data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#renewCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching coaches:", error);
-    }
-}
-async function fetchrenewPlans(selectedPlanId) {
-    try {
-        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
-        $('#renewPlanSelect').empty();
-        
-        data.forEach(plan => {
-            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
-            $('#renewPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching plans:", error);
-    }
-}
 
 async function fetchEditPlans(selectedPlanId) {
     try {

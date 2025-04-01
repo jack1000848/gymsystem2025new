@@ -53,7 +53,7 @@ $this->section('body'); // Start the body section
                         <td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
-                            <span onclick="renew('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">try lnag</span>
+                            <span onclick="renew('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
                             <span onclick="deleteClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-danger">Delete</span>
                             <span onclick="toggleFreeze('<?= $client['CustomerID']; ?>')" 
                                  class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">

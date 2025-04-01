@@ -339,6 +339,12 @@ public function toggleFreeze($id)
 }
     public function renew ()
     {
+        $customerModel = new CustomerModel();
+        $fetchClients1 = $customerModel->findAll();
+        $data['clients1'] = $fetchClients1;
+
+        
+        
         return view('clients1crud/renew');
 
     }

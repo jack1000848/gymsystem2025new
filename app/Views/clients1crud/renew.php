@@ -290,7 +290,7 @@ $this->section('body'); // Start the body section
     // renew Client
     async function renewClient(id) {
     try {
-        const res = await $.get('<?= base_url('/clients1/store/'); ?>' + id);
+        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;

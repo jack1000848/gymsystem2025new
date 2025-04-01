@@ -637,6 +637,38 @@ async function fetchrenewPlans(selectedPlanId) {
     }
 }
 
+async function renewUpdate() {
+    let clientData = {
+        RegisteredDate: $("#editDateofregistration").val().trim(),
+        types_of_workout: $("#editTworkout").val().trim(),
+        amount: $("#editAmount").val().trim(),
+        duration: $("#editDuration").val().trim(),
+        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
+        coach: $("#editCoach").val() // Include the coach
+    };
+      if  (!clientData.amount || !clientData.duration || !clientData.plan) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    
+    $.ajax({
+        url: '<?= base_url('/clients1/renewupdate/'); ?>' + clientData.CustomerID,
+        type: 'POST',
+        data: clientData,
+        success: function(response) {
+            if (response.status === 'success') {
+                alert("Client updated successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update client: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error during the update:", error);
+            alert("There was an error updating the client.");
+        }
+    });
+
 
 async function toggleFreeze(CustomerID) {
     const { isConfirmed } = await Swal.fire({
@@ -688,7 +720,7 @@ async function toggleFreeze(CustomerID) {
         }
     }
 }
-
+}
 
 
 

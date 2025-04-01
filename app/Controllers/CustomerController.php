@@ -337,31 +337,7 @@ public function toggleFreeze($id)
         ]);
     }
 }
-    public function renew($id = null) // Accept ID from URL
-{
-    $renewModel = new CustomerModel();
-
-    if ($id === null) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'No client ID provided'
-        ]);
-    }
-
-    $renewClient = $renewModel->find($id);
-
-    if (!$renewClient) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Client not found'
-        ]);
-    }
-
-    return $this->response->setJSON([
-        'status' => 'success',
-        'data' => $renewClient
-    ]);
-}
+   
 
 public function try($id)
 {
@@ -382,6 +358,31 @@ public function try($id)
         'data' => $editclient
     ]);
 }
+    public function renewupdate($id)
+    {
+        // Load the CustomerModel
+    $customerModel = new \App\Models\CustomerModel();
+
+    // Get the input data from the request
+    $data = [
+        'date_of_registration' => $this->request->getPost('dateofregistration'),
+        'GymTimeSlot' => $this->request->getPost('timeslot'),
+        'workout_type' => $this->request->getPost('tworkout'),
+        'plans' => $this->request->getPost('plans'),
+        'amount' => $this->request->getPost('amount'),
+    ];
+
+    // Validate required fields
+    if (
+        !$data['date_of_registration'] || !$data['GymTimeSlot'] || !$data['workout_type'] ||
+        !$data['plans'] || !$data['amount']
+    ) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'All fields are required!'
+        ]);
+    }
+    }
 public function viewClient($id)
 {
     $customerModel = new CustomerModel();

@@ -77,7 +77,7 @@ $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$
 ///BUTTONS/// Freeze | View | renew \\\\\\
 $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
 $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
-$routes->get('/clients1/renew/(:num)', 'CustomerController::renew/$1');
+///$routes->get('/clients1/renew/(:num)', 'CustomerController::renew/$1');
 ///$routes->post('/clients1/renew/(:num)', 'CustomerController::renew/$1');
 $routes->get('/clients1/renew/(:num)', 'CustomerController::try/$1');
 $routes->post('/clients1/renewupdate/(:num)', 'CustomerController::renewupdate/$1');

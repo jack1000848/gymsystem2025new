@@ -342,7 +342,7 @@ $this->section('body'); // Start the body section
                    <!-- Membership Plan -->
                 <div class="mb-3">
                        <label for="renewPlanSelect" class="form-label">Membership Plan</label>
-                   <select id="renewPlan" class="form-control" name="plans" required>
+                   <select id="renewPlans" class="form-control" name="plans" required>
                       <!-- Options will be dynamically added by AJAX -->
                    </select>
                 </div>
@@ -419,7 +419,7 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-$('#renewPlan').on('change', function () {
+$('#renewPlans').on('change', function () {
     var planId = $(this).val();
     if (planId) {
         fetchrenewCoach(planId);

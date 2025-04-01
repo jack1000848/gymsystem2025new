@@ -337,30 +337,46 @@ public function toggleFreeze($id)
         ]);
     }
 }
-    public function renew($id = null) // Accept ID from URL
+public function updaterenew($id)
 {
-    $renewModel = new CustomerModel();
+    // Load the CustomerModel
+    $customerModel = new \App\Models\CustomerModel();
 
-    if ($id === null) {
+    // Get the input data from the request
+    $data = [
+        'date_of_registration' => $this->request->getPost('dateofregistration'),
+        'GymTimeSlot' => $this->request->getPost('timeslot'),
+        'workout_type' => $this->request->getPost('tworkout'),
+        'plans' => $this->request->getPost('plans'),
+        'amount' => $this->request->getPost('amount'),
+    ];
+
+    // Validate required fields
+    if (
+        !$data['date_of_registration'] || !$data['GymTimeSlot'] || !$data['workout_type'] ||
+        !$data['plans'] || !$data['amount']
+    ) {
         return $this->response->setJSON([
             'status' => 'error',
-            'message' => 'No client ID provided'
+            'message' => 'All fields are required!'
         ]);
     }
 
-    $renewClient = $renewModel->find($id);
+    // Attempt to update the client in the database
+    $updated = $customerModel->update($id, $data);
 
-    if (!$renewClient) {
+    // Check if the update was successful
+    if ($updated) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Client updated successfully!'
+        ]);
+    } else {
         return $this->response->setJSON([
             'status' => 'error',
-            'message' => 'Client not found'
+            'message' => 'Failed to update client. Please try again.'
         ]);
     }
-
-    return $this->response->setJSON([
-        'status' => 'success',
-        'data' => $renewClient
-    ]);
 }
 
 public function try($id)

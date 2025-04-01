@@ -54,7 +54,7 @@ $this->section('body'); // Start the body section
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
                             <span onclick="deleteClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-danger">Delete</span>
-                            <button type="button" class="btn btn-sm btn-outline-success" onclick="renewClient(3)">Renew</button>
+                            <span onclick="renewClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
                             <span onclick="toggleFreeze('<?= $client['CustomerID']; ?>')" 
                                  class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">
                                     <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
@@ -311,7 +311,7 @@ $this->section('body'); // Start the body section
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="renewClientModalLabel">renew Client</h1>
-                <button type="button" class="btn btn-sm btn-outline-success renew-btn" data-id="3">Renew</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="renewClientForm">
@@ -395,11 +395,7 @@ $this->section('body'); // Start the body section
         });
 
         });
-        //// renewbutn
-        $(document).on("click", ".renew-btn", function () {
-    let clientId = $(this).data("id");
-    renewClient(clientId);
-});
+
         // Fetch Plans and Coaches
         fetchPlans();
         $('#planSelect').on('change', function () {
@@ -696,10 +692,8 @@ async function updateClient() {
 
     // renew Client
     async function renewClient(id) {
-    console.log("Renew Client Clicked! ID:", id); // Debugging
     try {
         const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
-        console.log("Response Data:", res); // Debugging
 
         if (res && res.data) {
             const client = res.data;
@@ -710,7 +704,7 @@ async function updateClient() {
             $("#renewPlans").val(client.plans);
             $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
             $("#renewDuration").val(client.duration);
-            $("#renewCoach").val(client.coach);
+            $("#renewtCoach").val(client.coach);
 
             $("#renewClientModal").modal('show');
 

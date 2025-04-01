@@ -388,7 +388,14 @@ $this->section('body'); // Start the body section
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- jQuery (required for AJAX) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Bootstrap JS (bundle version for Bootstrap 5) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your custom JavaScript file -->
+<script src="path/to/your/script.js"></script>
 <script>
     $(document).ready(function () {
         // Initialize DataTable
@@ -723,6 +730,7 @@ async function updateClient() {
         console.error('Error fetching client data:', error);
     }
 }
+
 
 
 }

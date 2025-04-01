@@ -54,12 +54,13 @@ $this->section('body'); // Start the body section
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
                             <span onclick="deleteClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-danger">Delete</span>
+                            <span onclick="renewClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
                             <span onclick="toggleFreeze('<?= $client['CustomerID']; ?>')" 
                                  class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">
                                     <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
                            </span>
                            <a href="<?= base_url('clients1/view/' . $client['CustomerID']); ?>" class="btn btn-sm btn-info">View</a>
-                             <span onclick="renewClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
+                             
                         </td>
                     </tr>
                 <?php endforeach; ?>

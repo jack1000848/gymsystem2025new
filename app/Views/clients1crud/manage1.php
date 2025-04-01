@@ -314,14 +314,14 @@ $this->section('body'); // Start the body section
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editClientForm">
-                    <input type="hidden" id="editClientId" name="id">
+                <form id="renewClientForm">
+                    <input type="hidden" id="renewClientId" name="id">
 
 
                     <!-- Date of Registration -->
                     <div class="mb-3">
-                        <label for="editDateofregistration" class="form-label">Date of Registration</label>
-                        <input type="date" class="form-control" id="editDateofregistration" name="dateofregistration" required>
+                        <label for="renewDateofregistration" class="form-label">Date of Registration</label>
+                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
                     </div>
 
                      <!-- Gymtimeslot -->
@@ -329,8 +329,8 @@ $this->section('body'); // Start the body section
 
                     <!-- Types of Workout -->
                     <div class="mb-3">
-                        <label for="editTworkout" class="form-label">Types of Workout</label>
-                        <select id="editTworkout" class="form-control" name="tworkout" required>
+                        <label for="renewTworkout" class="form-label">Types of Workout</label>
+                        <select id="renewTworkout" class="form-control" name="tworkout" required>
                             <option value="Bulking">Bulking</option>
                             <option value="Cutting">Cutting</option>
                             <option value="Endurance Training">Endurance Training</option>
@@ -341,16 +341,16 @@ $this->section('body'); // Start the body section
 
                    <!-- Membership Plan -->
                 <div class="mb-3">
-                       <label for="editPlanSelect" class="form-label">Membership Plan</label>
-                   <select id="editPlanSelect" class="form-control" name="plans" required>
+                       <label for="renewPlanSelect" class="form-label">Membership Plan</label>
+                   <select id="renewPlanSelect" class="form-control" name="plans" required>
                       <!-- Options will be dynamically added by AJAX -->
                    </select>
                 </div>
 
                 <!-- Coach Selection -->
             <div class="mb-3">
-                <label for="editCoach" class="form-label">Select Coach</label>
-                    <select id="editCoach" class="form-control" name="coach" required>
+                <label for="renewCoach" class="form-label">Select Coach</label>
+                    <select id="renewCoach" class="form-control" name="coach" required>
                 <option value="">Select a Coach</option>
                     </select>
             </div>
@@ -358,14 +358,14 @@ $this->section('body'); // Start the body section
 
                     <!-- Total Amount -->
                     <div class="mb-3">
-                        <label for="editAmount" class="form-label">Total Amount</label>
-                        <input type="text" id="editPriceInput" class="form-control" name="amount" readonly>
+                        <label for="renewtAmount" class="form-label">Total Amount</label>
+                        <input type="text" id="renewPriceInput" class="form-control" name="amount" readonly>
                     </div>
 
                     <!-- Duration -->
                     <div class="mb-3">
-                        <label for="editDuration" class="form-label">Duration</label>
-                        <input type="number" class="form-control" id="editDuration" name="duration" readonly>
+                        <label for="renewDuration" class="form-label">Duration</label>
+                        <input type="number" class="form-control" id="renewDuration" name="duration" readonly>
                     </div>
 
                     <!-- Submit Button -->
@@ -581,20 +581,20 @@ async function renew(id) {
             const client = res.data;
 
             
-            $("#editDateofregistration").val(client.date_of_registration);
-            $("#editTworkout").val(client.workout_type);
-            $("#editPlans").val(client.plans);
-            $("#editAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#editDuration").val(client.duration);
-            $("#editCoach").val(client.coach);
+            $("#renewDateofregistration").val(client.date_of_registration);
+            $("#renewTworkout").val(client.workout_type);
+            $("#renewPlans").val(client.plans);
+            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
+            $("#renewDuration").val(client.duration);
+            $("#renewCoach").val(client.coach);
 
             $("#tryClientModal").modal('show');
 
             // Fetch plans and set the selected one
-            await fetchEditPlans(client.PlanID);
+            await fetchrenewCoach(client.PlanID);
 
             // Fetch coaches for the selected plan
-            await fetchEditCoach(client.PlanID, client.CoachID);
+            await fetchrenewCoach(client.PlanID, client.CoachID);
 
         } else {
             console.error('No data found in the response:', res);
@@ -655,7 +655,33 @@ async function toggleFreeze(CustomerID) {
     }
 }
 
+async function fetchrenewCoach(planId, selectedCoachId = null) {
+    try {
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        $('#editCoach').empty();
+        $('#editCoach').append('<option value="">Select a Coach</option>');
 
+        data.forEach(coach => {
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#editCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching coaches:", error);
+    }
+}
+async function fetchrenewPlans(selectedPlanId) {
+    try {
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+        $('#editPlanSelect').empty();
+        
+        data.forEach(plan => {
+            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
+            $('#editPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+    }
+}
 
 async function fetchEditPlans(selectedPlanId) {
     try {

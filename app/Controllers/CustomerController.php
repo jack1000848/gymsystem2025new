@@ -339,13 +339,22 @@ public function toggleFreeze($id)
 }
     public function renew ()
     {
-        $customerModel = new CustomerModel();
-        $fetchClients1 = $customerModel->findAll();
-        $data['clients1'] = $fetchClients1;
+        $clients1Model = new CustomerModel();
 
-        
-        
-        return view('clients1crud/renew');
+        // Fetch the Client data by ID
+        $editclient = $clients1Model->find($id);
+    
+        if (!$editclient) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Client not found'
+            ]);
+        }
+    
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data' => $editclient
+        ]);
 
     }
 public function viewClient($id)

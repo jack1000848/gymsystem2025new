@@ -305,7 +305,7 @@ $this->section('body'); // Start the body section
 </div>
 
 <!-- renew Client Modal -->
-<div class="modal fade" id="renrewClientModal" tabindex="-1" aria-labelledby="renrewClientModalLabel" aria-hidden="true">
+<div class="modal fade" id="renewClientModal" tabindex="-1" aria-labelledby="renrewClientModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

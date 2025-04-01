@@ -54,7 +54,7 @@ $this->section('body'); // Start the body section
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
                             <span onclick="deleteClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-danger">Delete</span>
-                            <span onclick="renewClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
+                            <span onclick="renewClient(<?= $client['CustomerID']; ?>)" class="btn btn-sm btn-outline-success">Renew</span>
                             <span onclick="toggleFreeze('<?= $client['CustomerID']; ?>')" 
                                  class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">
                                     <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
@@ -305,30 +305,23 @@ $this->section('body'); // Start the body section
     </div>
 </div>
 
-<!-- renew Client Modal -->
+<!-- Renew Client Modal -->
 <div class="modal fade" id="renewClientModal" tabindex="-1" aria-labelledby="renewClientModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="renewClientModalLabel">renew Client</h1>
+                <h1 class="modal-title fs-5" id="renewClientModalLabel">Renew Client</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="renewClientForm">
                     <input type="hidden" id="renewClientId" name="id">
 
-                   
-
-                    <!-- Date of Registration -->
+                    <!-- Form Fields -->
                     <div class="mb-3">
                         <label for="renewDateofregistration" class="form-label">Date of Registration</label>
                         <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
                     </div>
-
-                     <!-- Gymtimeslot -->
-                     
-
-                    <!-- Types of Workout -->
                     <div class="mb-3">
                         <label for="renewTworkout" class="form-label">Types of Workout</label>
                         <select id="renewTworkout" class="form-control" name="tworkout" required>
@@ -339,40 +332,25 @@ $this->section('body'); // Start the body section
                             <option value="Functional Fitness">Functional Fitness</option>
                         </select>
                     </div>
-
-                   <!-- Membership Plan -->
-                <div class="mb-3">
-                       <label for="renewPlanSelect" class="form-label">Membership Plan</label>
-                   <select id="renewPlanSelect" class="form-control" name="plans" required>
-                      <!-- Options will be dynamically added by AJAX -->
-                   </select>
-                </div>
-
-                <!-- Coach Selection -->
-            <div class="mb-3">
-                <label for="renewCoach" class="form-label">Select Coach</label>
-                    <select id="renewCoach" class="form-control" name="coach" required>
-                <option value="">Select a Coach</option>
-                    </select>
-            </div>
-
-
-                    <!-- Total Amount -->
                     <div class="mb-3">
-                        <label for="editAmount" class="form-label">Total Amount</label>
+                        <label for="renewPlanSelect" class="form-label">Membership Plan</label>
+                        <select id="renewPlanSelect" class="form-control" name="plans" required></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="renewCoach" class="form-label">Select Coach</label>
+                        <select id="renewCoach" class="form-control" name="coach" required></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPriceInput" class="form-label">Total Amount</label>
                         <input type="text" id="editPriceInput" class="form-control" name="amount" readonly>
                     </div>
-
-                    <!-- Duration -->
                     <div class="mb-3">
                         <label for="editDuration" class="form-label">Duration</label>
                         <input type="number" class="form-control" id="editDuration" name="duration" readonly>
                     </div>
-
-                    <!-- Submit Button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"id="btn-update1">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="btn-update1">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -692,7 +670,7 @@ async function updateClient() {
 
     // renew Client
     async function renewClient(id) {
-        console.log("renewClient function called with ID:", id);
+    console.log("renewClient function called with ID:", id);
     try {
         const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
 
@@ -706,7 +684,10 @@ async function updateClient() {
             $("#editPriceInput").val(parseFloat(client.amount).toFixed(2));
             $("#editDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
-            $("#renewClientModal").modal('show');
+
+            // Show the modal
+            var myModal = new bootstrap.Modal(document.getElementById('renewClientModal'));
+            myModal.show();
 
             // Fetch plans and set the selected one
             await fetchEditPlans(client.PlanID);

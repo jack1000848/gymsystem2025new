@@ -72,7 +72,7 @@ $routes->post('/clients1/store', 'CustomerController::storeClients1');
 $routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');
 $routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
 $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
-$routes->get('clients1/renew', 'CustomerController::renew');
+//$routes->get('clients1/renew', 'CustomerController::renew');
 
 ///BUTTONS/// Freeze | View | renew \\\\\\
 $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');

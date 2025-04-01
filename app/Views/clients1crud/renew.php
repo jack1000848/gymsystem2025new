@@ -69,12 +69,12 @@ $this->section('body'); // Start the body section
 </div>
 
 
-<!-- Edit Client Modal -->
-<div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+<!-- renew Client Modal -->
+<div class="modal fade" id="renewClientModal" tabindex="-1" aria-labelledby="renewClientModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editClientModalLabel">Edit Client</h1>
+                <h1 class="modal-title fs-5" id="renewClientModalLabel">Edit Client</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -287,8 +287,8 @@ $this->section('body'); // Start the body section
         }
     }
 
-    // Edit Client
-    async function editClient(id) {
+    // renew Client
+    async function renewClient(id) {
     try {
         const res = await $.get('<?= base_url('/clients1/store/'); ?>' + id);
 
@@ -311,7 +311,7 @@ $this->section('body'); // Start the body section
             $("#editDuration").val(client.duration);
             $("#editCoach").val(client.coach);
 
-            $("#editClientModal").modal('show');
+            $("#renewClientModal").modal('show');
 
             // Fetch plans and set the selected one
             await fetchEditPlans(client.PlanID);

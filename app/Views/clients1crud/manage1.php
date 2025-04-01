@@ -59,7 +59,7 @@ $this->section('body'); // Start the body section
                                     <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
                            </span>
                            <a href="<?= base_url('clients1/view/' . $client['CustomerID']); ?>" class="btn btn-sm btn-info">View</a>
-                            <a href="<?= base_url('/clients1/renew/' . $client['CustomerID']); ?>" class="btn btn-sm btn-outline-success">Renew</span>
+                             <span onclick="renewClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-outline-success">Renew</span>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -242,6 +242,81 @@ $this->section('body'); // Start the body section
                         <label for="editPassword" class="form-label">Password</label>
                         <input type="text" class="form-control" id="editPassword" name="password" required>
                     </div>
+
+                    <!-- Date of Registration -->
+                    <div class="mb-3">
+                        <label for="editDateofregistration" class="form-label">Date of Registration</label>
+                        <input type="date" class="form-control" id="editDateofregistration" name="dateofregistration" required>
+                    </div>
+
+                     <!-- Gymtimeslot -->
+                     
+
+                    <!-- Types of Workout -->
+                    <div class="mb-3">
+                        <label for="editTworkout" class="form-label">Types of Workout</label>
+                        <select id="editTworkout" class="form-control" name="tworkout" required>
+                            <option value="Bulking">Bulking</option>
+                            <option value="Cutting">Cutting</option>
+                            <option value="Endurance Training">Endurance Training</option>
+                            <option value="Strength Training">Strength Training</option>
+                            <option value="Functional Fitness">Functional Fitness</option>
+                        </select>
+                    </div>
+
+                   <!-- Membership Plan -->
+                <div class="mb-3">
+                       <label for="editPlanSelect" class="form-label">Membership Plan</label>
+                   <select id="editPlanSelect" class="form-control" name="plans" required>
+                      <!-- Options will be dynamically added by AJAX -->
+                   </select>
+                </div>
+
+                <!-- Coach Selection -->
+            <div class="mb-3">
+                <label for="editCoach" class="form-label">Select Coach</label>
+                    <select id="editCoach" class="form-control" name="coach" required>
+                <option value="">Select a Coach</option>
+                    </select>
+            </div>
+
+
+                    <!-- Total Amount -->
+                    <div class="mb-3">
+                        <label for="editAmount" class="form-label">Total Amount</label>
+                        <input type="text" id="editPriceInput" class="form-control" name="amount" readonly>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="mb-3">
+                        <label for="editDuration" class="form-label">Duration</label>
+                        <input type="number" class="form-control" id="editDuration" name="duration" readonly>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- renew Client Modal -->
+<div class="modal fade" id="renrewClientModal" tabindex="-1" aria-labelledby="renrewClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="renrewClientModalLabel">Edit Client</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editClientForm">
+                    <input type="hidden" id="editClientId" name="id">
+
+                   
 
                     <!-- Date of Registration -->
                     <div class="mb-3">
@@ -611,6 +686,46 @@ async function updateClient() {
             alert("There was an error updating the client.");
         }
     });
+
+    // renew Client
+    async function renewClient(id) {
+    try {
+        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
+
+        if (res && res.data) {
+            const client = res.data;
+
+            $("#editClientId").val(client.id);
+            $("#editGymcode").val(client.gym_code);
+            $("#editClients1Fname").val(client.first_name);
+            $("#editClients1Lname").val(client.last_name);
+            $("#editClients1Username").val(client.user_name);
+            $("#editClients1Emailaddress").val(client.email_address);
+            $("#editPassword").val(client.password);
+            $("#editGender").val(client.gender);
+            $("#editDateofregistration").val(client.date_of_registration);
+            $("#edittimeslot").val(client.timeslot);
+            $("#editTworkout").val(client.workout_type);
+            $("#editPlans").val(client.plans);
+            $("#editAmount").val(parseFloat(client.amount).toFixed(2));
+            $("#editDuration").val(client.duration);
+            $("#editCoach").val(client.coach);
+
+            $("#renewClientModal").modal('show');
+
+            // Fetch plans and set the selected one
+            await fetchEditPlans(client.PlanID);
+
+            // Fetch coaches for the selected plan
+            await fetchEditCoach(client.PlanID, client.CoachID);
+
+        } else {
+            console.error('No data found in the response:', res);
+        }
+    } catch (error) {
+        console.error('Error fetching client data:', error);
+    }
+}
 }
 
 

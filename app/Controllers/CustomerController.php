@@ -337,6 +337,11 @@ public function toggleFreeze($id)
         ]);
     }
 }
+    public function renew ()
+    {
+        return view('clients1crud/renew');
+
+    }
 public function viewClient($id)
 {
     $customerModel = new CustomerModel();

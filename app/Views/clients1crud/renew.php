@@ -1,65 +1,461 @@
-    <!-- Visit codeastro.com for more projects -->
-    <div class="span6">
-      <div class="widget-box">
-        <div class="widget-title"> <span class="icon"> <i class="fas fa-align-justify"></i> </span>
-          <h5>Contact Details</h5>
+<?php
+
+$this->extend('layout/main'); // Extend the main layout
+$this->section('body'); // Start the body section
+?>
+ 
+<div class="p-2 row mb-3">
+    <!-- Add Client Button -->
+    <div class="col-12 mb-2">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClientModal">Add Client</button>
+    </div>
+
+    <!-- Success Message -->
+    <?php if (session()->getFlashdata('success')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= session()->getFlashdata('success') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="widget-content nopadding">
-          <div class="form-horizontal">
-            <div class="control-group">
-              <label for="normal" class="control-label">Contact Number</label>
-              <div class="controls">
-                <input type="number" id="mask-phone" name="contact" value='<?php echo $row['contact']; ?>' class="span8 mask text">
-                <span class="help-block blue span8">(999) 999-9999</span> 
+    <?php endif; ?>
+
+    <!-- Client Table -->
+    <div class="col-12">
+        <table id="clientTable" class="display">
+            <thead>
+                <tr>
+                    <th>Client ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                    <th>Email Address</th>
+                    <th style="display: none">Password</th>
+                    <th>Register Date</th>
+                    <th>Types of Workout</th>
+                    <th>Membership Plan</th>
+                    <th>QR Code</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($clients1 as $client) : ?>
+                    <tr>
+                        <td><?= $client['CustomerID']; ?></td>
+                        <td><?= $client['Firstname']; ?></td>
+                        <td><?= $client['Lastname']; ?></td>
+                        <td><?= $client['Address']; ?></td>
+                        <td><?= $client['Gender']; ?></td>
+                        <td><?= $client['Email']; ?></td>
+                        <td style="display: none"><?= $client['Password']; ?></td>
+                        <td><?= $client['RegisteredDate']; ?></td>
+                        <td><?= $client['types_of_workout']; ?></td>
+                        <td><?= $client['Membesrship_plan']; ?></td>
+                        <td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
+                        <td>
+                            <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
+                            <span onclick="deleteClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-danger">Delete</span>
+                            <span onclick="toggleFreeze('<?= $client['CustomerID']; ?>')" 
+                                 class="btn btn-sm <?= $client['is_frozen'] ? 'btn-success' : 'btn-warning' ?>">
+                                    <?= $client['is_frozen'] ? 'Unfreeze' : 'Freeze' ?>
+                           </span>
+                           <a href="<?= base_url('clients1/view/' . $client['CustomerID']); ?>" class="btn btn-sm btn-info">View</a>
+                            <a href="<?= base_url('/clients1/renew/' . $client['CustomerID']); ?>" class="btn btn-sm btn-outline-success">Renew</span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Edit Client Modal -->
+<div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editClientModalLabel">Edit Client</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editClientForm">
+                    <input type="hidden" id="editClientId" name="id">
+
+                   
+
+                    <!-- Date of Registration -->
+                    <div class="mb-3">
+                        <label for="editDateofregistration" class="form-label">Date of Registration</label>
+                        <input type="date" class="form-control" id="editDateofregistration" name="dateofregistration" required>
+                    </div>
+
+                     <!-- Gymtimeslot -->
+                     
+
+                    <!-- Types of Workout -->
+                    <div class="mb-3">
+                        <label for="editTworkout" class="form-label">Types of Workout</label>
+                        <select id="editTworkout" class="form-control" name="tworkout" required>
+                            <option value="Bulking">Bulking</option>
+                            <option value="Cutting">Cutting</option>
+                            <option value="Endurance Training">Endurance Training</option>
+                            <option value="Strength Training">Strength Training</option>
+                            <option value="Functional Fitness">Functional Fitness</option>
+                        </select>
+                    </div>
+
+                   <!-- Membership Plan -->
+                <div class="mb-3">
+                       <label for="editPlanSelect" class="form-label">Membership Plan</label>
+                   <select id="editPlanSelect" class="form-control" name="plans" required>
+                      <!-- Options will be dynamically added by AJAX -->
+                   </select>
                 </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Address :</label>
-              <div class="controls">
-                <input type="text" class="span11" name="address" value='<?php echo $row['address']; ?>' />
-              </div>
-            </div>
-          </div>
 
-              <div class="widget-title"> <span class="icon"> <i class="fas fa-align-justify"></i> </span>
-          <h5>Service Details</h5>
+                <!-- Coach Selection -->
+            <div class="mb-3">
+                <label for="editCoach" class="form-label">Select Coach</label>
+                    <select id="editCoach" class="form-control" name="coach" required>
+                <option value="">Select a Coach</option>
+                    </select>
+            </div>
+
+
+                    <!-- Total Amount -->
+                    <div class="mb-3">
+                        <label for="editAmount" class="form-label">Total Amount</label>
+                        <input type="text" id="editPriceInput" class="form-control" name="amount" readonly>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="mb-3">
+                        <label for="editDuration" class="form-label">Duration</label>
+                        <input type="number" class="form-control" id="editDuration" name="duration" readonly>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="widget-content nopadding">
-          <div class="form-horizontal">
-            
-            
-            <div class="control-group">
-              <label class="control-label">Services</label>
-              <div class="controls">
-                <label>
-                  <input type="radio" value="Fitness" name="services" />
-                  Fitness <small>- ₱55 per month</small></label>
-                <label>
-                  <input type="radio" value="Sauna" name="services" />
-                  Sauna <small>- ₱35 per month</small></label>
-                <label>
-                  <input type="radio" value="Cardio" name="services" />
-                  Cardio <small>- ₱40 per month</small></label>
-              </div>
-            </div>
+    </div>
+</div>
 
-            <div class="control-group">
-              <label class="control-label">Total Amount</label>
-              <div class="controls">
-                <div class="input-append">
-                  <span class="add-on">₱</span> 
-                  <input type="number" value='<?php echo $row['amount']; ?>' name="amount" class="span11">
-                  </div>
-              </div>
-            </div>
-            
-          
-            
-            <div class="form-actions text-center">
-             <!-- user's ID is hidden here -->
-             <input type="hidden" name="id" value="<?php echo $row['user_id'];?>">
-              <button type="submit" class="btn btn-success">Update Member Details</button>
-            </div>
-            </form>
 
-          </div>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable
+        let table = new DataTable('#clientTable', {
+            responsive: true
+        });
+
+        });
+
+        // Fetch Plans and Coaches
+        fetchPlans();
+        $('#planSelect').on('change', function () {
+            var planId = $(this).val();
+            if (planId) {
+                fetchCoach(planId);
+            }
+        });
+        $('#editPlanSelect').on('change', function () {
+    var planId = $(this).val();
+    if (planId) {
+        fetchEditCoach(planId);
+    }
+});
+    
+
+
+    // Delete Client
+    async function deleteClient(id) {
+    const { isConfirmed } = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (isConfirmed) {
+        try {
+            const response = await $.ajax({
+                url: '<?= base_url('/clients1/delete/'); ?>' + id, // Adjust URL for your delete route
+                type: 'DELETE',
+                success: function(response) {
+                    // Show success alert
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'The client has been deleted successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                        window.location.reload();
+                    
+                },
+                error: function(xhr, status, error) {
+                    // Handle AJAX error
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong. Please try again later.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error processing your request.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+}
+
+
+    // Function to generate QR Code
+    function generateQRCode(clientId) {
+        const qr = new QRious({
+            element: document.createElement('canvas'),
+            value: `${clientId}`,
+            size: 200,
+            background: 'white',
+            foreground: 'black',
+        });
+
+        const qrImageElement = document.getElementById('qrCodeImage' + clientId);
+    if (qrImageElement) {
+        qrImageElement.src = qr.toDataURL();
+        }
+    }
+
+    // Generate QR Codes for all clients
+    window.onload = function () {
+        <?php foreach ($clients1 as $client) : ?>
+            generateQRCode(<?= $client['CustomerID']; ?>);
+        <?php endforeach; ?>
+    };
+
+    document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+    var emailInput = this.value;
+    var emailError = document.getElementById("emailError");
+    
+    if (!emailInput.endsWith("@gmail.com")) {
+        emailError.style.display = "block";
+    } else {
+        emailError.style.display = "none";
+    }
+    });
+
+    
+    // Fetch Plans
+    async function fetchPlans() {
+        try {
+            const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+            $('#planSelect').empty();
+            data.forEach(plan => {
+                $('#planSelect').append(`<option value="${plan.PlanID}">${plan.PlanName}</option>`);
+            });
+        } catch (error) {
+            console.error("Error fetching plans:", error);
+        }
+    }
+
+    // Fetch Coaches
+    async function fetchCoach(planId) {
+        try {                          
+            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
+            $('#coach').empty();
+            $('#coach').append('<option value="">Select a Coach</option>');
+            data.forEach(coach => {
+                $('#coach').append(`<option value="${coach.planID} ${coach.coachID}">${coach.FullName}</option>`);
+            });
+        } catch (error) {
+            console.error("Error fetching coaches:", error);
+        }
+    }
+
+    // Edit Client
+    async function editClient(id) {
+    try {
+        const res = await $.get('<?= base_url('/clients1/store/'); ?>' + id);
+
+        if (res && res.data) {
+            const client = res.data;
+
+            $("#editClientId").val(client.id);
+            $("#editGymcode").val(client.gym_code);
+            $("#editClients1Fname").val(client.first_name);
+            $("#editClients1Lname").val(client.last_name);
+            $("#editClients1Username").val(client.user_name);
+            $("#editClients1Emailaddress").val(client.email_address);
+            $("#editPassword").val(client.password);
+            $("#editGender").val(client.gender);
+            $("#editDateofregistration").val(client.date_of_registration);
+            $("#edittimeslot").val(client.timeslot);
+            $("#editTworkout").val(client.workout_type);
+            $("#editPlans").val(client.plans);
+            $("#editAmount").val(parseFloat(client.amount).toFixed(2));
+            $("#editDuration").val(client.duration);
+            $("#editCoach").val(client.coach);
+
+            $("#editClientModal").modal('show');
+
+            // Fetch plans and set the selected one
+            await fetchEditPlans(client.PlanID);
+
+            // Fetch coaches for the selected plan
+            await fetchEditCoach(client.PlanID, client.CoachID);
+
+        } else {
+            console.error('No data found in the response:', res);
+        }
+    } catch (error) {
+        console.error('Error fetching client data:', error);
+    }
+}
+
+async function toggleFreeze(CustomerID) {
+    const { isConfirmed } = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to change the freeze status of this client.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, change it!'
+    });
+
+    if (isConfirmed) {
+        try {                                                             
+            const response = await fetch('<?= base_url('/customer/toggleFreeze/'); ?>' + CustomerID, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload(); // Refresh the page to reflect changes
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.message || 'Something went wrong!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error processing your request.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+}
+
+
+
+async function fetchEditPlans(selectedPlanId) {
+    try {
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+        $('#editPlanSelect').empty();
+        
+        data.forEach(plan => {
+            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
+            $('#editPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+    }
+}
+
+async function fetchEditCoach(planId, selectedCoachId = null) {
+    try {
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        $('#editCoach').empty();
+        $('#editCoach').append('<option value="">Select a Coach</option>');
+
+        data.forEach(coach => {
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#editCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching coaches:", error);
+    }
+}
+
+async function updateClient() {
+    let clientData = {
+        CustomerID: $("#editClientId").val().trim(),
+       // gym_code: $("#editGymcode").val().trim(),
+       Firstname: $("#editClients1Fname").val().trim(),
+       Lastname: $("#editClients1Lname").val().trim(),
+        user_name: $("#edituser").val().trim(),
+        Email: $("#editClients1Emailaddress").val().trim(),
+        Password: $("#editPassword").val().trim(),
+        Gender: $("#editGender").val().trim(),
+        RegisteredDate: $("#editDateofregistration").val().trim(),
+        types_of_workout: $("#editTworkout").val().trim(),
+      ///  GymTimeSlot: $("#timeslot").val().trim(),
+        amount: $("#editAmount").val().trim(),
+        duration: $("#editDuration").val().trim(),
+        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
+        coach: $("#editCoach").val() // Include the coach
+    };
+
+    if (!clientData.first_name || !clientData.last_name || !clientData.email_address ||
+        !clientData.amount || !clientData.duration || !clientData.plan) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    
+    $.ajax({
+        url: '<?= base_url('/clients1/update/'); ?>' + clientData.CustomerID,
+        type: 'POST',
+        data: clientData,
+        success: function(response) {
+            if (response.status === 'success') {
+                alert("Client updated successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update client: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error during the update:", error);
+            alert("There was an error updating the client.");
+        }
+    });
+}
+
+
+    
+    
+</script>
+
+<?php $this->endSection(); ?>

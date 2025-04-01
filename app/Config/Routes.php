@@ -74,9 +74,11 @@ $routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1'
 $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
 $routes->get('clients1/renew', 'CustomerController::renew');
 
-///BUTTONS/// Freeze | View \\\\\\
+///BUTTONS/// Freeze | View | renew \\\\\\
 $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze/$1');
 $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
+$routes->get('/clients1/renew', 'CustomerController::renew');
+$routes->post('/clients1/renew/(:num)', 'CustomerController::renew');
 
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
 $routes->get('/coach', 'CoachController::index' );

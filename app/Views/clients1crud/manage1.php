@@ -419,7 +419,12 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-    
+$('#renewPlanSelect').on('change', function () {
+    var planId = $(this).val();
+    if (planId) {
+        fetchrenewCoach(planId);
+    }
+});
 
 
     // Delete Client
@@ -658,12 +663,12 @@ async function toggleFreeze(CustomerID) {
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
-        $('#editCoach').empty();
-        $('#editCoach').append('<option value="">Select a Coach</option>');
+        $('#renewCoach').empty();
+        $('#renewCoach').append('<option value="">Select a Coach</option>');
 
         data.forEach(coach => {
             let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#editCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+            $('#renewCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
         });
     } catch (error) {
         console.error("Error fetching coaches:", error);
@@ -672,11 +677,11 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
 async function fetchrenewPlans(selectedPlanId) {
     try {
         const data = await $.get("<?= base_url('/fetchPlans'); ?>");
-        $('#editPlanSelect').empty();
+        $('#renewPlanSelect').empty();
         
         data.forEach(plan => {
             let selected = plan.PlanID == selectedPlanId ? "selected" : "";
-            $('#editPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+            $('#renewPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
         });
     } catch (error) {
         console.error("Error fetching plans:", error);

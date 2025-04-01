@@ -698,7 +698,7 @@ $this->section('body'); // Start the body section
 }
 async function editry(id) {
     try {
-        const res = await $.get('<?= base_url('/clients1/try/'); ?>' + id);
+        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;
@@ -860,37 +860,7 @@ async function updateClient() {
         }
     });
 
-    // renew Client
-    async function renewClient(id) {
-    console.log('Renew Client ID:', id);  // Debugging line
-
-    try {
-        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
-
-        if (res && res.data) {
-            const client = res.data;
-            $("#renewClientId").val(client.id);
-            $("#renewDateofregistration").val(client.date_of_registration);
-            $("#renewTworkout").val(client.workout_type);
-            $("#renewPlanSelect").val(client.plans);
-            $("#editPriceInput").val(parseFloat(client.amount).toFixed(2));
-            $("#editDuration").val(client.duration);
-            $("#renewCoach").val(client.coach);
-
-            const modal = new bootstrap.Modal(document.getElementById('renewClientModal'));
-            modal.show();
-
-            // Fetch plans and set the selected one
-            await fetchEditPlans(client.PlanID);
-            // Fetch coaches for the selected plan
-            await fetchEditCoach(client.PlanID, client.CoachID);
-        } else {
-            console.error('No data found in the response:', res);
-        }
-    } catch (error) {
-        console.error('Error fetching client data:', error);
-    }
-}
+    
 
 
 

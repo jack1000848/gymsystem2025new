@@ -79,7 +79,7 @@ $routes->post('/customer/toggleFreeze/(:num)', 'CustomerController::toggleFreeze
 $routes->get('/clients1/view/(:num)', 'CustomerController::viewClient/$1');
 $routes->get('/clients1/renew/(:num)', 'CustomerController::renew/$1');
 ///$routes->post('/clients1/renew/(:num)', 'CustomerController::renew/$1');
-$routes->get('/clients1/try/(:num)', 'CustomerController::try/$1');
+$routes->get('/clients1/renew/(:num)', 'CustomerController::try/$1');
 
 ///Manage Coach... (coach,(edit,update,delete,store)) ////
 $routes->get('/coach', 'CoachController::index' );

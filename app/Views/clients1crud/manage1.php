@@ -677,6 +677,7 @@ async function updateClient() {
         if (res && res.data) {
             const client = res.data;
 
+            // Populate the form fields with client data
             $("#renewClientId").val(client.id);
             $("#renewDateofregistration").val(client.date_of_registration);
             $("#renewTworkout").val(client.workout_type);
@@ -685,15 +686,16 @@ async function updateClient() {
             $("#editDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
 
-            // Show the modal
-            var myModal = new bootstrap.Modal(document.getElementById('renewClientModal'));
-            myModal.show();
-
             // Fetch plans and set the selected one
             await fetchEditPlans(client.PlanID);
 
             // Fetch coaches for the selected plan
             await fetchEditCoach(client.PlanID, client.CoachID);
+
+            // Show the modal after populating the fields
+            const modalElement = document.getElementById('renewClientModal');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
         } else {
             console.error('No data found in the response:', res);
         }
@@ -701,6 +703,8 @@ async function updateClient() {
         console.error('Error fetching client data:', error);
     }
 }
+
+
 }
 
 

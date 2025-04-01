@@ -701,10 +701,10 @@ async function updateClient() {
             $("#renewClientId").val(client.id);
             $("#renewDateofregistration").val(client.date_of_registration);
             $("#renewTworkout").val(client.workout_type);
-            $("#renewPlans").val(client.plans);
-            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#renewDuration").val(client.duration);
-            $("#renewtCoach").val(client.coach);
+            $("#renewPlanSelect").val(client.plans);
+            $("#editPriceInput").val(parseFloat(client.amount).toFixed(2));
+            $("#editDuration").val(client.duration);
+            $("#renewCoach").val(client.coach);
             $("#renewClientModal").modal('show');
 
             // Fetch plans and set the selected one
@@ -712,7 +712,6 @@ async function updateClient() {
 
             // Fetch coaches for the selected plan
             await fetchEditCoach(client.PlanID, client.CoachID);
-
         } else {
             console.error('No data found in the response:', res);
         }

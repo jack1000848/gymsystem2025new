@@ -419,7 +419,7 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-$('#renewPlanSelect').on('change', function () {
+$('#renewPlan').on('change', function () {
     var planId = $(this).val();
     if (planId) {
         fetchrenewCoach(planId);

@@ -321,8 +321,8 @@ $this->section('body'); // Start the body section
 
                     <!-- Date of Registration -->
                     <div class="mb-3">
-                        <label for="editDateofregistration" class="form-label">Date of Registration</label>
-                        <input type="date" class="form-control" id="editDateofregistration" name="dateofregistration" required>
+                        <label for="renewDateofregistration" class="form-label">Date of Registration</label>
+                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
                     </div>
 
                      <!-- Gymtimeslot -->
@@ -330,8 +330,8 @@ $this->section('body'); // Start the body section
 
                     <!-- Types of Workout -->
                     <div class="mb-3">
-                        <label for="editTworkout" class="form-label">Types of Workout</label>
-                        <select id="editTworkout" class="form-control" name="tworkout" required>
+                        <label for="renewTworkout" class="form-label">Types of Workout</label>
+                        <select id="renewTworkout" class="form-control" name="tworkout" required>
                             <option value="Bulking">Bulking</option>
                             <option value="Cutting">Cutting</option>
                             <option value="Endurance Training">Endurance Training</option>
@@ -342,16 +342,16 @@ $this->section('body'); // Start the body section
 
                    <!-- Membership Plan -->
                 <div class="mb-3">
-                       <label for="editPlanSelect" class="form-label">Membership Plan</label>
-                   <select id="editPlanSelect" class="form-control" name="plans" required>
+                       <label for="renewPlanSelect" class="form-label">Membership Plan</label>
+                   <select id="renewPlanSelect" class="form-control" name="plans" required>
                       <!-- Options will be dynamically added by AJAX -->
                    </select>
                 </div>
 
                 <!-- Coach Selection -->
             <div class="mb-3">
-                <label for="editCoach" class="form-label">Select Coach</label>
-                    <select id="editCoach" class="form-control" name="coach" required>
+                <label for="renewCoach" class="form-label">Select Coach</label>
+                    <select id="renewCoach" class="form-control" name="coach" required>
                 <option value="">Select a Coach</option>
                     </select>
             </div>
@@ -385,6 +385,8 @@ $this->section('body'); // Start the body section
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function () {
         // Initialize DataTable
@@ -696,14 +698,13 @@ async function updateClient() {
         if (res && res.data) {
             const client = res.data;
 
-            $("#editClientId").val(client.id);
-            $("#editDateofregistration").val(client.date_of_registration);
-            $("#edittimeslot").val(client.timeslot);
-            $("#editTworkout").val(client.workout_type);
-            $("#editPlans").val(client.plans);
-            $("#editAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#editDuration").val(client.duration);
-            $("#editCoach").val(client.coach);
+            $("#renewClientId").val(client.id);
+            $("#renewDateofregistration").val(client.date_of_registration);
+            $("#renewTworkout").val(client.workout_type);
+            $("#renewPlans").val(client.plans);
+            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
+            $("#renewDuration").val(client.duration);
+            $("#renewCoach").val(client.coach);
 
             $("#renewClientModal").modal('show');
 

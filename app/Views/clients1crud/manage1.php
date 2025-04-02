@@ -404,6 +404,8 @@ $this->section('body'); // Start the body section
         });
 
         });
+        ///submit edit
+        
 
         // Fetch Plans and Coaches
         fetchPlans();
@@ -755,33 +757,34 @@ async function fetchEditCoach(planId, selectedCoachId = null) {
 
 async function updateClient() {
     let clientData = {
-        CustomerID: $("#editClientId").val().trim(),
-       // gym_code: $("#editGymcode").val().trim(),
-       Firstname: $("#editClients1Fname").val().trim(),
-       Lastname: $("#editClients1Lname").val().trim(),
+        id: $("#editClientId").val().trim(),
+        gym_code: $("#editGymcode").val().trim(),
+        first_name: $("#editClients1Fname").val().trim(),
+        last_name: $("#editClients1Lname").val().trim(),
         user_name: $("#edituser").val().trim(),
-        Email: $("#editClients1Emailaddress").val().trim(),
-        Password: $("#editPassword").val().trim(),
-        Gender: $("#editGender").val().trim(),
-        RegisteredDate: $("#editDateofregistration").val().trim(),
-        types_of_workout: $("#editTworkout").val().trim(),
-      ///  GymTimeSlot: $("#timeslot").val().trim(),
+        email_address: $("#editClients1Emailaddress").val().trim(),
+        password: $("#editPassword").val().trim(),
+        gender: $("#editGender").val().trim(),
+        date_of_registration: $("#editDateofregistration").val().trim(),
+        workout_type: $("#editTworkout").val().trim(),
         amount: $("#editAmount").val().trim(),
         duration: $("#editDuration").val().trim(),
-        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
-        coach: $("#editCoach").val() // Include the coach
+        plans: $("#editPlanSelect").val(),
+        coach: $("#editCoach").val()
     };
 
     if (!clientData.first_name || !clientData.last_name || !clientData.email_address ||
-        !clientData.amount || !clientData.duration || !clientData.plan) {
+        !clientData.amount || !clientData.duration || !clientData.plans) {
         alert("Please fill in all required fields.");
         return;
     }
-    
+
     $.ajax({
-        url: '<?= base_url('/clients1/update/'); ?>' + clientData.CustomerID,
+        url: '<?= base_url('/clients1/update/'); ?>' + clientData.id,
         type: 'POST',
         data: clientData,
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function(response) {
             if (response.status === 'success') {
                 alert("Client updated successfully!");
@@ -791,12 +794,11 @@ async function updateClient() {
             }
         },
         error: function(xhr, status, error) {
-            console.error("Error during the update:", error);
+            console.error("Error during the update:", xhr.responseText);
             alert("There was an error updating the client.");
         }
     });
-
-    
+}
 
 
 

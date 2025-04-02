@@ -217,12 +217,11 @@ $this->section('body'); // Start the body section
                         <input type="text" class="form-control" id="edituser" name="clients1Username" required>
                     </div>
 
-                    <!-- Address -->
+                                        <!-- Address -->
                     <div class="mb-3">
                         <label for="editaddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="editaddress" name="clients1Username" required>
+                        <input type="text" class="form-control" id="editaddress" name="clients1Fulladdress" required>
                     </div>
-
                     <!-- Gender -->
                     <div class="mb-3">
                         <label for="editGender" class="form-label">Gender</label>
@@ -765,16 +764,18 @@ async function fetchEditCoach(planId, selectedCoachId = null) {
         gender: $("#editGender").val().trim(),
         date_of_registration: $("#editDateofregistration").val().trim(),
         workout_type: $("#editTworkout").val().trim(),
-        amount: $("#editAmount").val().trim(),
-        duration: $("#editDuration").val().trim(),
+        amount: $("#editPriceInput").val().trim(), // Ensure you read the right ID
+        duration: $("#editDuration").val().trim(), // Ensure the ID matches
         plans: $("#editPlanSelect").val(),
         coach: $("#editCoach").val()
     };
 
-    if (!clientData.first_name || !clientData.last_name || !clientData.email_address ||
-        !clientData.amount || !clientData.duration || !clientData.plans) {
-        alert("Please fill in all required fields.");
-        return;
+    // Check for any empty required fields
+    for (let key in clientData) {
+        if (clientData[key] === "" && (key !== 'id' && key !== 'coach' && key !== 'duration')) {
+            alert("Please fill in all required fields.");
+            return;
+        }
     }
 
     $.ajax({

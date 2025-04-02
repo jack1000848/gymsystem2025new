@@ -753,9 +753,8 @@ async function fetchEditCoach(planId, selectedCoachId = null) {
     } catch (error) {
         console.error("Error fetching coaches:", error);
     }
-}
 
-async function updateClient() {
+    async function updateClient() {
     let clientData = {
         id: $("#editClientId").val().trim(),
         gym_code: $("#editGymcode").val().trim(),
@@ -801,8 +800,16 @@ async function updateClient() {
 }
 
 
-
 }
+
+
+
+
+    
+
+
+
+
 
 
     

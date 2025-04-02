@@ -371,7 +371,7 @@ $this->section('body'); // Start the body section
                     <!-- Submit Button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update1">Save changes</button>
                     </div>
                 </form>
             </div>

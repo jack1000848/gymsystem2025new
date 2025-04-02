@@ -71,6 +71,7 @@ $routes->get('/clients1/create', 'CustomerController::createClients1');
 $routes->post('/clients1/store', 'CustomerController::storeClients1');
 $routes->get('/clients1/edit/(:num)', 'CustomerController::editClients1/$1');
 $routes->post('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
+$routes->get('/clients1/update/(:num)', 'CustomerController::updateClients1/$1');
 $routes->delete('/clients1/delete/(:num)', 'CustomerController::deleteClients1/$1');
 //$routes->get('clients1/renew', 'CustomerController::renew');
 

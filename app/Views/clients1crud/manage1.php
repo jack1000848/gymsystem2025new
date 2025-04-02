@@ -757,7 +757,6 @@ async function fetchEditCoach(planId, selectedCoachId = null) {
     async function updateClient() {
     let clientData = {
         id: $("#editClientId").val().trim(),
-        gym_code: $("#editGymcode").val().trim(),
         first_name: $("#editClients1Fname").val().trim(),
         last_name: $("#editClients1Lname").val().trim(),
         user_name: $("#edituser").val().trim(),

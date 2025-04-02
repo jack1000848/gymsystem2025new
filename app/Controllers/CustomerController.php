@@ -248,7 +248,6 @@ Thank you for signing up! To complete your registration and verify your email ad
 
     // Get the input data from the request
     $data = [
-        'gym_code' => $this->request->getPost('gymcode'), 
         'first_name' => $this->request->getPost('clients1Fname'),
         'last_name' => $this->request->getPost('clients1Lname'),
         'user_name' => $this->request->getPost('clients1Username'),
@@ -258,7 +257,6 @@ Thank you for signing up! To complete your registration and verify your email ad
         'phone_number' => $this->request->getPost('clients1Phonenumber'),
         'gender' => $this->request->getPost('gender'),
         'date_of_registration' => $this->request->getPost('dateofregistration'),
-        'GymTimeSlot' => $this->request->getPost('timeslot'),
         'workout_type' => $this->request->getPost('tworkout'),
         'plans' => $this->request->getPost('plans'),
         'amount' => $this->request->getPost('amount'),
@@ -266,10 +264,10 @@ Thank you for signing up! To complete your registration and verify your email ad
 
     // Validate required fields
     if (
-        !$data['gym_code'] || !$data['first_name'] || !$data['last_name'] ||
+        !$data['first_name'] || !$data['last_name'] ||
         !$data['user_name'] || !$data['password'] || !$data['full_address'] ||
         !$data['email_address'] || !$data['phone_number'] || !$data['gender'] ||
-        !$data['date_of_registration'] || !$data['GymTimeSlot'] || !$data['workout_type'] ||
+        !$data['date_of_registration'] || !$data['workout_type'] ||
         !$data['plans'] || !$data['amount']
     ) {
         return $this->response->setJSON([

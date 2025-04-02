@@ -501,16 +501,16 @@ $('#renewPlans').on('change', function () {
         <?php endforeach; ?>
     };
 
-    document.getElementById("clients1Emailaddress").addEventListener("input", function() {
-    var emailInput = this.value;
-    var emailError = document.getElementById("emailError");
+  //  document.getElementById("clients1Emailaddress").addEventListener("input", function() {
+ //   var emailInput = this.value;
+  //  var emailError = document.getElementById("emailError");
     
-    if (!emailInput.endsWith("@gmail.com")) {
-        emailError.style.display = "block";
-    } else {
-        emailError.style.display = "none";
-    }
-    });
+   // if (!emailInput.endsWith("@gmail.com")) {
+  //      emailError.style.display = "block";
+   // } else {
+   //     emailError.style.display = "none";
+  //  }
+  //  });
 
     
     // Fetch Plans

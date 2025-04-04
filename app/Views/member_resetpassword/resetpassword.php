@@ -119,9 +119,9 @@
     <div class="alert alert-danger">
         <?= session()->getFlashdata('error') ?>
     </div>
-<?php endif; ?>
+<?php endif; ?> 
 
-        <form action="<?= base_url('update-password') ?>" method="POST">
+        <form action="<?= base_url('reset-password') ?>" method="POST">
             <input type="hidden" name="token" value="<?= $token ?>">
             
             <label>New Password:</label>

@@ -77,6 +77,9 @@
                             <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('/account-setting') ?>" class="nav-link">Account Settings</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
                         </li>
                     </ul>
@@ -145,6 +148,10 @@
                             <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
                         </li>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('/account-setting') ?>" class="nav-link">Account Settings</a>
+                        </li>
+                        
                         <li class="nav-item"> 
                             <a href="<?= base_url('/logout') ?>" class="nav-link"> 
                                 <i class=""></i>

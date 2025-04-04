@@ -79,6 +79,51 @@ class ClientsDashboardController extends BaseController
         return view('clientdashboard/myqrcode', $data); // ✅ Pass client data to the view
     }
 
+    ///// heres my account settings
+
+    public function accountSettings()
+    {
+        $session = session();
+        $userID = $session->get('CustomerID'); // Get logged-in user ID
+
+        $userModel = new CustomerModel();
+        $user = $userModel->find($userID);
+
+        if (!$user) {
+            return redirect()->to('/dashboard')->with('error', 'User not found.');
+        }
+
+        return view('account_settings', ['user' => $user]);
+    }
+
+    public function updateAccount()
+    {
+        $session = session();
+        $userID = $session->get('CustomerID');
+
+        $userModel = new CustomerModel();
+        $user = $userModel->find($userID);
+
+        if (!$user) {
+            return redirect()->to('/account-settings')->with('error', 'Unauthorized access.');
+        }
+
+        $name = $this->request->getPost('name');
+        $password = $this->request->getPost('password');
+
+        $updateData = ['name' => $name];
+
+        if (!empty($password)) {
+            $updateData['password_hash'] = password_hash($password, PASSWORD_BCRYPT);
+        }
+
+        if ($userModel->update($userID, $updateData)) {
+            return redirect()->to('/account-settings')->with('success', 'Account updated successfully.');
+        } else {
+            return redirect()->to('/account-settings')->with('error', 'Failed to update account.');
+        }
+    }
+
     public function logout()
     {
         ///// Destroy the entire session//

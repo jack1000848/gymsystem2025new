@@ -1,0 +1,26 @@
+<?= $this->extend('layout/mainclient') ?> <!-- Change if using a different layout -->
+<?= $this->section('body') ?>
+
+<h2>Account Settings</h2>
+
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+
+<form action="<?= base_url('update-account') ?>" method="post">
+    <?= csrf_field() ?>
+    
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="<?= esc($user['name']) ?>" required>
+
+    <label for="password">New Password (Leave blank if not changing):</label>
+    <input type="password" name="password">
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<?= $this->endSection() ?>

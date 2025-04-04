@@ -140,6 +140,9 @@ $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 // view my schedule
 $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
 
+/// account setting
+$routes->get('/account-setting', 'ClientsDashboardController::accountSetting');
+$routes->post('/update-account', 'UserController::updateAccount');
 ///Logout...
 $routes->get('/logout', 'ClientsDashboardController::logout');
 

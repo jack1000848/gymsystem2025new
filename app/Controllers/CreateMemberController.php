@@ -232,7 +232,7 @@ public function sendResetLink()
     $user = $userModel->where('Email', $email)->first();
 
     if (!$user) {
-        return redirect()->to('/forgot-password')->with('error', 'Email not found.');
+        return redirect()->to('/forgot-password')->with ('error', 'Email not found.');
     }
 
     // Generate reset token

@@ -116,8 +116,10 @@
         <h2>Enter Your New Password</h2>
 
         <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert"><?= session()->getFlashdata('error') ?></div>
-        <?php endif; ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
 
         <form action="<?= base_url('update-password') ?>" method="POST">
             <input type="hidden" name="token" value="<?= $token ?>">

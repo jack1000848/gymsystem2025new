@@ -108,10 +108,13 @@ class ClientsDashboardController extends BaseController
             return redirect()->to('/account-settings')->with('error', 'Unauthorized access.');
         }
 
-        $name = $this->request->getPost('name');
+        $fname = $this->request->getPost('Firstname');
+    
         $password = $this->request->getPost('password');
 
-        $updateData = ['name' => $name];
+        $updateData = ['Firstname' => $fname];
+        
+        // Only update password if provided
 
         if (!empty($password)) {
             $updateData['password_hash'] = password_hash($password, PASSWORD_BCRYPT);

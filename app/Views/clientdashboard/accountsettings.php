@@ -14,7 +14,7 @@
 <form action="<?= base_url('update-account') ?>" method="post">
     <?= csrf_field() ?>
     
-    <label for="name">Name:</label>
+    <label for="name">First Name:</label>
     <input type="text" name="name" value="<?= esc($user['name']) ?>" required>
 
     <label for="password">New Password (Leave blank if not changing):</label>

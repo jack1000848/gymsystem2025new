@@ -292,8 +292,8 @@ public function resetPassword()
     $password = $this->request->getPost('password');
 
     // Debugging: Log received token and password
-    log_message('debug', 'Token received: ' . $token);
-    log_message('debug', 'Password received: ' . $password);
+    ///log_message('debug', 'Token received: ' . $token);
+   /// log_message('debug', 'Password received: ' . $password);
 
     $userModel = new CreateMemberModel();
     $user = $userModel->where('reset_token', $token)->first();

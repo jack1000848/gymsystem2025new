@@ -105,7 +105,7 @@ class ClientsDashboardController extends BaseController
         $user = $userModel->find($userID);
 
         if (!$user) {
-            return redirect()->to('/account-settings')->with('error', 'Unauthorized access.');
+            return redirect()->to('/account-setting')->with('error', 'Unauthorized access.');
         }
 
         $fname = $this->request->getPost('Firstname');
@@ -121,9 +121,9 @@ class ClientsDashboardController extends BaseController
         }
 
         if ($userModel->update($userID, $updateData)) {
-            return redirect()->to('/account-settings')->with('success', 'Account updated successfully.');
+            return redirect()->to('/account-setting')->with('success', 'Account updated successfully.');
         } else {
-            return redirect()->to('/account-settings')->with('error', 'Failed to update account.');
+            return redirect()->to('/account-setting')->with('error', 'Failed to update account.');
         }
     }
 

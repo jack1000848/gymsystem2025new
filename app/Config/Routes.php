@@ -142,7 +142,7 @@ $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
 
 /// account setting
 $routes->get('/account-setting', 'ClientsDashboardController::accountSettings');
-$routes->post('/update-account', 'UserController::updateAccount');
+$routes->post('/update-account', 'ClientsDashboardController::updateAccount');
 ///Logout...
 $routes->get('/logout', 'ClientsDashboardController::logout');
 

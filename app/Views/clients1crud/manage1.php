@@ -702,6 +702,103 @@ async function fetchEditCoach(planId, selectedCoachId = null) {
         }
     });
 }
+async function renew(id) {
+    try {
+        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
+
+        if (res && res.data) {
+            const client = res.data;
+
+            $("#renewDateofregistration").val(client.date_of_registration);
+            $("#renewTworkout").val(client.workout_type);
+            $("#renewPlans").val(client.plans);  // Ensure this matches the dropdown ID
+            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
+            $("#renewDuration").val(client.duration);
+            $("#renewCoach").val(client.coach);
+
+            $("#tryClientModal").modal('show');
+
+            // Fetch plans and set the selected one
+            await fetchrenewPlans(client.PlanID);  // <== Added this line
+
+            // Fetch coaches for the selected plan
+            await fetchrenewCoach(client.PlanID, client.CoachID);
+
+        } else {
+            console.error('No data found in the response:', res);
+        }
+    } catch (error) {
+        console.error('Error fetching client data:', error);
+    }
+}
+
+async function fetchrenewCoach(planId, selectedCoachId = null) {
+    try {
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        $('#renewCoach').empty();
+        $('#renewCoach').append('<option value="">Select a Coach</option>');
+
+        data.forEach(coach => {
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching coaches:", error);
+    }
+}
+
+async function fetchrenewPlans(selectedPlanId) {
+    try {
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+        $('#renewPlans').empty(); // Ensure this matches the ID in `renew(id)`
+
+        data.forEach(plan => {
+            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
+            $('#renewPlans').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+    }
+}
+
+async function renewUpdate() {
+    let clientData = {
+        RegisteredDate: $("#editDateofregistration").val().trim(),
+        types_of_workout: $("#editTworkout").val().trim(),
+        amount: $("#editAmount").val().trim(),
+        duration: $("#editDuration").val().trim(),
+        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
+        coach: $("#editCoach").val() // Include the coach
+    };
+      if  (!clientData.amount || !clientData.duration || !clientData.plan) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    
+    $.ajax({
+        url: '<?= base_url('/clients1/renewupdate/'); ?>' + clientData.CustomerID,
+        type: 'POST',
+        data: clientData,
+        success: function(response) {
+            if (response.status === 'success') {
+                alert("Client updated successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update client: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error during the update:", error);
+            alert("There was an error updating the client.");
+        }
+    });
+
+$('#renewPlans').on('change', function () {
+    var planId = $(this).val();
+    if (planId) {
+        fetchrenewCoach(planId);
+    }
+});
 
 }
 

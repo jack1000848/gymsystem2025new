@@ -291,25 +291,43 @@ public function resetPassword()
     $token = $this->request->getPost('token');
     $password = $this->request->getPost('password');
 
+    // Debugging: Log received token and password
+    log_message('debug', 'Token received: ' . $token);
+    log_message('debug', 'Password received: ' . $password);
+
     $userModel = new CreateMemberModel();
     $user = $userModel->where('reset_token', $token)->first();
 
-    if (!$user || strtotime($user['reset_token_expires']) < time()) {
+    if (!$user) {
+        log_message('error', 'User not found for token: ' . $token);
         return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
     }
 
-    // Hash new password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    if (strtotime($user['reset_token_expires']) < time()) {
+        log_message('error', 'Token expired for user ID: ' . $user['CustomerID']);
+        return redirect()->to('/forgot-password')->with('error', 'Expired reset link.');
+    }
 
-    // Update password and remove token
-    $userModel->update($user['CustomerID'], [
-        'Password_hash' => $hashedPassword,
+    // Hash the new password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    log_message('debug', 'Hashed password: ' . $hashedPassword);
+
+    // Try updating the password
+    $updateData = [
+        'password_hash' => $hashedPassword,  // Ensure this field matches your DB column
         'reset_token' => null,
         'reset_token_expires' => null
-    ]);
+    ];
 
-    return redirect()->to('/member-login')->with('success', 'Password reset successfully. You can now log in.');
+    if ($userModel->update($user['CustomerID'], $updateData)) {
+        log_message('debug', 'Password updated successfully for user ID: ' . $user['CustomerID']);
+        return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
+    } else {
+        log_message('error', 'Password update failed for user ID: ' . $user['CustomerID']);
+        return redirect()->to('/forgot-password')->with('error', 'Something went wrong. Try again.');
+    }
 }
+
 
 /// update the users pass;
 ///public function resetPasswords($token)

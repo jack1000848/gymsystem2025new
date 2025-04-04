@@ -21,8 +21,8 @@ $routes->get('/verify/(:any)', 'CustomerController::verify/$1');
 $routes->get('forgot-password', 'CreateMemberController::forgotPassword');
 $routes->post('forgot-password', 'CreateMemberController::sendResetLink');
 //$routes->get('reset-password', 'CreateMemberController::showResetForm/$1');
-$routes->post('reset-password', 'CreateMemberController::resetPassword');
-$routes->get('reset-password/(:any)', 'CreateMemberController::resetPassword/$1');
+$routes->get('reset-password', 'CreateMemberController::resetPassword');
+$routes->post('reset-password/(:any)', 'CreateMemberController::resetPassword/$1');
 //update pass naman
 
 $routes->post('update-password', 'CreateMemberController::updatePassword');

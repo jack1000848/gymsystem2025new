@@ -15,7 +15,7 @@
     <?= csrf_field() ?>
     
     <label for="name">First Name:</label>
-    <input type="text" name="Firstname" value="<?= esc($user['name']) ?>" required>
+    <input type="text" name="Firstname" value="<?= esc($user['Firstname']) ?>" required>
 
     <label for="password">New Password (Leave blank if not changing):</label>
     <input type="password" name="password">

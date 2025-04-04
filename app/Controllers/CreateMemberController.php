@@ -318,30 +318,5 @@ public function resetPasswords($token)
     return view('member_resetpassword/resetpassword', $data);
 }
 
-public function updatePassword()
-{
-    $token = $this->request->getPost('token');
-    $newPassword = $this->request->getPost('password');
-    
-    // Validate input
-    if (!$newPassword || !$token) {
-        return redirect()->back()->with('error', 'Invalid request.');
-    }
 
-    // Load model and find user by reset token
-    $userModel = new \App\Models\CreateMemberModel();
-    $user = $userModel->where('reset_token', $token)->first();
-
-    if (!$user) {
-        return redirect()->back()->with('error', 'Invalid token.');
-    }
-
-    // Update the password
-    $userModel->update($user['Password'], [
-        'password' => password_hash($newPassword, PASSWORD_DEFAULT),
-        'reset_token' => null, // Remove reset token after successful update
-    ]);
-
-    return redirect()->to('/member-login')->with('success', 'Password updated successfully!');
-}
 }

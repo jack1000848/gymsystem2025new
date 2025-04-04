@@ -38,109 +38,75 @@
     }
 
     body {
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #1e2a47, #4c6cb3);
-        color: #e0e0e0;
-        padding: 40px 20px;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        padding: 20px;
     }
 
     h2 {
-        font-size: 36px;
-        font-weight: 600;
-        color: #a1c4e8;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
     }
 
     /* Alert Box */
     .alert {
-        padding: 15px;
+        padding: 10px;
         margin-bottom: 20px;
         border-radius: 5px;
-        font-weight: bold;
-        text-align: center;
     }
 
     .alert-success {
-        background-color: #0066cc;
-        color: #ffffff;
-        border: 2px solid #004d99;
+        background-color: #4CAF50;
+        color: white;
     }
 
     .alert-danger {
-        background-color: #e60000;
-        color: #ffffff;
-        border: 2px solid #990000;
+        background-color: #f44336;
+        color: white;
     }
 
     /* Form Styles */
     form {
-        background: rgba(0, 0, 0, 0.7);
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 400px;
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    form:hover {
-        transform: scale(1.05);
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+        margin: 0 auto;
     }
 
     label {
-        font-size: 14px;
-        margin-bottom: 8px;
-        color: #b4c7e7;
         display: block;
-        text-align: left;
+        margin: 10px 0 5px;
+        font-weight: bold;
     }
 
     input[type="text"],
     input[type="email"],
     input[type="password"] {
         width: 100%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border: 1px solid #333;
-        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         font-size: 16px;
-        background: #222;
-        color: #fff;
-        transition: background-color 0.3s;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-        background: #333;
-        border-color: #4c6cb3;
-        outline: none;
     }
 
     button {
-        background-color: #4c6cb3;
-        color: #fff;
-        padding: 15px 30px;
-        font-size: 18px;
+        background-color: #6c5ce7;
+        color: white;
+        padding: 12px 20px;
         border: none;
-        border-radius: 8px;
+        border-radius: 5px;
+        font-size: 16px;
         cursor: pointer;
-        width: 100%;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s;
     }
 
     button:hover {
-        background-color: #374a99;
-    }
-
-    button:active {
-        background-color: #003f7d;
+        background-color: #4e38c4;
     }
 
     button:focus {

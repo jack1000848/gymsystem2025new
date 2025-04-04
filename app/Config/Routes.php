@@ -20,7 +20,7 @@ $routes->get('/verify/(:any)', 'CustomerController::verify/$1');
 /// user forget password
 $routes->get('forgot-password', 'CreateMemberController::forgotPassword');
 $routes->post('forgot-password', 'CreateMemberController::sendResetLink');
-$routes->get('reset-password', 'CreateMemberController::showResetForm/$1');
+///$routes->get('reset-password', 'CreateMemberController::showResetForm/$1');
 $routes->post('reset-password', 'CreateMemberController::resetPassword');
 $routes->get('reset-password/(:any)', 'CreateMemberController::resetPasswords/$1');
 //update pass naman

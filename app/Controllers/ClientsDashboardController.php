@@ -93,7 +93,7 @@ class ClientsDashboardController extends BaseController
             return redirect()->to('/dashboard')->with('error', 'User not found.');
         }
 
-        return view('account_settings', ['user' => $user]);
+        return view('clientdashboard/accountsettings', ['user' => $user]);
     }
 
     public function updateAccount()

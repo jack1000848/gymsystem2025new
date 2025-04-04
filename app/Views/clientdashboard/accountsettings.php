@@ -17,6 +17,12 @@
     <label for="name">First Name:</label>
     <input type="text" name="Firstname" value="<?= esc($user['Firstname']) ?>" required>
 
+    <label for="name">Last Name:</label>
+    <input type="text" name="Lastname" value="<?= esc($user['Lastname']) ?>" required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="Email" value="<?= esc($user['Email']) ?>" required>
+
     <label for="password">New Password (Leave blank if not changing):</label>
     <input type="password" name="password">
 

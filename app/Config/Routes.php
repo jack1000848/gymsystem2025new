@@ -25,7 +25,7 @@ $routes->post('reset-password', 'CreateMemberController::resetPassword');
 ///$routes->post('reset-password/(:any)', 'CreateMemberController::resetPassword/$1');
 //update pass naman
 
-$routes->post('update-password', 'CreateMemberController::updatePassword');
+///$routes->post('update-password', 'CreateMemberController::updatePassword');
 
 
 

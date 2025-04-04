@@ -275,16 +275,16 @@ public function sendResetLink()
 
   ///  return view('member_resetpassword/resetpassword', ['token' => $token]);
 //}
-public function showResetForm($token)
-{   
-    $userModel = new CreateMemberModel();
-    $user = $userModel->where('reset_token', $token)->first();
+///public function showResetForm($token)
+///{   
+ ///   $userModel = new CreateMemberModel();
+  //  $user = $userModel->where('reset_token', $token)->first();
 
-    if (!$user || strtotime($user['reset_token_expires']) < time()) {
-        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link1.');
-    }
-    return view('member_resetpassword/resetpassword', ['token' => $token]);
-}
+  //  if (!$user || strtotime($user['reset_token_expires']) < time()) {
+  //      return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link1.');
+//}
+  //  return view('member_resetpassword/resetpassword', ['token' => $token]);
+//}
 
 public function resetPassword()
 {
@@ -295,7 +295,7 @@ public function resetPassword()
     $user = $userModel->where('reset_token', $token)->first();
 
     if (!$user || strtotime($user['reset_token_expires']) < time()) {
-        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
+        return redirect()->to('/reset-password')->with('error', 'Invalid or expired reset link.');
     }
 
     // Hash new password
@@ -312,11 +312,11 @@ public function resetPassword()
 }
 
 /// update the users pass;
-public function resetPasswords($token)
-{
-    $data['token'] = $token;
-    return view('member_resetpassword/resetpassword', $data);
-}
+///public function resetPasswords($token)
+///{
+ ///   $data['token'] = $token;
+ ///   return view('member_resetpassword/resetpassword', $data);
+///}
 
 
 }

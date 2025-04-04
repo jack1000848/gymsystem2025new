@@ -303,7 +303,7 @@ public function resetPassword()
 
     // Update password and remove token
     $userModel->update($user['CustomerID'], [
-        'Password' => $hashedPassword,
+        'Password_hash' => $hashedPassword,
         'reset_token' => null,
         'reset_token_expires' => null
     ]);

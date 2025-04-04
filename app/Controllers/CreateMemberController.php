@@ -320,10 +320,10 @@ public function resetPassword()
     ];
 
     if ($userModel->update($user['CustomerID'], $updateData)) {
-        log_message('debug', 'Password updated successfully for user ID: ' . $user['CustomerID']);
+       /// log_message('debug', 'Password updated successfully for user ID: ' . $user['CustomerID']);
         return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
     } else {
-        log_message('error', 'Password update failed for user ID: ' . $user['CustomerID']);
+       /// log_message('error', 'Password update failed for user ID: ' . $user['CustomerID']);
         return redirect()->to('/forgot-password')->with('error', 'Something went wrong. Try again.');
     }
 }

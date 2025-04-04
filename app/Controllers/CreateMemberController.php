@@ -299,18 +299,18 @@ public function resetPassword()
     $user = $userModel->where('reset_token', $token)->first();
 
     if (!$user) {
-        log_message('error', 'User not found for token: ' . $token);
+       /// log_message('error', 'User not found for token: ' . $token);
         return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
     }
 
     if (strtotime($user['reset_token_expires']) < time()) {
-        log_message('error', 'Token expired for user ID: ' . $user['CustomerID']);
+       // log_message('error', 'Token expired for user ID: ' . $user['CustomerID']);
         return redirect()->to('/forgot-password')->with('error', 'Expired reset link.');
     }
 
     // Hash the new password
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    log_message('debug', 'Hashed password: ' . $hashedPassword);
+    ///log_message('debug', 'Hashed password: ' . $hashedPassword);
 
     // Try updating the password
     $updateData = [

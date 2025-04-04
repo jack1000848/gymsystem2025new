@@ -420,12 +420,7 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-$('#renewPlans').on('change', function () {
-    var planId = $(this).val();
-    if (planId) {
-        fetchrenewCoach(planId);
-    }
-});
+
 
 
     // Delete Client

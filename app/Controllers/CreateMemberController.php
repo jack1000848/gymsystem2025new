@@ -274,7 +274,7 @@ public function sendResetLink()
 }
 
     return view('member_resetpassword/resetpassword', ['token' => $token]);
-//}
+}
 ///public function showResetForm($token)
 ///{   
  ///   $userModel = new CreateMemberModel();

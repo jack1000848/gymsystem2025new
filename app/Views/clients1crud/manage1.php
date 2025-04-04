@@ -420,7 +420,12 @@ $this->section('body'); // Start the body section
         fetchEditCoach(planId);
     }
 });
-
+$('#renewPlans').on('change', function () {
+    var planId = $(this).val();
+    if (planId) {
+        fetchrenewCoach(planId);
+    }
+});
 
 
     // Delete Client
@@ -575,133 +580,6 @@ $this->section('body'); // Start the body section
         console.error('Error fetching client data:', error);
     }
 }
-
-async function toggleFreeze(CustomerID) {
-    const { isConfirmed } = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to change the freeze status of this client.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, change it!'
-    });
-
-    if (isConfirmed) {
-        try {                                                             
-            const response = await fetch('<?= base_url('/customer/toggleFreeze/'); ?>' + CustomerID, {
-                method: 'POST',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: data.message,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    location.reload(); // Refresh the page to reflect changes
-                });
-            } else {
-                Swal.fire({
-                    title: 'Error!',
-                    text: data.message || 'Something went wrong!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an error processing your request.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-    }
-}
-
-
-
-async function fetchEditPlans(selectedPlanId) {
-    try {
-        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
-        $('#editPlanSelect').empty();
-        
-        data.forEach(plan => {
-            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
-            $('#editPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching plans:", error);
-    }
-}
-
-async function fetchEditCoach(planId, selectedCoachId = null) {
-    try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
-        $('#editCoach').empty();
-        $('#editCoach').append('<option value="">Select a Coach</option>');
-
-        data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#editCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching coaches:", error);
-    }
-
-    async function updateClient() {
-    let clientData = {
-        id: $("#editClientId").val().trim(),
-        first_name: $("#editClients1Fname").val().trim(),
-        last_name: $("#editClients1Lname").val().trim(),
-        user_name: $("#edituser").val().trim(),
-        email_address: $("#editClients1Emailaddress").val().trim(),
-        password: $("#editPassword").val().trim(),
-        gender: $("#editGender").val().trim(),
-        date_of_registration: $("#editDateofregistration").val().trim(),
-        workout_type: $("#editTworkout").val().trim(),
-        amount: $("#editPriceInput").val().trim(), // Ensure you read the right ID
-        duration: $("#editDuration").val().trim(), // Ensure the ID matches
-        plans: $("#editPlanSelect").val(),
-        coach: $("#editCoach").val()
-    };
-
-    // Check for any empty required fields
-    for (let key in clientData) {
-        if (clientData[key] === "" && (key !== 'id' && key !== 'coach' && key !== 'duration')) {
-            alert("Please fill in all required fields.");
-            return;
-        }
-    }
-
-    $.ajax({
-        url: '<?= base_url('/clients1/update/'); ?>' + clientData.id,
-        type: 'POST',
-        data: clientData,
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        success: function(response) {
-            if (response.status === 'success') {
-                alert("Client updated successfully!");
-                window.location.reload();
-            } else {
-                alert("Failed to update client: " + response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error during the update:", xhr.responseText);
-            alert("There was an error updating the client.");
-        }
-    });
-}
 async function renew(id) {
     try {
         const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
@@ -793,12 +671,134 @@ async function renewUpdate() {
         }
     });
 
-$('#renewPlans').on('change', function () {
-    var planId = $(this).val();
-    if (planId) {
-        fetchrenewCoach(planId);
+
+async function toggleFreeze(CustomerID) {
+    const { isConfirmed } = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to change the freeze status of this client.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, change it!'
+    });
+
+    if (isConfirmed) {
+        try {                                                             
+            const response = await fetch('<?= base_url('/customer/toggleFreeze/'); ?>' + CustomerID, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload(); // Refresh the page to reflect changes
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.message || 'Something went wrong!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error processing your request.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
     }
-});
+}
+}
+
+
+
+async function fetchEditPlans(selectedPlanId) {
+    try {
+        const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+        $('#editPlanSelect').empty();
+        
+        data.forEach(plan => {
+            let selected = plan.PlanID == selectedPlanId ? "selected" : "";
+            $('#editPlanSelect').append(`<option value="${plan.PlanID}" ${selected}>${plan.PlanName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching plans:", error);
+    }
+}
+
+async function fetchEditCoach(planId, selectedCoachId = null) {
+    try {
+        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        $('#editCoach').empty();
+        $('#editCoach').append('<option value="">Select a Coach</option>');
+
+        data.forEach(coach => {
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#editCoach').append(`<option value="${coach.planID} ${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching coaches:", error);
+    }
+
+    async function updateClient() {
+    let clientData = {
+        id: $("#editClientId").val().trim(),
+        first_name: $("#editClients1Fname").val().trim(),
+        last_name: $("#editClients1Lname").val().trim(),
+        user_name: $("#edituser").val().trim(),
+        email_address: $("#editClients1Emailaddress").val().trim(),
+        password: $("#editPassword").val().trim(),
+        gender: $("#editGender").val().trim(),
+        date_of_registration: $("#editDateofregistration").val().trim(),
+        workout_type: $("#editTworkout").val().trim(),
+        amount: $("#editPriceInput").val().trim(), // Ensure you read the right ID
+        duration: $("#editDuration").val().trim(), // Ensure the ID matches
+        plans: $("#editPlanSelect").val(),
+        coach: $("#editCoach").val()
+    };
+
+    // Check for any empty required fields
+    for (let key in clientData) {
+        if (clientData[key] === "" && (key !== 'id' && key !== 'coach' && key !== 'duration')) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+    }
+
+    $.ajax({
+        url: '<?= base_url('/clients1/update/'); ?>' + clientData.id,
+        type: 'POST',
+        data: clientData,
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function(response) {
+            if (response.status === 'success') {
+                alert("Client updated successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update client: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error during the update:", xhr.responseText);
+            alert("There was an error updating the client.");
+        }
+    });
+}
 
 }
 

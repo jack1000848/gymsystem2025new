@@ -74,7 +74,7 @@
                             <a href="<?= base_url('viewequipment1') ?>" class="nav-link">View Gym Equipment</a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('account-setting') ?>" class="nav-link">My Account</a>
+                            <a href="<?= base_url('account-setting1') ?>" class="nav-link">My Account</a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('/coach-logout') ?>" class="nav-link">Logout</a>

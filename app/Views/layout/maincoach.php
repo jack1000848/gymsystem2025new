@@ -64,7 +64,7 @@
                     <ul class="nav flex-column" role="menu">
                     <li class="nav-item menu-open">
                     <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
-                        <i class="bi bi-speedometer2 nav-icon"></i>
+                        <i class="bi bi-bullseye nav-icon""></i>
                         <p class="m-0">Mission & Vision</p>
                     </a>
                 </li>
@@ -135,7 +135,7 @@
                     <ul class="nav flex-column" role="menu">
                        <li class="nav-item menu-open">
                         <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
-                            <i class="bi bi-speedometer2 nav-icon"></i>
+                            <i class="bi bi-bullseye nav-icon""></i>
                             <p class="m-0">Coach Dashboard</p>
                         </a>
                     </li>

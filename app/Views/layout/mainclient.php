@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        
+        .nav-item {
+    margin-bottom: 0.75rem;
+    }
     </style>
 
 </head>
@@ -146,7 +148,6 @@
                             </a>
                            </li>
 
-                        
                            <li class="nav-item"> 
                         <a href="<?= base_url('/client-qr') ?>" class="nav-link d-flex align-items-center gap-2"> 
                             <i class="bi bi-qr-code nav-icon"></i>

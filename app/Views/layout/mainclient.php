@@ -64,24 +64,42 @@
                                 <p>View My Attendance</p>
                             </a> 
                            </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/client-qr') ?>" class="nav-link">My Qr Code</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">To-Do</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('viewequipment') ?>" class="nav-link">View Gym Equipment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/account-setting') ?>" class="nav-link">Account Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/logout') ?>" class="nav-link">Logout</a>
-                        </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>My QR CODE</p>
+                            </a> 
+                           </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>todo</p>
+                            </a> 
+                           </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/viewequipment') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>View Gym Equipment</p>
+                            </a> 
+                           </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>My Schedule</p>
+                            </a> 
+                           </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/account-setting') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>Account Settings</p>
+                            </a> 
+                           </li>
+                           <li class="nav-item"> 
+                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
+                                <i class=""></i>
+                                <p>Logout</p>
+                            </a> 
+                           </li>
                     </ul>
                 </nav>
             </div>

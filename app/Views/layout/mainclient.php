@@ -132,14 +132,14 @@
                             </a>
                            </li>
 
+                        
+                           <li class="nav-item"> 
+                        <a href="<?= base_url('/client-qr') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-qr-code nav-icon"></i>
+                            <p class="m-0">My QR CODE</p>
+                        </a> 
                         </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>My QR CODE</p>
-                            </a> 
-                           </li>
-                          </li>
+                        
                         <li class="nav-item"> 
                             <a href="#" class="nav-link"> 
                                 <i class=""></i>

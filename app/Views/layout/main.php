@@ -126,69 +126,69 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item menu-open"> 
-                            <a href="<?= base_url('admin') ?>" class="nav-link active"> 
-                                <i class="nav-icon bi bi-speedometer"></i>
-                                <p>
-                                    Dashboard
-                                    <i class=""></i>
-                                </p>
-                            </a>
-                            
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('scan-qr') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Scan your ID</p>
-                            </a> 
-                        </li>
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('attendance') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Participant log</p>
-                            </a> 
-                        </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('admin') ?>"class="nav-link d-flex align-items-center gap-2">
+                            <i class="nav-icon bi bi-speedometer2"></i>
+                            <p class="m-0">>Dashboard</p>
+                        </a>
+                    </li>
 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('clients1') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Manage Client</p>
-                            </a> 
-                        </li>
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('scan-qr') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-upc-scan nav-icon"></i>
+                            <p class="m-0">>Scan your ID</p>
+                        </a> 
+                    </li>
 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('coach') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Manage Coach</p>
-                            </a> 
-                        </li>
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('attendance') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-journal-text nav-icon"></i>
+                            <p class="m-0">>Participant log</p>
+                        </a> 
+                    </li>
 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('gymequipment') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Manage Equipment</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item"> 
-                            <a href="<?= base_url('gymplans') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Plans</p>
-                            </a> 
-                        </li>
-                        <a href="<?= base_url('/view-schedule') ?>" class="nav-link"> 
-                                <i class="bi bi-box-arrow-right"></i>
-                                <p>View Schedules</p>
-                            </a> 
-                        <li class="nav-item1"> 
-                         <a href="<?= base_url('/logout') ?>" class="nav-link"> 
-                              <i class=""></i>
-                                 <p>LOGOUT</p>
-                         </a> 
-                        </li>
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('clients1') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-people nav-icon"></i>
+                            <p class="m-0">>Manage Client</p>
+                        </a> 
+                    </li>
+
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('coach') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-person-badge nav-icon"></i>
+                            <p class="m-0">>Manage Coach</p>
+                        </a> 
+                    </li>
+
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('gymequipment') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-hammer nav-icon"></i>
+                            <p class="m-0">>Manage Equipments</p>
+                        </a> 
+                    </li>
+
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('gymplans') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-list-check nav-icon"></i>
+                            <p class="m-0">Manage Plans</p>
+                        </a> 
+                    </li>
+
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('/view-schedule') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-calendar2-week nav-icon"></i>
+                            <p class="m-0">>View Schedules</p>
+                        </a> 
+                    </li>
+
+                    <li class="nav-item"> 
+                        <a href="<?= base_url('/logout') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-box-arrow-right nav-icon"></i>
+                            <p class="m-0">>LOGOUT</p>
+                        </a> 
+                    </li>
+
 
 
 

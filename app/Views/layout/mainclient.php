@@ -116,14 +116,12 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav flex-column" role="menu">
-                        <li class="nav-item menu-open">
-                        <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active"> 
-                                <i class="nav-icon bi bi-speedometer"></i>
-                                <p>
-                                    Home
-                                    <i class=""></i>
-                                </p>
-                            </a>
+                         <li class="nav-item"> 
+                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-bullseye nav-icon"></i>
+                                <p class="m-0">Mission & Vision</p>
+                            </a> 
+                         </li>
                             
                             <li class="nav-item"> 
                             <a href="<?= base_url('/view-attendance') ?>" class="nav-link d-flex align-items-center gap-2">

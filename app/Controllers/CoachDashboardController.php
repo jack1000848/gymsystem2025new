@@ -186,7 +186,7 @@ public function accountSettings()
             return redirect()->to('/dashboard')->with('error', 'User not found.');
         }
 
-        return view('coachdashboard/accountsettings', ['user' => $user]);
+        return view('coachdashboard/accountsettings1', ['user' => $user]);
     }
 
     public function updateAccount()

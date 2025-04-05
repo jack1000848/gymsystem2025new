@@ -129,42 +129,42 @@
                     <li class="nav-item">
                         <a href="<?= base_url('admin') ?>"class="nav-link d-flex align-items-center gap-2">
                             <i class="nav-icon bi bi-speedometer2"></i>
-                            <p class="m-0">>Dashboard</p>
+                            <p class="m-0">Dashboard</p>
                         </a>
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('scan-qr') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-upc-scan nav-icon"></i>
-                            <p class="m-0">>Scan your ID</p>
+                            <p class="m-0">Scan your ID</p>
                         </a> 
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('attendance') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-journal-text nav-icon"></i>
-                            <p class="m-0">>Participant log</p>
+                            <p class="m-0">Participant log</p>
                         </a> 
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('clients1') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-people nav-icon"></i>
-                            <p class="m-0">>Manage Client</p>
+                            <p class="m-0">Manage Client</p>
                         </a> 
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('coach') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-person-badge nav-icon"></i>
-                            <p class="m-0">>Manage Coach</p>
+                            <p class="m-0">Manage Coach</p>
                         </a> 
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('gymequipment') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="bi bi-hammer nav-icon"></i>
-                            <p class="m-0">>Manage Equipments</p>
+                         <i class="fas fa-dumbbell nav-icon"></i>
+                            <p class="m-0">Manage Equipments</p>
                         </a> 
                     </li>
 
@@ -177,15 +177,15 @@
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('/view-schedule') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="bi bi-calendar2-week nav-icon"></i>
-                            <p class="m-0">>View Schedules</p>
+                            <i class="bi bi-calendar2-check"></i>
+                            <p class="m-0">View Schedules</p>
                         </a> 
                     </li>
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('/logout') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-box-arrow-right nav-icon"></i>
-                            <p class="m-0">>LOGOUT</p>
+                            <p class="m-0">LOGOUT</p>
                         </a> 
                     </li>
 

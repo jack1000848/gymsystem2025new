@@ -65,7 +65,7 @@
                     <li class="nav-item menu-open">
                     <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
                         <i class="bi bi-speedometer2 nav-icon"></i>
-                        <p class="m-0">Coach Dashboard</p>
+                        <p class="m-0">Mission & Vision</p>
                     </a>
                 </li>
 
@@ -107,7 +107,7 @@
                 <li class="nav-item">
                     <a href="<?= base_url('account-setting1') ?>" class="nav-link d-flex align-items-center gap-2">
                         <i class="bi bi-gear nav-icon"></i>
-                        <p class="m-0">My Account</p>
+                        <p class="m-0">Account Settings</p>
                     </a>
                 </li>
 

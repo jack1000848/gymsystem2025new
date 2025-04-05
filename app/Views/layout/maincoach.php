@@ -54,31 +54,60 @@
                 <nav class="mt-2">
                     <ul class="nav flex-column" role="menu">
                     <li class="nav-item menu-open">
-                            <a href="<?= base_url('coachdashboard') ?>" class="nav-link active">
-                                <i class="bi bi-speedometer nav-icon"></i> Coach Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attendance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('coach-manage') ?>" class="nav-link">Manage My Schedules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('coach-timemanage') ?>" class="nav-link">View my Clients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('viewequipment1') ?>" class="nav-link">View Gym Equipment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('account-setting1') ?>" class="nav-link">My Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/coach-logout') ?>" class="nav-link">Logout</a>
-                        </li>
+                    <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
+                        <i class="bi bi-speedometer2 nav-icon"></i>
+                        <p class="m-0">Coach Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('mylogs') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-calendar-check nav-icon"></i>
+                        <p class="m-0">Attendance</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('coach-qr') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-qr-code nav-icon"></i>
+                        <p class="m-0">My QR Code</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('coach-manage') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-calendar-event nav-icon"></i>
+                        <p class="m-0">Manage My Schedules</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('viewmyclients') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-people nav-icon"></i>
+                        <p class="m-0">View My Clients</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('viewequipment1') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="fas fa-dumbbell nav-icon"></i>
+                        <p class="m-0">View Gym Equipment</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('account-setting1') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-gear nav-icon"></i>
+                        <p class="m-0">My Account</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('/coach-logout') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <i class="bi bi-box-arrow-right nav-icon"></i>
+                        <p class="m-0">Logout</p>
+                    </a>
+                </li>
                     </ul>
                 </nav>
             </div>
@@ -95,32 +124,61 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav flex-column" role="menu">
-                        <li class="nav-item menu-open">
-                            <a href="<?= base_url('coachdashboard') ?>" class="nav-link active">
-                                <i class="bi bi-speedometer nav-icon"></i> Coach Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('mylogs') ?>" class="nav-link">Attendance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('coach-qr') ?>" class="nav-link">My Qr Code</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('coach-manage') ?>" class="nav-link">Manage My Schedules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('viewmyclients') ?>" class="nav-link">View my Clients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('viewequipment1') ?>" class="nav-link">View Gym Equipment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('account-setting1') ?>" class="nav-link">My Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/coach-logout') ?>" class="nav-link">Logout</a>
-                        </li>
+                       <li class="nav-item menu-open">
+                        <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
+                            <i class="bi bi-speedometer2 nav-icon"></i>
+                            <p class="m-0">Coach Dashboard</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('mylogs') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-calendar-check nav-icon"></i>
+                            <p class="m-0">Attendance</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('coach-qr') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-qr-code nav-icon"></i>
+                            <p class="m-0">My QR Code</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('coach-manage') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-calendar-event nav-icon"></i>
+                            <p class="m-0">Manage My Schedules</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('viewmyclients') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-people nav-icon"></i>
+                            <p class="m-0">View My Clients</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('viewequipment1') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="fas fa-dumbbell nav-icon"></i>
+                            <p class="m-0">View Gym Equipment</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('account-setting1') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-gear nav-icon"></i>
+                            <p class="m-0">My Account</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('/coach-logout') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-box-arrow-right nav-icon"></i>
+                            <p class="m-0">Logout</p>
+                        </a>
+                    </li>
                     </ul>
                 </nav>
             </div>

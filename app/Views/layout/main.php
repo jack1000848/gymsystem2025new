@@ -24,13 +24,13 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <style>
         .nav-item {
-    margin-bottom: 2.75rem;
+    margin-bottom: 1.75rem;
     }
     .nav-icon {
     font-size: 1.5rem; /* or 1.5rem for larger icons */
     }
     .nav-link p {
-    font-size: 1.1rem; /* Text size */
+    font-size: 1rem; /* Text size */
 }
       
     </style>
@@ -128,7 +128,7 @@
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('gymequipment') ?>" class="nav-link d-flex align-items-center gap-2">
-                        <<i class="fa-solid fa-dumbbell nav-icon"></i>
+                        <i class="fa-solid fa-dumbbell nav-icon"></i>
                             <p class="m-0">Manage Equipments</p>
                         </a> 
                     </li>

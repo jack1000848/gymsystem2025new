@@ -190,37 +190,26 @@ public function accountSettings()
     }
 
     public function updateAccount()
-    {
-        $session = session();
-        $userID = $session->get('CoachID');
+{
+    $session = session();
+    $coachID = $session->get('CoachID');
 
-        $userModel = new CoachModel();
-        $user = $userModel->find($userID);
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
 
-        if (!$user) {
-            return redirect()->to('/account-setting')->with('error', 'Unauthorized access.');
-        }
+    $data = ['email' => $email];
 
-        $fname = $this->request->getPost('Firstname');
-    
-        $password = $this->request->getPost('password');
-
-        $updateData = ['Firstname' => $fname];
-        
-        // Only update password if provided
-
-        if (!empty($password)) {
-            $updateData['password_hash'] = password_hash($password, PASSWORD_BCRYPT);
-        }
-
-        if ($userModel->update($userID, $updateData)) {
-            return redirect()->to('/account-setting')->with('success', 'Account updated successfully.');
-        } else {
-            return redirect()->to('/account-setting')->with('error', 'Failed to update account.');
-        }
+    // Optional password update
+    if (!empty($password)) {
+        $data['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
     }
 
+    $model = new CoachModel();
+    $model->update($coachID, $data);
 
+    return redirect()->back()->with('success', 'Account updated successfully.');
+
+}
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()
     {

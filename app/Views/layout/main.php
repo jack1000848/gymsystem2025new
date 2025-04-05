@@ -32,6 +32,7 @@
     }
     .nav-link p {
     font-size: 1rem; /* Text size */
+    
 }
       
     </style>

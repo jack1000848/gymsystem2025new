@@ -178,7 +178,7 @@ $routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
 //// view equipments
 $routes->get('/viewequipment1', 'ViewEquipmentController::indexviewequipment1');
 /// account setting
-$routes->get('/account-setting', 'ClientsDashboardController::accountSettings');
-$routes->post('/update-account1', 'ClientsDashboardController::updateAccount');
+$routes->get('/account-setting', 'CoachDashboardController::accountSettings');
+$routes->post('/update-account1', 'CoachDashboardController::updateAccount');
 ///Logout...
 $routes->get('/coach-logout', 'CoachDashboardController::logout');

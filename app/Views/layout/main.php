@@ -20,10 +20,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 <!-- Or for RTL support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <style>
-    
+        .nav-item {
+    margin-bottom: 2.75rem;
+    }
+    .nav-icon {
+    font-size: 1.5rem; /* or 1.5rem for larger icons */
+    }
+    .nav-link p {
+    font-size: 1.1rem; /* Text size */
+}
       
     </style>
 </head> <!--end::Head--> <!--begin::Body-->
@@ -120,7 +128,7 @@
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('gymequipment') ?>" class="nav-link d-flex align-items-center gap-2">
-                        <i class="fas fa-dumbbell nav-icon"></i>
+                        <<i class="fa-solid fa-dumbbell nav-icon"></i>
                             <p class="m-0">Manage Equipments</p>
                         </a> 
                     </li>

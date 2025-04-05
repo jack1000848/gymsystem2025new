@@ -173,6 +173,52 @@ public function mylogs()
         return view('coachdashboard/myqrcode', $data);
     }
 
+////// accout settings
+public function accountSettings()
+    {
+        $session = session();
+        $userID = $session->get('CoachID'); // Get logged-in user ID
+
+        $userModel = new CoachModel();
+        $user = $userModel->find($userID);
+
+        if (!$user) {
+            return redirect()->to('/dashboard')->with('error', 'User not found.');
+        }
+
+        return view('clientdashboard/accountsettings', ['user' => $user]);
+    }
+
+    public function updateAccount()
+    {
+        $session = session();
+        $userID = $session->get('CoachID');
+
+        $userModel = new CoachModel();
+        $user = $userModel->find($userID);
+
+        if (!$user) {
+            return redirect()->to('/account-setting')->with('error', 'Unauthorized access.');
+        }
+
+        $fname = $this->request->getPost('Firstname');
+    
+        $password = $this->request->getPost('password');
+
+        $updateData = ['Firstname' => $fname];
+        
+        // Only update password if provided
+
+        if (!empty($password)) {
+            $updateData['password_hash'] = password_hash($password, PASSWORD_BCRYPT);
+        }
+
+        if ($userModel->update($userID, $updateData)) {
+            return redirect()->to('/account-setting')->with('success', 'Account updated successfully.');
+        } else {
+            return redirect()->to('/account-setting')->with('error', 'Failed to update account.');
+        }
+    }
 
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\

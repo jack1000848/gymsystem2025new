@@ -143,13 +143,13 @@
                         <li class="nav-item"> 
                             <a href="#" class="nav-link d-flex align-items-center gap-2"> 
                             <i class="fas fa-list-check nav-icon"></i>
-                                <p>To-Do</p>
+                            <p class="m-0">To-do</p>
                             </a> 
                         </li>
 
                         <li class="nav-item"> 
                             <a href="<?= base_url('/viewequipment') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                                <i class="bi bi-cpu nav-icon"></i>
+                               <i class="fas fa-dumbbell nav-icon"></i>
                                 <p class="m-0">View Gym Equipment</p>
                             </a> 
                       </li>
@@ -157,7 +157,7 @@
 
                       <li class="nav-item"> 
                         <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                        <i class="fas fa-dumbbell nav-icon"></i>
+                          <i class="bi bi-cpu nav-icon"></i> 
                             <p class="m-0">My Body Information</p>
                         </a> 
                         </li>

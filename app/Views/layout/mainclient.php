@@ -24,7 +24,7 @@
     font-size: 1.5rem; /* or 1.5rem for larger icons */
     }
     .nav-link p {
-    font-size: 3rem; /* Text size */
+    font-size: 1.5rem; /* Text size */
 }
     </style>
 

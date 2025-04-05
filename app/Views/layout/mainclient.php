@@ -18,7 +18,7 @@
 
     <style>
         .nav-item {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.75rem;
     }
     </style>
 

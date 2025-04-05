@@ -141,8 +141,8 @@
                         </li>
                         
                         <li class="nav-item"> 
-                            <a href="#" class="nav-link"> 
-                                <i class=""></i>
+                            <a href="#" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="fas fa-list-check nav-icon"></i>
                                 <p>To-Do</p>
                             </a> 
                         </li>
@@ -157,7 +157,7 @@
 
                       <li class="nav-item"> 
                         <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                            <i class="bi bi-clock nav-icon"></i>
+                        <i class="fas fa-dumbbell nav-icon"></i>
                             <p class="m-0">My Body Information</p>
                         </a> 
                         </li>

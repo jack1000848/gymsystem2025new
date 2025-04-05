@@ -26,45 +26,9 @@
     
 
         <style>
-    /* Sidebar Styling */
-    .app-sidebar {
-        padding: 20px 0;
-        width: 200px; /* Adjust the sidebar width */
-    }
-
-    /* Navigation Items */
-    .sidebar-menu .nav-item {
-        margin: 5px 0; /* More space between each nav button */
-    }
-
-    .sidebar-menu .nav-link {
-        font-size: 20px; /* Increase font size */
-        padding: 10px 20px; /* Increase padding for bigger buttons */
-        border-radius: 8px; /* Rounded corners */
-        transition: background 0.3s ease-in-out;
-    }
-
-    /* Hover Effect */
-    .sidebar-menu .nav-link:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Active Link */
-    .sidebar-menu .nav-link.active {
-        background: #4CAF50; /* Highlighted color */
-        color: white;
-        font-weight: bold;
-    }
-
-    /* Icon Styling */
-    .sidebar-menu .nav-link i {
-        font-size: 20px; /* Make icons bigger */
-        margin-right: 12px; /* Add spacing between icon and text */
-    }
-    .user-footer {
-        display: flex;
-    }
     
+    
+
 </style>
 
         
@@ -163,7 +127,7 @@
 
                     <li class="nav-item"> 
                         <a href="<?= base_url('gymequipment') ?>" class="nav-link d-flex align-items-center gap-2">
-                         <i class="fas fa-dumbbell nav-icon"></i>
+                        <i class="fas fa-dumbbell nav-icon"></i>
                             <p class="m-0">Manage Equipments</p>
                         </a> 
                     </li>

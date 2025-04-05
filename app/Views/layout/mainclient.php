@@ -20,6 +20,12 @@
         .nav-item {
     margin-bottom: 2.75rem;
     }
+    .nav-icon {
+    font-size: 1.2rem; /* or 1.5rem for larger icons */
+    }
+    .nav-link p {
+    font-size: 1rem; /* Text size */
+}
     </style>
 
 </head>

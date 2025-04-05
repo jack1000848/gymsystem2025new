@@ -147,36 +147,40 @@
                             </a> 
                         </li>
 
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/viewequipment') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-cpu nav-icon"></i>
+                                <p class="m-0">View Gym Equipment</p>
+                            </a> 
+                      </li>
+
+
+                      <li class="nav-item"> 
+                        <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-clock nav-icon"></i>
+                            <p class="m-0">My Body Information</p>
+                        </a> 
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('viewequipment') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>View Gym Equipment</p>
+                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-clock nav-icon"></i>
+                                <p class="m-0">My Schedule</p>
                             </a> 
                         </li>
 
-                        </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Body Information</p>
+                            <a href="<?= base_url('/account-setting') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-gear nav-icon"></i>
+                                <p class="m-0">Account Settings</p>
                             </a> 
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link">View My Schedule</a>
-                        </li>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('/account-setting') ?>" class="nav-link">Account Settings</a>
                         </li>
                         
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Logout</p>
-                            </a>
-
-                        </li>
+                            <a href="<?= base_url('/logout') ?>"class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-box-arrow-right nav-icon"></i>
+                            <p class="m-0">Logout</p>
+                            </a> 
+                         </li>
                     </ul>
                 </nav>
             </div>

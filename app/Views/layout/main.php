@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <style>
         .nav-item {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.25rem;
     }
     .nav-icon {
     font-size: 1.5rem; /* or 1.5rem for larger icons */

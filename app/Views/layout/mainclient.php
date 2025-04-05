@@ -18,13 +18,13 @@
 
     <style>
         .nav-item {
-    margin-bottom: 2.75rem;
+    margin-bottom: 1.25rem;
     }
     .nav-icon {
     font-size: 1.5rem; /* or 1.5rem for larger icons */
     }
     .nav-link p {
-    font-size: 1.1rem; /* Text size */
+    font-size: 1rem; /* Text size */
 }
     </style>
 

@@ -19,7 +19,7 @@
     <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
 
-<form action="<?= base_url('update-account') ?>" method="post">
+<form action="<?= base_url('update-account1') ?>" method="post">
     <?= csrf_field() ?>
     
     <label for="name">First Name:</label>

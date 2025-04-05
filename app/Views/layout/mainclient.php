@@ -53,53 +53,69 @@
             <div class="offcanvas-body p-0">
                 <nav class="mt-2">
                     <ul class="nav flex-column" role="menu">
-                        <li class="nav-item menu-open">
-                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link active">
-                                <i class="bi bi-speedometer nav-icon"></i> Home
+                    <li class="nav-item"> 
+                            <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-bullseye nav-icon"></i>
+                                <p class="m-0">Mission & Vision</p>
+                            </a> 
+                         </li>
+                            
+                            <li class="nav-item"> 
+                            <a href="<?= base_url('/view-attendance') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="bi bi-calendar-check nav-icon"></i>
+                            <p class="m-0">View My Attendance</p>
                             </a>
+                           </li>
+
+                        
+                           <li class="nav-item"> 
+                        <a href="<?= base_url('/client-qr') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-qr-code nav-icon"></i>
+                            <p class="m-0">My QR CODE</p>
+                        </a> 
+                        </li>
+                        
+                        <li class="nav-item"> 
+                            <a href="#" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="fas fa-list-check nav-icon"></i>
+                            <p class="m-0">To-do</p>
+                            </a> 
+                        </li>
+
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/viewequipment') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                               <i class="fas fa-dumbbell nav-icon"></i>
+                                <p class="m-0">View Gym Equipment</p>
+                            </a> 
+                      </li>
+
+
+                      <li class="nav-item"> 
+                        <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                          <i class="bi bi-cpu nav-icon"></i> 
+                            <p class="m-0">My Body Information</p>
+                        </a> 
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/view-attendance') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>View My Attendance</p>
+                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-clock nav-icon"></i>
+                                <p class="m-0">My Schedule</p>
                             </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>My QR CODE</p>
+                        </li>
+
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/account-setting') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                                <i class="bi bi-gear nav-icon"></i>
+                                <p class="m-0">Account Settings</p>
                             </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/client-qr') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>todo</p>
+                        </li>
+                        
+                        <li class="nav-item"> 
+                            <a href="<?= base_url('/logout') ?>"class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-box-arrow-right nav-icon"></i>
+                            <p class="m-0">Logout</p>
                             </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/viewequipment') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>View Gym Equipment</p>
-                            </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>My Schedule</p>
-                            </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/account-setting') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Account Settings</p>
-                            </a> 
-                           </li>
-                           <li class="nav-item"> 
-                            <a href="<?= base_url('/logout') ?>" class="nav-link"> 
-                                <i class=""></i>
-                                <p>Logout</p>
-                            </a> 
-                           </li>
+                         </li>
                     </ul>
                 </nav>
             </div>

@@ -22,7 +22,12 @@
 <form action="<?= base_url('update-account1') ?>" method="post">
     <?= csrf_field() ?>
     
-    
+    <label for="name">First Name:</label>
+    <br><input type="text" name="Firstname" value="<?= esc($user['Firstname']) ?>" required> </br>
+
+    <label for="name">Last Name:</label>
+    <input type="text" name="Lastname" value="<?= esc($user['Lastname']) ?>" required>
+
     <label for="email">Email:</label>
     <input type="email" name="Email" value="<?= esc($user['Email']) ?>" required>
 

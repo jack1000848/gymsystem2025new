@@ -406,7 +406,7 @@ $this->section('body'); // Start the body section
         var formData = $(this).serialize(); // Serialize form data
 
         $.ajax({
-            url: "<?= base_url('/clients1/update') ?>/" + $("#editClientId").val(), 
+            url: "<?= base_url('/clients1/update/') ?>" + $("#editClientId").val(), 
             type: "POST",
 
             data: formData,

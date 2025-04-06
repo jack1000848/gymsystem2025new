@@ -85,7 +85,7 @@ $this->section('body'); // Start the body section
                     <!-- First Name -->
                     <div class="mb-3">
                         <label for="clients1Fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="clients1Fname" placeholder="Juan" required>
+                        <input type="text" class="form-control" name="clients1Fname" placeholder="Juan"  required>
                     </div>
 
                     <!-- Last Name -->
@@ -551,14 +551,12 @@ $('#renewPlans').on('change', function () {
 
             $("#editClientId").val(client.id);
             $("#editGymcode").val(client.gym_code);
-            $("#editClients1Fname").val(client.first_name);
-            $("#editClients1Lname").val(client.last_name);
-            $("#editClients1Username").val(client.user_name);
-            $("#editClients1Emailaddress").val(client.email_address);
-            $("#editPassword").val(client.password);
-            $("#editGender").val(client.gender);
-            $("#editDateofregistration").val(client.date_of_registration);
-            $("#edittimeslot").val(client.timeslot);
+            $("#editClients1Fname").val(client.Firstname);
+            $("#editClients1Lname").val(client.Lastname);
+            $("#editClients1Emailaddress").val(client.Email);
+           /// $("#editPassword").val(client.Password);
+            $("#editGender").val(client.Gender);
+            $("#editDateofregistration").val(client.RegisteredDate);
             $("#editTworkout").val(client.workout_type);
             $("#editPlans").val(client.plans);
             $("#editAmount").val(parseFloat(client.amount).toFixed(2));

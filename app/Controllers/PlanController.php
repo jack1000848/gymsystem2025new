@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\PlanModel;
 use App\Models\CoachModel;
 use App\Models\CoachPlanModel;
-
+use app\Models\CoachScheduleModel;
 
 class PlanController extends BaseController
 {
@@ -16,6 +16,12 @@ class PlanController extends BaseController
     {
         $this->session = session(); // Initialize session
     }
+/////trt to add coach schedule
+    public function getCoachSchedule($coachID)
+{
+    $schedules = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
+    return $this->response->setJSON($schedules);
+}
     public function indexgymplan()
     {
         if (!$this->session->has('logged_in')) {
@@ -26,7 +32,9 @@ class PlanController extends BaseController
         $fetchCoaches = new CoachModel();
         $data['coaches'] = $fetchCoaches->findAll();
         $data['gymplans'] = $fetchPlan ->findAll();
+    
 
+        
         return view('gymplan/manageplan', $data);
         ///return view('gymplan/manageplan');
     }

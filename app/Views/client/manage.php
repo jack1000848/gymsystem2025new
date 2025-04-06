@@ -291,7 +291,7 @@
                 alert("Coach Updated Successfully!");
                 window.location.reload();
             } else {
-                alert("Failed to update equipment: " + response.message);
+                alert("Failed to update Coach: " + response.message);
             }
         },
         error: function(xhr, status, error) {

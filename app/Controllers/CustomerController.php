@@ -344,7 +344,7 @@ public function updaterenew($id)
     // Get the input data from the request
     $data = [
         'date_of_registration' => $this->request->getPost('dateofregistration'),
-        'GymTimeSlot' => $this->request->getPost('timeslot'),
+        
         'workout_type' => $this->request->getPost('tworkout'),
         'plans' => $this->request->getPost('plans'),
         'amount' => $this->request->getPost('amount'),
@@ -352,7 +352,7 @@ public function updaterenew($id)
 
     // Validate required fields
     if (
-        !$data['date_of_registration'] || !$data['GymTimeSlot'] || !$data['workout_type'] ||
+        !$data['date_of_registration'] ||  !$data['workout_type'] ||
         !$data['plans'] || !$data['amount']
     ) {
         return $this->response->setJSON([
@@ -397,6 +397,7 @@ public function try($id)
         'data' => $editclient
     ]);
 }
+    
 public function viewClient($id)
 {
     $customerModel = new CustomerModel();

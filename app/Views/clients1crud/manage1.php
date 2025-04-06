@@ -403,13 +403,13 @@ $this->section('body'); // Start the body section
         $("#editClientForm").submit(function(event) {
         event.preventDefault(); // Prevent default form submission
 
-        var formData = $(this).serialize(); // Serialize form data
+        var formData = $(this).serialize(); // Serialize form data for form-encoded submission
+        var clientId = $("#editClientId").val(); // Get client ID
 
         $.ajax({
-            url: "<?= base_url('/clients1/update/') ?>" + $("#editClientId").val(), 
+            url: "<?= base_url('clients1/update') ?>/" + clientId, // Corrected route
             type: "POST",
-
-            data: formData,
+            data: formData, // Use form-encoded format, NOT JSON
             dataType: "json",
             success: function(response) {
                 if (response.status === "success") {
@@ -419,7 +419,7 @@ $this->section('body'); // Start the body section
                         text: "Client details updated successfully.",
                         confirmButtonText: "OK"
                     }).then(() => {
-                        location.reload(); // Reload the page or update the UI dynamically
+                        location.reload(); // Reload the page
                     });
                 } else {
                     Swal.fire({

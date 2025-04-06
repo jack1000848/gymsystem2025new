@@ -265,11 +265,11 @@ Thank you for signing up! To complete your registration and verify your email ad
 
     // Validate required fields
     if (
-        !$data['first_name'] || !$data['last_name'] ||
-        !$data['user_name'] || !$data['password'] || !$data['full_address'] ||
-        !$data['email_address'] || !$data['phone_number'] || !$data['gender'] ||
-        !$data['date_of_registration'] || !$data['workout_type'] ||
-        !$data['plans'] || !$data['amount']
+        !$data['Firstname'] || !$data['Lastname'] ||
+        !$data['Address'] || !$data['password_hash'] || !$data['Gender'] ||
+        !$data['RegisteredDate'] || !$data['types_of_workout']  ||
+        !$data['Email'] || !$data['Membesrship_plan'] 
+        
     ) {
         return $this->response->setJSON([
             'status' => 'error',

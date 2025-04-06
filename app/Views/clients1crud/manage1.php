@@ -212,11 +212,7 @@ $this->section('body'); // Start the body section
                         <label for="editClients1Lname" class="form-label">Last Name</label>
                         <input type="text" class="form-control" id="editClients1Lname" name="clients1Lname" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edituser" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="edituser" name="clients1Username" required>
-                    </div>
-
+                    
                                         <!-- Address -->
                     <div class="mb-3">
                         <label for="editaddress" class="form-label">Address</label>

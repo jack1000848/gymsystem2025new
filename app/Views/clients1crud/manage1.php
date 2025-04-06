@@ -778,7 +778,7 @@ async function renewUpdate() {
     }
     
     $.ajax({
-        url: '<?= base_url('/clients1/renewupdate/'); ?>' + clientData.CustomerID,
+        url: '<?= base_url('/clients1/renewupdate/'); ?>' + clientData.id,
         type: 'POST',
         data: clientData,
         success: function(response) {

@@ -403,11 +403,11 @@ $this->section('body'); // Start the body section
         $("#editClientForm").submit(function(event) {
         event.preventDefault(); // Prevent default form submission
 
-        var formData = $(this).serialize(); // Serialize form data for form-encoded submission
-        var clientId = $("#editClientId").val(); // Get client ID
+        const formData = $(this).serialize(); // Serialize form data for form-encoded submission
+        const clientId = $("#editClientId").val(); // Get client ID
 
         $.ajax({
-            url: "<?= base_url('/clients1/update/') ?>/" + 1, // Corrected route
+            url: "<?= base_url('/clients1/update/') ?>/" + clientId, // Corrected route
             type: "POST",
             data: formData, // Use form-encoded format, NOT JSON
             dataType: "json",
@@ -585,7 +585,7 @@ $('#renewPlans').on('change', function () {
         if (res && res.data) {
             const client = res.data;
 
-            $("#editClientId").val(client.id);
+            $("#editClientId").val(client.CustomerID);
             $("#editGymcode").val(client.gym_code);
             $("#editClients1Fname").val(client.Firstname);
             $("#editClients1Lname").val(client.Lastname);

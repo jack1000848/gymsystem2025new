@@ -96,8 +96,8 @@ $this->section('body'); // Start the body section
 
                     <!-- Address -->
                     <div class="mb-3">
-                        <label for="clients1Username" class="form-label">Address</label>
-                        <input type="text" class="form-control" name="clients1Username" placeholder="123 Main St" required>
+                        <label for="clients1Adress" class="form-label">Address</label>
+                        <input type="text" class="form-control" name="clients1Adress" placeholder="123 Main St" required>
                     </div>
 
                     <!-- Gender -->

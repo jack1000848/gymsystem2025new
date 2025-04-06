@@ -407,7 +407,7 @@ $this->section('body'); // Start the body section
         var clientId = $("#editClientId").val(); // Get client ID
 
         $.ajax({
-            url: "<?= base_url('/clients1/update') ?>/" + clientId, // Corrected route
+            url: "<?= base_url('/clients1/update/') ?>/" + 1, // Corrected route
             type: "POST",
             data: formData, // Use form-encoded format, NOT JSON
             dataType: "json",

@@ -351,15 +351,8 @@ public function updaterenew($id)
     ];
 
     // Validate required fields
-    if (
-        !$data['date_of_registration'] ||  !$data['workout_type'] ||
-        !$data['plans'] || !$data['amount']
-    ) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'All fields are required!'
-        ]);
-    }
+   
+    
 
     // Attempt to update the client in the database
     $updated = $customerModel->update($id, $data);

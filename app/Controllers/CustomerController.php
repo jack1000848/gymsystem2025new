@@ -353,7 +353,7 @@ public function updaterenew($id)
     // Validate required fields
     if (
         !$data['date_of_registration'] ||  !$data['workout_type'] ||
-        !$data['plans'] || !$data['amount']
+        !$data['plans'] 
     ) {
         return $this->response->setJSON([
             'status' => 'error',

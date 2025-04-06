@@ -347,7 +347,7 @@ public function updaterenew($id)
         
         'workout_type' => $this->request->getPost('tworkout'),
         'plans' => $this->request->getPost('plans'),
-        'amount' => $this->request->getPost('amount'),
+        ///'amount' => $this->request->getPost('amount'),
     ];
 
     // Validate required fields

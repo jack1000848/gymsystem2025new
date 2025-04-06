@@ -191,7 +191,7 @@ $this->section('body'); // Start the body section
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editClientForm">
+                <form id="editClientForm"  >
                     <input type="hidden" id="editClientId" name="id">
 
                     <!-- Gym Code
@@ -399,6 +399,46 @@ $this->section('body'); // Start the body section
         });
 
         });
+
+        $("#editClientForm").submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var formData = $(this).serialize(); // Serialize form data
+
+        $.ajax({
+            url: "<?= base_url('/clients1/update') ?>/" + $("#editClientId").val(), 
+            type: "POST",
+
+            data: formData,
+            dataType: "json",
+            success: function(response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated!",
+                        text: "Client details updated successfully.",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        location.reload(); // Reload the page or update the UI dynamically
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: response.message
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong. Please try again."
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    });
         ///submit edit
         
 

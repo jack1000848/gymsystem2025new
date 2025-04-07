@@ -160,7 +160,7 @@ $this->section('body'); // Start the body section
                     </div>
                     <!-- Coach Sched -->    
                     <div class="mb-3" id="coachschedSelectDiv">
-                        <label for="coachsched" class="form-label">Select Coach</label>
+                        <label for="coachsched" class="form-label">Select Schedules</label>
                         <select id="coachsched" class="form-control" name="coachsched" required>
                             <option value="">Select a Coach</option>
                         </select>
@@ -405,10 +405,21 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
-         $("#coach").on('change', function(){
+         $("#coach").on('change', async function(){
 
             const value = $(this).val();
             console.log(value);
+
+
+            const schedEl = $("#coachsched");
+            schedEl.empty();
+
+
+            const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value); // Adjust URL for your fetch route
+            console.log(data);
+
+
+
          })
 
         });

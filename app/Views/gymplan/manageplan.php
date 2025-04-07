@@ -202,32 +202,34 @@
         });
             return;        
         }
+        const params = new URLSearchParams();
+
+        for (const [key, value] of data.entries()) {
+        params.append(key, value);
+        }
 
         $.ajax({
-        url: '<?= base_url('/gymplans/store/'); ?>',
-        type: 'POST',
-        data: data,
-        processData: false, 
-        contentType: false, 
-        success: function(res) {
-            Swal.fire({
-                title: 'Success!',
-                text: "Plan Added Successfully",
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.reload();
-            });
-        },
-        error: function(xhr) {
-            Swal.fire({
-                title: 'Error!',
-                text: "Something went wrong. Please try again.",
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+    url: '<?= base_url('/gymplans/store'); ?>?' + params.toString(), // Convert FormData to URL params
+    type: 'GET',
+    success: function(res) {
+        Swal.fire({
+            title: 'Success!',
+            text: "Plan Data Retrieved Successfully",
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            console.log(res); // Handle the response data
         });
+    },
+    error: function(xhr) {
+        Swal.fire({
+            title: 'Error!',
+            text: "Something went wrong. Please try again.",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+});
         });
     });
 

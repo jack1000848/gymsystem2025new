@@ -95,13 +95,7 @@
               <input type="text" class="form-control" id="durationim" name="durationim"required>
     </div> 
 
-    <div class="mb-3">
-                  <label for="gender" class="form-label">Time Slot:</label>
-                 <select id="gender" class="form-control" id="timeslot" name="timeslot"required>
-                   <option value="Day Class">Morning Class</option>
-                      <option value="Evening Class">Night Class</option>   
-                    </select>
-                 </div>
+    
 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Price</label>

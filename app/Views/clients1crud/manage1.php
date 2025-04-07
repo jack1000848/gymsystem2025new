@@ -405,24 +405,38 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
-         $("#coach").on('change', async function(){
+        $("#coach").on('change', async function() {
+    const value = $(this).val();
+    console.log(value);
 
-            const value = $(this).val();
-            console.log(value);
+    const schedEl = $("#coachsched");
+    schedEl.empty();
 
+    try {
+        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
+        console.log(data);
 
-            const schedEl = $("#coachsched");
-            schedEl.empty();
+        if (data.length === 0) {
+            schedEl.append("<p>No schedules available.</p>");
+            return;
+        }
 
-
-            const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value); // Adjust URL for your fetch route
-            console.log(data);
-
-
-
-         })
-
+        data.forEach(sched => {
+            const scheduleItem = `
+                <div class="schedule-item">
+                    <p><strong>Date:</strong> ${sched.ScheduleDate}</p>
+                    <p><strong>Time:</strong> ${sched.Start} - ${sched.End}</p>
+                </div>
+            `;
+            schedEl.append(scheduleItem);
         });
+    } catch (error) {
+        console.error("Error fetching schedules:", error);
+        schedEl.append("<p>Failed to load schedules.</p>");
+    }
+});
+});
+
 
         $("#editClientForm").submit(function(event) {
         event.preventDefault(); // Prevent default form submission

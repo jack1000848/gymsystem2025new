@@ -112,7 +112,7 @@
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label"> Creation Date </label>
-         <input type="date" class="form-check-input" id="active" name="active" value="1">
+         <input type="date" class="form-check-input" id="activeDate" name="activeDate" value="1">
 
     </div> 
     <div class="mb-3">
@@ -177,7 +177,7 @@
         if(editId !== 0){
             data.append('id', editId);
             $.ajax({
-            url: '<?= base_url('/gymplans/update//'); ?>' + editId,
+            url: '<?= base_url('/gymplans/update/'); ?>' + editId,
             type: 'POST',
             data: data,
             processData: false, 
@@ -208,8 +208,6 @@
         url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
         data: data,
-        processData: false, 
-        contentType: false, 
         success: function(res) {
             Swal.fire({
                 title: 'Success!',

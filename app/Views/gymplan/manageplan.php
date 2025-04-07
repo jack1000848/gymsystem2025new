@@ -157,11 +157,10 @@
 
 
         const form = $(this);
-        const data = new FormData(form[0]);
-        console.log(data);
+        const data = new FormData(this);
         const isActive = $("#active").is(":checked");
 
-        data.append('active', isActive); 
+        data.append('active', isActive);
 
         const { isConfirmed } = await Swal.fire({
         title: 'Are you sure?',
@@ -209,6 +208,8 @@
         url: '<?= base_url('/gymplans/store/'); ?>',
         type: 'POST',
         data: data,
+        processData: false, 
+        contentType: false, 
         success: function(res) {
             Swal.fire({
                 title: 'Success!',

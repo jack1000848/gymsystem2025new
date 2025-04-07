@@ -60,7 +60,7 @@ class PlanController extends BaseController
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
             'Duration' => $this->request->getPost('durationim'),
-            'GymTimeSlot' => $this->request->getPost('timeslot'),
+          ///  'GymTimeSlot' => $this->request->getPost('timeslot'),
             'Price' => $this->request->getPost('price'),
             'TrainerIncluded' => $this->request->getPost('trainer'),
             'IsActive' => $this->request->getPost('active')

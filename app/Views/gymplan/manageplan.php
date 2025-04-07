@@ -28,7 +28,6 @@
             <th>Plan Name</th>
             <th>Description</th>
             <th>Duration in Months</th>
-            <th>Gym Time Slot</th>
             <th>Trainer Included</th>
             <th>Price</th>
             <th>Active</th>
@@ -45,7 +44,6 @@
 <td><?= $plan['PlanName']; ?></td>
 <td><?= $plan['Description']; ?></td>
 <td><?= $plan['Duration']; ?></td>
-<td><?= $plan['GymTimeSlot']; ?></td>
 <td><?= $plan['TrainerIncluded']; ?></td>
 <td><?= $plan['Price']; ?></td>
 <td><?= $plan['IsActive']; ?></td>
@@ -214,7 +212,7 @@
     success: function(res) {
         Swal.fire({
             title: 'Success!',
-            text: "Plan Data Retrieved Successfully",
+            text: "Plan Data Added Successfully",
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(() => {
@@ -246,7 +244,6 @@
             $("#planName").val(plan.PlanName);
             $("#description").val(plan.Description);
             $("#durationim").val(plan.Duration);
-            $("#timeslot").val(plan.GymTimeSlot);
             $("#coaches").val(plan.CoachID);
             $("#price").val(plan.Price);            
             //$("#creation").val(plan.CreationDate);

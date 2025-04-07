@@ -157,7 +157,7 @@
 
 
         const form = $(this);
-        const data = new FormData();
+        const data = new FormData(form[0]);
         console.log(data);
         const isActive = $("#active").is(":checked");
 

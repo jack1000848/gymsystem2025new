@@ -423,10 +423,7 @@ $this->section('body'); // Start the body section
 
         data.forEach(sched => {
             const scheduleItem = `
-                <div class="schedule-item">
-                    <p><strong>Date:</strong> ${sched.ScheduleDate}</p>
-                    <p><strong>Time:</strong> ${sched.Start} - ${sched.End}</p>
-                </div>
+                <option value="${sched.ID}">${sched.Start} - ${sched.End}</option>
             `;
             schedEl.append(scheduleItem);
         });

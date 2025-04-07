@@ -76,20 +76,19 @@ class PlanController extends BaseController
     }
     public function storegymplan()
      {
+        if ($this->request->getMethod() === 'get') {
+            $planData = [
+                'PlanName' => $this->request->getGet('Pname'),
+                'Description' => $this->request->getGet('description'),
+                'Duration' => $this->request->getGet('durationim'),
+                //'GymTimeSlot' => $this->request->getPost('timeslot'),
+                'Price' => $this->request->getGet('price'),
+                'TrainerIncluded' => $this->request->getGet('trainer'),
+                'IsActive' => $this->request->getGet('active') ? 1 : 0,
     
-        
-        $planData = [
-            'PlanName' => $this->request->getPost('Pname'),
-            'Description' => $this->request->getPost('description'),
-            'Duration' => $this->request->getPost('durationim'),
-            //'GymTimeSlot' => $this->request->getPost('timeslot'),
-            'Price' => $this->request->getPost('price'),
-            'TrainerIncluded' => $this->request->getPost('trainer'),
-            'IsActive' => $this->request->getPost('active') ? 1 : 0,
+            ];
 
-        ];
-    
-        $planModel = new PlanModel();
+            $planModel = new PlanModel();
         $planID = $planModel->insert($planData);
         $coachIDs = $this->request->getPost('coaches'); 
         $coachPlanModel = new CoachPlanModel();
@@ -105,6 +104,46 @@ class PlanController extends BaseController
             'status' => 'success',
             'message' => 'Plan created successfully!'
         ]);
+        }
+        
+        else if ($this->request->getMethod() === 'post') {
+            $planData = [
+                'PlanName' => $this->request->getPost('Pname'),
+                'Description' => $this->request->getPost('description'),
+                'Duration' => $this->request->getPost('durationim'),
+                //'GymTimeSlot' => $this->request->getPost('timeslot'),
+                'Price' => $this->request->getPost('price'),
+                'TrainerIncluded' => $this->request->getPost('trainer'),
+                'IsActive' => $this->request->getPost('active') ? 1 : 0,
+    
+            ];
+
+            $planModel = new PlanModel();
+        $planID = $planModel->insert($planData);
+        $coachIDs = $this->request->getPost('coaches'); 
+        $coachPlanModel = new CoachPlanModel();
+        if($coachIDs != null){
+            foreach ($coachIDs as $coachID) {
+                $coachPlanModel->insert([
+                    'CoachID' => $coachID,
+                    'PlanID' => $planID
+                ]);
+            }
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Plan created successfully!'
+        ]);
+        }
+
+        else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid request method.'
+            ]);
+        }
+    
+        
         
     }
 }

@@ -170,7 +170,7 @@
     if (isConfirmed) {
         try {
             const response = await $.ajax({
-                url: '/gymequipment/delete/' + id, 
+              url: '<?= base_url('gymequipment/delete/') ?>' + id,
                 type: 'DELETE',
                 success: function(response) {
                    

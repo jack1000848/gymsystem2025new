@@ -101,8 +101,11 @@ class PlanController extends BaseController
                 ]);
             }
         }
-        return $this->response->Ok('Plan created successfully!');
-
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Plan created successfully!'
+        ]);
+        
     }
 }
 

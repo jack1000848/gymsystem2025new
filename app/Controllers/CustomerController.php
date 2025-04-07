@@ -343,10 +343,10 @@ public function updaterenew($id)
 
     // Get the input data from the request
     $data = [
-        'date_of_registration' => $this->request->getPost('dateofregistration'),
+        'RegisteredDate' => $this->request->getPost('dateofregistration'),
         
-        'workout_type' => $this->request->getPost('tworkout'),
-        'plans' => $this->request->getPost('plans'),
+        'types_of_workout' => $this->request->getPost('tworkout'),
+        'Membesrship_plan' => $this->request->getPost('plans'),
         ///'amount' => $this->request->getPost('amount'),
     ];
 

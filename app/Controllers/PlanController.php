@@ -103,7 +103,7 @@ class PlanController extends BaseController
         }
         
 
-        return redirect()->to('/gymplans')->with('success', 'Gym Plan Added Successfully!');
+        return $this->response->setJSON(['success' => true]);
 
     }
 }

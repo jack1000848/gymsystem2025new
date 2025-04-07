@@ -24,8 +24,8 @@
     <thead>
         <tr>
             <th>Equipment ID</th>
-            <th>Desicription</th>
-            <th>Ammount</th>
+            <th>Name</th>
+            <th>Amount</th>
             <th>Quantity</th>
             <th>Action</th>
 

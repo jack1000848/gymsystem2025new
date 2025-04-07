@@ -622,7 +622,7 @@ $('#renewPlans').on('change', function () {
             $('#coach').empty();
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
-                $('#coach').append(`<option value="${coach.planID} ${coach.coachID}">${coach.FullName}</option>`);
+                $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
             });
         } catch (error) {
             console.error("Error fetching coaches:", error);

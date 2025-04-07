@@ -36,19 +36,10 @@ public function create()
 
     public function storeEquipment()
      {
-        $insertEquipments = new EquipmentModel ();
+        $insertEquipments = new EquipmentModel();
 
-        if($img = $this->request->getFile('equipmentpic'))  {
-            if($img->isValid() && ! $img->hasMoved())  {
-             $imageName = $img->getRandomName();
-            $img->move('uploads/', $imageName); 
-
-            }
-       }
-
-        
        $data = array(
-        'EquipmentID' => $this->request->getPost('Eid'),          // Mapped 'name' to 'EquipmentID'
+        ///'EquipmentID' => $this->request->getPost('Eid'),          // Mapped 'name' to 'EquipmentID'
         //'Image' => $imageName,                                      // Mapped 'Equipment_pic' to 'Image'
         'Description' => $this->request->getPost('Ename'),    // Mapped 'description' to 'Description'
         'Amount' => $this->request->getPost('Eamount'),             // Mapped 'amount' to 'Amount'

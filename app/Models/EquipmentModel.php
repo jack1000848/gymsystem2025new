@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class EquipmentModel extends Model
 {
     protected $table            = 'equipment';
-    protected $primaryKey       = 'EquipmentID ';
+    protected $primaryKey       = 'EquipmentID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'EquipmentID ', 'Image','Description', 'Amount', 'Qty', 
+        'EquipmentID','Description', 'Amount', 'Qty', 
     ];
     
     public function getEquipment()

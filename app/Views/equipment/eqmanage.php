@@ -252,7 +252,7 @@
     }
 
     $.ajax({
-        url: '/gymequipment/update/' + equipmentData.EquipmentID, // Adjust URL for your update route
+      url: '<?= base_url('gymequipment/update/') ?>' + equipmentData.EquipmentID, // Adjust URL for your update route
         type: 'POST',
         data: equipmentData, 
         success: function(response) {

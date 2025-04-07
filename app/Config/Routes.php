@@ -148,7 +148,7 @@ $routes->post('/update-account', 'ClientsDashboardController::updateAccount');
 $routes->get('/logout', 'ClientsDashboardController::logout');
 
 
-$router->get("/getCoachSchedules/(:num)", "CustomerController::getSchedules/$1");
+$routes->get("/getCoachSchedules/(:num)", "CustomerController::getSchedules/$1");
 
 ///////////////////////COACH DASHBOARD/////////////////////   
  //// Coach Login/ Coach Dashboard, Manage my Schedule, View my CLients, View Gym Equipment, Logout/// 

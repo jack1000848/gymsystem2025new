@@ -154,7 +154,14 @@ $this->section('body'); // Start the body section
                     <!-- Coach -->
                     <div class="mb-3" id="coachSelectDiv">
                         <label for="coach" class="form-label">Select Coach</label>
-                        <select id="coach" class="form-control" name="coach" required>
+                        <select id="coach" class="form-control" name="coach" id="coach" required>
+                            <option value="">Select a Coach</option>
+                        </select>
+                    </div>
+                    <!-- Coach Sched -->    
+                    <div class="mb-3" id="coachschedSelectDiv">
+                        <label for="coachsched" class="form-label">Select Coach</label>
+                        <select id="coachsched" class="form-control" name="coachsched" required>
                             <option value="">Select a Coach</option>
                         </select>
                     </div>
@@ -397,6 +404,12 @@ $this->section('body'); // Start the body section
         let table = new DataTable('#clientTable', {
             responsive: true
         });
+
+         $("#coach").on('change', function(){
+
+            const value = $(this).val();
+            console.log(value);
+         })
 
         });
 

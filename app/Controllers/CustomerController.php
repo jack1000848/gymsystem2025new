@@ -179,10 +179,12 @@ class CustomerController extends BaseController
 
          'verification_token' => $token,
             'is_verified' => 0
+
      ];
      
 
         $insertClients->insert($data);
+        
         {
             // Send verification email
             $this->sendVerificationEmail($data['Email'], $token);

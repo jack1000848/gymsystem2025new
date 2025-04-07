@@ -83,7 +83,7 @@ public function update($id)
 
     // Get the input data from the request (this is assuming you're sending POST data)
     $data = [
-        'EquipmentID' => $this->request->getPost('EquipmentID'),
+        
         'Description' => $this->request->getPost('Description'),
         'Amount' => $this->request->getPost('Amount'),
         'Qty' => $this->request->getPost('Qty'),
@@ -91,7 +91,7 @@ public function update($id)
     ];
 
     // Optionally, you can validate the data before updating
-    if (!$data['EquipmentID'] || !$data['Description'] || !$data['Amount'] || !$data['Qty']) {
+    if (!$data['Description'] || !$data['Amount'] || !$data['Qty']) {
         return $this->response->setJSON([
             'status' => 'error',
             'message' => 'All fields are required!'

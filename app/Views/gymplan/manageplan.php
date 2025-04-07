@@ -174,8 +174,8 @@
         if(editId !== 0){
             data.append('id', editId);
             $.ajax({
-            url: '<?= base_url('/gymplans/update/'); ?>' + editId,
-            type: 'POST',
+                url: '<?= site_url('gymplans/store'); ?>', // ✅ Ensure the URL is correct
+                type: 'POST',
             data: data,
             processData: false, 
             contentType: false, 

@@ -209,7 +209,8 @@
 
     async function editEquipment(id) {
     try {
-        const res = await $.get('/gymequipment/edit/' + id);
+      const res = await $.get('<?= base_url('gymequipment/edit/') ?>' + id);
+
 
         if (res && res.data) {
             const equipment = res.data;

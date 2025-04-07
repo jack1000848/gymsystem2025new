@@ -205,31 +205,42 @@
             return;        
         }
 
-        $.ajax({
-        url: '<?= base_url('/gymplans/store/'); ?>',
-        type: 'POST',
-        data: data,
-        processData: false, 
-        contentType: false, 
-        success: function(res) {
-            Swal.fire({
-                title: 'Success!',
-                text: "Plan Added Successfully",
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.reload();
-            });
-        },
-        error: function(xhr) {
-            Swal.fire({
-                title: 'Error!',
-                text: "Something went wrong. Please try again.",
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+        let formData = new FormData($('#planForm')[0]); 
+
+$.ajax({
+    url: '<?= base_url('/gymplans/store/'); ?>',
+    type: 'POST',
+    data: formData,
+    processData: false, 
+    contentType: false, 
+    success: function(res) {
+        Swal.fire({
+            title: 'Success!',
+            text: "Plan Added Successfully",
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.reload();
         });
+    },
+    error: function(xhr) {
+        Swal.fire({
+            title: 'Error!',
+            text: "Something went wrong. Please try again.",
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        console.log(xhr.responseText);
+    }
+});
+
+
+        });
+
+
+        $('#coaches').select2({
+            placeholder: "Select Coaches",
+            allowClear: true
         });
     });
 

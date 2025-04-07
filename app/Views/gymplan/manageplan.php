@@ -159,9 +159,6 @@
         const form = $(this);
         const data = new FormData(this);
         const isActive = $("#active").is(":checked");
-
-        data.append('active', isActive);
-
         const { isConfirmed } = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -198,6 +195,8 @@
                     text: "Something went wrong. Please try again.",
                     icon: 'error',
             })
+
+            console.log(xhr.responseText);  // ✅ Debugging output
 
             }
         });

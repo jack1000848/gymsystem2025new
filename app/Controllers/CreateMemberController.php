@@ -329,7 +329,17 @@ public function resetPassword()
 }
 
 
+public function getSchedules1($id){
 
+    $scheduleModel = new \App\Models\ViewScheduleForAllUserModel();
+
+    //find schedule where id is eq to CoachID and CustomerID is null
+    $schedules = $scheduleModel->where('CoachID', $id)->where('CustomerID', null)->findAll();
+    // Return the schedules data as JSON
+    return $this->response->setJSON($schedules);
+
+
+}
 
 /// update the users pass;
 ///public function resetPasswords($token)

@@ -119,12 +119,19 @@ class CoachController extends BaseController
 
     // Prepare update data
     $updateData = [
-        'Firstname' => $data['editClients1Fname'],
-        'Lastname'  => $data['editClients1lname'],
-        'Email'     => $data['editemail'],
-        'password_hash'  => password_hash($data['editpassword'], PASSWORD_DEFAULT), // Hash password
-        'Address'   => $data['editaddress'],
+        'Firstname' => $data['clientFirst'],
+        'Lastname'  => $data['clientLast'],
+        'Email'     => $data['clientEmail'],
+        'password_hash'  => password_hash($data['password'], PASSWORD_DEFAULT), // Hash password
+        'Address'   => $data['clientAdress'],
     ];
+    //required to fill up the fields
+    $requiredFields = ['editClients1Fname', 'editClients1lname', 'editemail', 'editpassword', 'editaddress'];
+    foreach ($requiredFields as $field) {
+        if (empty($data[$field])) {
+            return $this->response->setJSON(['status' => 'error', 'message' => ucfirst($field) . ' is required.']);
+        }
+    }
 
     // Perform update
     if ($coachModel->update($id, $updateData)) {

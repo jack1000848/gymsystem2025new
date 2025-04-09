@@ -283,7 +283,7 @@
    // }
 
     $.ajax({
-        url: '<?= base_url('/coach/update') ?>' + CoachData.CoachID, // Adjust URL for your update route
+        url: '<?= base_url('/coach/update/') ?>' + CoachData.CoachID, // Adjust URL for your update route
         type: 'POST',
         data: CoachData, 
         success: function(response) {

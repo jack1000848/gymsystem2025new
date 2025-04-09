@@ -204,9 +204,9 @@
     } catch (error) {
         console.error("Error fetching coaches:", error);
     }
-}
+    }
 
-async function fetchPlans() {
+    async function fetchPlans() {
     try {
         // Make an AJAX GET request to the server
         const data = await $.get("<?= base_url('/fetchPlans'); ?>");  // Correct URL based on route
@@ -228,8 +228,8 @@ async function fetchPlans() {
     }
     }
 
- </script>
-</div>
+    </script>
+    </div>
         </div>
     </div>
 </body>

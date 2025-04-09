@@ -115,10 +115,7 @@ class CoachController extends BaseController
     // Get input data
     $data = $this->request->getPost();
 
-    // Validate required fields
-    if (empty($data['Firstname']) || empty($data['Lastname']) || empty($data['Email']) || empty($data['Password']) || empty($data['Address'])) {
-        return $this->response->setJSON(['status' => 'error', 'message' => 'All fields are required!']);
-    }
+    
 
     // Prepare update data
     $updateData = [

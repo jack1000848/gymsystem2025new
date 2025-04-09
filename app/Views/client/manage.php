@@ -296,7 +296,7 @@
         },
         error: function(xhr, status, error) {
             console.error("Error during the update:", error);
-            alert("There was an error updating the equipment.");
+            alert("There was an error updating the Coach.");
         }
     });
 

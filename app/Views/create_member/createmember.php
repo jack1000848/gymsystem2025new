@@ -146,7 +146,7 @@
     schedEl.empty();
 
     try {
-        const data = await $.get("<?= base_url('/getCoachSchedules1') ?>/" + value);
+        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
         console.log(data);
 
         if (data.length === 0) {

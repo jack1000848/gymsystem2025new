@@ -125,12 +125,12 @@ class CoachController extends BaseController
     ];
 
     // Optionally, you can validate the data before updating
-    if  (!$data['Firstname'] || !$data['Lastname'] ||!$data['Email'] || !$data['Password'] || !$data['Address']) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'All fields are required!'
-        ]);
-    }
+    //if  (!$data['Firstname'] || !$data['Lastname'] ||!$data['Email'] || !$data['Password'] || !$data['Address']) {
+    //    return $this->response->setJSON([
+     //       'status' => 'error',
+     ////       'message' => 'All fields are required!'
+  //  //    ]);
+  //  }
 
     // Attempt to update the record in the database
     $updated = $CoachModel->update($id, $data);

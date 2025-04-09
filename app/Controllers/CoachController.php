@@ -119,11 +119,11 @@ class CoachController extends BaseController
 
     // Prepare update data
     $updateData = [
-        'Firstname' => $data['Firstname'],
-        'Lastname'  => $data['Lastname'],
-        'Email'     => $data['Email'],
-        'password_hash'  => password_hash($data['password_hash'], PASSWORD_DEFAULT), // Hash password
-        'Address'   => $data['Address'],
+        'Firstname' => $data['editClients1Fname'],
+        'Lastname'  => $data['editClients1lname'],
+        'Email'     => $data['editemail'],
+        'password_hash'  => password_hash($data['editpassword'], PASSWORD_DEFAULT), // Hash password
+        'Address'   => $data['editaddress'],
     ];
 
     // Perform update

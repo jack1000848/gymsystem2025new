@@ -236,7 +236,7 @@
         if (res && res.data) {
             const coach = res.data;
 
-            $("#editid").val(coach.CoachID);
+         //   $("#editid").val(coach.CoachID);
             $("#editClients1Fname").val(coach.firstname);
           //  $("#lname").val((coach.Middlename)(2));
             $("#editClients1lname").val(coach.Lastname);
@@ -260,7 +260,7 @@
   async function updateCoach(id) {
 
     let CoachData = {
-        CoachID: $("#editid").val().trim(),
+       /// CoachID: $("#editid").val().trim(),
         Firstname: $("#editClients1Fname").val().trim(),
         Lastname: $("#editClients1lname").val().trim(),
         Password: $("#editpassword").val().trim(),

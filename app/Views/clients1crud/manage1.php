@@ -431,8 +431,9 @@ $this->section('body'); // Start the body section
         console.error("Error fetching schedules:", error);
         schedEl.append("<p>Failed to load schedules.</p>");
     }
-});
-});
+    });
+  });
+
 
 
         $("#editClientForm").submit(function(event) {

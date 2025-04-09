@@ -99,7 +99,7 @@
                         <select id="coachsched" class="form-control" multiple name="coachsched" required>
                             <option value="">Select a Coach</option>
                         </select>
-                    </div>
+  </div>
 
 <div class="mb-3">
     <label for="amount" class="form-label">Total Amount</label>
@@ -149,7 +149,7 @@
     schedEl.empty();
 
     try {
-        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
+        const data = await $.get("<?= base_url('/getCoachSchedules1') ?>/" + value);
         console.log(data);
 
         if (data.length === 0) {

@@ -149,8 +149,8 @@ $routes->get('/logout', 'ClientsDashboardController::logout');
 
 
 $routes->get("/getCoachSchedules/(:num)", "CustomerController::getSchedules/$1");
-$routes->get("/getCoachSchedules/(:num)", "CreateMemberController::getSchedules1/$1");
-
+$routes->get("/getCoachSchedules1/(:num)", "CreateMemberController::getSchedules1/$1");
+1
 ///////////////////////COACH DASHBOARD/////////////////////   
  //// Coach Login/ Coach Dashboard, Manage my Schedule, View my CLients, View Gym Equipment, Logout/// 
  $routes->get('/coach-login', 'LoginCoachController::LoginCoach');

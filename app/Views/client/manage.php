@@ -132,35 +132,35 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Coach</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <div class="mb-3">
-      <input type="hidden" id="id"/>
-         <label for="exampleFormControlInput1" class="form-label">First Name</label>
-              <input type="text" id="fname" class="form-control" name="clientFirst" required>
+      <input type="hidden" id="editid"/>
+         <label for="editClients1Fname" class="form-label">First Name</label>
+              <input type="text" id="editClients1Fname" class="form-control" name="clientFirst" required>
     </div>
      
     <div class="mb-3">
-         <label for="exampleFormControlTextarea1" class="form-label">Last Name</label>
-             <input type="text" id="lname" class="form-control" name="clientLast"required>
+         <label for="editClients1lname" class="form-label">Last Name</label>
+             <input type="text" id="editClients1lname" class="form-control" name="clientLast"required>
 </div>
 
 <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="text" id="password" class="form-control" name="password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
+        <label for="editpassword" class="form-label">Password</label>
+        <input type="text" id="editpassword" class="form-control" name="password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
 
     </div>
 
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Address</label>
-              <input type="text" id="address" class="form-control" name="clientAdress"required>
+         <label for="editaddress" class="form-label">Address</label>
+              <input type="text" id="editaddress" class="form-control" name="clientAdress"required>
     </div> 
 
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Email</label>
-              <input type="text" id="email" class="form-control" name="clientEmail"required>
+         <label for="editemail" class="form-label">Email</label>
+              <input type="text" id="editemail" class="form-control" name="clientEmail"required>
     </div> 
 
     
@@ -236,12 +236,12 @@
         if (res && res.data) {
             const coach = res.data;
 
-            $("#id").val(coach.CoachID);
-            $("#fname").val(coach.firstname);
+            $("#editid").val(coach.CoachID);
+            $("#editClients1Fname").val(coach.firstname);
           //  $("#lname").val((coach.Middlename)(2));
-            $("#lname").val(coach.Lastname);
-            $("#email").val(coach.Email)
-            $("#password").val(coach.Password)
+            $("#editClients1lname").val(coach.Lastname);
+            $("#editemail").val(coach.Email)
+            $("#editpassword").val(coach.Password)
             //$("#cprofile").val(coach.RegisteredDate)
             //0$("#eqQuantity").val(coach.Status)
             //$("#eqQuantity").val(coach.Address)

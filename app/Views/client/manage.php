@@ -244,7 +244,7 @@
             $("#editpassword").val(coach.Password)
             //$("#cprofile").val(coach.RegisteredDate)
             //0$("#eqQuantity").val(coach.Status)
-            //$("#eqQuantity").val(coach.Address)
+            $("#editaddress").val(coach.Address)
             //$("#eqQuantity").val(coach.Avatar)
             $("#editModal").modal('show');
 
@@ -260,12 +260,12 @@
   async function updateCoach(id) {
 
     let CoachData = {
-        CoachID: $("#id").val().trim(),
-        Firstname: $("#fname").val().trim(),
-        Lastname: $("#lname").val().trim(),
-        Password: $("#password").val().trim(),
-        Address: $("#address").val().trim(),
-        Email: $("#email").val().trim(),
+        CoachID: $("#editid").val().trim(),
+        Firstname: $("#editClients1Fname").val().trim(),
+        Lastname: $("#editClients1lname").val().trim(),
+        Password: $("#editpassword").val().trim(),
+        Address: $("#editaddress").val().trim(),
+        Email: $("#editemail").val().trim(),
         
     };
 

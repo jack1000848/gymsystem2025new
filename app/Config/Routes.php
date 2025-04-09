@@ -90,7 +90,7 @@ $routes->get('/coach', 'CoachController::index' );
 $routes->post('/coach/store', 'CoachController::storeClient');
 $routes->get('/coach/edit/(:num)', 'CoachController::edit/$1');
 $routes->post('/coach/update/(:num)', 'CoachController::update/$1');
-$routes->get('/coach/update/(:num)', 'CoachController::update/$1');
+
 $routes->delete('/coach/delete/(:num)', 'CoachController::deleteCoach/$1');
 $routes->get('/coach/(:num)', 'CoachController::deleteClient/$1');
 

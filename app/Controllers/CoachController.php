@@ -125,7 +125,7 @@ class CoachController extends BaseController
         'Firstname' => $data['Firstname'],
         'Lastname'  => $data['Lastname'],
         'Email'     => $data['Email'],
-        'Password'  => password_hash($data['Password'], PASSWORD_DEFAULT), // Hash password
+        'Password_hash'  => password_hash($data['Password_hash'], PASSWORD_DEFAULT), // Hash password
         'Address'   => $data['Address'],
     ];
 

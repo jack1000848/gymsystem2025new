@@ -137,7 +137,7 @@
       </div>
       <div class="modal-body">
       <div class="mb-3">
-      <input type="hidden" id="editid"/>
+      <input type="hidden" id="editid" name="CoachID">
          <label for="editClients1Fname" class="form-label">First Name</label>
               <input type="text" id="editClients1Fname" class="form-control" name="clientFirst" required>
     </div>

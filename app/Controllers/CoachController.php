@@ -110,44 +110,34 @@ class CoachController extends BaseController
 
     public function update($id)
 {
-    // Load the EquipmentModel
-    $CoachModel = new \App\Models\CoachModel();
+    $coachModel = new CoachModel();
 
-    // Get the input data from the request (this is assuming you're sending POST data)
-    $data = [
-       /// 'CoachID' => $this->request->getPost('clientFirst'),
-        'Firstname' => $this->request->getPost('clientFirst'),
-        'Lastname' => $this->request->getPost('clientLast'),
-        'Email' => $this->request->getPost('clientEmail'),
-        'Password' => $this->request->getPost('password'),
-        'Address' => $this->request->getPost('clientAdress'),
-        
+    // Get input data
+    $data = $this->request->getPost();
+
+    // Validate required fields
+    if (empty($data['Firstname']) || empty($data['Lastname']) || empty($data['Email']) || empty($data['Password']) || empty($data['Address'])) {
+        return $this->response->setJSON(['status' => 'error', 'message' => 'All fields are required!']);
+    }
+
+    // Prepare update data
+    $updateData = [
+        'Firstname' => $data['Firstname'],
+        'Lastname'  => $data['Lastname'],
+        'Email'     => $data['Email'],
+        'Password'  => password_hash($data['Password'], PASSWORD_DEFAULT), // Hash password
+        'Address'   => $data['Address'],
     ];
 
-    // Optionally, you can validate the data before updating
-    if  (!$data['Firstname'] || !$data['Lastname'] ||!$data['Email'] || !$data['Password'] || !$data['Address']) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'All fields are required!'
-        ]);
-    }
-
-    // Attempt to update the record in the database
-    $updated = $CoachModel->update($id, $data);
-
-    // Check if the update was successful
-    if ($updated) {
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Equipment updated successfully!'
-        ]);
+    // Perform update
+    if ($coachModel->update($id, $updateData)) {
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Coach updated successfully!']);
     } else {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Failed to update equipment. Please try again.'
-        ]);
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update Coach.']);
     }
 }
+
+
 
 
 public function deleteCoach($id)

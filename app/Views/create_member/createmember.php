@@ -181,29 +181,16 @@
     });
 
     async function fetchCoach(planId) {
-    try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);  
-
-        $('#coach').empty();
-
-        $('#coach').append('<option value="" selected>Select a Coach</option>');
-        if (data.length > 0) {
-            // Loop through the fetched coaches and populate the select options
+        try {                          
+            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
+            $('#coach').empty();
+            $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
-                const option = `<option value="${coach.planID} ${coach.coachID}">${coach.FullName}</option>`;
-                $('#coach').append(option);
+                $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
             });
-        } else {
-            // If no coaches available, show a message
-            $('#coach').append('<option value="">No coaches available</option>');
+        } catch (error) {
+            console.error("Error fetching coaches:", error);
         }
-
-        // Reapply Select2 after the options have been added
-        $('#coach').trigger('change');
-        
-    } catch (error) {
-        console.error("Error fetching coaches:", error);
-    }
     }
 
     async function fetchPlans() {

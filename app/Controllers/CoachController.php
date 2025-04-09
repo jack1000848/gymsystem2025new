@@ -115,17 +115,17 @@ class CoachController extends BaseController
 
     // Get the input data from the request (this is assuming you're sending POST data)
     $data = [
-        'CoachID' => $this->request->getPost('CoachID'),
-        'Firstname' => $this->request->getPost('Firstname'),
-        'Lastname' => $this->request->getPost('Lastname'),
-        'Email' => $this->request->getPost('Email'),
-        'Password' => $this->request->getPost('Password'),
-        'Address' => $this->request->getPost('Address'),
+       /// 'CoachID' => $this->request->getPost('clientFirst'),
+        'Firstname' => $this->request->getPost('clientFirst'),
+        'Lastname' => $this->request->getPost('clientLast'),
+        'Email' => $this->request->getPost('clientEmail'),
+        'Password' => $this->request->getPost('password'),
+        'Address' => $this->request->getPost('clientAdress'),
         
     ];
 
     // Optionally, you can validate the data before updating
-    if (!$data['CoachID'] || !$data['Firstname'] || !$data['Lastname'] ||!$data['Email'] || !$data['Password'] || !$data['Address']) {
+    if  (!$data['clientFirst'] || !$data['clientLast'] ||!$data['clientEmail'] || !$data['password'] || !$data['clientAdress']) {
         return $this->response->setJSON([
             'status' => 'error',
             'message' => 'All fields are required!'

@@ -68,7 +68,7 @@
     
     
 
-<!-- edit -->
+<!-- add -->
 <div class="modal fade" id="managePlanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -129,6 +129,70 @@
     </div>
   </div>
     </div>
+
+    <!-- edit -->
+    <div class="modal fade" id="managePlanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> a Plan</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form id="planForm">
+        
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Plan Name</label>
+              <input type="text" class="form-control" name="Pname" id="planName" required>
+    </div>
+     
+    <div class="mb-3">
+         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+             <input type="text" class="form-control" id="description" name="description"required>
+</div>
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Duration in Months</label>
+              <input type="text" class="form-control" id="durationim" name="durationim"required>
+    </div> 
+
+
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Price</label>
+              <input type="text" class="form-control" id="price" name="price"required>
+    </div> 
+
+    <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Coach</label>
+    <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
+    <?php foreach ($coaches as $coach): ?>
+        <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
+    <?php endforeach; ?>
+</select>
+
+    </div> 
+    <div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label"> Creation Date </label>
+         <input type="date" class="form-check-input" id="activeDate" name="activeDate" value="1">
+
+    </div> 
+    <div class="mb-3">
+    <label for="active" class="form-label">Active</label>
+    <input type="checkbox" class="form-check-input" id="active" name="active" value="1">
+</div> 
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
+      </div>
+    
+      
+      
+    </div>
+  </div>
+    </div>
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script   script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

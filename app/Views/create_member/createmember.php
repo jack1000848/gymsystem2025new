@@ -93,6 +93,13 @@
 </select>
 
 </div>
+ <!-- Coach Sched -->    
+ <div class="mb-3" id="coachschedSelectDiv">
+                        <label for="coachsched" class="form-label">Select Schedules</label>
+                        <select id="coachsched" class="form-control" multiple name="coachsched" required>
+                            <option value="">Select a Coach</option>
+                        </select>
+                    </div>
 
 <div class="mb-3">
     <label for="amount" class="form-label">Total Amount</label>
@@ -134,6 +141,33 @@
             fetchCoach(planId);
         }
     });
+    $("#coach").on('change', async function() {
+    const value = $(this).val();
+    console.log(value);
+
+    const schedEl = $("#coachsched");
+    schedEl.empty();
+
+    try {
+        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
+        console.log(data);
+
+        if (data.length === 0) {
+            schedEl.append("<p>No schedules available.</p>");
+            return;
+        }
+
+        data.forEach(sched => {
+            const scheduleItem = `
+                <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End} </option>
+            `;
+            schedEl.append(scheduleItem);
+        });
+    } catch (error) {
+        console.error("Error fetching schedules:", error);
+        schedEl.append("<p>Failed to load schedules.</p>");
+    }
+});
 
 
 });

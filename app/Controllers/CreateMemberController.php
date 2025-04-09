@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CreateMemberModel;
 use App\Models\CoachModel;
+use App\Models\ViewScheduleForAllUserModel;
 
 // eto sa qr
 

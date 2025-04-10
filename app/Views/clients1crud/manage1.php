@@ -650,8 +650,8 @@ $('#renewPlans').on('change', function () {
             console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
-                console.log(coach);
-                $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
+                if(coach.CoachID !== null)
+                    $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
             });
         } catch (error) {
             console.error("Error fetching coaches:", error);

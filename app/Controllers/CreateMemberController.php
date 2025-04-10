@@ -305,7 +305,7 @@ public function resetPassword()
     }
 
     if (strtotime($user['reset_token_expires']) < time()) {
-        log_message('error', 'Token expired for user ID: ' . $user['CustomerID']);
+        log_message('error', 'Token expired for user ID: ' . $user['CustomerID'], $user['CoachID']);
         return redirect()->to('/forgot-password')->with('error', 'Expired reset link.');
     }
 
@@ -320,11 +320,11 @@ public function resetPassword()
         'reset_token_expires' => null
     ];
 
-    if ($userModel->update($user['CustomerID'], $updateData)) {
-        log_message('debug', 'Password updated successfully for user ID: ' . $user['CustomerID']);
+    if ($userModel->update($user['CustomerID'],$user['CoachID'], $updateData)) {
+        log_message('debug', 'Password updated successfully for user ID: ' . $user['CustomerID'],$user['CoachID']);
         return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
     } else {
-        log_message('error', 'Password update failed for user ID: ' . $user['CustomerID']);
+        log_message('error', 'Password update failed for user ID: ' . $user['CustomerID'], ['CoachID']);
         return redirect()->to('/forgot-password')->with('error', 'Something went wrong. Try again.');
     }
 }

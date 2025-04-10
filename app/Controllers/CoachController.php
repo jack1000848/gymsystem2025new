@@ -75,7 +75,7 @@ class CoachController extends BaseController
         $data = array(
             'Firstname'  => $this->request->getPost('clientFirst'),
             'Lastname'   => $this->request->getPost('clientLast'),
-            'Password'   => $this->request->getPost('password'),
+            'Password_hash'   => $this->request->getPost('password'),
             'address'    => $this->request->getPost('clientAdress'), // Add 'address' to $allowedFields if not present
             'Email'      => $this->request->getPost('clientEmail'),
            // 'Avatar'     => $imageName,

@@ -49,7 +49,115 @@ use App\Models\LoginCoachModel;
     }
 
 
+/// forget password users
+public function forgotPassword()
+{
+    return view('member_resetpassword/coachforgot');
+}
 
+public function sendResetLink()
+{
+    $email = $this->request->getPost('email');
+
+    $userModel = new CreateMemberModel();
+    $user = $userModel->where('Email', $email)->first();
+
+    if (!$user) {
+        return redirect()->to('/forgot-password')->with ('error', 'Email not found.');
+    }
+
+    // Generate reset token
+    $token = bin2hex(random_bytes(50));
+    $expiry = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
+
+    // Save token in the database
+    $userModel->update($user['CoachID'], [
+        'reset_token' => $token,
+        'reset_token_expires' => $expiry
+    ]);
+
+    // Send email
+    //$resetLink = base_url("reset-password/$token");
+  //  $message = "Click the link to reset your password: <a href='$resetLink'>$resetLink</a>";
+
+    $emailService = service('email');
+    $emailService->setTo($email);
+    $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
+    $emailService->setSubject('Password Reset Request');
+    $emailService->setMessage("Hi, Click the link to reset your password: <a href='" . base_url("reset-password/$token") . "'>Reset Password</a>");
+   
+    if ($emailService->send()) {
+        return redirect()->back()->with('success', 'Reset link sent. Check your email.');
+
+    } else {
+        return redirect()->to()->with('error', 'Failed to send email.');
+    }
+}
+
+
+   public function showResetForm($token)
+{
+    $userModel = new CreateMemberModel();
+    $user = $userModel->where('reset_token', $token)->first();
+
+    if (!$user || strtotime($user['reset_token_expires']) < time()) {
+        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
+}
+
+    return view('member_resetpassword/resetpassword', ['token' => $token]);
+}
+///public function showResetForm($token)
+///{   
+ ///   $userModel = new CreateMemberModel();
+  //  $user = $userModel->where('reset_token', $token)->first();
+
+  //  if (!$user || strtotime($user['reset_token_expires']) < time()) {
+  //      return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link1.');
+//}
+  //  return view('member_resetpassword/resetpassword', ['token' => $token]);
+//}
+
+public function resetPassword()
+{
+    $token = $this->request->getPost('token');
+    $password = $this->request->getPost('password');
+
+    // Debugging: Log received token and password
+    log_message('debug', 'Token received: ' . $token);
+    log_message('debug', 'Password received: ' . $password);
+
+    $userModel = new CreateMemberModel();
+    $user = $userModel->where('reset_token', $token)->first();
+
+    if (!$user) {
+        log_message('error', 'User not found for token: ' . $token);
+        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
+    }
+
+    if (strtotime($user['reset_token_expires']) < time()) {
+        log_message('error', 'Token expired for user ID: ' . $user['CoachID']);
+        return redirect()->to('/forgot-password')->with('error', 'Expired reset link.');
+    }
+
+    // Hash the new password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    log_message('debug', 'Hashed password: ' . $hashedPassword);
+
+    // Try updating the password
+    $updateData = [
+        'password_hash' => $hashedPassword,  // Ensure this field matches your DB column
+        'reset_token' => null,
+        'reset_token_expires' => null
+    ];
+
+    if ($userModel->update($user['CoachID'], $updateData)) {
+        log_message('debug', 'Password updated successfully for user ID: ' . $user['CoachID']);
+        return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
+    } else {
+        log_message('error', 'Password update failed for user ID: ' . $user['CoachID']);
+        return redirect()->to('/forgot-password')->with('error', 'Something went wrong. Try again.');
+    }
+}
     
 
 

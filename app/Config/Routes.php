@@ -25,7 +25,11 @@ $routes->post('reset-password', 'CreateMemberController::resetPassword');
 ///$routes->post('reset-password/(:any)', 'CreateMemberController::resetPassword/$1');
 //update pass naman
 
-///$routes->post('update-password', 'CreateMemberController::updatePassword');
+///coach forgot pass///
+$routes->get('coach-forgot-password', 'LoginCoachController::forgotPassword');
+$routes->post('coach-forgot-password', 'LoginCoachController::sendResetLink');
+$routes->get('coach-reset-password/(:any)', 'LoginCoachController::showResetForm/$1');
+$routes->post('coach-reset-password', 'LoginCoachController::resetPassword');
 
 
 

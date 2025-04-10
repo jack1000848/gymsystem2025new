@@ -37,6 +37,7 @@
                 <a href="<?= base_url('join-now') ?>" class="register">Signup</a>
                 <a href="<?= base_url('joinus') ?>" class="register">Admin Login</a>
                 <a href="<?= base_url('member-login') ?>" class="register">Member Login</a>
+                <a href="<?= base_url('coach-forgot-password') ?>" class="register">Forget Password?</a>
             </form>
         </div>
     </div>

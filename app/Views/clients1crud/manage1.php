@@ -169,13 +169,13 @@ $this->section('body'); // Start the body section
                     <!-- Total Amount -->
                     <div class="mb-3">
                         <label for="amount" class="form-label">Total Amount</label>
-                        <input type="text" id="priceInput" class="form-control" name="amount" readonly>
+                        <input type="text" id="priceInput" readonly disabled class="form-control" name="amount" readonly>
                     </div>
 
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="duration" class="form-label">Duration</label>
-                        <input type="number" id="duration" class="form-control" name="duration" required>
+                        <input type="number" id="duration" readonly disabled class="form-control" name="duration" required>
                     </div>
 
                     <!-- Submit Button -->

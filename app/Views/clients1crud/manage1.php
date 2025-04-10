@@ -154,15 +154,15 @@ $this->section('body'); // Start the body section
                     <!-- Coach -->
                     <div class="mb-3" id="coachSelectDiv">
                         <label for="coach" class="form-label">Select Coach</label>
-                        <select id="coach" class="form-control" name="coach" id="coach" required>
+                        <select id="coach" name="coach" class="form-control" name="coach" id="coach" required>
                             <option value="">Select a Coach</option>
                         </select>
                     </div>
                     <!-- Coach Sched -->    
                     <div class="mb-3" id="coachschedSelectDiv">
                         <label for="coachsched" class="form-label">Select Schedules</label>
-                        <select id="coachsched" class="form-control" multiple name="coachsched" required>
-                            <option value="">Select a Coach</option>
+                        <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
+                            <option value="">Select a Schedule</option>
                         </select>
                     </div>
 

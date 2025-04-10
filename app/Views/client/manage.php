@@ -152,7 +152,7 @@
     </div> 
 <div class="mb-3">
         <label for="editpassword" class="form-label">Password</label>
-        <input type="text" id="editpassword" class="form-control" name="Password" required>
+        <input type="text" id="editpassword" class="form-control" name="password" required>
 
     </div>
 

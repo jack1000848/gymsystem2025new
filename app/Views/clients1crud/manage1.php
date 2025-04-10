@@ -29,7 +29,7 @@ $this->section('body'); // Start the body section
                     <th>Address</th>
                     <th>Gender</th>
                     <th>Email Address</th>
-                    <th style="display: none">Password</th>
+                    <th>Password</th>
                     <th>Register Date</th>
                     <th>Types of Workout</th>
                     <th>Membership Plan</th>
@@ -46,7 +46,7 @@ $this->section('body'); // Start the body section
                         <td><?= $client['Address']; ?></td>
                         <td><?= $client['Gender']; ?></td>
                         <td><?= $client['Email']; ?></td>
-                        <td style="display: none"><?= $client['Password']; ?></td>
+                        <td><?= $client['Password']; ?></td>
                         <td><?= $client['RegisteredDate']; ?></td>
                         <td><?= $client['types_of_workout']; ?></td>
                         <td><?= $client['Membesrship_plan']; ?></td>

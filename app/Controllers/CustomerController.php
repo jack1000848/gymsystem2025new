@@ -171,7 +171,7 @@ class CustomerController extends BaseController
         'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
         'types_of_workout'   => $this->request->getPost('tworkout'), 
        // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
-        'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
+        'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
         'WorkoutTypeID'    => null,                // Adjusted field name
         'CurrentPlanID'    => null,                   // Adjusted field name
               
@@ -274,7 +274,7 @@ Thank you for signing up! To complete your registration and verify your email ad
         'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
         'types_of_workout'   => $this->request->getPost('tworkout'), 
        // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
-        'Membesrship_plan'   => $this->request->getPost('plans'),    
+        'Membership_plan'   => $this->request->getPost('plans'),    
         
     ];
 
@@ -283,7 +283,7 @@ Thank you for signing up! To complete your registration and verify your email ad
         !$data['Firstname'] || !$data['Lastname'] ||
         !$data['Address'] || !$data['password_hash'] || !$data['Gender'] ||
         !$data['RegisteredDate'] || !$data['types_of_workout']  ||
-        !$data['Email'] || !$data['Membesrship_plan'] 
+        !$data['Email'] || !$data['Membership_plan'] 
         
     ) {
         return $this->response->setJSON([
@@ -361,7 +361,7 @@ public function updaterenew($id)
         'RegisteredDate' => $this->request->getPost('dateofregistration'),
         
         'types_of_workout' => $this->request->getPost('tworkout'),
-        'Membesrship_plan' => $this->request->getPost('plans'),
+        'Membership_plan' => $this->request->getPost('plans'),
         ///'amount' => $this->request->getPost('amount'),
     ];
 

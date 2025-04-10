@@ -644,6 +644,7 @@ $('#renewPlans').on('change', function () {
             const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
             $('#coach').empty();
             $("#priceInput").val(data.Price);
+            console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
                 $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
@@ -775,6 +776,8 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
+        $("#priceInput").val(data.Price);
+
 
         data.forEach(coach => {
             let selected = (coach.coachID == selectedCoachId) ? "selected" : "";

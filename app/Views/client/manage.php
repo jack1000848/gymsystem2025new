@@ -139,28 +139,28 @@
       <div class="mb-3">
       <input type="hidden" id="editid" name="CoachID">
          <label for="editClients1Fname" class="form-label">First Name</label>
-              <input type="text" id="editClients1Fname" class="form-control" name="clientFirst" required>
+              <input type="text" id="editClients1Fname" class="form-control" name="Firstname" required>
     </div>
      
     <div class="mb-3">
          <label for="editClients1lname" class="form-label">Last Name</label>
-             <input type="text" id="editClients1lname" class="form-control" name="clientLast"required>
+             <input type="text" id="editClients1lname" class="form-control" name="Lastname"required>
 </div>
 
 <div class="mb-3">
         <label for="editpassword" class="form-label">Password</label>
-        <input type="text" id="editpassword" class="form-control" name="password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
+        <input type="text" id="editpassword" class="form-control" name="Password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
 
     </div>
 
     <div class="mb-3">
          <label for="editaddress" class="form-label">Address</label>
-              <input type="text" id="editaddress" class="form-control" name="clientAdress"required>
+              <input type="text" id="editaddress" class="form-control" name="Address"required>
     </div> 
 
     <div class="mb-3">
          <label for="editemail" class="form-label">Email</label>
-              <input type="text" id="editemail" class="form-control" name="clientEmail"required>
+              <input type="text" id="editemail" class="form-control" name="Email"required>
     </div> 
 
     

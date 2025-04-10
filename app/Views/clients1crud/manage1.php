@@ -46,7 +46,7 @@ $this->section('body'); // Start the body section
                         <td><?= $client['Address']; ?></td>
                         <td><?= $client['Gender']; ?></td>
                         <td><?= $client['Email']; ?></td>
-                        <td><?= $client['Password']; ?></td>
+                        <td><?= $client['password_hash']; ?></td>
                         <td><?= $client['RegisteredDate']; ?></td>
                         <td><?= $client['types_of_workout']; ?></td>
                         <td><?= $client['Membesrship_plan']; ?></td>

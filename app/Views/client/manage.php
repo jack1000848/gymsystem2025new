@@ -103,7 +103,7 @@
     </div> 
 <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="text" class="form-control" name="password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
+        <input type="text" class="form-control" name="password" required>
 
     </div>
 

@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\LoginCoachModel;
-
+use App\Models\CreateMemberModel;
     class LoginCoachController extends BaseController
 {
 

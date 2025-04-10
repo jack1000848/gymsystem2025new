@@ -45,7 +45,7 @@
         <td><?= $coach['Firstname']; ?></td>
         <td><?= $coach['Lastname']; ?></td>
         <td><?= $coach['Password']; ?></td>
-        <td></td>
+        <td><?= $coach['Address']; ?></td>
         <td><?= $coach['Email']; ?></td>
         <<td><img id="qrCodeImage<?= $coach['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
         <td>

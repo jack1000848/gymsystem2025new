@@ -116,10 +116,10 @@ class CoachController extends BaseController
     // Get the input data from the request (this is assuming you're sending POST data)
     $data = [
        /// 'CoachID' => $this->request->getPost('clientFirst'),
-        'Firstname' => $this->request->getPost('clientFirst'),
+        'Firstname' => $this->request->getPost('Firstname'),
         'Lastname' => $this->request->getPost('Lastname'),
         'Email' => $this->request->getPost('Email'),
-        'Password_hash' => $this->request->getPost('Password_hash'),
+        'Password_hash' => $this->request->getPost('Password'),
         'Address' => $this->request->getPost('Address'),
         
     ];

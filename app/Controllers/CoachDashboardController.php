@@ -194,22 +194,32 @@ public function accountSettings()
     $session = session();
     $coachID = $session->get('CoachID');
 
+    $firstname = $this->request->getPost('firstname');
+    $lastname = $this->request->getPost('lastname');
     $email = $this->request->getPost('email');
     $password = $this->request->getPost('password');
 
-    $data = ['email' => $email];
+    $data = [
+        'Firstname' => $firstname,
+        'Lastname'  => $lastname,
+        'Email'     => $email,
+    ];
 
-    // Optional password update
     if (!empty($password)) {
-        $data['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+        $data['PasswordHash'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    // Check if $data has at least one value to update
+    if (empty($data)) {
+        return redirect()->back()->with('error', 'There is no data to update.');
     }
 
     $model = new CoachModel();
     $model->update($coachID, $data);
 
     return redirect()->back()->with('success', 'Account updated successfully.');
-
 }
+
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()
     {

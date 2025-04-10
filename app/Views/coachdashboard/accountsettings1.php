@@ -23,13 +23,13 @@
     <?= csrf_field() ?>
     
     <label for="name">First Name:</label>
-    <br><input type="text" name="Firstname" value="<?= esc($user['Firstname']) ?>" required> </br>
+    <br><input type="text" name="firstname" value="<?= esc($user['Firstname']) ?>" required></br>
 
     <label for="name">Last Name:</label>
-    <input type="text" name="Lastname" value="<?= esc($user['Lastname']) ?>" required>
+    <input type="text" name="lastname" value="<?= esc($user['Lastname']) ?>" required>
 
     <label for="email">Email:</label>
-    <input type="email" name="Email" value="<?= esc($user['Email']) ?>" required>
+    <input type="email" name="email" value="<?= esc($user['Email']) ?>" required>
 
     <label for="password">New Password (Leave blank if not changing):</label>
     <input type="password" name="password">

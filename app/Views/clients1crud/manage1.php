@@ -49,7 +49,7 @@ $this->section('body'); // Start the body section
                         <td><?= $client['password_hash']; ?></td>
                         <td><?= $client['RegisteredDate']; ?></td>
                         <td><?= $client['types_of_workout']; ?></td>
-                        <td><?= $client['Membesrship_plan']; ?></td>
+                        <td><?= $client['Membership_plan']; ?></td>
                         <td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
@@ -804,7 +804,7 @@ async function renewUpdate() {
         types_of_workout: $("#editTworkout").val().trim(),
         amount: $("#editAmount").val().trim(),
         duration: $("#editDuration").val().trim(),
-        Membesrship_plan: $("#editPlanSelect").val(), // Include the plan
+        Membership_plan: $("#editPlanSelect").val(), // Include the plan
         coach: $("#editCoach").val() // Include the coach
     };
       if  (!clientData.amount || !clientData.duration || !clientData.plan) {

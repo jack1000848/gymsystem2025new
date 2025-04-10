@@ -84,7 +84,7 @@ public function sendResetLink()
     $emailService->setTo($email);
     $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
     $emailService->setSubject('Password Reset Request');
-    $emailService->setMessage("Hi, Click the link to reset your password: <a href='" . base_url("reset-password/$token") . "'>Reset Password</a>");
+    $emailService->setMessage("Hi, Click the link to reset your Coach password: <a href='" . base_url("reset-password/$token") . "'>Reset Password</a>");
    
     if ($emailService->send()) {
         return redirect()->back()->with('success', 'Reset link sent. Check your email.');

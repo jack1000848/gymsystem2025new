@@ -102,34 +102,28 @@ class CreateMemberController extends BaseController
             'verification_token' => $token,
             'is_verified' => 0
 
-        ];
-        
+         ];
+         
 
         
 
-        if ($insertClients->save($data)) {
-
-
+         if ($insertClients->insert($data)) {
             $customerId = $insertClients->getInsertID();
-
-            // Retrieve schedule IDs and coach ID
-            $scheduleIds = $this->request->getPost('coachsched'); // This should be an array
+    
+            $scheduleIds = $this->request->getPost('coachsched'); 
             $coachId = $this->request->getPost('coach');
-        
-            // Update the CoachSched table for each selected schedule
+    
             if (!empty($scheduleIds) && !empty($coachId)) {
                 $db = \Config\Database::connect();
                 $builder = $db->table('CoachSched');
-        
+    
                 foreach ($scheduleIds as $schedId) {
                     $builder->where('CoachID', $coachId)
                             ->where('ID', $schedId)
                             ->update(['CustomerID' => $customerId]);
                 }
             }
-                
-
-            // Send verification email
+    
             $this->sendVerificationEmail($data['Email'], $token);
     
             session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
@@ -137,8 +131,8 @@ class CreateMemberController extends BaseController
         } else {
             session()->setFlashdata('error', 'Failed to register.');
             return redirect()->back();
-        
-        } }
+        }
+    }
     
         private function sendVerificationEmail($email, $token)
         {

@@ -233,11 +233,11 @@
             const coach = res.data;
 
           $("#editid").val(coach.CoachID);
-            $("#editClients1Fname").val(coach.firstname);
+            $("#editClients1Fname").val(coach.Firstname);
           //  $("#lname").val((coach.Middlename)(2));
             $("#editClients1lname").val(coach.Lastname);
             $("#editemail").val(coach.Email)
-            $("#editpassword").val(coach.password_hash)
+            $("#editpassword").val(coach.Password)
             //$("#cprofile").val(coach.RegisteredDate)
             //0$("#eqQuantity").val(coach.Status)
             $("#editaddress").val(coach.Address)

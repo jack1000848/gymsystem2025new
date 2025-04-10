@@ -95,7 +95,7 @@
             <!-- Coach Sched -->    
             <div class="mb-3" id="coachschedSelectDiv">
                                     <label for="coachsched" class="form-label">Select Schedules</label>
-                                    <select id="coachsched" class="form-control" multiple name="coachsched" required>
+                                    <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
                                         <option value="">Select a Coach</option>
                                     </select>
             </div>

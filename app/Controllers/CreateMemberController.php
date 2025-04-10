@@ -94,7 +94,7 @@ class CreateMemberController extends BaseController
             'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
            /// 'GymTimeSlot'       => $this->request->getPost('timeslot'),
             'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
-            'Membesrship_plan'   => $this->request->getPost('plans'),      // Adjusted field name
+            'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
             'WorkoutTypeID'    => null,                // Adjusted field name
             'CurrentPlanID'    => null,                   // Adjusted field name     
             'WorkoutPlanID'    =>  null, // Add if necessary

@@ -372,7 +372,7 @@
     if (isConfirmed) {
         try {
             const response = await $.ajax({
-                url: '<?= base_url('/coach/delete') ?>' + id,
+                url: '<?= base_url('/coach/delete/') ?>' + id,
                 type: 'DELETE', // Use POST instead of DELETE
                 data: { _method: 'DELETE' }, // Send _method override
                 success: function(response) {

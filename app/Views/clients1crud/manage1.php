@@ -629,6 +629,7 @@ $('#renewPlans').on('change', function () {
     async function fetchPlans() {
         try {
             const data = await $.get("<?= base_url('/fetchPlans'); ?>");
+            console.log(data);
             $('#planSelect').empty();
             data.forEach(plan => {
                 $('#planSelect').append(`<option value="${plan.PlanID}">${plan.PlanName}</option>`);
@@ -649,7 +650,7 @@ $('#renewPlans').on('change', function () {
             console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
-                if(coach.CoachID === null || coach.CoachID === undefined) continue;
+                console.log(coach);
                 $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
             });
         } catch (error) {

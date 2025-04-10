@@ -69,7 +69,7 @@ public function sendResetLink()
     // Generate reset token
     $token = bin2hex(random_bytes(50));
     $expiry = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
-
+    dd($userModel->where('CoachID', $user['CoachID'])->first());
     // Save token in the database
     $userModel->update($user['CoachID'], [
         'reset_token' => $token,

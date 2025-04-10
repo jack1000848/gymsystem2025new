@@ -100,26 +100,32 @@ class ClientsDashboardController extends BaseController
     {
         $session = session();
         $userID = $session->get('CustomerID');
-
+    
         $userModel = new CustomerModel();
         $user = $userModel->find($userID);
-
+    
         if (!$user) {
             return redirect()->to('/account-setting')->with('error', 'Unauthorized access.');
         }
-
-        $fname = $this->request->getPost('Firstname');
     
+        // Get all form inputs
+        $fname = $this->request->getPost('Firstname');
+        $lname = $this->request->getPost('Lastname');
+        $email = $this->request->getPost('Email');
         $password = $this->request->getPost('password');
-
-        $updateData = ['Firstname' => $fname];
-        
+    
+        // Build update array
+        $updateData = [
+            'Firstname' => $fname,
+            'Lastname' => $lname,
+            'Email'     => $email,
+        ];
+    
         // Only update password if provided
-
         if (!empty($password)) {
             $updateData['password_hash'] = password_hash($password, PASSWORD_BCRYPT);
         }
-
+    
         if ($userModel->update($userID, $updateData)) {
             return redirect()->to('/account-setting')->with('success', 'Account updated successfully.');
         } else {

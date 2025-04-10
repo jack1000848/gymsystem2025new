@@ -96,7 +96,11 @@
          <label for="exampleFormControlTextarea1" class="form-label">Last Name</label>
              <input type="text" class="form-control" name="clientLast"required>
 </div>
-
+<div class="mb-3">
+         <label for="exampleFormControlInput1" class="form-label">Email</label>
+              <input type="text" class="form-control" name="clientEmail"required>
+              <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
+    </div> 
 <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="text" class="form-control" name="password" value="<?= isset($clientPassword) ? $clientPassword : ''; ?>"required>
@@ -108,11 +112,7 @@
               <input type="text" class="form-control" name="clientAdress"required>
     </div> 
 
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Email</label>
-              <input type="text" class="form-control" name="clientEmail"required>
-              <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
-    </div> 
+    
 
     
 

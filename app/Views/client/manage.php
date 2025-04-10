@@ -241,7 +241,7 @@
           //  $("#lname").val((coach.Middlename)(2));
             $("#editClients1lname").val(coach.Lastname);
             $("#editemail").val(coach.Email)
-            $("#editpassword").val(coach.Password)
+            $("#editpassword").val(coach.password_hash)
             //$("#cprofile").val(coach.RegisteredDate)
             //0$("#eqQuantity").val(coach.Status)
             $("#editaddress").val(coach.Address)
@@ -263,7 +263,7 @@
         CoachID: $("#editid").val().trim(),
         Firstname: $("#editClients1Fname").val().trim(),
         Lastname: $("#editClients1lname").val().trim(),
-        Password: $("#editpassword").val().trim(),
+        password_hash: $("#editpassword").val().trim(),
         Address: $("#editaddress").val().trim(),
         Email: $("#editemail").val().trim(),
         

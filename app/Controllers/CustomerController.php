@@ -185,7 +185,7 @@ class CustomerController extends BaseController
      
 
         $insertClients->insert($data);
-        $insertClients->insert($data);
+       
     $customerId = $insertClients->getInsertID();
 
     // Retrieve schedule IDs and coach ID

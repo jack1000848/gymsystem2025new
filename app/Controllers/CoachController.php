@@ -119,7 +119,7 @@ class CoachController extends BaseController
         'Firstname' => $this->request->getPost('Firstname'),
         'Lastname' => $this->request->getPost('Lastname'),
         'Email' => $this->request->getPost('Email'),
-        'password_hash'=>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
+        'password_hash'=>  password_hash($this->request->getPost('passwords'), PASSWORD_BCRYPT), // Hash the password
         'Address' => $this->request->getPost('Address'),
         
     ];

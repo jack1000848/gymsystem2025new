@@ -152,7 +152,7 @@
     </div> 
 <div class="mb-3">
         <label for="editpassword" class="form-label">Password</label>
-        <input type="text" id="editpassword" class="form-control" name="password" required>
+        <input type="text" id="editpassword" class="form-control" name="passwords" required>
 
     </div>
 
@@ -237,7 +237,7 @@
           //  $("#lname").val((coach.Middlename)(2));
             $("#editClients1lname").val(coach.Lastname);
             $("#editemail").val(coach.Email)
-            $("#editpassword").val(coach.Password)
+            $("#editpassword").val(coach.passwords)
             //$("#cprofile").val(coach.RegisteredDate)
             //0$("#eqQuantity").val(coach.Status)
             $("#editaddress").val(coach.Address)

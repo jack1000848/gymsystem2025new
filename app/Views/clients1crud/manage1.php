@@ -29,7 +29,7 @@ $this->section('body'); // Start the body section
                     <th>Address</th>
                     <th>Gender</th>
                     <th>Email Address</th>
-                    <th>Password</th>
+                    <th style="display:none;">Password</th>
                     <th>Register Date</th>
                     <th>Types of Workout</th>
                     <th>Membership Plan</th>

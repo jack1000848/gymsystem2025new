@@ -102,12 +102,12 @@
 
         <div class="mb-3">
             <label for="amount" class="form-label">Total Amount</label>
-         <input type="text" id="priceInput" class="form-control" name="amount" readonly>
+            <input type="text" id="priceInput" readonly disabled class="form-control" name="amount" readonly>
         </div>
 
     <div class="mb-3">
         <label for ="duration" class="form-label">Duration </label>
-        <input type="number" class="form-control" name="duration"required>
+        <input type="number" id="duration" readonly disabled class="form-control" name="duration" required>
    </div>
 
 
@@ -184,9 +184,14 @@
         try {                          
             const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
             $('#coach').empty();
+            $("#priceInput").val(data[0].Price);
+            $("#duration").val(data[0].Duration);
+
+            console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {
-                $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
+                if(coach.CoachID !== null)
+                    $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
             });
         } catch (error) {
             console.error("Error fetching coaches:", error);

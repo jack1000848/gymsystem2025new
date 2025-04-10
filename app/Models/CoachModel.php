@@ -14,7 +14,7 @@ class CoachModel extends Model
     protected $protectFields    = true;
     protected $allowedFields = [
         'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password','password_hash' ,
-        'RegisteredDate', 'number', 'Email', 'Status', 'Avatar'
+        'RegisteredDate','Address', 'number', 'Email', 'Status', 'Avatar'
     ];
     
     

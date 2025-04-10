@@ -186,7 +186,23 @@ class CustomerController extends BaseController
 
         $insertClients->insert($data);
        
-    
+    $customerId = $insertClients->getInsertID();
+
+    // Retrieve schedule IDs and coach ID
+    $scheduleIds = $this->request->getPost('coachsched'); // This should be an array
+    $coachId = $this->request->getPost('coach');
+
+    // Update the CoachSched table for each selected schedule
+    if (!empty($scheduleIds) && !empty($coachId)) {
+        $db = \Config\Database::connect();
+        $builder = $db->table('CoachSched');
+
+        foreach ($scheduleIds as $schedId) {
+            $builder->where('CoachID', $coachId)
+                    ->where('ID', $schedId)
+                    ->update(['CustomerID' => $customerId]);
+        }
+    }
         {
             // Send verification email
             $this->sendVerificationEmail($data['Email'], $token);

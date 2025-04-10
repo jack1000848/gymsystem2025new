@@ -146,7 +146,10 @@
          <label for="editClients1lname" class="form-label">Last Name</label>
              <input type="text" id="editClients1lname" class="form-control" name="Lastname"required>
 </div>
-
+<div class="mb-3">
+         <label for="editemail" class="form-label">Email</label>
+              <input type="text" id="editemail" class="form-control" name="Email"required>
+    </div> 
 <div class="mb-3">
         <label for="editpassword" class="form-label">Password</label>
         <input type="text" id="editpassword" class="form-control" name="Password" required>
@@ -157,13 +160,6 @@
          <label for="editaddress" class="form-label">Address</label>
               <input type="text" id="editaddress" class="form-control" name="Address"required>
     </div> 
-
-    <div class="mb-3">
-         <label for="editemail" class="form-label">Email</label>
-              <input type="text" id="editemail" class="form-control" name="Email"required>
-    </div> 
-
-    
 
       </div>
       <div class="modal-footer">

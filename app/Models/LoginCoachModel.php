@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class LoginCoachModel extends Model
 {
     protected $table            = 'coach';
-    protected $primaryKey       = 'coachid';
+    protected $primaryKey       = 'CoachID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'Password', 
-        'RegisteredDate', 'number', 'Email', 'Status', 'Avatar'
+        'CoachID', 'Firstname', 'Middlename', 'Lastname', 'password_hash', 
+        'RegisteredDate','Status', 'Email', 'Status', 'Avatar','reset_token', 'reset_token_expires'
     ];
     
     public function getUserByEmail1($email)

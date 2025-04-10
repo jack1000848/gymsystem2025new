@@ -63,7 +63,7 @@ public function sendResetLink()
     $user = $userModel->where('Email', $email)->first();
 
     if (!$user) {
-        return redirect()->to('/forgot-password')->with ('error', 'Email not found.');
+        return redirect()->to('/coach-forgot-password')->with ('error', 'Email not found.');
     }
 
     // Generate reset token
@@ -84,7 +84,7 @@ public function sendResetLink()
     $emailService->setTo($email);
     $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
     $emailService->setSubject('Password Reset Request');
-    $emailService->setMessage("Hi, Click the link to reset your Coach password: <a href='" . base_url("reset-password/$token") . "'>Reset Password</a>");
+    $emailService->setMessage("Hi, Click the link to reset your Coach Password: <a href='" . base_url("coach-reset-password/$token") . "'>Reset Password</a>");
    
     if ($emailService->send()) {
         return redirect()->back()->with('success', 'Reset link sent. Check your email.');
@@ -101,10 +101,10 @@ public function sendResetLink()
     $user = $userModel->where('reset_token', $token)->first();
 
     if (!$user || strtotime($user['reset_token_expires']) < time()) {
-        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
+        return redirect()->to('/coach-forgot-password')->with('error', 'Invalid or expired reset link.');
 }
 
-    return view('member_resetpassword/resetpassword', ['token' => $token]);
+    return view('member_resetpassword/coach-reset-password', ['token' => $token]);
 }
 ///public function showResetForm($token)
 ///{   
@@ -131,12 +131,12 @@ public function resetPassword()
 
     if (!$user) {
         log_message('error', 'User not found for token: ' . $token);
-        return redirect()->to('/forgot-password')->with('error', 'Invalid or expired reset link.');
+        return redirect()->to('/coach-forgot-password')->with('error', 'Invalid or expired reset link.');
     }
 
     if (strtotime($user['reset_token_expires']) < time()) {
         log_message('error', 'Token expired for user ID: ' . $user['CoachID']);
-        return redirect()->to('/forgot-password')->with('error', 'Expired reset link.');
+        return redirect()->to('/coach-forgot-password')->with('error', 'Expired reset link.');
     }
 
     // Hash the new password
@@ -152,10 +152,10 @@ public function resetPassword()
 
     if ($userModel->update($user['CoachID'], $updateData)) {
         log_message('debug', 'Password updated successfully for user ID: ' . $user['CoachID']);
-        return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
+        return redirect()->to('/coach-login')->with('success', 'Password reset successfully.');
     } else {
         log_message('error', 'Password update failed for user ID: ' . $user['CoachID']);
-        return redirect()->to('/forgot-password')->with('error', 'Something went wrong. Try again.');
+        return redirect()->to('/coach-forgot-password')->with('error', 'Something went wrong. Try again.');
     }
 }
     

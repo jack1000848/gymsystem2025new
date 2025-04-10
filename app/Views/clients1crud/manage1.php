@@ -661,14 +661,13 @@ $('#renewPlans').on('change', function () {
             const client = res.data;
 
             $("#editClientId").val(client.CustomerID);
-            $("#editGymcode").val(client.gym_code);
             $("#editClients1Fname").val(client.Firstname);
             $("#editClients1Lname").val(client.Lastname);
             $("#editClients1Emailaddress").val(client.Email);
            /// $("#editPassword").val(client.Password);
             $("#editGender").val(client.Gender);
             $("#editDateofregistration").val(client.RegisteredDate);
-            $("#editTworkout").val(client.workout_type);
+            $("#editTworkout").val(client.types_of_workout);
             $("#editPlans").val(client.plans);
             $("#editAmount").val(parseFloat(client.amount).toFixed(2));
             $("#editDuration").val(client.duration);

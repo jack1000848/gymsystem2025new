@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>New Password</title>
     <style>
         /* General body styling */
         body {
@@ -28,15 +28,18 @@
             text-align: center;
         }
 
-        /* Headings */
-        h2 {
+        /* Flash message */
+        .alert {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
             margin-bottom: 10px;
         }
 
-        p {
-            color: #555;
-            font-size: 14px;
-            margin-bottom: 15px;
+        /* Headings */
+        h2 {
+            margin-bottom: 10px;
         }
 
         /* Input field */
@@ -48,6 +51,13 @@
             border-radius: 5px;
             font-size: 16px;
             box-sizing: border-box;
+        }
+
+        /* Label */
+        label {
+            font-size: 14px;
+            text-align: left;
+            display: block;
         }
 
         /* Submit button */
@@ -84,7 +94,7 @@
                 font-size: 18px;
             }
 
-            p {
+            label {
                 font-size: 12px;
             }
 
@@ -103,11 +113,21 @@
 <body>
 
     <div class="container">
-        <h2>Forgot Password</h2>
-        <p>Enter your email to receive a reset link.</p>
-        <form action="<?= base_url('coach-forgot-password') ?>" method="post">
-            <input type="email" name="email" required placeholder="Enter your email">
-            <button type="submit">Send Reset Link</button>
+        <h2>Enter Your New Password</h2>
+
+        <?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?> 
+
+        <form action="<?= base_url('coach-reset-password') ?>" method="POST">
+            <input type="hidden" name="token" value="<?= $token ?>">
+            
+            <label>New Password:</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Update Password</button>
         </form>
     </div>
 

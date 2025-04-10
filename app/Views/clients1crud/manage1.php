@@ -643,7 +643,7 @@ $('#renewPlans').on('change', function () {
         try {                          
             const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
             $('#coach').empty();
-            $("#priceInput").val(data.Price);
+            $("#priceInput").val(data[0].Price);
             console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {

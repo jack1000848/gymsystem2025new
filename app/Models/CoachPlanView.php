@@ -15,7 +15,7 @@ class CoachPlanView extends Model
     
     // Define the fields you will be fetching from the view
     protected $allowedFields    = [
-        'PlanID', 'CoachID', 'FullName', 'Price'  // Include fields that exist in the view
+        'PlanID', 'CoachID', 'FullName', 'Price', 'Duration'  // Include fields that exist in the view
     ];
     
     // Since you're only fetching data, you don't need insert/save logic

@@ -175,7 +175,7 @@ $this->section('body'); // Start the body section
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="duration" class="form-label">Duration</label>
-                        <input type="number" class="form-control" name="duration" required>
+                        <input type="number" id="duration" class="form-control" name="duration" required>
                     </div>
 
                     <!-- Submit Button -->
@@ -644,6 +644,8 @@ $('#renewPlans').on('change', function () {
             const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
             $('#coach').empty();
             $("#priceInput").val(data[0].Price);
+            $("#duration").val(data[0].Duration);
+
             console.log(data.Price);
             $('#coach').append('<option value="">Select a Coach</option>');
             data.forEach(coach => {

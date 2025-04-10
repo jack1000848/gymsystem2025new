@@ -56,7 +56,7 @@ public function forgotPassword()
 }
 
 public function sendResetLink()
-{dd('Controller reached!');
+{
     $email = $this->request->getPost('email');
 
     $userModel = new CreateMemberModel();

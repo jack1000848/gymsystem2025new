@@ -56,39 +56,41 @@ public function forgotPassword()
 }
 
 public function sendResetLink()
-{
+{dd('Controller reached!');
     $email = $this->request->getPost('email');
+
     $userModel = new CreateMemberModel();
     $user = $userModel->where('Email', $email)->first();
 
     if (!$user) {
-        return redirect()->to('/coach-forgot-password')->with('error', 'Email not found.');
+        return redirect()->to('/coach-forgot-password')->with ('error', 'Email not found.');
     }
 
+    // Generate reset token
     $token = bin2hex(random_bytes(50));
-    $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
+    $expiry = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
 
+    // Save token in the database
     $userModel->update($user['CoachID'], [
         'reset_token' => $token,
         'reset_token_expires' => $expiry
     ]);
 
-    log_message('debug', 'Generated token: ' . $token);
+    
 
     $emailService = service('email');
     $emailService->setTo($email);
     $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
     $emailService->setSubject('Password Reset Request');
     $emailService->setMessage("Hi, Click the link to reset your Coach Password: <a href='" . base_url("coach-reset-password/$token") . "'>Reset Password</a>");
-
+   
     if ($emailService->send()) {
         return redirect()->back()->with('success', 'Reset link sent. Check your email.');
+
     } else {
-        log_message('error', 'Email sending failed: ' . print_r($emailService->printDebugger(), true));
-        return redirect()->to('/coach-forgot-password')->with('error', 'Failed to send email.');
+        return redirect()->to()->with('error', 'Failed to send email.');
     }
 }
-
 
 
    public function showResetForm($token)

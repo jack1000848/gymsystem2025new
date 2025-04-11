@@ -93,49 +93,37 @@ class Admin extends BaseController
 
     }
     private function getMonthlyCheckins()
-{
-    $db = \Config\Database::connect();
-    $data = [];
-    $checkinData = [];
-
-    // Example data for illustration
-    $totalCheckins = 0; // Initialize total check-ins count
-
-    // Loop through the last 5 months
-    for ($i = 4; $i >= 0; $i--) {
-        // Get the current date
-        $monthStart = Time::now()->subMonths($i);
-        
-        // Set the start of the month using modify()
-        $monthStart->modify('first day of this month');
-        
-        // Set the end of the month using modify()
-        $monthEnd = clone $monthStart;
-        $monthEnd->modify('last day of this month');
-
-        // Example: Add logic to fetch check-ins for the month
-        $checkinsThisMonth = rand(80, 180); // Replace with your actual logic
-
-        // Push data into the chart data array
-        $checkinData[] = [
-            'Month' => $monthStart->format('F Y'),
-            'Check-ins' => $checkinsThisMonth
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('viewcustomerattendance'); // Use your actual view/table
+        $checkinData = [];
+        $totalCheckins = 0;
+    
+        // Header for Google Charts
+        $data = [['Month', 'Check-ins']];
+    
+        for ($i = 4; $i >= 0; $i--) {
+            $monthStart = Time::now()->subMonths($i)->modify('first day of this month')->setTime(0, 0, 0);
+            $monthEnd = Time::now()->subMonths($i)->modify('last day of this month')->setTime(23, 59, 59);
+    
+            // Count check-ins in this month
+            $builder->resetQuery(); // Clear any previous query state
+            $builder->where('CheckIn >=', $monthStart->toDateTimeString());
+            $builder->where('CheckIn <=', $monthEnd->toDateTimeString());
+    
+            $checkinCount = $builder->countAllResults();
+            $monthLabel = $monthStart->format('F Y');
+    
+            $data[] = [$monthLabel, $checkinCount];
+            $totalCheckins += $checkinCount;
+        }
+    
+        return [
+            'data' => $data,
+            'total' => $totalCheckins
         ];
-
-        // Accumulate total check-ins
-        $totalCheckins += $checkinsThisMonth;
-    }
-    $data = [['Month', 'Check-ins']]; // Add header row
-
-    foreach ($checkinData as $row) {
-        $data[] = [$row['Month'], $row['Check-ins']];
     }
     
-    return [
-        'data' => $data,
-        'total' => $totalCheckins
-    ];
-}
 
     
 

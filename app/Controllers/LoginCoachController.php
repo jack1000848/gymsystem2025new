@@ -74,7 +74,7 @@ public function sendResetLink()
         'reset_token_expires' => $expiry
     ]);
 
-    $resetLink = base_url("coach-reset-password/$token");
+    $resetLink = base_url("coachresetpass/$token");
 
     $emailService = service('email');
     $emailService->setTo($email);

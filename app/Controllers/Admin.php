@@ -125,7 +125,16 @@ class Admin extends BaseController
         // Accumulate total check-ins
         $totalCheckins += $checkinsThisMonth;
     }
+    $data = [['Month', 'Check-ins']]; // Add header row
 
+    foreach ($checkinData as $row) {
+        $data[] = [$row['Month'], $row['Check-ins']];
+    }
+    
+    return [
+        'data' => $data,
+        'total' => $totalCheckins
+    ];
     // Return the data in the required structure
     return [
         'data' => $checkinData,  // Chart data

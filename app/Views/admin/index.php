@@ -169,7 +169,7 @@
     <div class="card-title">Monthly Check-in Report</div>
     <div id="checkin_bar_chart"></div>
     <div id="checkin_total"></div>
-    <div id="checkin_bar_chart" style="height: 400px;"></div>
+
 </div>
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">

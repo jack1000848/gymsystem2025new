@@ -114,7 +114,7 @@ class Admin extends BaseController
         
         return $data;
     }
-    }
+    
 
     public function index1()
     {

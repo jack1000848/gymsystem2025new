@@ -89,7 +89,7 @@
             legend: { position: 'right', textStyle: { fontSize: 13 } },
             backgroundColor: 'transparent',
             chartArea: {
-                width: '100%',
+                width: '150%',
                 height: '80%'
             }
         };

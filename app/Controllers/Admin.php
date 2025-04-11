@@ -53,17 +53,10 @@ class Admin extends BaseController
             'male' => $maleCount,
             'female' => $femaleCount,
         ];
-        ////coach client chart
-        $coachModel = new CoachModel();
-        $clientModel = new CustomerModel();
-
-        $coachCount = $coachModel->countAll();
-        $clientCount = $clientModel->countAll();
-        
-        [
-            'coachCount' => $coachCount,
-            'clientCount' => $clientCount
-        ];
+       
+        // For chart
+         $data['coachCount'] = $totalCoach;
+         $data['clientCount'] = $totalClient;
 
         // Call the private function using $this
         $totalClient = $this->getCount('coach');

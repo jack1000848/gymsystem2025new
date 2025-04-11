@@ -136,8 +136,39 @@
         });
     }
 
+    //// this is the flowchart attendance
+    function drawCheckinChart() {
+        // Use the data passed from the controller
+        const monthlyData = <?php echo json_encode($monthlyCheckinData['data']); ?>;
+        const totalCheckins = <?php echo json_encode($monthlyCheckinData['total']); ?>;
+
+        const data = google.visualization.arrayToDataTable(monthlyData);
+
+        const options = {
+            hAxis: { title: 'Month' },
+            vAxis: { title: 'Check-ins' },
+            colors: ['#28a745'],
+            legend: 'none',
+            backgroundColor: 'transparent'
+        };
+
+        const chart = new google.visualization.ColumnChart(document.getElementById('checkin_bar_chart'));
+        chart.draw(data, options);
+
+        window.addEventListener('resize', () => {
+            chart.draw(data, options);
+        });
+
+        // Show total check-ins below the chart
+        document.getElementById('checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Check-ins: <strong>${totalCheckins}</strong></h4>`;
+    }
 
 </script>
+<div class="card">
+    <div class="card-title">Monthly Check-in Report</div>
+    <div id="checkin_bar_chart"></div>
+    <div id="checkin_total"></div>
+</div>
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">
     <!-- Role Distribution Chart -->

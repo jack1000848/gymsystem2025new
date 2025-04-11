@@ -54,6 +54,9 @@ class Admin extends BaseController
             'female' => $femaleCount,
         ];
        
+        
+        // bar chart for attendnce
+        $data['monthlyCheckinData'] = $this->getMonthlyCheckins();
         // For chart
         $coachModel = new CoachModel();
         $clientModel = new CustomerModel();
@@ -88,6 +91,32 @@ class Admin extends BaseController
         
 
     }
+    private function getMonthlyCheckins()
+{
+    $db = \Config\Database::connect();
+    $data = [];
+
+    // Loop through the last 5 months
+    for ($i = 4; $i >= 0; $i--) {
+        $monthStart = now()->subMonths($i)->startOfMonth();
+        $monthEnd = $monthStart->endOfMonth();
+
+        // Count only CheckIn records
+        $count = $db->table('attendance')
+            ->where('type', 'CheckIn')
+            ->where('created_at >=', $monthStart->toDateTimeString())
+            ->where('created_at <=', $monthEnd->toDateTimeString())
+            ->countAllResults();
+
+        $label = $monthStart->format('M Y');
+        $data[] = [$label, $count];
+    }
+
+    return [
+        'data' => array_merge([['Month', 'Check-ins']], $data),
+        'total' => array_sum(array_column($data, 1)),
+    ];
+}
     public function index1()
     {
         $model = new AttendanceLogModel();

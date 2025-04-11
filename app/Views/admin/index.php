@@ -82,12 +82,17 @@ function drawChart() {
     ]);
 
     var options = {
-        title: 'Gender Distribution',
-        pieHole: 0.4,
-        colors: ['#dc3912', '#3366cc'],
-        pieSliceText: 'percentage',
-        legend: { position: 'right', textStyle: { fontSize: 13 } }
-    };
+    title: 'Gender Distribution',
+    pieHole: 0.4,
+    colors: ['#dc3912', '#3366cc'],
+    pieSliceText: 'percentage',
+    legend: { position: 'right', textStyle: { fontSize: 13 } },
+    backgroundColor: 'transparent', // removes the white bg
+    chartArea: {
+        width: '90%',
+        height: '90%'
+    }
+};
 
     var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
     chart.draw(data, options);

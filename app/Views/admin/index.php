@@ -66,11 +66,11 @@
 
       
     
+     
+        <!--eto yung list of database  na na scan sa right side-->
 
-<!--eto yung list of database  na na scan sa right side-->
 
-
-</body>
+    </body>
                         </div> <!-- /.Start col -->
                     </div> <!-- /.row (main row) -->
                 </div> <!--end::Container-->
@@ -78,3 +78,40 @@
 
 
 <?php $this->endSection(); ?> 
+<!-- Load Google Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Gender', 'Count'],
+        ['Male', <?= $male ?>],
+        ['Female', <?= $female ?>]
+    ]);
+
+    var options = {
+        title: 'Gender Distribution',
+        pieHole: 0.4,
+        colors: ['#dc3912', '#3366cc'],
+        pieSliceText: 'percentage',
+        legend: { position: 'right', textStyle: { fontSize: 13 } }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
+    chart.draw(data, options);
+}
+</script>
+
+<!-- Donut chart container -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h5 class="card-title text-center">Gender Chart</h5>
+                <div id="donut_chart" style="width: 100%; height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>

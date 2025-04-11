@@ -89,7 +89,7 @@
             legend: { position: 'right', textStyle: { fontSize: 13 } },
             backgroundColor: 'transparent',
             chartArea: {
-                width: '150%',
+                width: '100%',
                 height: '80%'
             }
         };
@@ -110,7 +110,7 @@
         <div class="card shadow-sm p-3 mb-5 bg-white rounded">
             <div class="card-body">
                 <h5 class="card-title text-center">Gender Chart</h5>
-                <div id="donut_chart" style="width: 150%; height: 350px;"></div>
+                <div id="donut_chart" style="width: 120%; height: 350px;"></div>
             </div>
         </div>
     </div>

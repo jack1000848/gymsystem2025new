@@ -55,6 +55,11 @@ class Admin extends BaseController
         ];
        
         // For chart
+        $coachModel = new CoachModel();
+        $clientModel = new CustomerModel();
+
+        $coachCount = $coachModel->countAll();
+        $clientCount = $clientModel->countAll();
          $data['coachCount'] = $totalCoach;
          $data['clientCount'] = $totalClient;
 

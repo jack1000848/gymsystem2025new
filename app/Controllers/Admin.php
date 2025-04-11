@@ -5,7 +5,7 @@ use Config\Database;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
 use App\Models\GenderChartModel;
-use CodeIgniter\I18n\Time; // <-- Add this import
+use CodeIgniter\I18n\Time; // <-- Make sure this is imported
 
 
 class Admin extends BaseController
@@ -99,14 +99,21 @@ class Admin extends BaseController
         
         // Loop through the last 5 months
         for ($i = 4; $i >= 0; $i--) {
-            // Ensure you're using the Time class properly
-            $monthStart = Time::now()->subMonths($i)->startOfMonth();
-            $monthEnd = $monthStart->endOfMonth();
+            // Get the current date
+            $monthStart = Time::now()->subMonths($i);
+            
+            // Set the start of the month using modify()
+            $monthStart->modify('first day of this month');
+            
+            // Set the end of the month using modify()
+            $monthEnd = clone $monthStart;
+            $monthEnd->modify('last day of this month');
             
             // Your logic to fetch the check-ins
         }
         
         return $data;
+    }
     }
 
     public function index1()

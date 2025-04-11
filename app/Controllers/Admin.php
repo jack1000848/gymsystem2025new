@@ -59,6 +59,7 @@ class Admin extends BaseController
 
         $coachCount = $coachModel->countAll();
         $clientCount = $clientModel->countAll();
+        
         [
             'coachCount' => $coachCount,
             'clientCount' => $clientCount

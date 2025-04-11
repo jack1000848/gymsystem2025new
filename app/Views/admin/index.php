@@ -109,7 +109,7 @@
 
     function drawRoleChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Role', 'Count'],
+            ['Role', 'Percentage'],
             ['Client', <?= $clientCount ?>],
             ['Coach', <?= $coachCount ?>]
         

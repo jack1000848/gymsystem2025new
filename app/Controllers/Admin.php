@@ -53,7 +53,16 @@ class Admin extends BaseController
             'male' => $maleCount,
             'female' => $femaleCount,
         ];
+        ////coach client chart
+        $coachModel = new CoachModel();
+        $clientModel = new CustomerModel();
 
+        $coachCount = $coachModel->countAll();
+        $clientCount = $clientModel->countAll();
+        [
+            'coachCount' => $coachCount,
+            'clientCount' => $clientCount
+        ];
 
         // Call the private function using $this
         $totalClient = $this->getCount('coach');
@@ -77,6 +86,8 @@ class Admin extends BaseController
         }
 
         return view('admin/index', $data);
+        
+
     }
     public function index1()
     {

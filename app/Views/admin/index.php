@@ -102,8 +102,53 @@
             chart.draw(data, options);
         });
     }
-</script>
+/////this is the fucking coach and client chart 
 
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawRoleChart);
+
+    function drawRoleChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Role', 'Count'],
+            ['Client', <?= $clientCount ?>],
+            ['Coach', <?= $coachCount ?>]
+        
+        ]);
+
+        var options = {
+            title: '',
+            pieHole: 0.4,
+            colors: ['#3366cc', '#dc3912', '#ff9900'],
+            pieSliceText: 'percentage',
+            legend: { position: 'right' },
+            backgroundColor: 'transparent',
+            chartArea: {
+                width: '100%',
+                height: '80%'
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('role_donut'));
+        chart.draw(data, options);
+
+        window.addEventListener('resize', function() {
+            chart.draw(data, options);
+        });
+    }
+
+
+</script>
+ <!-- Coach and Client chart container -->
+ <div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h5 class="card-title text-center">Role Distribution</h5>
+                <div id="role_donut" style="width: 100%; height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Donut chart container -->
 <div class="row mt-4">
     <div class="col-12 col-md-6">
@@ -115,6 +160,7 @@
         </div>
     </div>
 </div>
+
 
     </body>
                         </div> <!-- /.Start col -->

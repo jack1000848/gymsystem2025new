@@ -60,8 +60,8 @@ class Admin extends BaseController
 
         $coachCount = $coachModel->countAll();
         $clientCount = $clientModel->countAll();
-         $data['coachCount'] = $totalCoach;
-         $data['clientCount'] = $totalClient;
+         $data['coachCount'] = $coachCount;
+         $data['clientCount'] = $clientCount;
 
         // Call the private function using $this
         $totalClient = $this->getCount('coach');

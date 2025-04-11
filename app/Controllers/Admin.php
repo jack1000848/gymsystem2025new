@@ -42,6 +42,17 @@ class Admin extends BaseController
      ///       return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
     //    }
     
+        /// gender chart
+        $userModel = new GenderChartModel();
+
+        $maleCount = $userModel->where('gender', 'Male')->countAllResults();
+        $femaleCount = $userModel->where('gender', 'Female')->countAllResults();
+
+        $data = [
+            'male' => $maleCount,
+            'female' => $femaleCount,
+        ];
+
 
         // Call the private function using $this
         $totalClient = $this->getCount('coach');

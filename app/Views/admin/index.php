@@ -76,9 +76,9 @@
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Gender', 'Count'],
-            ['Male', <?= $male ?>],
-            ['Female', <?= $female ?>]
+            ['Gender', 'Percentage'],
+          ['Female', 36],
+          ['Male', 64]
         ]);
 
         var options = {

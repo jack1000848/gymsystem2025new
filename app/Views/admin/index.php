@@ -138,24 +138,24 @@
 
 
 </script>
- <!-- Coach and Client chart container -->
- <div class="row mt-4">
+ <!-- Charts Row (side-by-side) -->
+<div class="row mt-4">
+    <!-- Role Distribution Chart -->
     <div class="col-md-6">
-        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded h-100">
             <div class="card-body">
                 <h5 class="card-title text-center">Role Distribution</h5>
-                <div id="role_donut" style="width: 100%; height: 300px;"></div>
+                <div id="role_donut" style="width: 100%; height: 350px;"></div>
             </div>
         </div>
     </div>
-</div>
-<!-- Donut chart container -->
-<div class="row mt-4">
-    <div class="col-12 col-md-6">
-        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+
+    <!-- Gender Chart -->
+    <div class="col-md-6">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded h-100">
             <div class="card-body">
                 <h5 class="card-title text-center">Gender Chart</h5>
-                <div id="donut_chart" style="width: 120%; height: 350px;"></div>
+                <div id="donut_chart" style="width: 100%; height: 350px;"></div>
             </div>
         </div>
     </div>

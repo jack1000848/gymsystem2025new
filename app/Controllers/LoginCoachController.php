@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\LoginCoachModel;
 use App\Models\CreateMemberModel;
+use App\Models\CoachModel;
     class LoginCoachController extends BaseController
 {
 
@@ -58,7 +59,7 @@ public function forgotPassword()
 public function sendResetLink()
 {
     $email = $this->request->getPost('email');
-    $userModel = new CreateMemberModel();
+    $userModel = new LoginCoachModel();
     $user = $userModel->where('Email', $email)->first();
 
     if (!$user) {
@@ -90,7 +91,7 @@ public function sendResetLink()
 
 public function showResetForm($token)
 {
-    $userModel = new CreateMemberModel();
+    $userModel = new LoginCoachModel();
     $user = $userModel->where('reset_token', $token)->first();
 
     if (!$user || strtotime($user['reset_token_expires']) < time()) {
@@ -105,7 +106,7 @@ public function resetPassword()
     $token = $this->request->getPost('token');
     $password = $this->request->getPost('password');
 
-    $userModel = new CreateMemberModel();
+    $userModel = new LoginCoachModel();
     $user = $userModel->where('reset_token', $token)->first();
 
     if (!$user || strtotime($user['reset_token_expires']) < time()) {

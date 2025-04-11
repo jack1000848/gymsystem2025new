@@ -101,15 +101,21 @@
     </style>
 </head>
 <body>
+<div class="container">
+    <h2>Forgot Password</h2>
+    <p>Enter your email to receive a reset link.</p>
 
-    <div class="container">
-        <h2>Forgot Password</h2>
-        <p>Enter your email to receive a reset link.</p>
-        <form action="<?= base_url('coach-forgot-password') ?>" method="post">
-            <input type="email" name="email" required placeholder="Enter your email">
-            <button type="submit">Send Reset Link</button>
-        </form>
-    </div>
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert"><?= session()->getFlashdata('error') ?></div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert" style="background-color: green; color: white;"><?= session()->getFlashdata('success') ?></div>
+    <?php endif; ?>
 
+    <form action="<?= base_url('send-reset-link') ?>" method="post">
+        <input type="email" name="email" required placeholder="Enter your email">
+        <button type="submit">Send Reset Link</button>
+    </form>
+</div>
 </body>
 </html>

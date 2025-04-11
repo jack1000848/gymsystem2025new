@@ -4,6 +4,7 @@ namespace App\Controllers;
 use Config\Database;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
+use\App\Models\GenderChartModel;
 
 
 class Admin extends BaseController

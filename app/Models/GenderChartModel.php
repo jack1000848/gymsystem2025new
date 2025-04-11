@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class GenderChartModel extends Model
 {
-    protected $table            = 'Customer';
+    protected $table            = 'customer';
     protected $primaryKey       = 'CustomerID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

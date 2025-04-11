@@ -206,7 +206,7 @@ public function accountSettings()
     ];
 
     if (!empty($password)) {
-        $data['PasswordHash'] = password_hash($password, PASSWORD_DEFAULT);
+        $data['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
     }
 
     // Check if $data has at least one value to update

@@ -57,7 +57,7 @@ class Admin extends BaseController
        
         
         // bar chart for attendnce
-        $data['monthlyCheckinData'] = $this->getMonthlyCheckins();
+        $data['monthlyCheckinData'] = $this->getMonthlyCheckins(); // Get the monthly check-in data
         // For chart
         $coachModel = new CoachModel();
         $clientModel = new CustomerModel();
@@ -93,27 +93,46 @@ class Admin extends BaseController
 
     }
     private function getMonthlyCheckins()
-    {
-        $db = \Config\Database::connect();
-        $data = [];
+{
+    $db = \Config\Database::connect();
+    $data = [];
+    $checkinData = [];
+
+    // Example data for illustration
+    $totalCheckins = 0; // Initialize total check-ins count
+
+    // Loop through the last 5 months
+    for ($i = 4; $i >= 0; $i--) {
+        // Get the current date
+        $monthStart = Time::now()->subMonths($i);
         
-        // Loop through the last 5 months
-        for ($i = 4; $i >= 0; $i--) {
-            // Get the current date
-            $monthStart = Time::now()->subMonths($i);
-            
-            // Set the start of the month using modify()
-            $monthStart->modify('first day of this month');
-            
-            // Set the end of the month using modify()
-            $monthEnd = clone $monthStart;
-            $monthEnd->modify('last day of this month');
-            
-            // Your logic to fetch the check-ins
-        }
+        // Set the start of the month using modify()
+        $monthStart->modify('first day of this month');
         
-        return $data;
+        // Set the end of the month using modify()
+        $monthEnd = clone $monthStart;
+        $monthEnd->modify('last day of this month');
+
+        // Example: Add logic to fetch check-ins for the month
+        $checkinsThisMonth = rand(80, 180); // Replace with your actual logic
+
+        // Push data into the chart data array
+        $checkinData[] = [
+            'Month' => $monthStart->format('F Y'),
+            'Check-ins' => $checkinsThisMonth
+        ];
+
+        // Accumulate total check-ins
+        $totalCheckins += $checkinsThisMonth;
     }
+
+    // Return the data in the required structure
+    return [
+        'data' => $checkinData,  // Chart data
+        'total' => $totalCheckins // Total check-ins
+    ];
+}
+
     
 
     public function index1()

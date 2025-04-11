@@ -92,38 +92,38 @@ class Admin extends BaseController
         
 
     }
-    private function getMonthlyCheckins()
-    {
-        $db = \Config\Database::connect();
-        $builder = $db->table('viewcustomerattendance'); // Use your actual view/table
-        $checkinData = [];
-        $totalCheckins = 0;
-    
-        // Header for Google Charts
-        $data = [['Month', 'Check-ins']];
-    
-        for ($i = 4; $i >= 0; $i--) {
-            $monthStart = Time::now()->subMonths($i)->modify('first day of this month')->setTime(0, 0, 0);
-            $monthEnd = Time::now()->subMonths($i)->modify('last day of this month')->setTime(23, 59, 59);
-    
-            // Count check-ins in this month
-            $builder->resetQuery(); // Clear any previous query state
-            $builder->where('CheckIn >=', $monthStart->toDateTimeString());
-            $builder->where('CheckIn <=', $monthEnd->toDateTimeString());
-    
-            $checkinCount = $builder->countAllResults();
-            $monthLabel = $monthStart->format('F Y');
-    
-            $data[] = [$monthLabel, $checkinCount];
-            $totalCheckins += $checkinCount;
-        }
-    
-        return [
-            'data' => $data,
-            'total' => $totalCheckins
-        ];
+   private function getMonthlyCheckins()
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('viewcustomerattendance'); // Use your actual view/table
+    $checkinData = [];
+    $totalCheckins = 0;
+
+    // Header for Google Charts
+    $data = [['Month', 'Check-ins']];
+
+    for ($i = 4; $i >= 0; $i--) {
+        $monthStart = Time::now()->subMonths($i)->modify('first day of this month')->setTime(0, 0, 0);
+        $monthEnd = Time::now()->subMonths($i)->modify('last day of this month')->setTime(23, 59, 59);
+
+        // Count check-ins in this month
+        $builder->resetQuery(); // Clear any previous query state
+        $builder->where('CheckIn >=', $monthStart->toDateTimeString());
+        $builder->where('CheckIn <=', $monthEnd->toDateTimeString());
+
+        $checkinCount = $builder->countAllResults();
+        $monthLabel = $monthStart->format('F Y');
+
+        $data[] = [$monthLabel, $checkinCount];
+        $totalCheckins += $checkinCount;
     }
-    
+
+    return [
+        'data' => $data,
+        'total' => $totalCheckins
+    ];
+}
+
 
     
 

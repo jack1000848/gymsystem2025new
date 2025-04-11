@@ -74,7 +74,7 @@ public function sendResetLink()
         'reset_token_expires' => $expiry
     ]);
 
-    $resetLink = base_url("coachresetpass/$token");
+    $resetLink = base_url("coach-reset-password/$token");
 
     $emailService = service('email');
     $emailService->setTo($email);
@@ -98,7 +98,7 @@ public function showResetForm($token)
         return redirect()->to('/coach-forgot-password')->with('error', 'Invalid or expired reset link.');
     }
 
-    return view('member_resetpassword/coach-reset-password', ['token' => $token]);
+    return view('member_resetpassword/coachresetpass', ['token' => $token]);
 }
 
 public function resetPassword()

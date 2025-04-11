@@ -3,7 +3,28 @@
     $this ->section('body');
 
     ?>
+<style>
+    #checkin_bar_chart {
+    height: 400px;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+}
 
+#checkin_bar_chart:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+#checkin_total {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+}
+    </style>
 
 <div class="app-content-header"> <!--begin::Container-->
                 <div class="container-fluid"> <!--begin::Row-->

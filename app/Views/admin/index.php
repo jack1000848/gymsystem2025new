@@ -82,7 +82,7 @@
         ]);
 
         var options = {
-            title: 'Gender Distribution',
+          ///  title: 'Gender Distribution', 
             pieHole: 0.4,
             colors: ['#dc3912', '#3366cc'],
             pieSliceText: 'percentage',

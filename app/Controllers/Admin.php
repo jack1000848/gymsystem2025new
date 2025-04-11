@@ -135,11 +135,6 @@ class Admin extends BaseController
         'data' => $data,
         'total' => $totalCheckins
     ];
-    // Return the data in the required structure
-    return [
-        'data' => $checkinData,  // Chart data
-        'total' => $totalCheckins // Total check-ins
-    ];
 }
 
     

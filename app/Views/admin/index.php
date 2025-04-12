@@ -212,14 +212,14 @@
     <div class="card-title">Monthly Clients Check-in Report</div>
     <div id="checkin_bar_chart"></div>
     <div id="checkin_total"></div>
-    <div id="client_chart_div" style="width: 100%; height: 400px;"></div>
+    
 </div>
     <!--coach chart-->
     <div class="card mt-4">
     <div class="card-title">Monthly Coach Check-in Report</div>
     <div id="coach_bar_chart"></div>
     <div id="coach_total"></div>
-    <div id="coach_chart_div" style="width: 100%; height: 400px;"></div>
+
 </div>
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">

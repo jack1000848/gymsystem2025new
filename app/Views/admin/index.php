@@ -348,7 +348,7 @@
     <div class="col-md-6">
         <div class="card shadow-sm p-3 mb-5 bg-white rounded h-100">
             <div class="card-body">
-                <h5 class="card-title text-center">Gender Chart</h5>
+            <h5 class="card-title chart-title">Gender Chart</h5>
                 <div id="donut_chart" style="width: 100%; height: 350px;"></div>
             </div>
         </div>

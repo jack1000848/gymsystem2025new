@@ -220,6 +220,31 @@ public function accountSettings()
     return redirect()->back()->with('success', 'Account updated successfully.');
 }
 
+///try the coach absent 
+public function markAbsent()
+{
+    $coachId = session()->get('CustomerID');
+    $date = date('Y-m-d');
+    $message = $this->request->getPost('message');
+
+    $db = \Config\Database::connect();
+    $builder = $db->table('coach_absences');
+
+    // Check if already marked
+    $exists = $builder->where('CoachID', $coachId)->where('date', $date)->get()->getRow();
+    if ($exists) {
+        return redirect()->back()->with('error', 'You have already marked yourself absent today.');
+    }
+
+    $builder->insert([
+        'CoachID' => $coachId,
+        'date' => $date,
+        'message' => $message
+    ]);
+
+    return redirect()->back()->with('success', 'Marked as absent for today.');
+}
+
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()
     {

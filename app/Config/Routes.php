@@ -129,7 +129,7 @@ $routes->get('/logout', 'Admin::logout');
 ///////////////////////CLIENT DASHBOARD/////////////////////    
  /// Dashboard, My QR Code, Todo List, View Gym Equipment, Body Information, Logout///
  $routes->get('/clientdashboard', 'ClientsDashboardController::index');
-
+ 
  /// view my attendance
 $routes->get('/view-attendance', 'ClientsDashboardController::viewAttendance');
 ///My QR Code...
@@ -181,6 +181,7 @@ $routes->get('/viewmyclients', 'ViewScheduleForAllUserController::coachview');
                                 
 ///$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
 
+$routes->get('/coach/markAbsent', 'CoachDashboardController::markAbsent');
 ///coach-qr
 $routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
 

@@ -223,8 +223,7 @@ public function accountSettings()
 ///try the coach absent 
 public function markAbsence()
 {
-    $coachId = session()->get('CoachID'); // ✅ Make sure this matches your session key
-   
+    $coachId = session()->get('CoachID');
     $today = date('Y-m-d');
     $message = $this->request->getPost('message');
 
@@ -248,8 +247,20 @@ public function markAbsence()
         'message' => $message,
     ]);
 
-    return redirect()->back()->with('success', 'You are marked absent today.');
-    
+    // ✅ Notify all clients assigned to this coach
+    $clients = $db->table('clients') // Replace 'clients' with your actual client table
+        ->where('CoachID', $coachId)
+        ->get()
+        ->getResult();
+
+    foreach ($clients as $client) {
+        $db->table('notifications')->insert([
+            'ClientID' => $client->ClientID,
+            'message' => "Your coach is absent today. " . ($message ? "Note: $message" : ""),
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'You are marked absent today. Your clients have been notified.');
 }
 public function markAbsenceForm()
 {

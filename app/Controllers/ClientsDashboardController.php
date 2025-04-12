@@ -18,35 +18,19 @@ class ClientsDashboardController extends BaseController
          $this->clientsModel = model(CustomerModel::class);
     }
     
-    public function clientkrazy()
-    {
-        if (!session()->has('isLoggedIn')) {
-            return redirect()->to('/member-login')->with('error', 'Please login first.');
-        }
-    
-        $db = \Config\Database::connect();
-        $clientId = session()->get('CustomerID'); // Make sure this matches your session key
-    
-        // Get client info
-        $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
-        $data['client'] = $client;
-    
-       
-    
-        $coachId = $client->CoachID;
-        $today = date('Y-m-d');
-    
-        // Check if coach is absent today
-        $absence = $db->table('coach_absences')
-            ->where('CoachID', $coachId)
-            ->where('date', $today)
-            ->get()
-            ->getRow();
-    
-        $data['coachAbsence'] = $absence;
-    
-        return view('clientdashboard/clientnotif', $data);
-    }
+    public function viewNotifications()
+{
+    $clientId = session()->get('ClientID');
+    $db = \Config\Database::connect();
+
+    $notifications = $db->table('notifications')
+        ->where('ClientID', $clientId)
+        ->orderBy('created_at', 'DESC')
+        ->get()
+        ->getResult();
+
+    return view('clientdashboard/clientnotif', ['notifications' => $notifications]);
+}
     
 
     public function index()

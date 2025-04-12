@@ -1,25 +1,19 @@
 <?= $this->extend('layout/mainclient') ?>
 <?= $this->section('body') ?>
 
-<h2>Coach Status</h2>
+<h2>Notifications</h2>
 
-<?php if (isset($noCoach) && $noCoach): ?>
-    <div style="background-color: #fff3cd; padding: 10px; border-left: 5px solid orange;">
-        <strong>You have not been assigned a coach yet.</strong>
-    </div>
-<?php elseif (isset($coachAbsence) && $coachAbsence): ?>
-    <div style="background-color: #f8d7da; padding: 10px; border-left: 5px solid red;">
-        <strong>Your coach is absent today.</strong><br>
-        <?php if ($coachAbsence->message): ?>
-            Reason: <?= esc($coachAbsence->message) ?>
-        <?php else: ?>
-            No reason provided.
-        <?php endif; ?>
-    </div>
-<?php else: ?>
-    <div style="background-color: #d4edda; padding: 10px; border-left: 5px solid green;">
-        Your coach is present today. Enjoy your workout! 💪
-    </div>
+<?php if (!empty($notifications)) : ?>
+    <ul>
+        <?php foreach ($notifications as $note) : ?>
+            <li style="margin-bottom: 10px;<?= $note->is_read ? '' : ' font-weight: bold;' ?>">
+                <?= esc($note->message) ?> <br>
+                <small><?= date('F j, Y g:i A', strtotime($note->created_at)) ?></small>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else : ?>
+    <p>No notifications yet.</p>
 <?php endif; ?>
 
 <?= $this->endSection() ?>

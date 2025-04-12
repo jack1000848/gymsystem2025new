@@ -136,7 +136,7 @@ $routes->get('/view-attendance', 'ClientsDashboardController::viewAttendance');
 $routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
 
 /// view client coach absent
-$routes->get('client/notifications', 'ClientDashboardController::viewNotifications');
+$routes->get('client/notifications', 'ClientsDashboardController::viewNotifications');
 
 ///Todo List...
 

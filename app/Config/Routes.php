@@ -162,6 +162,7 @@ $routes->get("/getCoachSchedules1/(:num)", "CreateMemberController::getSchedules
 $routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 // Coach Dashboard
 $routes->get('/coachdashboard', 'CoachDashboardController::dashboardindex');
+$routes->post('coach/markAbsence', 'CoachDashboardController::markAbsence');
 ///coach view my attendance\\\\
 $routes->get('/mylogs', 'CoachDashboardController::mylogs');
 /// Manage my Schedule
@@ -181,7 +182,7 @@ $routes->get('/viewmyclients', 'ViewScheduleForAllUserController::coachview');
                                 
 ///$routes->get('/coach-clientlist', 'CoachDashboardController::coachclientlist');
 
-$routes->get('/coach/markAbsent', 'CoachDashboardController::markAbsent');
+
 ///coach-qr
 $routes->get('/coach-qr', 'CoachDashboardController::coachqr' );
 

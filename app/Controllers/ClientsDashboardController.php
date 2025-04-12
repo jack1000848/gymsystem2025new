@@ -23,7 +23,26 @@ class ClientsDashboardController extends BaseController
         if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
             return redirect()->to('/member-login')->with('error', 'Please login first.');
         }
-        return view('clientdashboard/index');
+        $db = \Config\Database::connect();
+        $clientId = session()->get('user_id');
+    
+        $client = $db->table('clients')->where('CustomerID', $clientId)->get()->getRow();
+        $coachId = $client->CoachID ?? null;
+    
+        if ($coachId === null) {
+            return redirect()->to('/client/dashboard')->with('error', 'You have not been assigned a coach.');
+        }
+    
+        $today = date('Y-m-d');
+    
+        $absence = $db->table('coach_absences')
+            ->where('CoachID', $coachId)
+            ->where('date', $today)
+            ->get()
+            ->getRow();
+    
+        $data['coachAbsence'] = $absence;
+        return view('clientdashboard/index', $data);
     }
 
     //// here the client view their attendance log

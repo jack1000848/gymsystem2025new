@@ -221,7 +221,34 @@ public function accountSettings()
 }
 
 ///try the coach absent 
+public function markAbsence()
+{
+    $coachId = session()->get('user_id'); // Get coach ID from session
+    $today = date('Y-m-d');
+    $message = $this->request->getPost('message');
 
+    $db = \Config\Database::connect();
+
+    // Check if already marked today
+    $existing = $db->table('coach_absences')
+        ->where('CoachID', $coachId)
+        ->where('date', $today)
+        ->get()
+        ->getRow();
+
+    if ($existing) {
+        return redirect()->back()->with('error', 'You already marked yourself absent today.');
+    }
+
+    // Insert absence record
+    $db->table('coach_absences')->insert([
+        'CoachID' => $coachId,
+        'date' => $today,
+        'message' => $message,
+    ]);
+
+    return redirect()->back()->with('success', 'You are marked absent today.');
+}
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()

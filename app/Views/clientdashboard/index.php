@@ -74,7 +74,12 @@
       </p>
     </div>
   </div>
-  
+  <?php if (!empty($coachAbsence)): ?>
+    <div style="background: #ffe0e0; padding: 10px; border: 1px solid red;">
+        <strong>Your coach is absent today.</strong><br>
+        <?= esc($coachAbsence->message) ?>
+    </div>
+<?php endif; ?>
 
 </body>
 </html>

@@ -175,7 +175,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('/coach/markAbsent') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <a href="<?= base_url('coach-markAbsence') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="fas fa-dumbbell nav-icon"></i>
                             <p class="m-0">Mark Absent</p>
                         </a>

@@ -19,13 +19,43 @@ class ClientsDashboardController extends BaseController
     }
     
     public function index()
-    {
-        if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
-            return redirect()->to('/member-login')->with('error', 'Please login first.');
-        }
-        
-        return view('clientdashboard/index');
+{
+    if (!session()->has('isLoggedIn')) {
+        return redirect()->to('/member-login')->with('error', 'Please login first.');
     }
+
+    $db = \Config\Database::connect();
+    $clientId = session()->get('CustomerID'); // ✅ Make sure this is correct
+
+    // Get the client info
+    $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
+
+    if (!$client) {
+        return redirect()->to('/member-login')->with('error', 'Client not found.');
+    }
+
+    $coachId = $client->CoachID ?? null;
+
+    if ($coachId === null) {
+        return redirect()->to('/clientdashboard')->with('error', 'You have not been assigned a coach.');
+    }
+
+    $today = date('Y-m-d');
+
+    // Check if coach is absent today
+    $absence = $db->table('coach_absences')
+        ->where('CoachID', $coachId)
+        ->where('date', $today)
+        ->get()
+        ->getRow();
+
+    // Send data to the view
+    return view('clientdashboard/index', [
+        'coachAbsence' => $absence,
+        'client' => $client // optional, if you want to show client info
+    ]);
+}
+
 
     //// here the client view their attendance log
     public function viewAttendance()

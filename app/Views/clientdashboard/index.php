@@ -74,10 +74,12 @@
       </p>
     </div>
   </div>
-  <?php if (!empty($coachAbsence)): ?>
-    <div style="background: #ffe0e0; padding: 10px; border: 1px solid red;">
-        <strong>Your coach is absent today.</strong><br>
-        <?= esc($coachAbsence->message) ?>
+  <<?php if (!empty($coachAbsence)): ?>
+    <div style="background-color: #ffe0e0; padding: 10px; border-left: 5px solid red; margin-bottom: 15px;">
+        <strong>Notice:</strong> Your coach is absent today.
+        <?php if (!empty($coachAbsence->message)): ?>
+            <br><em>Message from coach:</em> <?= esc($coachAbsence->message) ?>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
 

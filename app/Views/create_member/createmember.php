@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GYM Master - Member Registration</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/create1member.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/createmember.css') ?>">
 </head>
 <body>
     <div class="background">
         <div class="register-box">
             <div class="logo">
                 <img src="<?= base_url('admin-assets/img/physicalfit.jpg.jpg') ?>" alt="">
-                <h1>GYM MASTER</h1>
+                <h1>iShowFitnessGym</h1>
                 <h2>Member Registration</h2>
             </div>
             <form action="join-now/store" method="POST">

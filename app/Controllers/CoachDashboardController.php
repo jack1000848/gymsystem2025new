@@ -248,7 +248,7 @@ public function markAbsence()
     ]);
 
     // ✅ Notify all clients assigned to this coach
-    $clients = $db->table('clients') // Replace 'clients' with your actual client table
+    $clients = $db->table('customer') // Replace 'clients' with your actual client table
         ->where('CoachID', $coachId)
         ->get()
         ->getResult();

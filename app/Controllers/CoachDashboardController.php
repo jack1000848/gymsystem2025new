@@ -256,7 +256,7 @@ public function markAbsenceForm()
     $session = session();
     $userID = $session->get('CoachID'); // Get logged-in user ID
 
-    return view('coach/mark_absence');  // Replace 'coach/mark_absence' with your actual view path
+    return view('coachdashboard/markabsent');  // Replace 'coach/mark_absence' with your actual view path
 }
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\
 public function logout()

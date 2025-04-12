@@ -224,10 +224,13 @@ public function accountSettings()
 public function markAbsence()
 {
     $session = session();
-        $userID = $session->get('CoachID'); // Get logged-in user ID
-    $coachId = session()->get('CoachID');
+    $coachId = $session->get('CoachID');
     $today = date('Y-m-d');
     $message = $this->request->getPost('message');
+
+    if (!$coachId) {
+        return redirect()->back()->with('error', 'Session expired or not logged in.');
+    }
 
     $db = \Config\Database::connect();
 
@@ -242,28 +245,29 @@ public function markAbsence()
         return redirect()->back()->with('error', 'You already marked yourself absent today.');
     }
 
-    // Insert absence record
+    // Insert absence
     $db->table('coach_absences')->insert([
         'CoachID' => $coachId,
         'date' => $today,
         'message' => $message,
     ]);
 
-    // ✅ Notify all clients assigned to this coach
-    $clients = $db->table('customer') // Replace 'clients' with your actual client table
+    // ✅ Get customers assigned to this coach
+    $customers = $db->table('customer') // ← your actual table
         ->where('CoachID', $coachId)
         ->get()
         ->getResult();
 
-    foreach ($clients as $client) {
+    foreach ($customers as $cust) {
         $db->table('notifications')->insert([
-            'ClientID' => $client->ClientID,
+            'CustomerID' => $cust->CustomerID, // ← your actual field
             'message' => "Your coach is absent today. " . ($message ? "Note: $message" : ""),
         ]);
     }
 
-    return redirect()->back()->with('success', 'You are marked absent today. Your clients have been notified.');
+    return redirect()->back()->with('success', 'You are marked absent today. Your customers have been notified.');
 }
+
 public function markAbsenceForm()
 {
     $session = session();

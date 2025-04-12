@@ -17,21 +17,24 @@ class ClientsDashboardController extends BaseController
     
          $this->clientsModel = model(CustomerModel::class);
     }
-    
     public function viewNotifications()
 {
-    $clientId = session()->get('ClientID');
+    $session = session();
+    $customerId = $session->get('CustomerID'); // ← correct field
+
     $db = \Config\Database::connect();
 
     $notifications = $db->table('notifications')
-        ->where('ClientID', $clientId)
+        ->where('CustomerID', $customerId) // ← match here too
         ->orderBy('created_at', 'DESC')
         ->get()
         ->getResult();
 
-    return view('clientdashboard/clientnotif', ['notifications' => $notifications]);
-}
-    
+        return view('clientdashboard/clientnotif', ['notifications' => $notifications]);
+    }   
+
+
+   
 
     public function index()
     {

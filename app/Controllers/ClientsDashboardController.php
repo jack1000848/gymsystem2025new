@@ -25,14 +25,14 @@ class ClientsDashboardController extends BaseController
     }
 
     $db = \Config\Database::connect();
-    $clientId = session()->get('CustomerID'); // Make sure this matches your session key
+    $clientId = session()->get('CustomerID'); // Ensure this is set during login
 
     // Get client info
     $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
     $data['client'] = $client;
 
-    // If no coach assigned, show a message in the view instead of redirecting
-    if (!$client || !$client->CoachID) {
+    // ✅ FIXED condition here
+    if (!$client || !isset($client->CoachID) || $client->CoachID === null) {
         $data['noCoach'] = true;
         return view('clientdashboard/clientnotif', $data);
     }
@@ -51,6 +51,7 @@ class ClientsDashboardController extends BaseController
 
     return view('clientdashboard/clientnotif', $data);
 }
+
 
     public function index()
     {

@@ -26,7 +26,7 @@ class ClientsDashboardController extends BaseController
         $db = \Config\Database::connect();
         $clientId = session()->get('user_id');
     
-        $client = $db->table('clients')->where('CustomerID', $clientId)->get()->getRow();
+        $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
         $coachId = $client->CoachID ?? null;
     
         if ($coachId === null) {

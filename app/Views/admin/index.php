@@ -115,7 +115,10 @@
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
    
-    google.charts.setOnLoadCallback(drawCheckinChart);
+    google.charts.setOnLoadCallback(function () {
+        drawCheckinChart();  // Client chart
+        drawCoachChart();    // Coach chart
+    });
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Gender', 'Percentage'],
@@ -207,6 +210,29 @@
    
     }
 
+    function drawCoachChart() {
+        const monthlyCoachData = <?php echo json_encode($monthlyCoachAttendance['data']); ?>;
+        const totalCoachCheckins = <?php echo json_encode($monthlyCoachAttendance['total']); ?>;
+
+        const data = google.visualization.arrayToDataTable(monthlyCoachData);
+
+        const options = {
+            hAxis: { title: 'Month' },
+            vAxis: { title: 'Coach Check-ins' },
+            colors: ['#007bff'],
+            legend: 'none',
+            backgroundColor: 'transparent'
+        };
+
+        const chart = new google.visualization.ColumnChart(document.getElementById('coach_checkin_bar_chart'));
+        chart.draw(data, options);
+
+        window.addEventListener('resize', () => {
+            chart.draw(data, options);
+        });
+
+        document.getElementById('coach_checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Coach Check-ins: <strong>${totalCoachCheckins}</strong></h4>`;
+    }
 </script>
 <div class="card">
     <div class="card-title">Monthly Clients Check-in Report</div>
@@ -217,9 +243,8 @@
     <!--coach chart-->
     <div class="card mt-4">
     <div class="card-title">Monthly Coach Check-in Report</div>
-    <div id="coach_bar_chart"></div>
-    <div id="coach_total"></div>
-
+    <div id="coach_checkin_bar_chart"></div>
+    <div id="coach_checkin_total"></div>
 </div>
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">

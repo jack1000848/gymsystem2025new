@@ -58,7 +58,7 @@ class Admin extends BaseController
         
         // bar chart for attendnce
         $data['monthlyCheckinData'] = $this->getMonthlyCheckins(); // Get the monthly check-in data
-      ///  $data['coachCheckinData'] = $this->getMonthlyCoachAttendance(); // Coaches
+        $data['monthlyCoachAttendance'] = $this->getMonthlyCoachAttendance();
         // For chart
         $coachModel = new CoachModel();
         $clientModel = new CustomerModel();
@@ -127,6 +127,35 @@ class Admin extends BaseController
     ];
 }
 
+
+private function getMonthlyCoachAttendance()
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('coachattendance');
+
+    $data = [['Month', 'Coach Check-ins']];
+    $totalCheckins = 0;
+
+    for ($i = 4; $i >= 0; $i--) {
+        $monthStart = Time::now()->subMonths($i)->modify('first day of this month')->setTime(0, 0, 0);
+        $monthEnd = Time::now()->subMonths($i)->modify('last day of this month')->setTime(23, 59, 59);
+
+        $builder->resetQuery();
+        $builder->where('CheckInTime >=', $monthStart->toDateTimeString());
+        $builder->where('CheckInTime <=', $monthEnd->toDateTimeString());
+
+        $checkinCount = $builder->countAllResults();
+        $monthLabel = $monthStart->format('F Y');
+
+        $data[] = [$monthLabel, $checkinCount];
+        $totalCheckins += $checkinCount;
+    }
+
+    return [
+        'data' => $data,
+        'total' => $totalCheckins
+    ];
+}
 
     
 

@@ -37,7 +37,12 @@
 
         <!-- Navbar -->
         <nav class="app-header navbar navbar-expand bg-body">
-            
+        </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
+                            <li class="user-footer">
+                                 <a href="#" class="btn btn-default btn-flat text-start">WELCOME ADMIN</a> 
+                                 <a href="#" class="btn btn-default btn-flat"></a>
+                                 <a href="<?= base_url('/member-login') ?>" class="btn btn-default btn-flat float-end"></a> 
+                                </li> <!--end::Menu Footer-->
             <div class="container-fluid d-flex justify-content-between align-items-center">
 
                 <!-- Hamburger Button for mobile -->

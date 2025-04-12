@@ -109,7 +109,7 @@
         <label for ="duration" class="form-label">Duration </label>
         <input type="number" id="duration" readonly disabled class="form-control" name="duration" required>
    </div>
-
+</form>
 
 
 

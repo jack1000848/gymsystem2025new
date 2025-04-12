@@ -10,7 +10,7 @@
     <div class="background">
         <div class="register-box">
             <div class="logo">
-                <img src="gym-logo.png" alt="Gym Master Logo">
+                <img src="<?= base_url('admin-assets/img/logogym.jpg.png') ?>" alt="Gym Master Logo">
                 <h1>GYM MASTER</h1>
                 <h2>Member Registration</h2>
             </div>

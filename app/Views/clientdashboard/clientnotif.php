@@ -8,18 +8,16 @@
     <div style="background-color: #fff3cd; padding: 10px; border-left: 5px solid orange;">
         <strong>You have not been assigned a coach yet.</strong>
     </div>
-<?php elseif (isset($coachAbsence) && $coachAbsence): ?>
+<?php endif; ?>
+
+<?php if (isset($coachAbsence) && $coachAbsence): ?>
     <div style="background-color: #f8d7da; padding: 10px; border-left: 5px solid red;">
         <strong>Your coach is absent today.</strong><br>
         <?php if ($coachAbsence->message): ?>
             Reason: <?= esc($coachAbsence->message) ?>
         <?php else: ?>
-            No reason provided.
+            No reason given.
         <?php endif; ?>
-    </div>
-<?php else: ?>
-    <div style="background-color: #d4edda; padding: 10px; border-left: 5px solid green;">
-        Your coach is present today. Enjoy your workout! 💪
     </div>
 <?php endif; ?>
 

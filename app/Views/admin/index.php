@@ -4,64 +4,7 @@
 
     ?>
 <style>
-    /* Donut Chart Containers */
-#donut_chart,
-#role_donut {
-    height: 350px;
-    width: 100%;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s ease-in-out;
-    animation: fadeIn 1s ease-in-out;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-#donut_chart:hover,
-#role_donut:hover {
-    transform: scale(1.02);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Card Title Styling (Fixes visibility issue) */
-.card-title {
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.25rem;
-    margin-bottom: 20px;
-    color: #1c1c1e;
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-}
-
-/* Optional: if you want a background on the title for better contrast */
-.chart-title {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    padding: 8px 12px;
-    display: inline-block;
-    margin: 0 auto 15px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #1c1c1e;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Fancy fade-in animation (already used by charts) */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+    
     #coach_checkin_bar_chart {
     height: 420px;
     width: 100%;
@@ -348,7 +291,7 @@
     <div class="col-md-6">
         <div class="card shadow-sm p-3 mb-5 bg-white rounded h-100">
             <div class="card-body">
-            <h5 class="card-title chart-title">Gender Chart</h5>
+                <h5 class="card-title text-center">Gender Chart</h5>
                 <div id="donut_chart" style="width: 100%; height: 350px;"></div>
             </div>
         </div>

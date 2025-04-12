@@ -32,7 +32,7 @@ class ClientsDashboardController extends BaseController
     $data['client'] = $client;
 
     // If no coach assigned, show a message in the view instead of redirecting
-    if (!$client || !$client->CoachID) {
+    if (!$client || !$client->CustomerID) {
         $data['noCoach'] = true;
         return view('clientdashboard/clientnotif', $data);
     }

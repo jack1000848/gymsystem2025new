@@ -4,7 +4,8 @@
 
     ?>
 <style>
-    #donut_chart,
+    /* Donut Chart Containers */
+#donut_chart,
 #role_donut {
     height: 350px;
     width: 100%;
@@ -24,16 +25,32 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Optional: match gradient style for titles or summary text if needed */
+/* Card Title Styling (Fixes visibility issue) */
 .card-title {
     font-weight: bold;
     text-align: center;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: #1c1c1e;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
 }
 
-/* Fancy fade-in animation (reuse if already defined) */
+/* Optional: if you want a background on the title for better contrast */
+.chart-title {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: inline-block;
+    margin: 0 auto 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1c1c1e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Fancy fade-in animation (already used by charts) */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -44,6 +61,7 @@
         transform: translateY(0);
     }
 }
+
     #coach_checkin_bar_chart {
     height: 420px;
     width: 100%;

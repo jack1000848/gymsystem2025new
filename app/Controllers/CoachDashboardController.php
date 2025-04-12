@@ -249,6 +249,7 @@ public function markAbsence()
     ]);
 
     return redirect()->back()->with('success', 'You are marked absent today.');
+    return view ('/coachdashboard/markabsent');
 }
 
 /////////////LOGOUT\\\\\\\\\\\\\\\\\\\\\

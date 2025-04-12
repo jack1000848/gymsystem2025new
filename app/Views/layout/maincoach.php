@@ -174,7 +174,12 @@
                             <p class="m-0">View Gym Equipment</p>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="<?= base_url('/coach/markAbsent') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="fas fa-dumbbell nav-icon"></i>
+                            <p class="m-0">try</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="<?= base_url('account-setting1') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-gear nav-icon"></i>

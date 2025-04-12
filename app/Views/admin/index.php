@@ -204,53 +204,12 @@
         // Show total check-ins below the chart
         document.getElementById('checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Check-ins: <strong>${totalCheckins}</strong></h4>`;
     
-    ///coach attendance chart
-    function drawCoachChart() {
-        const coachData = <?php echo json_encode($coachCheckinData['data']); ?>;
-        const totalCoachCheckins = <?php echo json_encode($coachCheckinData['total']); ?>;
-
-        const data = google.visualization.arrayToDataTable(coachData);
-
-        const options = {
-            hAxis: { title: 'Month' },
-            vAxis: { title: 'Check-ins' },
-            colors: ['#007bff'],
-            legend: 'none',
-            backgroundColor: 'transparent'
-        };
-
-        const chart = new google.visualization.ColumnChart(document.getElementById('coach_bar_chart'));
-        chart.draw(data, options);
-
-        window.addEventListener('resize', () => {
-            chart.draw(data, options);
-        });
-
-        document.getElementById('coach_total').innerHTML = `<h4 class="text-center mt-3">Total Coach Check-ins: <strong>${totalCoachCheckins}</strong></h4>`;
-    }
-
-    // Call both chart functions
-    google.charts.setOnLoadCallback(() => {
-        drawCheckinChart();
-        drawCoachChart();
-    });
-    
+   
     }
 
 </script>
-<div class="card">
-    <div class="card-title">Monthly Clients Check-in Report</div>
-    <div id="checkin_bar_chart"></div>
-    <div id="checkin_total"></div>
-    <div id="client_chart_div" style="width: 100%; height: 400px;"></div>
-</div>
-    <!--coach chart-->
-    <div class="card mt-4">
-    <div class="card-title">Monthly Coach Check-in Report</div>
-    <div id="coach_bar_chart"></div>
-    <div id="coach_total"></div>
-    <div id="coach_chart_div" style="width: 100%; height: 400px;"></div>
-</div>
+
+
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">
     <!-- Role Distribution Chart -->

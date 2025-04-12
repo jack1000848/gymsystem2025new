@@ -135,7 +135,8 @@ $routes->get('/view-attendance', 'ClientsDashboardController::viewAttendance');
 ///My QR Code...
 $routes->get('/client-qr', 'ClientsDashboardController::myqrcode');
 
-
+/// view client coach absent
+$routes->get('/client-coach-absent', 'ClientsDashboardController::clientkrazy');
 ///Todo List...
 
 ///View Gym Equipment...

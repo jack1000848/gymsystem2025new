@@ -18,6 +18,39 @@ class ClientsDashboardController extends BaseController
          $this->clientsModel = model(CustomerModel::class);
     }
     
+    public function clientkrazy()
+{
+    if (!session()->has('isLoggedIn')) {
+        return redirect()->to('/member-login')->with('error', 'Please login first.');
+    }
+
+    $db = \Config\Database::connect();
+    $clientId = session()->get('CustomerID'); // Make sure this is the correct session key
+
+    // Get the logged-in client's info
+    $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
+    $coachId = $client->CoachID ?? null;
+
+    if ($coachId === null) {
+        return redirect()->to('/clientdashboard')->with('error', 'You have not been assigned a coach.');
+    }
+
+    $today = date('Y-m-d');
+
+    // Get absence info if the coach is absent today
+    $absence = $db->table('coach_absences')
+        ->where('CoachID', $coachId)
+        ->where('date', $today)
+        ->get()
+        ->getRow();
+
+    // Pass the absence info to the view
+    $data['coachAbsence'] = $absence;
+    $data['client'] = $client;
+
+    return view('clientdashboard/clientnotif', $data);
+}
+
     public function index()
     {
         if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function

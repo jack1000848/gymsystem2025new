@@ -32,7 +32,7 @@ class ClientsDashboardController extends BaseController
     $coachId = $client->CoachID ?? null;
 
     if ($coachId === null) {
-        return redirect()->to('/clientdashboard')->with('error', 'You have not been assigned a coach.');
+        return redirect()->to('/client-coach-absent')->with('error', 'You have not been assigned a coach.');
     }
 
     $today = date('Y-m-d');

@@ -205,7 +205,7 @@
                             </a> 
                         </li>
                         <li class="nav-item"> 
-                            <a href="<?= base_url('client-coach-absent') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <a href="<?= base_url('client/notifications') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                 <i class="bi bi-gear nav-icon"></i>
                                 <p class="m-0">Coachotification</p>
                             </a> 

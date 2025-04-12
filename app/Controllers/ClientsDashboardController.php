@@ -25,14 +25,16 @@ class ClientsDashboardController extends BaseController
     }
 
     $db = \Config\Database::connect();
-    $clientId = session()->get('CustomerID'); // Ensure this is set during login
-    session()->set('CustomerID', $customer['CustomerID']);
+    $clientId = session()->get('CustomerID');
 
-    // Get client info
+    if (!$clientId) {
+        log_message('error', 'No CustomerID found in session.');
+        return redirect()->to('/member-login')->with('error', 'Session issue: CustomerID missing.');
+    }
+
     $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
     $data['client'] = $client;
 
-    // ✅ FIXED condition here
     if (!$client || !isset($client->CoachID) || $client->CoachID === null) {
         $data['noCoach'] = true;
         return view('clientdashboard/clientnotif', $data);
@@ -41,7 +43,6 @@ class ClientsDashboardController extends BaseController
     $coachId = $client->CoachID;
     $today = date('Y-m-d');
 
-    // Check if coach is absent today
     $absence = $db->table('coach_absences')
         ->where('CoachID', $coachId)
         ->where('date', $today)
@@ -52,6 +53,7 @@ class ClientsDashboardController extends BaseController
 
     return view('clientdashboard/clientnotif', $data);
 }
+
 
 
     public function index()

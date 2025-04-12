@@ -3,7 +3,48 @@
     $this ->section('body');
 
     ?>
+<style>
+   #checkin_bar_chart {
+    height: 420px;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
+#checkin_bar_chart:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+#checkin_total {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1c1c1e;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Fancy load-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
 
 <div class="app-content-header"> <!--begin::Container-->
                 <div class="container-fluid"> <!--begin::Row-->
@@ -201,13 +242,14 @@
     <div class="card-title">Monthly Clients Check-in Report</div>
     <div id="checkin_bar_chart"></div>
     <div id="checkin_total"></div>
-
+    <div id="client_chart_div" style="width: 100%; height: 400px;"></div>
 </div>
     <!--coach chart-->
     <div class="card mt-4">
     <div class="card-title">Monthly Coach Check-in Report</div>
     <div id="coach_bar_chart"></div>
     <div id="coach_total"></div>
+    <div id="coach_chart_div" style="width: 100%; height: 400px;"></div>
 </div>
  <!-- Charts Row (side-by-side) -->
 <div class="row mt-4">

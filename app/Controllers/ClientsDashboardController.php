@@ -132,8 +132,7 @@ class ClientsDashboardController extends BaseController
             return redirect()->to('/account-setting')->with('error', 'Failed to update account.');
         }
     }
-    ///try to view coach absent 
-    
+    ///try to view coach absent
 
     public function logout()
     {

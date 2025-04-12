@@ -63,16 +63,6 @@ use App\Models\CustomerModel;
         // Optional: If you want to set CustomerID again as you requested
         session()->set('CustomerID', $client['CustomerID']); 
         session()->set('Role', "Customer");
-// Initialize the database connection
-$db = \Config\Database::connect();
-        // Check if the assigned coach is absent today
-            $absence = $db->table('coach_absences')
-            ->where('CoachID', $coachId) // Use 'CoachID' in the coach_absences table
-            ->where('date', $today)
-            ->get()
-            ->getRow();
-
-            $data['coachAbsence'] = $absence;
 
         return redirect()->to('/clientdashboard');
     } else {

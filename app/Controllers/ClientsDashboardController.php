@@ -19,42 +19,39 @@ class ClientsDashboardController extends BaseController
     }
     
     public function clientkrazy()
-{
-    if (!session()->has('isLoggedIn')) {
-        return redirect()->to('/member-login')->with('error', 'Please login first.');
-    }
-
-    $db = \Config\Database::connect();
-    $clientId = session()->get('CustomerID');
-
-    if (!$clientId) {
-        log_message('error', 'No CustomerID found in session.');
-        return redirect()->to('/member-login')->with('error', 'Session issue: CustomerID missing.');
-    }
-
-    $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
-    $data['client'] = $client;
-
-    if (!$client || !isset($client->CoachID) || $client->CoachID === null) {
-        $data['noCoach'] = true;
+    {
+        if (!session()->has('isLoggedIn')) {
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
+    
+        $db = \Config\Database::connect();
+        $clientId = session()->get('CustomerID'); // Make sure this matches your session key
+    
+        // Get client info
+        $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
+        $data['client'] = $client;
+    
+        // If no coach assigned, show a message in the view instead of redirecting
+        if (!$client || !$client->CoachID) {
+            $data['noCoach'] = true;
+            return view('clientdashboard/clientnotif', $data);
+        }
+    
+        $coachId = $client->CoachID;
+        $today = date('Y-m-d');
+    
+        // Check if coach is absent today
+        $absence = $db->table('coach_absences')
+            ->where('CoachID', $coachId)
+            ->where('date', $today)
+            ->get()
+            ->getRow();
+    
+        $data['coachAbsence'] = $absence;
+    
         return view('clientdashboard/clientnotif', $data);
     }
-
-    $coachId = $client->CoachID;
-    $today = date('Y-m-d');
-
-    $absence = $db->table('coach_absences')
-        ->where('CoachID', $coachId)
-        ->where('date', $today)
-        ->get()
-        ->getRow();
-
-    $data['coachAbsence'] = $absence;
-
-    return view('clientdashboard/clientnotif', $data);
-}
-
-
+    
 
     public function index()
     {

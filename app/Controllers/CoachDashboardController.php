@@ -223,7 +223,8 @@ public function accountSettings()
 ///try the coach absent 
 public function markAbsence()
 {
-    $coachId = session()->get('user_id'); // Get coach ID from session
+    $coachId = session()->get('CoachID'); // ✅ Make sure this matches your session key
+   
     $today = date('Y-m-d');
     $message = $this->request->getPost('message');
 

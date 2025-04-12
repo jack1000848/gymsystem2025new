@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GYM Master - Member Registration</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/createmember.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/create1member.css') ?>">
 </head>
 <body>
     <div class="background">

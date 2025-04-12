@@ -26,6 +26,7 @@ class ClientsDashboardController extends BaseController
 
     $db = \Config\Database::connect();
     $clientId = session()->get('CustomerID'); // Ensure this is set during login
+    session()->set('CustomerID', $customer['CustomerID']);
 
     // Get client info
     $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();

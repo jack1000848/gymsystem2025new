@@ -25,31 +25,33 @@ class ClientsDashboardController extends BaseController
     }
 
     $db = \Config\Database::connect();
-    $clientId = session()->get('CustomerID'); // Make sure this is the correct session key
+    $clientId = session()->get('CustomerID'); // Make sure this matches your session key
 
-    // Get the logged-in client's info
+    // Get client info
     $client = $db->table('customer')->where('CustomerID', $clientId)->get()->getRow();
-    $coachId = $client->CoachID ?? null;
+    $data['client'] = $client;
 
-    if ($coachId === null) {
-        return redirect()->to('/client-coach-absent')->with('error', 'You have not been assigned a coach.');
+    // If no coach assigned, show a message in the view instead of redirecting
+    if (!$client || !$client->CoachID) {
+        $data['noCoach'] = true;
+        return view('clientdashboard/clientnotif', $data);
     }
 
+    $coachId = $client->CoachID;
     $today = date('Y-m-d');
 
-    // Get absence info if the coach is absent today
+    // Check if coach is absent today
     $absence = $db->table('coach_absences')
         ->where('CoachID', $coachId)
         ->where('date', $today)
         ->get()
         ->getRow();
 
-    // Pass the absence info to the view
     $data['coachAbsence'] = $absence;
-    $data['client'] = $client;
 
     return view('clientdashboard/clientnotif', $data);
 }
+
 
     public function index()
     {

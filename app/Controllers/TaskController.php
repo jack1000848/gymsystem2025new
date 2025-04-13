@@ -82,7 +82,7 @@ class TaskController extends BaseController
        // }
 
         $data['tasks'] = $this->taskModel->getTasksByCustomer(session()->get('CustomerID'));
-        return view('clientdashboard/mytasks', $data);
+        return view('clientdashboard/mytask', $data);
     }
 
     // Mark task as completed (for clients)

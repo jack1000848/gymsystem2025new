@@ -70,9 +70,24 @@ class ClientsDashboardController extends BaseController
         if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
             return redirect()->to('/member-login')->with('error', 'Please login first.');
         }
-        
-        
-        return view('clientdashboard/index');
+        $customerId = session()->get('CustomerID');
+        $customer = $this->clientsModel->find($customerId);
+    
+        if (!$customer) {
+            return redirect()->to('/member-login')->with('error', 'Customer not found.');
+        }
+    
+        // Fetch body history for the chart
+        $history = $this->historyModel->getHistory($customerId);
+    
+        // Debug: Log the history data to ensure it's being fetched
+        log_message('debug', 'Body History Data: ' . json_encode($history));
+    
+        // Pass customer and history data to the view
+        return view('clientdashboard/index', [
+            'client' => $customer,
+            'history' => $history
+        ]);;
     }
 
     //// here the client view their attendance log

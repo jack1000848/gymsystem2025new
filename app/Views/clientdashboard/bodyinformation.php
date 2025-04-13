@@ -16,7 +16,7 @@
                 <p><?= esc(session('success')) ?></p>
             </div>
         <?php endif; ?>
-        <form action="/customer/body/save" method="post">
+        <form action="<?= base_url('/customer/body/save') ?>" method="post">
             <?= csrf_field() ?>
             <div class="mb-3">
                 <label for="height" class="form-label">Height (cm)</label>
@@ -39,7 +39,7 @@
                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="/customer/body/history" class="btn btn-secondary">View History</a>
+            <a href="<?= base_url('/customer/body/history') ?>" class="btn btn-secondary">View History</a>
         </form>
     </div>
 

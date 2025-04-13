@@ -89,6 +89,31 @@ class ClientsDashboardController extends BaseController
             'history' => $history
         ]);;
     }
+    private function getMonthlyCheckinData($customerId)
+{
+    // This is a placeholder; replace with actual database query
+    // Example query: SELECT MONTHNAME(checkin_date) as month, COUNT(*) as checkins
+    // FROM checkins WHERE customer_id = ? GROUP BY MONTH(checkin_date)
+    $checkins = [
+        ['month' => 'Jan', 'checkins' => 5],
+        ['month' => 'Feb', 'checkins' => 3],
+        ['month' => 'Mar', 'checkins' => 7],
+        ['month' => 'Apr', 'checkins' => 4]
+    ];
+
+    // Format data for Google Charts: [['Month', 'Check-ins'], ['Jan', 5], ...]
+    $data = [['Month', 'Check-ins']];
+    $total = 0;
+    foreach ($checkins as $row) {
+        $data[] = [$row['month'], (int)$row['checkins']];
+        $total += $row['checkins'];
+    }
+
+    return [
+        'data' => $data,
+        'total' => $total
+    ];
+}
 
     //// here the client view their attendance log
     public function viewAttendance()

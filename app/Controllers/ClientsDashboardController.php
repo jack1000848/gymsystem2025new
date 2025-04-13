@@ -51,7 +51,7 @@ class ClientsDashboardController extends BaseController
     {
         if (!session()->has('isLoggedIn')) { // Dito dapat ang check, hindi sa login function
             return redirect()->to('/member-login')->with('error', 'Please login first.');
-        }
+     }
         // Get customer ID from session
         $customerID = session()->get('CustomerID');
     

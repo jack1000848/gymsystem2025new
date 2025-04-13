@@ -23,7 +23,7 @@ class ClientsDashboardController extends BaseController
     $customerId = $session->get('CustomerID');
 
     if (!$customerId) {
-        return redirect()->to('/login'); // Or wherever you handle login
+        return redirect()->to('/member-login'); // Or wherever you handle login
     }
 
     $db = \Config\Database::connect();

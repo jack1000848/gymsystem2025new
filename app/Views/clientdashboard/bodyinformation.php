@@ -17,7 +17,8 @@
         </div>
     <?php endif; ?>
     
-    <form id="bodyForm">
+    <form id="bodyForm" action="<?= base_url('/customer/body/save') ?>" method="post">
+        <?= csrf_field() ?>
         <div class="mb-3">
             <label for="height" class="form-label">Height (cm)</label>
             <input type="number" step="0.01" class="form-control" id="height" name="height" value="<?= esc($customer['Height'] ?? '') ?>" required>
@@ -48,10 +49,14 @@
         const form = document.getElementById('bodyForm');
 
         if (form.checkValidity()) {
-            // Only redirect after validation success
-            window.location.href = "<?= base_url('/customer/body/history') ?>";
+            // Submit the form
+            form.submit();
+
+            // Optional: Redirect after short delay (adjust as needed)
+            setTimeout(function () {
+                window.location.href = "<?= base_url('/customer/body/history') ?>";
+            }, 1000); // 1-second delay to allow form submission
         } else {
-            // Show validation errors
             form.reportValidity();
         }
     }

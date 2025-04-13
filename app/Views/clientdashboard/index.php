@@ -106,53 +106,54 @@
         const weightGoal = <?= $client['Weight_Goal'] !== null ? $client['Weight_Goal'] : 'null' ?>;
         const goalDiffs = weightGoal !== null ? validHistory.map(record => (record.Weight - weightGoal).toFixed(2)) : [];
 
-        // Weight Chart (Left)
+        // Weight Chart (Left) - Bar Chart
         const weightCtx = document.getElementById('weightChart').getContext('2d');
         new Chart(weightCtx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                     label: 'Weight (kg)',
                     data: weights,
-                    borderColor: '#007bff',
-                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#007bff'
+                    backgroundColor: '#007bff', // Solid blue bars
+                    borderColor: '#0056b3',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    x: { title: { display: true, text: 'Date', font: { size: 14 } } },
-                    y: { title: { display: true, text: 'Weight (kg)', font: { size: 14 } }, beginAtZero: false, ticks: { stepSize: 1 } }
+                    x: { 
+                        title: { display: true, text: 'Date', font: { size: 14 } }
+                    },
+                    y: { 
+                        title: { display: true, text: 'Weight (kg)', font: { size: 14 } }, 
+                        beginAtZero: false, 
+                        ticks: { stepSize: 1 },
+                        suggestedMin: Math.min(...weights) - 1, // Add padding below min value
+                        suggestedMax: Math.max(...weights) + 1  // Add padding above max value
+                    }
                 },
                 plugins: {
                     legend: { display: true, position: 'top', labels: { font: { size: 14 } } },
                     tooltip: { mode: 'index', intersect: false }
-                },
-                hover: { mode: 'nearest', intersect: true }
+                }
             }
         });
 
-        // Weight Goal Difference Chart (Right)
+        // Weight Goal Difference Chart (Right) - Bar Chart
         if (weightGoal !== null) {
             const goalDiffCtx = document.getElementById('goalDiffChart').getContext('2d');
             new Chart(goalDiffCtx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Difference from Goal (kg)',
                         data: goalDiffs,
-                        borderColor: '#ffc107',
-                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 5,
-                        pointBackgroundColor: '#ffc107'
+                        backgroundColor: goalDiffs.map(value => value >= 0 ? '#ffc107' : '#dc3545'), // Yellow for positive, red for negative
+                        borderColor: goalDiffs.map(value => value >= 0 ? '#e0a800' : '#c82333'),
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -162,15 +163,14 @@
                         y: { 
                             title: { display: true, text: 'Difference (kg)', font: { size: 14 } }, 
                             ticks: { stepSize: 1 },
-                            suggestedMin: -5, // Allow negative values
-                            suggestedMax: 5
+                            suggestedMin: Math.min(...goalDiffs, -1), // Allow negative values with padding
+                            suggestedMax: Math.max(...goalDiffs, 1)   // Add padding above max value
                         }
                     },
                     plugins: {
                         legend: { display: true, position: 'top', labels: { font: { size: 14 } } },
                         tooltip: { mode: 'index', intersect: false }
-                    },
-                    hover: { mode: 'nearest', intersect: true }
+                    }
                 }
             });
         }

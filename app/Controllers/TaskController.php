@@ -30,7 +30,7 @@ class TaskController extends BaseController
       //  }
 
         $data['customers'] = $this->customerModel->findAll(); // List all clients
-        return view('coachdashboard/markabsent', $data);
+        return view('coachdashboard/assigntask', $data);
     }
 
     // Save a new task

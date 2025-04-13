@@ -19,8 +19,17 @@ class ClientsDashboardController extends BaseController
     }
     public function viewNotifications()
 {
+
     $session = session();
     $customerId = $session->get('CustomerID'); // ← correct field
+
+        // Mark all unread notifications as read
+            $db->table('notifications')
+            ->where('CustomerID', $customerId)
+            ->where('is_read', 0)
+            ->set('is_read', 1)
+            ->update();
+
 
     $db = \Config\Database::connect();
 

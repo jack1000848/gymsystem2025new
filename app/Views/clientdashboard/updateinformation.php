@@ -43,7 +43,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <a href="/customer/body" class="btn btn-primary">Update Body Info</a>
+        <a href="<?= base_url('/bodyInfo') ?>" class="btn btn-primary">Update Body Info</a>
     </div>
 
     <script>

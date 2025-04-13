@@ -38,7 +38,7 @@
                 <label for="notes" class="form-label">Notes (optional)</label>
                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-primary" onclick="validateAndRedirect()">Save</button>
             <a href="<?= base_url('/customer/body/history') ?>" class="btn btn-secondary">View History</a>
         </form>
     </div>

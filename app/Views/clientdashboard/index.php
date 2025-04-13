@@ -141,8 +141,8 @@
         });
     }
 
-    // Load Google Charts library
-    google.charts.load('current', {'packages':['corechart']});
+ // Load Google Charts library for attendance charts
+ google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(() => {
         drawMonthlyCheckinChart();
         drawDailyCheckinChart();
@@ -156,7 +156,7 @@
         const monthlyData = {};
         attendance.forEach(record => {
             const date = new Date(record.InDate);
-            const monthYear = date.toLocaleString('en-US', { month: 'short', year: 'numeric' }); // e.g., "Jan 2025"
+            const monthYear = date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
             monthlyData[monthYear] = (monthlyData[monthYear] || 0) + 1;
         });
 
@@ -194,21 +194,21 @@
         // Prepare data for daily check-ins (last 30 days)
         const attendance = <?= json_encode($attendance) ?>;
         const today = new Date();
-        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
+        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
         // Group check-ins by day (last 30 days)
         const dailyData = {};
         attendance.forEach(record => {
             const date = new Date(record.InDate);
             if (date >= thirtyDaysAgo && date <= today) {
-                const day = date.toLocaleDateString('en-CA'); // e.g., "2025-04-01"
+                const day = date.toLocaleDateString('en-CA');
                 dailyData[day] = (dailyData[day] || 0) + 1;
             }
         });
 
         // Format data for Google Charts
         const dataTable = [['Date', 'Check-ins']];
-        const sortedDays = Object.keys(dailyData).sort(); // Sort dates
+        const sortedDays = Object.keys(dailyData).sort();
         sortedDays.forEach(day => {
             dataTable.push([day, dailyData[day]]);
         });
@@ -236,6 +236,86 @@
             chart.draw(data, options);
         });
     }
+
+    // Chart.js Weight Charts
+    <?php if ($history): ?>
+        // Prepare data for the weight charts
+        const history = <?= json_encode($history) ?>;
+        const validHistory = history.filter(record => record.Weight != null);
+        const labels = validHistory.map(record => new Date(record.RecordDate).toLocaleDateString('en-CA'));
+        const weights = validHistory.map(record => record.Weight);
+        const weightGoal = <?= $client['Weight_Goal'] !== null ? $client['Weight_Goal'] : 'null' ?>;
+        const goalDiffs = weightGoal !== null ? validHistory.map(record => (record.Weight - weightGoal).toFixed(2)) : [];
+
+        // Weight Chart (Left) - Bar Chart
+        const weightCtx = document.getElementById('weightChart').getContext('2d');
+        new Chart(weightCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: weights,
+                    backgroundColor: '#007bff',
+                    borderColor: '#0056b3',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'Date', font: { size: 14 } } },
+                    y: { 
+                        title: { display: true, text: 'Weight (kg)', font: { size: 14 } }, 
+                        beginAtZero: false, 
+                        ticks: { stepSize: 1 },
+                        suggestedMin: Math.min(...weights) - 1,
+                        suggestedMax: Math.max(...weights) + 1
+                    }
+                },
+                plugins: {
+                    legend: { display: true, position: 'top', labels: { font: { size: 14 } } },
+                    tooltip: { mode: 'index', intersect: false }
+                }
+            }
+        });
+
+        // Weight Goal Difference Chart (Right) - Bar Chart
+        if (weightGoal !== null) {
+            const goalDiffCtx = document.getElementById('goalDiffChart').getContext('2d');
+            new Chart(goalDiffCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Difference from Goal (kg)',
+                        data: goalDiffs,
+                        backgroundColor: goalDiffs.map(value => value >= 0 ? '#ffc107' : '#dc3545'),
+                        borderColor: goalDiffs.map(value => value >= 0 ? '#e0a800' : '#c82333'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Date', font: { size: 14 } } },
+                        y: { 
+                            title: { display: true, text: 'Difference (kg)', font: { size: 14 } }, 
+                            ticks: { stepSize: 1 },
+                            suggestedMin: Math.min(...goalDiffs, -1),
+                            suggestedMax: Math.max(...goalDiffs, 1)
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true, position: 'top', labels: { font: { size: 14 } } },
+                        tooltip: { mode: 'index', intersect: false }
+                    }
+                }
+            });
+        }
+    <?php endif; ?>
 </script>
 <style>
     .chart-container {
@@ -250,6 +330,7 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
+        margin-bottom: 40px;
     }
     .chart-wrapper {
         flex: 1;
@@ -265,8 +346,8 @@
     .card-body {
         padding: 20px;
     }
-    #monthly_checkin_chart, #daily_checkin_chart {
-        height: 300px;
+    #weightChart, #goalDiffChart, #monthly_checkin_chart, #daily_checkin_chart {
+        max-height: 300px;
         width: 100%;
     }
     .no-data-message {
@@ -286,6 +367,7 @@
         .chart-row {
             flex-direction: column;
             gap: 15px;
+            margin-bottom: 20px;
         }
         .chart-wrapper {
             width: 100%;
@@ -299,8 +381,8 @@
         .card-body {
             padding: 15px;
         }
-        #monthly_checkin_chart, #daily_checkin_chart {
-            height: 250px;
+        #weightChart, #goalDiffChart, #monthly_checkin_chart, #daily_checkin_chart {
+            max-height: 250px;
         }
         .no-data-message {
             font-size: 1rem;

@@ -79,41 +79,52 @@ class ClientsDashboardController extends BaseController
     
         // Fetch body history for the chart
         $history = $this->historyModel->getHistory($customerId);
+
+        // Fetch monthly check-in data for the attendance chart (if still needed)
+    $monthlyCheckinData = $this->getMonthlyCheckinData($customerId);
+    // Fetch attendance records using QrAttendanceModel
+    $qrAttendanceModel = new QrAttendanceModel();
+    $attendanceRecords = $qrAttendanceModel
+        ->where('CustomerID', $customerId)
+        ->orderBy('InDate', 'DESC')
+        ->findAll();
     
-        // Debug: Log the history data to ensure it's being fetched
-        log_message('debug', 'Body History Data: ' . json_encode($history));
+        // Debug: Log the data to ensure it's being fetched
+    log_message('debug', 'Customer Data: ' . json_encode($customer));
+    log_message('debug', 'Body History Data: ' . json_encode($history));
+    log_message('debug', 'Monthly Check-in Data: ' . json_encode($monthlyCheckinData));
+    log_message('debug', 'Attendance Records: ' . json_encode($attendanceRecords));
     
-        // Pass customer and history data to the view
-        return view('clientdashboard/index', [
-            'client' => $customer,
-            'history' => $history
-        ]);;
+       // Pass customer, history, monthly check-in data, and attendance records to the view
+    return view('clientdashboard/index', [
+        'client' => $customer,
+        'history' => $history,
+        'monthlyCheckinData' => $monthlyCheckinData,
+        'attendance' => $attendanceRecords // Add this
+    ]);
     }
     private function getMonthlyCheckinData($customerId)
-{
-    // This is a placeholder; replace with actual database query
-    // Example query: SELECT MONTHNAME(checkin_date) as month, COUNT(*) as checkins
-    // FROM checkins WHERE customer_id = ? GROUP BY MONTH(checkin_date)
-    $checkins = [
-        ['month' => 'Jan', 'checkins' => 5],
-        ['month' => 'Feb', 'checkins' => 3],
-        ['month' => 'Mar', 'checkins' => 7],
-        ['month' => 'Apr', 'checkins' => 4]
-    ];
-
-    // Format data for Google Charts: [['Month', 'Check-ins'], ['Jan', 5], ...]
-    $data = [['Month', 'Check-ins']];
-    $total = 0;
-    foreach ($checkins as $row) {
-        $data[] = [$row['month'], (int)$row['checkins']];
-        $total += $row['checkins'];
+    {
+        // Replace with actual database query if needed
+        $checkins = [
+            ['month' => 'Jan', 'checkins' => 5],
+            ['month' => 'Feb', 'checkins' => 3],
+            ['month' => 'Mar', 'checkins' => 7],
+            ['month' => 'Apr', 'checkins' => 4]
+        ];
+    
+        $data = [['Month', 'Check-ins']];
+        $total = 0;
+        foreach ($checkins as $row) {
+            $data[] = [$row['month'], (int)$row['checkins']];
+            $total += $row['checkins'];
+        }
+    
+        return [
+            'data' => $data,
+            'total' => $total
+        ];
     }
-
-    return [
-        'data' => $data,
-        'total' => $total
-    ];
-}
 
     //// here the client view their attendance log
     public function viewAttendance()

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Body Progress Chart</title>
+    <title>Body Progress Charts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -34,8 +34,11 @@
         .card-body {
             padding: 20px;
         }
-        #bodyChart {
-            max-height: 400px;
+        .chart-wrapper {
+            margin-bottom: 30px;
+        }
+        #weightChart, #heightChart {
+            max-height: 300px;
         }
         .no-data-message {
             text-align: center;
@@ -47,58 +50,63 @@
 </head>
 <body>
     <div class="chart-container">
-        <div class="card">
-            <div class="card-header">
-                <h3>Your Body Progress (Weight & Height)</h3>
+        <?php if ($history): ?>
+            <!-- Weight Chart -->
+            <div class="chart-wrapper">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Weight Progress (kg)</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="weightChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <?php if ($history): ?>
-                    <canvas id="bodyChart"></canvas>
-                <?php else: ?>
-                    <p class="no-data-message">No body information records found.</p>
-                <?php endif; ?>
+
+            <!-- Height Chart -->
+            <div class="chart-wrapper">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Height Progress (cm)</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="heightChart"></canvas>
+                    </div>
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <div class="no-data-message">
+                <p>No body information records found.</p>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Chart.js Script -->
     <?php if ($history): ?>
     <script>
-        // Prepare data for the chart
+        // Prepare data for the charts
         const history = <?= json_encode($history) ?>;
         const validHistory = history.filter(record => record.Weight != null && record.Height != null);
         const labels = validHistory.map(record => new Date(record.RecordDate).toLocaleDateString('en-CA'));
         const weights = validHistory.map(record => record.Weight);
         const heights = validHistory.map(record => record.Height);
 
-        // Create the dual-axis chart
-        const ctx = document.getElementById('bodyChart').getContext('2d');
-        new Chart(ctx, {
+        // Weight Chart
+        const weightCtx = document.getElementById('weightChart').getContext('2d');
+        new Chart(weightCtx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [
-                    {
-                        label: 'Weight (kg)',
-                        data: weights,
-                        borderColor: '#007bff',
-                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 5,
-                        pointBackgroundColor: '#007bff'
-                    },
-                    {
-                        label: 'Height (cm)',
-                        data: heights,
-                        borderColor: '#28a745',
-                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 5,
-                        pointBackgroundColor: '#28a745'
-                    }
-                ]
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: weights,
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#007bff'
+                }]
             },
             options: {
                 responsive: true,
@@ -107,68 +115,83 @@
                         title: {
                             display: true,
                             text: 'Date',
-                            font: {
-                                size: 14
-                            }
+                            font: { size: 14 }
                         }
                     },
-                    'y-weight': {
-                        type: 'linear',
-                        position: 'left',
+                    y: {
                         title: {
                             display: true,
                             text: 'Weight (kg)',
-                            font: {
-                                size: 14
-                            }
+                            font: { size: 14 }
                         },
                         beginAtZero: false,
-                        grid: {
-                            drawOnChartArea: false
-                        },
-                        ticks: {
-                            stepSize: 1
-                        }
-                    },
-                    'y-height': {
-                        type: 'linear',
-                        position: 'right',
-                        title: {
-                            display: true,
-                            text: 'Height (cm)',
-                            font: {
-                                size: 14
-                            }
-                        },
-                        beginAtZero: false,
-                        ticks: {
-                            stepSize: 0.5
-                        }
+                        ticks: { stepSize: 1 }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
                         position: 'top',
-                        labels: {
-                            font: {
-                                size: 14
-                            }
-                        }
+                        labels: { font: { size: 14 } }
                     },
                     tooltip: {
                         mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                label += context.parsed.y;
-                                return label;
-                            }
+                        intersect: false
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+            }
+        });
+
+        // Height Chart
+        const heightCtx = document.getElementById('heightChart').getContext('2d');
+        new Chart(heightCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Height (cm)',
+                    data: heights,
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#28a745'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date',
+                            font: { size: 14 }
                         }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Height (cm)',
+                            font: { size: 14 }
+                        },
+                        beginAtZero: false,
+                        ticks: { stepSize: 0.5 }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: { font: { size: 14 } }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
                     }
                 },
                 hover: {

@@ -103,7 +103,7 @@
 
 
                       <li class="nav-item"> 
-                        <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                        <a href="<?= base_url('/bodyInfo') ?>" class="nav-link d-flex align-items-center gap-2"> 
                           <i class="bi bi-cpu nav-icon"></i> 
                             <p class="m-0">My Body Information</p>
                         </a> 
@@ -186,7 +186,7 @@
 
 
                       <li class="nav-item"> 
-                        <a href="<?= base_url('/viewmyschedule') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                        <a href="<?= base_url('/bodyInfo') ?>" class="nav-link d-flex align-items-center gap-2"> 
                           <i class="bi bi-cpu nav-icon"></i> 
                             <p class="m-0">My Body Information</p>
                         </a> 

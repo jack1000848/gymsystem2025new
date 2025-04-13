@@ -4,6 +4,7 @@
 
 <div class="container mt-5">
     <h2>Update Body Information</h2>
+
     <?php if (session()->has('errors')): ?>
         <div class="alert alert-danger">
             <?php foreach (session('errors') as $error): ?>
@@ -11,56 +12,58 @@
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
+
     <?php if (session()->has('success')): ?>
         <div class="alert alert-success">
             <p><?= esc(session('success')) ?></p>
         </div>
     <?php endif; ?>
-    
+
     <form id="bodyForm" action="<?= base_url('/customer/body/save') ?>" method="post">
         <?= csrf_field() ?>
+        
         <div class="mb-3">
             <label for="height" class="form-label">Height (cm)</label>
             <input type="number" step="0.01" class="form-control" id="height" name="height" value="<?= esc($customer['Height'] ?? '') ?>" required>
         </div>
+
         <div class="mb-3">
             <label for="weight" class="form-label">Weight (kg)</label>
             <input type="number" step="0.01" class="form-control" id="weight" name="weight" value="<?= esc($customer['Weight'] ?? '') ?>" required>
         </div>
+
         <div class="mb-3">
             <label for="weight_goal" class="form-label">Weight Goal (kg)</label>
             <input type="number" step="0.01" class="form-control" id="weight_goal" name="weight_goal" value="<?= esc($customer['Weight_Goal'] ?? '') ?>" required>
         </div>
+
         <div class="mb-3">
             <label for="height_goal" class="form-label">Height Goal (cm, optional)</label>
             <input type="number" step="0.01" class="form-control" id="height_goal" name="height_goal" value="<?= esc($customer['Height_Goal'] ?? '') ?>">
         </div>
+
         <div class="mb-3">
             <label for="notes" class="form-label">Notes (optional)</label>
-            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+            <textarea class="form-control" id="notes" name="notes" rows="3"><?= esc($customer['Notes'] ?? '') ?></textarea>
         </div>
-        <button type="button" class="btn btn-primary" onclick="validateAndRedirect()">Save</button>
+
+        <button type="button" class="btn btn-primary" onclick="validateAndSubmit()">Save</button>
         <a href="<?= base_url('/customer/body/history') ?>" class="btn btn-secondary">View History</a>
     </form>
 </div>
 
 <script>
-    function validateAndRedirect() {
+    function validateAndSubmit() {
         const form = document.getElementById('bodyForm');
 
         if (form.checkValidity()) {
-            // Submit the form
-            form.submit();
-
-            // Optional: Redirect after short delay (adjust as needed)
-            setTimeout(function () {
-                window.location.href = "<?= base_url('/customer/body/history') ?>";
-            }, 1000); // 1-second delay to allow form submission
+            form.submit(); // ✅ Submit the form (POST)
         } else {
-            form.reportValidity();
+            form.reportValidity(); // ❌ Show HTML5 validation messages
         }
     }
 </script>
+
 
 
 <?= $this->endSection() ?>

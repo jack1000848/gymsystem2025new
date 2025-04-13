@@ -16,9 +16,9 @@ class TaskController extends BaseController
 
     public function __construct()
     {
-        $this->taskModel = new Task();
-        $this->customerModel = new Customer();
-        $this->coachModel = new Coach();
+        $this->taskModel = new TaskModel();
+        $this->customerModel = new CustomerModel();
+        $this->coachModel = new CoachModel();
     }
 
     // Show form to create a task (for coaches)

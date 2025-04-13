@@ -25,9 +25,9 @@ class TaskController extends BaseController
     public function create()
     {
         // Check if user is a coach
-        if (session()->get('role') !== 'coach') {
-            return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
-        }
+       // if (session()->get('role') !== 'coach') {
+//return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
+      //  }
 
         $data['customers'] = $this->customerModel->findAll(); // List all clients
         return view('coachdashboard/markabsent', $data);
@@ -36,9 +36,9 @@ class TaskController extends BaseController
     // Save a new task
     public function store()
     {
-        if (session()->get('role') !== 'coach') {
-            return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
-        }
+       /// if (session()->get('role') !== 'coach') {
+       //     return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
+      //  }
 
         $validationRules = [
             'CustomerID' => 'required|integer',
@@ -66,9 +66,9 @@ class TaskController extends BaseController
     // List tasks for a coach
     public function coachTasks()
     {
-        if (session()->get('role') !== 'coach') {
-            return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
-        }
+       /// if (session()->get('role') !== 'coach') {
+        ///    return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
+       // }
 
         $data['tasks'] = $this->taskModel->getTasksByCoach(session()->get('CoachID'));
         return view('/coachdashboard/addtask', $data);
@@ -88,9 +88,9 @@ class TaskController extends BaseController
     // Mark task as completed (for clients)
     public function complete($taskID)
     {
-        if (session()->get('role') !== 'client') {
-            return redirect()->to('/clientdashboard')->with('error', 'Unauthorized access');
-        }
+       /// if (session()->get('role') !== 'client') {
+       ///     return redirect()->to('/clientdashboard')->with('error', 'Unauthorized access');
+      ///  }
 
         $task = $this->taskModel->find($taskID);
         if ($task && $task['CustomerID'] == session()->get('CustomerID')) {

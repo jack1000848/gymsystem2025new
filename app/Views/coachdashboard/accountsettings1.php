@@ -7,6 +7,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2f3640;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #353b48;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #dcdde1;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #44bd32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4cd137;
+        }
+
+        .alert {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background-color: #dff9fb;
+            color: #22a6b3;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #c23616;
+        }
+    </style>
 </head>
 <body>
 <h2>Account Settings</h2>

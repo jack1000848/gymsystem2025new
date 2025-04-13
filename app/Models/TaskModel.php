@@ -9,6 +9,7 @@ class TaskModel extends Model
     protected $table = 'tasks';
     protected $primaryKey = 'TaskID';
     protected $allowedFields = [
+        'TaskID',
         'CustomerID',
         'CoachID',
         'TaskTitle',

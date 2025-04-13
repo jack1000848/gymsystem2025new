@@ -60,15 +60,15 @@ class TaskController extends BaseController
         ];
 
         $this->taskModel->save($data);
-        return redirect()->to('/coachdashboard/addtask')->with('success', 'Task assigned successfully');
+        return redirect()->to('/tasks/coach')->with('success', 'Task assigned successfully');
     }
 
     // List tasks for a coach
     public function coachTasks()
     {
-       /// if (session()->get('role') !== 'coach') {
-        ///    return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
-       // }
+        if (session()->get('role') !== 'coach') {
+            return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
+       }
 
         $data['tasks'] = $this->taskModel->getTasksByCoach(session()->get('CoachID'));
         return view('/coachdashboard/addtask', $data);

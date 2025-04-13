@@ -77,9 +77,9 @@ class TaskController extends BaseController
     // List tasks for a client
     public function clientTasks()
     {
-        if (session()->get('role') !== 'client') {
-            return redirect()->to('/clientdashboard')->with('error', 'Unauthorized access');
-        }
+       // if (session()->get('role') !== 'client') {
+       //     return redirect()->to('/clientdashboard')->with('error', 'Unauthorized access');
+       // }
 
         $data['tasks'] = $this->taskModel->getTasksByCustomer(session()->get('CustomerID'));
         return view('clientdashboard/mytasks', $data);

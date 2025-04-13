@@ -21,7 +21,7 @@
                 <select name="CustomerID" id="CustomerID" class="form-select" required>
                     <option value="">Select Client</option>
                     <?php foreach ($customers as $customer): ?>
-                        <option value="<?= $customer['CustomerID'] ?>"><?= esc($customer['CustomerName']) ?></option>
+                        <option value="<?= $customer['CustomerID'] ?>"><?= esc($customer['Firstname']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

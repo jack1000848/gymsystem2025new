@@ -18,29 +18,31 @@ class ClientsDashboardController extends BaseController
          $this->clientsModel = model(CustomerModel::class);
     }
     public function viewNotifications()
-{
-
-    $session = session();
-    $customerId = $session->get('CustomerID'); // ← correct field
-
-        // Mark all unread notifications as read
-            $db->table('notifications')
+    {
+        $session = session();
+        $customerId = $session->get('CustomerID'); // get the logged-in customer ID
+    
+        $db = \Config\Database::connect(); // ✅ This was missing
+    
+        // ✅ Mark all unread notifications as read
+        $db->table('notifications')
             ->where('CustomerID', $customerId)
             ->where('is_read', 0)
             ->set('is_read', 1)
             ->update();
-
-
-    $db = \Config\Database::connect();
-
-    $notifications = $db->table('notifications')
-        ->where('CustomerID', $customerId) // ← match here too
-        ->orderBy('created_at', 'DESC')
-        ->get()
-        ->getResult();
-
-        return view('clientdashboard/clientnotif', ['notifications' => $notifications]);
-    }   
+    
+        // ✅ Then fetch the notifications
+        $notifications = $db->table('notifications')
+            ->where('CustomerID', $customerId)
+            ->orderBy('created_at', 'DESC')
+            ->get()
+            ->getResult();
+    
+        return view('clientdashboard/clientnotif', [
+            'notifications' => $notifications
+        ]);
+    }
+      
 
 
    

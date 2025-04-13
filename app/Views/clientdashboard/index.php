@@ -77,7 +77,9 @@
 
 <?php if ($history): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
+  
     const history = <?= json_encode($history) ?>;
     const validHistory = history.filter(record => record.Weight != null);
     const labels = validHistory.map(record => new Date(record.RecordDate).toLocaleDateString('en-CA'));
@@ -137,29 +139,26 @@
             }
         });
     }
-    ///// eto chart baba 
-    // Load Google Charts library for attendance charts
-    google.charts.load('current', {'packages':['corechart']});
+   /////// eto charts attendance 
+   google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(() => {
         drawMonthlyCheckinChart();
         drawDailyCheckinChart();
     });
 
+    const attendance = <?= json_encode($attendance ?? []) ?>;
+
     function drawMonthlyCheckinChart() {
-        // Prepare data for monthly check-ins
-        const attendance = <?= json_encode($attendance) ?>;
-        
-        // Group check-ins by month
         const monthlyData = {};
+        let totalCheckins = 0;
+
         attendance.forEach(record => {
             const date = new Date(record.InDate);
             const monthYear = date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
             monthlyData[monthYear] = (monthlyData[monthYear] || 0) + 1;
         });
 
-        // Format data for Google Charts
         const dataTable = [['Month', 'Check-ins']];
-        let totalCheckins = 0;
         for (const [month, count] of Object.entries(monthlyData)) {
             dataTable.push([month, count]);
             totalCheckins += count;
@@ -183,18 +182,14 @@
             chart.draw(data, options);
         });
 
-        // Show total check-ins below the chart
         document.getElementById('checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Check-ins: <strong>${totalCheckins}</strong></h4>`;
     }
 
     function drawDailyCheckinChart() {
-        // Prepare data for daily check-ins (last 30 days)
-        const attendance = <?= json_encode($attendance) ?>;
         const today = new Date();
         const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-        // Group check-ins by day (last 30 days)
         const dailyData = {};
+
         attendance.forEach(record => {
             const date = new Date(record.InDate);
             if (date >= thirtyDaysAgo && date <= today) {
@@ -203,17 +198,11 @@
             }
         });
 
-        // Format data for Google Charts
         const dataTable = [['Date', 'Check-ins']];
         const sortedDays = Object.keys(dailyData).sort();
-        sortedDays.forEach(day => {
-            dataTable.push([day, dailyData[day]]);
-        });
+        sortedDays.forEach(day => dataTable.push([day, dailyData[day]]));
 
-        // If no data in the last 30 days, show a placeholder
-        if (dataTable.length === 1) {
-            dataTable.push(['No Data', 0]);
-        }
+        if (dataTable.length === 1) dataTable.push(['No Data', 0]);
 
         const data = google.visualization.arrayToDataTable(dataTable);
 
@@ -233,7 +222,6 @@
             chart.draw(data, options);
         });
     }
-</script>
 <?php endif; ?>
 
 <?= $this->endSection() ?>

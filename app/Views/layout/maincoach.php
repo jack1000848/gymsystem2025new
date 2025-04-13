@@ -167,7 +167,7 @@
                             <p class="m-0">View My Clients</p>
                         </a>
                     </li>
-
+                    tasks/create
                     <li class="nav-item">
                         <a href="<?= base_url('viewequipment1') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="fas fa-dumbbell nav-icon"></i>
@@ -178,6 +178,12 @@
                         <a href="<?= base_url('coach-markAbsence') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="fas fa-dumbbell nav-icon"></i>
                             <p class="m-0">Mark Absent</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('tasks/create') ?>" class="nav-link d-flex align-items-center gap-2">
+                            <i class="fas fa-dumbbell nav-icon"></i>
+                            <p class="m-0">Add Task to Clients</p>
                         </a>
                     </li>
                     <li class="nav-item">

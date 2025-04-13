@@ -103,7 +103,7 @@
 
 
                       <li class="nav-item"> 
-                        <a href="<?= base_url('/bodyInfo') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                        <a href="<?= base_url('/customer/body/history') ?>" class="nav-link d-flex align-items-center gap-2"> 
                           <i class="bi bi-cpu nav-icon"></i> 
                             <p class="m-0">My Body Information</p>
                         </a> 
@@ -164,7 +164,7 @@
                            </li>
 
                            <li class="nav-item"> 
-                        <a href="<?= base_url('/client-qr') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                        <a href="<?= base_url('/customer/body/history') ?>" class="nav-link d-flex align-items-center gap-2"> 
                             <i class="bi bi-qr-code nav-icon"></i>
                             <p class="m-0">My QR CODE</p>
                         </a> 

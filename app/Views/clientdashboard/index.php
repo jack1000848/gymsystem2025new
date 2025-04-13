@@ -1,6 +1,6 @@
 <?= $this->extend('layout/mainclient') ?>
 <?= $this->section('body') ?>
-
+<center> <h2>Welcome, <?= esc($client['Firstname'] . ' ' . $client['Lastname']) ?>!</h2>  </center>
 <div class="container my-5">
     <?php if ($history): ?>
         <div class="row g-4">

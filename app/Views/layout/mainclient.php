@@ -68,7 +68,7 @@
                     <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                 <i class="bi bi-bullseye nav-icon"></i>
-                                <p class="m-0">Mission & Vision</p>
+                                <p class="m-0">My Dashboard</p>
                             </a> 
                          </li>
                             
@@ -152,7 +152,7 @@
                          <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                 <i class="bi bi-bullseye nav-icon"></i>
-                                <p class="m-0">Mission & Vision</p>
+                                <p class="m-0">My Dashboard</p>
                             </a> 
                          </li>
                             

@@ -56,6 +56,7 @@
   </style>
 </head>
 <body>
+<a href="<?= base_url('client/coach-absence') ?>">Check if Coach is Absent Today</a>
 
   <div class="container">
     <h1>Our Mission & Vision</h1>

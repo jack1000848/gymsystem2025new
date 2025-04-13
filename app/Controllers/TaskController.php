@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\Task;
-use App\Models\Customer; // Assume you have a Customer model
-use App\Models\Coach;    // Assume you have a Coach model
+use App\Models\TaskModel;
+use App\Models\CustomerModel; // Assume you have a Customer model
+use App\Models\CoachModel;    // Assume you have a Coach model
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 

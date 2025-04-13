@@ -88,7 +88,7 @@
                         </li>
                         
                         <li class="nav-item"> 
-                            <a href="#" class="nav-link d-flex align-items-center gap-2"> 
+                            <a href="<?= base_url('tasks/client') ?>" class="nav-link d-flex align-items-center gap-2"> 
                             <i class="fas fa-list-check nav-icon"></i>
                             <p class="m-0">To-do</p>
                             </a> 

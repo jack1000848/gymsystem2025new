@@ -198,3 +198,13 @@ $routes->get('/account-setting1', 'CoachDashboardController::accountSettings');
 $routes->post('/update-account1', 'CoachDashboardController::updateAccount');
 ///Logout...
 $routes->get('/coach-logout', 'CoachDashboardController::logout');
+
+
+
+
+////// add task kunno
+$routes->get('tasks/create', 'TaskController::create');
+$routes->post('tasks/store', 'TaskController::store');
+$routes->get('tasks/coach', 'TaskController::coachTasks');
+$routes->get('tasks/client', 'TaskController::clientTasks');
+$routes->get('tasks/complete/(:num)', 'TaskController::complete/$1');

@@ -2,8 +2,16 @@
 <?= $this->section('body') ?>
 
 <h2>Notifications</h2>
-<a href="<?= base_url('client/notifications') ?>">View Notifications</a>
 
+<?php if (!empty($notifications)) : ?>
+    <ul>
+        <?php foreach ($notifications as $note) : ?>
+            <li><?= esc($note->message) ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php else : ?>
+    <p>No notifications found.</p>
+<?php endif; ?>
 <?php if (!empty($notifications)) : ?>
     <ul>
         <?php foreach ($notifications as $note) : ?>

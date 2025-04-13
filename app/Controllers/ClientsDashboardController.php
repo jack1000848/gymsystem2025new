@@ -243,7 +243,7 @@ class ClientsDashboardController extends BaseController
         ];
         $this->historyModel->insert($historyData);
 
-        return redirect()->to('/clientdashboard/updateinformation')->with('success', 'Body information updated successfully.');
+        return redirect()->to('/customer/body/history')->with('success', 'Body information updated successfully.');
     }
 
     // New method: View body history and chart

@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
             background-color: #f5f6fa;
             margin: 0;
-            padding: 20px;
+            
         }
 
         h2 {
@@ -21,7 +21,7 @@
 
         form {
             background-color: #ffffff;
-            padding: 20px;
+            
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             max-width: 500px;

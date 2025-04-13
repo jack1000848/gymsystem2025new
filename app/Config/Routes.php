@@ -144,7 +144,9 @@ $routes->get('client/coach-absence', 'ClientsDashboardController::coachAbsenceNo
 $routes->get('/viewequipment', 'ViewEquipmentController::indexviewequipment');
 
 ///Body Information...
-
+$routes->get('/bodyInfo', 'ClientsDashboardController::bodyInfo');
+$routes->post('/customer/body/save', 'ClientsDashboardController::saveBodyInfo');
+$routes->get('/customer/body/history', 'ClientsDashboardController::bodyHistory');
 // view my schedule
 $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
 

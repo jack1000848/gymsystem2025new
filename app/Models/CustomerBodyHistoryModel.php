@@ -4,34 +4,24 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CustomerModel extends Model
+class CustomerBodyHistoryModel extends Model
 {
-    protected $table            = 'customer';
-    protected $primaryKey       = 'CustomerID';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [
-        'CustomerID','Firstname', 'Middlename', 'Lastname', 'Address', 'Gender', 'PhoneNumber', 'Email', 'phone_number', 'Password', 'password_hash', 'RegisteredDate','types_of_workout','Membership_plan','qr_code','CurrentPlanID', 'ExpirationDate','WorkoutTypeID','WorkoutPlanID', 'is_frozen' ,  'reset_token', 'reset_token_expires','verification_token', 'is_verified', 'Height', 'Weight', 'Weight_Goal', 'Height_Goal', 'Goal_Set_Date'
-        
-   
-    ];
-    public function updateBodyInfo($customerId, $data)
+    protected $table = 'customer_body_history';
+    protected $primaryKey = 'HistoryID';
+    protected $allowedFields = ['CustomerID', 'Weight', 'Height', 'RecordDate', 'Notes'];
+
+    public function getHistory($customerId)
     {
-        return $this->update($customerId, $data);
+        return $this->where('CustomerID', $customerId)
+                    ->orderBy('RecordDate', 'ASC')
+                    ->findAll();
     }
 
-    public function getCustomer($customerId)
-    {
-        return $this->find($customerId);
-    }
-
-    public function saveReservation($data)
+    public function addHistory($data)
     {
         return $this->insert($data);
     }
-    
+
     
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

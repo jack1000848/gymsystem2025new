@@ -6,15 +6,17 @@ use App\Controllers\BaseController;
 //use App\Models\Clients1Model;
 use App\Models\CustomerModel;
 use App\Models\QrAttendanceModel;
-
+use App\Models\CustomerBodyHistoryModel; // Add the history model
 
 class ClientsDashboardController extends BaseController 
 {
     protected $clientsModel; // Declare the model
+    protected $historyModel; // For customer_body_history table
 
     public function __construct()
     {
-    
+        $this->clientsModel = model(CustomerModel::class);
+        $this->historyModel = model(CustomerBodyHistoryModel::class); // Initialize history model
          $this->clientsModel = model(CustomerModel::class);
     }
     public function coachAbsenceNotification()
@@ -179,7 +181,84 @@ class ClientsDashboardController extends BaseController
             return redirect()->to('/account-setting')->with('error', 'Failed to update account.');
         }
     }
-    ///try to view coach absent
+    // New method: Show form to add/update body info
+    public function bodyInfo()
+    {
+        if (!session()->has('isLoggedIn')) {
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
+
+        $customerId = session()->get('CustomerID');
+        $customer = $this->clientsModel->find($customerId);
+
+        if (!$customer) {
+            return redirect()->to('/clientdashboard')->with('error', 'Customer not found.');
+        }
+
+        return view('clientdashboard/bodyinformation', ['client' => $customer]); // Adjusted view path
+    }
+
+    // New method: Save or update body info
+    public function saveBodyInfo()
+    {
+        if (!session()->has('isLoggedIn')) {
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
+
+        $customerId = session()->get('CustomerID');
+        $validation = \Config\Services::validation();
+
+        // Validation rules
+        $validation->setRules([
+            'height' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'weight_goal' => 'required|numeric',
+            'height_goal' => 'permit_empty|numeric',
+            'notes' => 'permit_empty'
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        // Prepare data for the customer table
+        $data = [
+            'Height' => $this->request->getPost('height'),
+            'Weight' => $this->request->getPost('weight'),
+            'Weight_Goal' => $this->request->getPost('weight_goal'),
+            'Height_Goal' => $this->request->getPost('height_goal') ?: null,
+            'Goal_Set_Date' => date('Y-m-d H:i:s')
+        ];
+
+        // Update customer table
+        $this->clientsModel->update($customerId, $data);
+
+        // Log the update in the history table
+        $historyData = [
+            'CustomerID' => $customerId,
+            'Height' => $this->request->getPost('height'),
+            'Weight' => $this->request->getPost('weight'),
+            'RecordDate' => date('Y-m-d H:i:s'),
+            'Notes' => $this->request->getPost('notes')
+        ];
+        $this->historyModel->insert($historyData);
+
+        return redirect()->to('/clientdashboard/updateinformation')->with('success', 'Body information updated successfully.');
+    }
+
+    // New method: View body history and chart
+    public function bodyHistory()
+    {
+        if (!session()->has('isLoggedIn')) {
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
+        }
+
+        $customerId = session()->get('CustomerID');
+        $history = $this->historyModel->getHistory($customerId);
+
+        return view('clientdashboard/updateinformation', ['history' => $history]); // Adjusted view path
+    }
+
 
     public function logout()
     {

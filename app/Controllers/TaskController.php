@@ -66,9 +66,9 @@ class TaskController extends BaseController
     // List tasks for a coach
     public function coachTasks()
     {
-        if (session()->get('role') !== 'coach') {
-            return redirect()->to('/tasks/coach')->with('error', 'Unauthorized access');
-       }
+     //   if (session()->get('role') !== 'coach') {
+     //       return redirect()->to('/tasks/coach')->with('error', 'Unauthorized access');
+     //  }
 
         $data['tasks'] = $this->taskModel->getTasksByCoach(session()->get('CoachID'));
         return view('/coachdashboard/addtask', $data);

@@ -17,30 +17,47 @@ class ClientsDashboardController extends BaseController
     
          $this->clientsModel = model(CustomerModel::class);
     }
-    public function viewNotifications()
+    public function coachAbsenceNotification()
 {
     $session = session();
     $customerId = $session->get('CustomerID');
 
+    if (!$customerId) {
+        return redirect()->to('/login'); // Or wherever you handle login
+    }
+
     $db = \Config\Database::connect();
 
-    // Mark notifications as read
-    $db->table('notifications')
+    // Step 1: Get the client's assigned coach
+    $client = $db->table('customer')
         ->where('CustomerID', $customerId)
-        ->where('is_read', 0)
-        ->set('is_read', 1)
-        ->update();
-
-    // Get notifications
-    $notifications = $db->table('notifications')
-        ->where('CustomerID', $customerId)
-        ->orderBy('created_at', 'DESC')
         ->get()
-        ->getResult();
+        ->getRow();
 
-    return view('clientdashboard/clientnotif', [
-        'notifications' => $notifications
-    ]);
+    if (!$client || !$client->CoachID) {
+        return view('clientdashboard/clientnotif', ['message' => 'No coach assigned.']);
+    }
+
+    $coachId = $client->CoachID;
+
+    // Step 2: Check if coach is absent today
+    $today = date('Y-m-d');
+    $absence = $db->table('coach_absences')
+        ->where('CoachID', $coachId)
+        ->where('date', $today)
+        ->get()
+        ->getRow();
+
+    if ($absence) {
+        $message = "Your coach is absent today.";
+        if (!empty($absence->message)) {
+            $message .= " Note: " . $absence->message;
+        }
+    } else {
+        $message = "Your coach is available today.";
+    }
+
+    return view('clientdashboard/clientnotif', ['message' => $message]);
 }
 
 

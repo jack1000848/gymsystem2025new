@@ -192,9 +192,9 @@ public function updateStatus($taskID)
 }
 public function updateSubtasks($taskID)
 {
-    if (session()->get('role') !== 'client') {
-        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
-    }
+   // if (session()->get('role') !== 'client') {
+    //    return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+   /// }
 
     $customerID = session()->get('CustomerID');
     if (!$customerID) {

@@ -97,6 +97,7 @@
 
 <?php if ($history || !empty($tasks) || $attendance): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
@@ -161,10 +162,10 @@
         });
     }
 
-    // Task Progress Chart
+    // Task Progress Chart (Donut Chart)
     <?php if (!empty($tasks)): ?>
         new Chart(document.getElementById('taskProgressChart'), {
-            type: 'bar',
+            type: 'doughnut',
             data: {
                 labels: [
                     <?php foreach ($tasks as $task): ?>
@@ -201,28 +202,50 @@
             },
             options: {
                 responsive: true,
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Tasks' },
-                        ticks: { maxRotation: 45, minRotation: 45 }
-                    },
-                    y: {
-                        title: { display: true, text: 'Completion (%)' },
-                        beginAtZero: true,
-                        max: 100
-                    }
-                },
                 plugins: {
-                    legend: { display: false },
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return context.parsed.y + '%';
+                                const label = context.label || '';
+                                const value = context.parsed || 0;
+                                return `${label}: ${value}%`;
                             }
                         }
+                    },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        formatter: (value, context) => {
+                            const statuses = [
+                                <?php foreach ($tasks as $task): ?>
+                                    "<?= ucfirst($task['Status']) ?>",
+                                <?php endforeach; ?>
+                            ];
+                            const label = context.chart.data.labels[context.dataIndex];
+                            return `${label}\n${value}%\n${statuses[context.dataIndex]}`;
+                        },
+                        color: '#333',
+                        font: {
+                            weight: 'bold',
+                            size: 10
+                        },
+                        textAlign: 'center'
                     }
-                }
-            }
+                },
+                cutout: '50%',
+                aspectRatio: 1.5
+            },
+            plugins: [ChartDataLabels]
         });
     <?php endif; ?>
 

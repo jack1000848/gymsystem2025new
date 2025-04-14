@@ -1,5 +1,62 @@
 <?= $this->extend('layout/mainclient') ?>
 <?= $this->section('body') ?>
+<!-- Add Google Fonts for Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Style the chart card for a premium look */
+    .premium-chart-card {
+        background: linear-gradient(145deg, #f5f7fa, #e4e7eb); /* Subtle gradient background */
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        padding: 20px;
+        transition: transform 0.3s ease; /* Smooth hover animation */
+    }
+
+    .premium-chart-card:hover {
+        transform: translateY(-5px); /* Slight lift on hover */
+    }
+
+    .premium-chart-card .card-header {
+        background: linear-gradient(90deg, #007bff, #00c4ff); /* Gradient header */
+        border-radius: 10px 10px 0 0;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+
+    .premium-chart-card .card-body {
+        position: relative;
+    }
+
+    /* Style the legend for a premium look */
+    .chart-legend {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .chart-legend .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        transition: transform 0.2s ease;
+    }
+
+    .chart-legend .legend-item:hover {
+        transform: scale(1.05); /* Subtle zoom on hover */
+    }
+
+    .chart-legend .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%; /* Rounded color indicator */
+        margin-right: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    }
+</style>
+
 <center><h2>Welcome, <?= esc($client['Firstname'] . ' ' . $client['Lastname']) ?>!</h2></center>
 <div class="container my-5">
     <?php if ($history): ?>
@@ -44,8 +101,8 @@
     <div class="row g-4 mt-4">
         <div class="col-12">
             <?php if (!empty($tasks)): ?>
-                <div class="card">
-                    <div class="card-header bg-primary text-white text-center">
+                <div class="card premium-chart-card">
+                    <div class="card-header text-white text-center">
                         <h4 class="mb-0">Task Completion Progress (%)</h4>
                     </div>
                     <div class="card-body">
@@ -162,9 +219,10 @@
         });
     }
 
-    // Task Progress Chart (Donut Chart)
+    // Task Progress Chart (Premium Donut Chart)
     <?php if (!empty($tasks)): ?>
-        new Chart(document.getElementById('taskProgressChart'), {
+        // Create gradient colors for each segment
+        const taskProgressChart = new Chart(document.getElementById('taskProgressChart'), {
             type: 'doughnut',
             data: {
                 labels: [
@@ -182,10 +240,19 @@
                     backgroundColor: [
                         <?php foreach ($tasks as $task): ?>
                             <?php
-                            $color = $task['Status'] === 'completed' ? "'rgba(40, 167, 69, 0.5)'" :
-                                    ($task['Status'] === 'incomplete' ? "'rgba(220, 53, 69, 0.5)'" : "'rgba(0, 123, 255, 0.5)'");
+                            // Define base colors for gradients based on status
+                            $startColor = $task['Status'] === 'completed' ? 'rgba(40, 167, 69, 0.8)' :
+                                        ($task['Status'] === 'incomplete' ? 'rgba(220, 53, 69, 0.8)' : 'rgba(0, 123, 255, 0.8)');
+                            $endColor = $task['Status'] === 'completed' ? 'rgba(20, 90, 40, 0.8)' :
+                                        ($task['Status'] === 'incomplete' ? 'rgba(150, 30, 50, 0.8)' : 'rgba(0, 80, 180, 0.8)');
                             ?>
-                            <?= $color ?>,
+                            (ctx) => {
+                                const canvas = ctx.chart.ctx;
+                                const gradient = canvas.createLinearGradient(0, 0, 0, 400);
+                                gradient.addColorStop(0, '<?= $startColor ?>');
+                                gradient.addColorStop(1, '<?= $endColor ?>');
+                                return gradient;
+                            },
                         <?php endforeach; ?>
                     ],
                     borderColor: [
@@ -197,11 +264,18 @@
                             <?= $color ?>,
                         <?php endforeach; ?>
                     ],
-                    borderWidth: 1
+                    borderWidth: 2,
+                    borderAlign: 'inner', // Gives a 3D-like effect
+                    hoverOffset: 15 // Larger hover effect for premium feel
                 }]
             },
             options: {
                 responsive: true,
+                animation: {
+                    animateScale: true, // Scale animation on load
+                    animateRotate: true, // Rotate animation on load
+                    duration: 1500 // Slower animation for premium feel
+                },
                 plugins: {
                     legend: {
                         position: 'bottom',
@@ -209,11 +283,29 @@
                             boxWidth: 20,
                             padding: 15,
                             font: {
-                                size: 12
+                                family: 'Poppins, sans-serif',
+                                size: 14,
+                                weight: '600'
+                            },
+                            usePointStyle: true, // Rounded color indicators
+                            pointStyle: 'circle',
+                            generateLabels: (chart) => {
+                                const data = chart.data;
+                                return data.labels.map((label, i) => ({
+                                    text: label,
+                                    fillStyle: data.datasets[0].backgroundColor[i](chart),
+                                    strokeStyle: data.datasets[0].borderColor[i],
+                                    lineWidth: 2,
+                                    hidden: !chart.getDataVisibility(i),
+                                    index: i
+                                }));
                             }
                         }
                     },
                     tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { family: 'Poppins, sans-serif', size: 14, weight: 'bold' },
+                        bodyFont: { family: 'Poppins, sans-serif', size: 12 },
                         callbacks: {
                             label: function(context) {
                                 const label = context.label || '';
@@ -231,19 +323,32 @@
                                     "<?= ucfirst($task['Status']) ?>",
                                 <?php endforeach; ?>
                             ];
-                            const label = context.chart.data.labels[context.dataIndex];
+                            const label = context.chart.data.labels[context.dataIndex].length > 10 ?
+                                context.chart.data.labels[context.dataIndex].substring(0, 10) + '...' :
+                                context.chart.data.labels[context.dataIndex];
                             return `${label}\n${value}%\n${statuses[context.dataIndex]}`;
                         },
-                        color: '#333',
+                        color: '#fff',
+                        textShadow: '0 0 5px rgba(0, 0, 0, 0.5)', // Shadow for depth
                         font: {
-                            weight: 'bold',
+                            family: 'Poppins, sans-serif',
+                            weight: '600',
                             size: 10
                         },
                         textAlign: 'center'
                     }
                 },
-                cutout: '30%',
-                aspectRatio: 1.5
+                cutout: '60%', // Thicker donut for premium look
+                aspectRatio: 1.5,
+                elements: {
+                    arc: {
+                        borderWidth: 2,
+                        shadowColor: 'rgba(0, 123, 255, 0.5)', // Glow effect
+                        shadowBlur: 20,
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0
+                    }
+                }
             },
             plugins: [ChartDataLabels]
         });

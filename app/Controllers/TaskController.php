@@ -215,7 +215,7 @@ public function updateSubtasks($taskID)
     }
 
     // Update subtasks
-    $subtaskModel = new \App\Models\SubtaskModel();
+    $subtaskModel = new \App\Models\Subtask();
     $subtasks = $subtaskModel->where('TaskID', $taskID)->findAll();
     $submittedSubtasks = $this->request->getPost('subtasks') ?? [];
 

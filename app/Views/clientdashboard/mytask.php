@@ -28,14 +28,14 @@
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Progress</th>
-                    <th>Update Progress</th>
+                    <th>Subtasks</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (!empty($tasks)): ?>
                     <?php foreach ($tasks as $task): ?>
                         <tr>
-                            <td><?= esc($task['Firstname']) ?></td>
+                            <td><?= esc($task['Fullname']) ?></td>
                             <td><?= esc($task['TaskTitle']) ?></td>
                             <td><?= esc($task['TaskDescription']) ?></td>
                             <td><?= esc($task['DueDate']) ?></td>
@@ -43,13 +43,17 @@
                             <td><?= esc($task['Progress']) ?>%</td>
                             <td>
                                 <?php if ($task['Status'] === 'pending'): ?>
-                                    <form action="<?= base_url('tasks/updateProgress/' . $task['TaskID']) ?>" method="post">
-                                        <select name="steps_completed" onchange="this.form.submit()">
-                                            <option value="0" <?= $task['Progress'] == 0 ? 'selected' : '' ?>>0 Steps</option>
-                                            <option value="1" <?= $task['Progress'] == 33 ? 'selected' : '' ?>>Step 1 (33%)</option>
-                                            <option value="2" <?= $task['Progress'] == 66 ? 'selected' : '' ?>>Step 2 (66%)</option>
-                                            <option value="3" <?= $task['Progress'] == 100 ? 'selected' : '' ?>>Step 3 (100%)</option>
-                                        </select>
+                                    <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
+                                        <?php
+                                        $subtaskModel = new \App\Models\Subtask();
+                                        $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
+                                        foreach ($subtasks as $subtask):
+                                        ?>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="subtasks[<?= $subtask['SubtaskID'] ?>]" value="1" class="form-check-input" <?= $subtask['IsCompleted'] ? 'checked' : '' ?> onchange="this.form.submit()">
+                                                <label class="form-check-label"><?= esc($subtask['SubtaskName']) ?></label>
+                                            </div>
+                                        <?php endforeach; ?>
                                     </form>
                                 <?php else: ?>
                                     <span class="text-muted"><?= $task['Status'] === 'completed' ? 'Completed' : 'Incomplete' ?></span>

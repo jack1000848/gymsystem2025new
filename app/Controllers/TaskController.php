@@ -36,34 +36,60 @@ class TaskController extends BaseController
 
     // Save a new task
     public function store()
-    {
-       /// if (session()->get('role') !== 'coach') {
-       //     return redirect()->to('/coachdashboard')->with('error', 'Unauthorized access');
-      //  }
+{
+  //  if (session()->get('role') !== 'coach') {
+   //     return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+   // }
 
-        $validationRules = [
-            'CustomerID' => 'required|integer',
-            'TaskTitle' => 'required|min_length[3]',
-            'DueDate' => 'required|valid_date',
-        ];
+    $coachID = session()->get('CoachID');
+    $customerID = $this->request->getPost('CustomerID');
 
-        if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $data = [
-            'CustomerID' => $this->request->getPost('CustomerID'),
-            'CoachID' => session()->get('CoachID'), // Assume CoachID in session
-            'TaskTitle' => $this->request->getPost('TaskTitle'),
-            'TaskDescription' => $this->request->getPost('TaskDescription'),
-            'DueDate' => $this->request->getPost('DueDate'),
-            'Status' => 'pending',
-        ];
-
-        $this->taskModel->save($data);
-        return redirect()->to('/tasks/coach')->with('success', 'Task assigned successfully');
+    // Verify the CustomerID belongs to this coach (using CoachSched)
+    $coachSchedModel = new \App\Models\CoachSched();
+    $customerIDs = array_column($coachSchedModel->getCustomerIDsByCoach($coachID), 'CustomerID');
+    if (!in_array($customerID, $customerIDs)) {
+        return redirect()->to('/tasks/create')->with('error', 'Invalid client selected');
     }
 
+    $validationRules = [
+        'CustomerID' => 'required|integer',
+        'TaskTitle' => 'required|min_length[3]',
+        'DueDate' => 'required|valid_date',
+        'subtasks' => 'required',
+        'subtasks.*' => 'required|min_length[3]',
+    ];
+
+    if (!$this->validate($validationRules)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+
+    // Save the main task
+    $taskData = [
+        'CustomerID' => $customerID,
+        'CoachID' => $coachID,
+        'TaskTitle' => $this->request->getPost('TaskTitle'),
+        'TaskDescription' => $this->request->getPost('TaskDescription'),
+        'DueDate' => $this->request->getPost('DueDate'),
+        'Status' => 'pending',
+        'Progress' => 0,
+    ];
+
+    $this->taskModel->insert($taskData);
+    $taskID = $this->taskModel->insertID();
+
+    // Save subtasks
+    $subtaskModel = new \App\Models\Subtask();
+    $subtasks = $this->request->getPost('subtasks');
+    foreach ($subtasks as $subtaskName) {
+        $subtaskModel->insert([
+            'TaskID' => $taskID,
+            'SubtaskName' => $subtaskName,
+            'IsCompleted' => false,
+        ]);
+    }
+
+    return redirect()->to('/tasks/coach')->with('success', 'Task assigned successfully');
+}
     // List tasks for a coach
     public function coachTasks()
     {
@@ -139,15 +165,14 @@ class TaskController extends BaseController
 public function updateStatus($taskID)
 {
    // if (session()->get('role') !== 'coach') {
-   //     return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
-  //  }
+     //   return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+   // }
 
     $coachID = session()->get('CoachID');
     if (!$coachID) {
         return redirect()->to('/login')->with('error', 'Please log in as a coach');
     }
 
-    // Verify the task belongs to this coach
     $task = $this->taskModel->where('TaskID', $taskID)
                             ->where('CoachID', $coachID)
                             ->first();
@@ -161,8 +186,49 @@ public function updateStatus($taskID)
         return redirect()->to('/tasks/coach')->with('error', 'Invalid status');
     }
 
-    // Update the task's status
     $this->taskModel->update($taskID, ['Status' => $status]);
     return redirect()->to('/tasks/coach')->with('success', 'Task status updated successfully');
 }
+public function updateSubtasks($taskID)
+{
+    if (session()->get('role') !== 'client') {
+        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+    }
+
+    $customerID = session()->get('CustomerID');
+    if (!$customerID) {
+        return redirect()->to('/login')->with('error', 'Please log in as a client');
+    }
+
+    // Verify the task belongs to this client
+    $task = $this->taskModel->where('TaskID', $taskID)
+                            ->where('CustomerID', $customerID)
+                            ->first();
+
+    if (!$task) {
+        return redirect()->to('/tasks/client')->with('error', 'Task not found or not assigned to you');
+    }
+
+    if ($task['Status'] !== 'pending') {
+        return redirect()->to('/tasks/client')->with('error', 'Cannot update subtasks for a non-pending task');
+    }
+
+    // Update subtasks
+    $subtaskModel = new \App\Models\Subtask();
+    $subtasks = $subtaskModel->where('TaskID', $taskID)->findAll();
+    $submittedSubtasks = $this->request->getPost('subtasks') ?? [];
+
+    foreach ($subtasks as $subtask) {
+        $isCompleted = isset($submittedSubtasks[$subtask['SubtaskID']]) ? 1 : 0;
+        $subtaskModel->update($subtask['SubtaskID'], ['IsCompleted' => $isCompleted]);
+    }
+
+    // Recalculate progress
+    $progress = $this->taskModel->calculateProgress($taskID);
+    $this->taskModel->update($taskID, ['Progress' => $progress]);
+
+    return redirect()->to('/tasks/client')->with('success', 'Subtasks updated successfully');
+}
+
+
 }

@@ -32,6 +32,7 @@
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Progress</th>
+                    <th>Subtasks</th>
                     <th>Update Status</th>
                 </tr>
             </thead>
@@ -39,12 +40,25 @@
                 <?php if (!empty($tasks)): ?>
                     <?php foreach ($tasks as $task): ?>
                         <tr>
-                            <td><?= esc($task['Firstname']) ?></td>
+                            <td><?= esc($task['Fullname']) ?></td>
                             <td><?= esc($task['TaskTitle']) ?></td>
                             <td><?= esc($task['TaskDescription']) ?></td>
                             <td><?= esc($task['DueDate']) ?></td>
                             <td><?= esc($task['Status']) ?></td>
                             <td><?= esc($task['Progress']) ?>%</td>
+                            <td>
+                                <?php
+                                $subtaskModel = new \App\Models\Subtask();
+                                $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
+                                foreach ($subtasks as $subtask):
+                                ?>
+                                    <div>
+                                        <span class="<?= $subtask['IsCompleted'] ? 'text-success' : 'text-muted' ?>">
+                                            <?= $subtask['IsCompleted'] ? '✔' : '⬜' ?> <?= esc($subtask['SubtaskName']) ?>
+                                        </span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </td>
                             <td>
                                 <form action="<?= base_url('tasks/updateStatus/' . $task['TaskID']) ?>" method="post">
                                     <select name="status" onchange="this.form.submit()">
@@ -58,7 +72,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">No tasks assigned.</td>
+                        <td colspan="8">No tasks assigned.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

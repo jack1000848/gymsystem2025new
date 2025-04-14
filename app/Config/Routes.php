@@ -212,3 +212,6 @@ $routes->get('tasks/complete/(:num)', 'TaskController::complete/$1');
 
 $routes->post('tasks/updateProgress/(:num)', 'TaskController::updateProgress/$1');
 $routes->post('tasks/updateStatus/(:num)', 'TaskController::updateStatus/$1');
+
+//// new
+$routes->post('tasks/updateSubtasks/(:num)', 'TaskController::updateSubtasks/$1');

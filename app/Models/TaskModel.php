@@ -37,6 +37,27 @@ class TaskModel extends Model
                 ->where('tasks.CoachID', $coachID) // Explicitly specify the table
                 ->findAll();
 }
+// Fetch subtasks for a task
+public function getSubtasks($taskID)
+{
+    return $this->db->table('subtasks')
+                    ->where('TaskID', $taskID)
+                    ->get()
+                    ->getResultArray();
+}
+
+// Calculate progress based on completed subtasks
+public function calculateProgress($taskID)
+{
+    $subtasks = $this->getSubtasks($taskID);
+    if (empty($subtasks)) {
+        return 0;
+    }
+
+    $totalSubtasks = count($subtasks);
+    $completedSubtasks = count(array_filter($subtasks, fn($subtask) => $subtask['IsCompleted'] == 1));
+    return round(($completedSubtasks / $totalSubtasks) * 100);
+}
 
 
 }

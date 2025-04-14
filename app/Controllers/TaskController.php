@@ -103,9 +103,9 @@ class TaskController extends BaseController
     }
     public function updateProgress($taskID)
 {
-    if (session()->get('role') !== 'client') {
-        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
-    }
+   // if (session()->get('role') !== 'client') {
+    //    return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+   // }
 
     $customerID = session()->get('CustomerID');
     if (!$customerID) {
@@ -138,9 +138,9 @@ class TaskController extends BaseController
 }
 public function updateStatus($taskID)
 {
-    if (session()->get('role') !== 'coach') {
-        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
-    }
+   // if (session()->get('role') !== 'coach') {
+   //     return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+  //  }
 
     $coachID = session()->get('CoachID');
     if (!$coachID) {

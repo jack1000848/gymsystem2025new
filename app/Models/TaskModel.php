@@ -16,6 +16,7 @@ class TaskModel extends Model
         'TaskDescription',
         'DueDate',
         'Status',
+        'Progress',
     ];
     protected $useTimestamps = false;
 

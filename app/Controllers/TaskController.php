@@ -101,4 +101,68 @@ class TaskController extends BaseController
 
         return redirect()->to('clientdashboard/mytasks')->with('error', 'Invalid task');
     }
+    public function updateProgress($taskID)
+{
+    if (session()->get('role') !== 'client') {
+        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+    }
+
+    $customerID = session()->get('CustomerID');
+    if (!$customerID) {
+        return redirect()->to('/login')->with('error', 'Please log in as a client');
+    }
+
+    // Verify the task belongs to this client
+    $task = $this->taskModel->where('TaskID', $taskID)
+                            ->where('CustomerID', $customerID)
+                            ->first();
+
+    if (!$task) {
+        return redirect()->to('/tasks/client')->with('error', 'Task not found or not assigned to you');
+    }
+
+    if ($task['Status'] !== 'pending') {
+        return redirect()->to('/tasks/client')->with('error', 'Cannot update progress for a non-pending task');
+    }
+
+    // Calculate progress based on steps completed
+    $stepsCompleted = (int) $this->request->getPost('steps_completed');
+    $progress = $stepsCompleted * 33; // 0 steps: 0%, 1 step: 33%, 2 steps: 66%, 3 steps: 100%
+    if ($stepsCompleted == 3) {
+        $progress = 100; // Ensure 3 steps = 100%
+    }
+
+    // Update the task's progress
+    $this->taskModel->update($taskID, ['Progress' => $progress]);
+    return redirect()->to('/tasks/client')->with('success', 'Progress updated successfully');
+}
+public function updateStatus($taskID)
+{
+    if (session()->get('role') !== 'coach') {
+        return redirect()->to('/dashboard')->with('error', 'Unauthorized access');
+    }
+
+    $coachID = session()->get('CoachID');
+    if (!$coachID) {
+        return redirect()->to('/login')->with('error', 'Please log in as a coach');
+    }
+
+    // Verify the task belongs to this coach
+    $task = $this->taskModel->where('TaskID', $taskID)
+                            ->where('CoachID', $coachID)
+                            ->first();
+
+    if (!$task) {
+        return redirect()->to('/tasks/coach')->with('error', 'Task not found or not assigned by you');
+    }
+
+    $status = $this->request->getPost('status');
+    if (!in_array($status, ['pending', 'completed', 'incomplete'])) {
+        return redirect()->to('/tasks/coach')->with('error', 'Invalid status');
+    }
+
+    // Update the task's status
+    $this->taskModel->update($taskID, ['Status' => $status]);
+    return redirect()->to('/tasks/coach')->with('success', 'Task status updated successfully');
+}
 }

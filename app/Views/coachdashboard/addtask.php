@@ -18,6 +18,11 @@
                 <?= session()->getFlashdata('success') ?>
             </div>
         <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
         <table class="table">
             <thead>
                 <tr>
@@ -26,18 +31,36 @@
                     <th>Description</th>
                     <th>Due Date</th>
                     <th>Status</th>
+                    <th>Progress</th>
+                    <th>Update Status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($tasks as $task): ?>
+                <?php if (!empty($tasks)): ?>
+                    <?php foreach ($tasks as $task): ?>
+                        <tr>
+                            <td><?= esc($task['Firtname']) ?></td>
+                            <td><?= esc($task['TaskTitle']) ?></td>
+                            <td><?= esc($task['TaskDescription']) ?></td>
+                            <td><?= esc($task['DueDate']) ?></td>
+                            <td><?= esc($task['Status']) ?></td>
+                            <td><?= esc($task['Progress']) ?>%</td>
+                            <td>
+                                <form action="<?= base_url('tasks/updateStatus/' . $task['TaskID']) ?>" method="post">
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
+                                        <option value="completed" <?= $task['Status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
+                                        <option value="incomplete" <?= $task['Status'] === 'incomplete' ? 'selected' : '' ?>>Incomplete</option>
+                                    </select>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?= esc($task['Firstname']) ?></td>
-                        <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['TaskDescription']) ?></td>
-                        <td><?= esc($task['DueDate']) ?></td>
-                        <td><?= esc($task['Status']) ?></td>
+                        <td colspan="7">No tasks assigned.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

@@ -208,3 +208,7 @@ $routes->post('tasks/store', 'TaskController::store');
 $routes->get('tasks/coach', 'TaskController::coachTasks');
 $routes->get('tasks/client', 'TaskController::clientTasks');
 $routes->get('tasks/complete/(:num)', 'TaskController::complete/$1');
+
+
+$routes->post('tasks/updateProgress/(:num)', 'TaskController::updateProgress/$1');
+$routes->post('tasks/updateStatus/(:num)', 'TaskController::updateStatus/$1');

@@ -50,25 +50,47 @@
         </div>
     <?php endif; ?>
 
-    <!-- Donut + Daily Check-ins Charts Section -->
-<?php if (!empty($tasks) || $attendance): ?>
-    <div class="row g-4 mt-4">
-        <!-- Donut Chart (Left) -->
-        <?php if (!empty($tasks)): ?>
-            <div class="col-12 col-md-6">
-                <div class="card h-100">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4 class="mb-0">Task Completion Progress (%)</h4>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="taskProgressChart"></canvas>
+    <!-- Task Progress and Daily Check-in Charts Section -->
+    <?php if (!empty($tasks) || $attendance): ?>
+        <div class="row g-4 mt-4">
+            <!-- Task Progress Chart (Left) -->
+            <?php if (!empty($tasks)): ?>
+                <div class="col-12 col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4 class="mb-0">Task Completion Progress (%)</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="taskProgressChart"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endif; ?>
+            <?php else: ?>
+                <div class="col-12 col-md-6 text-center text-muted fs-5">
+                    <p>No tasks assigned.</p>
+                </div>
+            <?php endif; ?>
 
-    <!-- Attendance Charts Section -->
-    
+            <!-- Daily Check-ins Chart (Right) -->
+            <?php if ($attendance): ?>
+                <div class="col-12 col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h3>Daily Check-ins (Last 30 Days)</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="daily_checkin_chart"></div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="col-12 col-md-6 text-center text-muted fs-5">
+                    <p>No attendance records found.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>
 
 <?php if ($history || !empty($tasks) || $attendance): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -76,7 +98,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
-    // Existing Weight Chart Code
+    // Weight Chart Code
     const history = <?= json_encode($history) ?>;
     const validHistory = history.filter(record => record.Weight != null);
     const labels = validHistory.map(record => new Date(record.RecordDate).toLocaleDateString('en-CA'));
@@ -138,120 +160,78 @@
     }
 
     // Task Progress Chart (Donut Chart)
-<?php if (!empty($tasks)): ?>
-new Chart(document.getElementById('taskProgressChart'), {
-    type: 'doughnut',
-    data: {
-        labels: [
-            <?php foreach ($tasks as $task): ?>
-                "<?= esc($task['TaskTitle'], 'js') ?>",
-            <?php endforeach; ?>
-        ],
-        datasets: [{
-            label: 'Task Completion',
-            data: [
+    <?php if (!empty($tasks)): ?>
+    new Chart(document.getElementById('taskProgressChart'), {
+        type: 'doughnut',
+        data: {
+            labels: [
                 <?php foreach ($tasks as $task): ?>
-                    <?= $task['Progress'] ?>,
+                    "<?= esc($task['TaskTitle'], 'js') ?>",
                 <?php endforeach; ?>
             ],
-            backgroundColor: [
-                '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
-                '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab'
-            ],
-            borderColor: '#ffffff',
-            borderWidth: 3,
-            hoverOffset: 10
-        }]
-    },
-    options: {
-        responsive: true,
-        animation: {
-            animateScale: true,
-            animateRotate: true
+            datasets: [{
+                label: 'Task Completion',
+                data: [
+                    <?php foreach ($tasks as $task): ?>
+                        <?= $task['Progress'] ?>,
+                    <?php endforeach; ?>
+                ],
+                backgroundColor: [
+                    '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
+                    '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 3,
+                hoverOffset: 10
+            }]
         },
-        plugins: {
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    padding: 20,
-                    boxWidth: 14,
-                    color: '#333',
-                    font: {
-                        size: 14,
-                        family: 'Arial, sans-serif'
-                    }
-                }
+        options: {
+            responsive: true,
+            animation: {
+                animateScale: true,
+                animateRotate: true
             },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `${context.label}: ${context.parsed}% completed`;
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        boxWidth: 14,
+                        color: '#333',
+                        font: {
+                            size: 14,
+                            family: 'Arial, sans-serif'
+                        }
                     }
-                }
-            },
-            datalabels: {
-                color: '#fff',
-                textAlign: 'center',
-                font: {
-                    weight: 'bold',
-                    size: 12
                 },
-                formatter: (value, context) => {
-                    return `${value}%`;
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.parsed}% completed`;
+                        }
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    textAlign: 'center',
+                    font: {
+                        weight: 'bold',
+                        size: 12
+                    },
+                    formatter: (value) => `${value}%`
                 }
-            }
+            },
+            cutout: '50%',
+            aspectRatio: 1.5
         },
-        cutout: '50%',
-        aspectRatio: 1.5
-    },
-    plugins: [ChartDataLabels]
-});
-<?php endif; ?>
-
-
-    // Existing Attendance Charts
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(() => {
-        drawMonthlyCheckinChart();
-        drawDailyCheckinChart();
+        plugins: [ChartDataLabels]
     });
+    <?php endif; ?>
 
-    function drawMonthlyCheckinChart() {
-        const attendance = <?= json_encode($attendance) ?>;
-        const monthlyData = {};
-        attendance.forEach(record => {
-            const date = new Date(record.InDate);
-            const monthYear = date.toLocaleString('en-US', { month: 'short', year: 'numeric' });
-            monthlyData[monthYear] = (monthlyData[monthYear] || 0) + 1;
-        });
-
-        const dataTable = [['Month', 'Check-ins']];
-        let totalCheckins = 0;
-        for (const [month, count] of Object.entries(monthlyData)) {
-            dataTable.push([month, count]);
-            totalCheckins += count;
-        }
-
-        const data = google.visualization.arrayToDataTable(dataTable);
-        const options = {
-            hAxis: { title: 'Month', titleTextStyle: { fontSize: 14 } },
-            vAxis: { title: 'Check-ins', titleTextStyle: { fontSize: 14 }, minValue: 0 },
-            colors: ['#28a745'],
-            legend: 'none',
-            backgroundColor: 'transparent',
-            chartArea: { width: '80%', height: '70%' }
-        };
-
-        const chart = new google.visualization.ColumnChart(document.getElementById('monthly_checkin_chart'));
-        chart.draw(data, options);
-
-        window.addEventListener('resize', () => {
-            chart.draw(data, options);
-        });
-
-        document.getElementById('checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Check-ins: <strong>${totalCheckins}</strong></h4>`;
-    }
+    // Daily Check-in Chart
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawDailyCheckinChart);
 
     function drawDailyCheckinChart() {
         const attendance = <?= json_encode($attendance) ?>;

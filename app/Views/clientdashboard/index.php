@@ -2,15 +2,7 @@
 <?= $this->section('body') ?>
 <center><h2>Welcome, <?= esc($client['Firstname'] . ' ' . $client['Lastname']) ?>!</h2></center>
 
-<style>
-#taskProgressChart {
-    width: 100% !important;
-    max-width: 400px;
-    height: auto !important;
-    margin: auto;
-    display: block;
-}
-</style>
+
 <div class="container my-5">
     <?php if ($history): ?>
         <div class="row g-4">

@@ -40,7 +40,7 @@
                 <?php if (!empty($tasks)): ?>
                     <?php foreach ($tasks as $task): ?>
                         <tr>
-                            <td><?= esc($task['Fullname']) ?></td>
+                            <td><?= esc($task['Firstname']) ?></td>
                             <td><?= esc($task['TaskTitle']) ?></td>
                             <td><?= esc($task['TaskDescription']) ?></td>
                             <td><?= esc($task['DueDate']) ?></td>
@@ -48,7 +48,7 @@
                             <td><?= esc($task['Progress']) ?>%</td>
                             <td>
                                 <?php
-                                $subtaskModel = new \App\Models\Subtask();
+                                $subtaskModel = new \App\Models\SubtaskModel();
                                 $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
                                 foreach ($subtasks as $subtask):
                                 ?>

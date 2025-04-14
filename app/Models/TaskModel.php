@@ -21,14 +21,12 @@ class TaskModel extends Model
 
     // Get tasks for a specific client
     public function getTasksByCustomer($customerID)
-{
-    return $this->select('tasks.*, customer.Firstname')
-                ->join('customer', 'customer.CustomerID = tasks.CustomerID')
-                ->join('coach', 'coach.CoachID = tasks.CoachID') // If this exists
-                ->where('tasks.CustomerID', $customerID) // Specify table for CustomerID
-                ->where('tasks.CoachID', session()->get('CoachID')) // Specify table for CoachID
-                ->findAll();
-}
+    {
+        return $this->select('tasks.*, coach.Firstname') // Fetch coach name for display
+                    ->join('coach', 'coach.CoachID = tasks.CoachID')
+                    ->where('tasks.CustomerID', $customerID)
+                    ->findAll();
+    }
     // Get tasks assigned by a specific coach
     
     public function getTasksByCoach($coachID)

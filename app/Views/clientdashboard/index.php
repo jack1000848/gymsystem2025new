@@ -6,20 +6,20 @@
 <style>
     /* Style the chart card for a premium look */
     .premium-chart-card {
-        background: linear-gradient(145deg, #f5f7fa, #e4e7eb); /* Subtle gradient background */
+        background: linear-gradient(145deg, #f5f7fa, #e4e7eb);
         border: none;
         border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        transition: transform 0.3s ease; /* Smooth hover animation */
+        transition: transform 0.3s ease;
     }
 
     .premium-chart-card:hover {
-        transform: translateY(-5px); /* Slight lift on hover */
+        transform: translateY(-5px);
     }
 
     .premium-chart-card .card-header {
-        background: linear-gradient(90deg, #007bff, #00c4ff); /* Gradient header */
+        background: linear-gradient(90deg, #007bff, #00c4ff);
         border-radius: 10px 10px 0 0;
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
@@ -45,15 +45,15 @@
     }
 
     .chart-legend .legend-item:hover {
-        transform: scale(1.05); /* Subtle zoom on hover */
+        transform: scale(1.05);
     }
 
     .chart-legend .legend-color {
         width: 20px;
         height: 20px;
-        border-radius: 50%; /* Rounded color indicator */
+        border-radius: 50%;
         margin-right: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     /* Ensure charts are centered and balanced */
@@ -67,7 +67,7 @@
 
     #daily_checkin_chart {
         width: 100% !important;
-        height: 400px !important; /* Match height with donut chart */
+        height: 400px !important;
     }
 
     .chart-row .chart-wrapper {
@@ -123,7 +123,7 @@
     <?php endif; ?>
 
     <!-- Combined Task Progress and Daily Check-ins Section -->
-    <?php if ($attendance || !empty($tasks)): ?>
+    <?php if (!empty($attendanceRecords) || !empty($tasks)): ?>
         <div class="chart-row mt-4 row g-4">
             <!-- Task Progress Chart (Left) -->
             <?php if (!empty($tasks)): ?>
@@ -151,7 +151,7 @@
             <?php endif; ?>
 
             <!-- Daily Check-ins Chart (Right) -->
-            <?php if ($attendance): ?>
+            <?php if (!empty($attendanceRecords)): ?>
                 <div class="col-12 col-md-6 chart-wrapper">
                     <div class="card">
                         <div class="card-header">
@@ -178,12 +178,16 @@
     <?php endif; ?>
 </div>
 
-<?php if ($history || !empty($tasks) || $attendance): ?>
+<?php if ($history || !empty($tasks) || !empty($attendanceRecords)): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
+    // Debug: Log data to console
+    console.log('Tasks:', <?= json_encode($tasks) ?>);
+    console.log('Attendance Records:', <?= json_encode($attendanceRecords) ?>);
+
     // Existing Weight Chart Code
     const history = <?= json_encode($history) ?>;
     const validHistory = history.filter(record => record.Weight != null);
@@ -385,26 +389,30 @@
     });
 
     function drawDailyCheckinChart() {
-        const attendance = <?= json_encode($attendance) ?>;
+        const attendance = <?= json_encode($attendanceRecords) ?>;
+        console.log('Attendance Data for Chart:', attendance); // Debug
+
         const today = new Date();
         const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
         const dailyData = {};
-        attendance.forEach(record => {
-            const date = new Date(record.InDate);
-            if (date >= thirtyDaysAgo && date <= today) {
-                const day = date.toLocaleDateString('en-CA');
-                dailyData[day] = (dailyData[day] || 0) + 1;
-            }
-        });
+        if (attendance && attendance.length > 0) {
+            attendance.forEach(record => {
+                const date = new Date(record.InDate);
+                if (date >= thirtyDaysAgo && date <= today) {
+                    const day = date.toLocaleDateString('en-CA');
+                    dailyData[day] = (dailyData[day] || 0) + 1;
+                }
+            });
+        }
 
         const dataTable = [['Date', 'Check-ins']];
         const sortedDays = Object.keys(dailyData).sort();
-        sortedDays.forEach(day => {
-            dataTable.push([day, dailyData[day]]);
-        });
-
-        if (dataTable.length === 1) {
+        if (sortedDays.length > 0) {
+            sortedDays.forEach(day => {
+                dataTable.push([day, dailyData[day]]);
+            });
+        } else {
             dataTable.push(['No Data', 0]);
         }
 

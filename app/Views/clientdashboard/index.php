@@ -50,11 +50,13 @@
         </div>
     <?php endif; ?>
 
-    <!-- Task Progress Chart Section -->
+<!-- Donut + Daily Check-ins Charts Section -->
+<?php if (!empty($tasks) || $attendance): ?>
     <div class="row g-4 mt-4">
-        <div class="col-12">
-            <?php if (!empty($tasks)): ?>
-                <div class="card">
+        <!-- Donut Chart (Left) -->
+        <?php if (!empty($tasks)): ?>
+            <div class="col-12 col-md-6">
+                <div class="card h-100">
                     <div class="card-header bg-primary text-white text-center">
                         <h4 class="mb-0">Task Completion Progress (%)</h4>
                     </div>
@@ -62,48 +64,29 @@
                         <canvas id="taskProgressChart"></canvas>
                     </div>
                 </div>
-            <?php else: ?>
-                <div class="text-center text-muted fs-5 mt-4">
-                    <p>No tasks assigned.</p>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <!-- Attendance Charts Section -->
-    <?php if ($attendance): ?>
-        <div class="chart-row mt-4">
-            <!-- Monthly Check-ins Chart (Left) -->
-            <div class="chart-wrapper">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Monthly Check-ins</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="monthly_checkin_chart"></div>
-                        <div id="checkin_total"></div>
-                    </div>
-                </div>
             </div>
+        <?php endif; ?>
 
-            <!-- Daily Check-ins Chart (Right) -->
-            <div class="chart-wrapper">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Daily Check-ins (Last 30 Days)</h3>
+        <!-- Daily Check-ins Chart (Right) -->
+        <?php if ($attendance): ?>
+            <div class="col-12 col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Daily Check-ins (Last 30 Days)</h4>
                     </div>
                     <div class="card-body">
                         <div id="daily_checkin_chart"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    <?php else: ?>
-        <div class="no-data-message">
-            <p>No attendance records found.</p>
-        </div>
-    <?php endif; ?>
-</div>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <div class="no-data-message text-center text-muted mt-4">
+        <p>No task or attendance records found.</p>
+    </div>
+<?php endif; ?>
+
 
 <?php if ($history || !empty($tasks) || $attendance): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

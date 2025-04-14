@@ -1,6 +1,6 @@
 <?= $this->extend('layout/mainclient') ?>
 <?= $this->section('body') ?>
-<center><h2>Welcome, <?= esc($client['Firstname'] . ' ' . $client['Lastname']) ?>!</h2> </center>
+<center><h2>Welcome, <?= esc($client['Firstname'] . ' ' . $client['Lastname']) ?>!</h2></center>
 <div class="container my-5">
     <?php if ($history): ?>
         <div class="row g-4">
@@ -39,10 +39,30 @@
             <p>No body information records found.</p>
         </div>
     <?php endif; ?>
-</div>
-<!-- Attendance Charts Section -->
-<?php if ($attendance): ?>
-        <div class="chart-row">
+
+    <!-- Task Progress Chart Section -->
+    <div class="row g-4 mt-4">
+        <div class="col-12">
+            <?php if (!empty($tasks)): ?>
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Task Completion Progress (%)</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="taskProgressChart"></canvas>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="text-center text-muted fs-5 mt-4">
+                    <p>No tasks assigned.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Attendance Charts Section -->
+    <?php if ($attendance): ?>
+        <div class="chart-row mt-4">
             <!-- Monthly Check-ins Chart (Left) -->
             <div class="chart-wrapper">
                 <div class="card">
@@ -75,11 +95,12 @@
     <?php endif; ?>
 </div>
 
-<?php if ($history): ?>
+<?php if ($history || !empty($tasks) || $attendance): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
+    // Existing Weight Chart Code
     const history = <?= json_encode($history) ?>;
     const validHistory = history.filter(record => record.Weight != null);
     const labels = validHistory.map(record => new Date(record.RecordDate).toLocaleDateString('en-CA'));
@@ -139,8 +160,73 @@
             }
         });
     }
-    ///// eto chart baba 
-    // Load Google Charts library for attendance charts
+
+    // Task Progress Chart
+    <?php if (!empty($tasks)): ?>
+        new Chart(document.getElementById('taskProgressChart'), {
+            type: 'bar',
+            data: {
+                labels: [
+                    <?php foreach ($tasks as $task): ?>
+                        "<?= esc($task['TaskTitle'], 'js') ?>",
+                    <?php endforeach; ?>
+                ],
+                datasets: [{
+                    label: 'Task Completion (%)',
+                    data: [
+                        <?php foreach ($tasks as $task): ?>
+                            <?= $task['Progress'] ?>,
+                        <?php endforeach; ?>
+                    ],
+                    backgroundColor: [
+                        <?php foreach ($tasks as $task): ?>
+                            <?php
+                            $color = $task['Status'] === 'completed' ? "'rgba(40, 167, 69, 0.5)'" :
+                                    ($task['Status'] === 'incomplete' ? "'rgba(220, 53, 69, 0.5)'" : "'rgba(0, 123, 255, 0.5)'");
+                            ?>
+                            <?= $color ?>,
+                        <?php endforeach; ?>
+                    ],
+                    borderColor: [
+                        <?php foreach ($tasks as $task): ?>
+                            <?php
+                            $color = $task['Status'] === 'completed' ? "'rgba(40, 167, 69, 1)'" :
+                                    ($task['Status'] === 'incomplete' ? "'rgba(220, 53, 69, 1)'" : "'rgba(0, 123, 255, 1)'");
+                            ?>
+                            <?= $color ?>,
+                        <?php endforeach; ?>
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Tasks' },
+                        ticks: { maxRotation: 45, minRotation: 45 }
+                    },
+                    y: {
+                        title: { display: true, text: 'Completion (%)' },
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    <?php endif; ?>
+
+    // Existing Attendance Charts
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(() => {
         drawMonthlyCheckinChart();
@@ -148,10 +234,7 @@
     });
 
     function drawMonthlyCheckinChart() {
-        // Prepare data for monthly check-ins
         const attendance = <?= json_encode($attendance) ?>;
-        
-        // Group check-ins by month
         const monthlyData = {};
         attendance.forEach(record => {
             const date = new Date(record.InDate);
@@ -159,7 +242,6 @@
             monthlyData[monthYear] = (monthlyData[monthYear] || 0) + 1;
         });
 
-        // Format data for Google Charts
         const dataTable = [['Month', 'Check-ins']];
         let totalCheckins = 0;
         for (const [month, count] of Object.entries(monthlyData)) {
@@ -168,7 +250,6 @@
         }
 
         const data = google.visualization.arrayToDataTable(dataTable);
-
         const options = {
             hAxis: { title: 'Month', titleTextStyle: { fontSize: 14 } },
             vAxis: { title: 'Check-ins', titleTextStyle: { fontSize: 14 }, minValue: 0 },
@@ -185,17 +266,14 @@
             chart.draw(data, options);
         });
 
-        // Show total check-ins below the chart
         document.getElementById('checkin_total').innerHTML = `<h4 class="text-center mt-3">Total Check-ins: <strong>${totalCheckins}</strong></h4>`;
     }
 
     function drawDailyCheckinChart() {
-        // Prepare data for daily check-ins (last 30 days)
         const attendance = <?= json_encode($attendance) ?>;
         const today = new Date();
         const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-        // Group check-ins by day (last 30 days)
         const dailyData = {};
         attendance.forEach(record => {
             const date = new Date(record.InDate);
@@ -205,20 +283,17 @@
             }
         });
 
-        // Format data for Google Charts
         const dataTable = [['Date', 'Check-ins']];
         const sortedDays = Object.keys(dailyData).sort();
         sortedDays.forEach(day => {
             dataTable.push([day, dailyData[day]]);
         });
 
-        // If no data in the last 30 days, show a placeholder
         if (dataTable.length === 1) {
             dataTable.push(['No Data', 0]);
         }
 
         const data = google.visualization.arrayToDataTable(dataTable);
-
         const options = {
             hAxis: { title: 'Date', titleTextStyle: { fontSize: 14 }, slantedText: true, slantedTextAngle: 45 },
             vAxis: { title: 'Check-ins', titleTextStyle: { fontSize: 14 }, minValue: 0 },

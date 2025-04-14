@@ -96,11 +96,12 @@ class ClientsDashboardController extends BaseController
     log_message('debug', 'Attendance Records: ' . json_encode($attendanceRecords));
     
        // Pass customer, history, monthly check-in data, and attendance records to the view
-    return view('clientdashboard/index', [
+       return view('clientdashboard/index', [
         'client' => $customer,
         'history' => $history,
         'monthlyCheckinData' => $monthlyCheckinData,
-        'attendance' => $attendanceRecords // Add this
+        'attendance' => $attendanceRecords,
+        'tasks' => $tasks // Add tasks to the view data
     ]);
     }
     private function getMonthlyCheckinData($customerId)

@@ -5,8 +5,7 @@ namespace App\Controllers;
 use App\Models\TaskModel;
 use App\Models\CustomerModel; // Assume you have a Customer model
 use App\Models\CoachModel;    // Assume you have a Coach model
-use App\Models\SubtaskModel; // Assume you have a Subtask model
-use App\Models\CoachScheduleModel; // Assume you have a CoachSchedule model
+use App\Models\SubtaskModel; // Assume you have a Subtask model // Assume you have a CoachSchedule model
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 

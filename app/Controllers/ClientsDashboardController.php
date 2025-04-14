@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 use App\Models\CustomerModel;
 use App\Models\QrAttendanceModel;
 use App\Models\CustomerBodyHistoryModel; // Add the history model
+use App\Models\TaskModel; // Assuming you have a Task model
 
 class ClientsDashboardController extends BaseController 
 {

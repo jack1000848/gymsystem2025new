@@ -38,8 +38,8 @@
     <td><?= $coachSched['ScheduleDate']; ?></td>
     <td><?= $coachSched['Start']; ?></td>
     <td><?= $coachSched['End']; ?></td>
-    <td><?= isset($coachSched['Firstname']) ? $coachSched['Lastnname'] : 'N/A'; ?></td>
-    <td><?= isset($coachSched['Firstname']) ? $coachSched['Lastname'] : 'N/A'; ?></td>
+    <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+    <td><?= isset($coachSched['CoachName']) ? $coachSched['CoachName'] : 'N/A'; ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

@@ -96,7 +96,7 @@ class TaskController extends BaseController
         $task = $this->taskModel->find($taskID);
         if ($task && $task['CustomerID'] == session()->get('CustomerID')) {
             $this->taskModel->update($taskID, ['Status' => 'completed']);
-            return redirect()->to('clientdashboard/mytasks')->with('success', 'Task marked as completed');
+            return redirect()->to('tasks/client')->with('success', 'Task marked as completed');
         }
 
         return redirect()->to('clientdashboard/mytasks')->with('error', 'Invalid task');

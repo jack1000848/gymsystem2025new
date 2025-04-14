@@ -45,7 +45,7 @@
                                 <?php if ($task['Status'] === 'pending'): ?>
                                     <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
                                         <?php
-                                        $subtaskModel = new \App\Models\Subtask();
+                                        $subtaskModel = new \App\Models\SubtaskModel();
                                         $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
                                         foreach ($subtasks as $subtask):
                                         ?>

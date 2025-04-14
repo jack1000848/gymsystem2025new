@@ -171,7 +171,7 @@ public function updateStatus($taskID)
 
     $coachID = session()->get('CoachID');
     if (!$coachID) {
-        return redirect()->to('/login')->with('error', 'Please log in as a coach');
+        return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
     }
 
     $task = $this->taskModel->where('TaskID', $taskID)
@@ -198,7 +198,7 @@ public function updateSubtasks($taskID)
 
     $customerID = session()->get('CustomerID');
     if (!$customerID) {
-        return redirect()->to('/login')->with('error', 'Please log in as a client');
+        return redirect()->to('/client-login')->with('error', 'Please log in as a client');
     }
 
     // Verify the task belongs to this client
@@ -215,7 +215,7 @@ public function updateSubtasks($taskID)
     }
 
     // Update subtasks
-    $subtaskModel = new \App\Models\Subtask();
+    $subtaskModel = new \App\Models\SubtaskModel();
     $subtasks = $subtaskModel->where('TaskID', $taskID)->findAll();
     $submittedSubtasks = $this->request->getPost('subtasks') ?? [];
 

@@ -26,7 +26,7 @@
                     <option value="">Select Client</option>
                     <?php if (!empty($customers)): ?>
                         <?php foreach ($customers as $customer): ?>
-                            <option value="<?= $customer['CustomerID'] ?>"><?= esc($customer['CustomerName']) ?></option>
+                            <option value="<?= $customer['CustomerID'] ?>"><?= esc($customer['Firstname']) ?></option>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <option value="">No clients assigned</option>

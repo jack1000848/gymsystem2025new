@@ -78,6 +78,10 @@ class ClientsDashboardController extends BaseController
             return redirect()->to('/member-login')->with('error', 'Customer not found.');
         }
     
+        // Fetch tasks assigned to the customer
+        // Fetch tasks for the client
+        $taskModel = new \App\Models\TaskModel();
+        $tasks = $taskModel->getTasksByCustomer($customerId);
         // Fetch body history for the chart
         $history = $this->historyModel->getHistory($customerId);
 

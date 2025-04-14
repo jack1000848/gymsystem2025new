@@ -163,91 +163,77 @@
     }
 
     // Task Progress Chart (Donut Chart)
-    <?php if (!empty($tasks)): ?>
-        new Chart(document.getElementById('taskProgressChart'), {
-            type: 'doughnut',
-            data: {
-                labels: [
-                    <?php foreach ($tasks as $task): ?>
-                        "<?= esc($task['TaskTitle'], 'js') ?>",
-                    <?php endforeach; ?>
-                ],
-                datasets: [{
-                    label: 'Task Completion (%)',
-                    data: [
-                        <?php foreach ($tasks as $task): ?>
-                            <?= $task['Progress'] ?>,
-                        <?php endforeach; ?>
-                    ],
-                    backgroundColor: [
-                        <?php foreach ($tasks as $task): ?>
-                            <?php
-                            $color = $task['Status'] === 'completed' ? "'rgba(40, 167, 69, 0.5)'" :
-                                    ($task['Status'] === 'incomplete' ? "'rgba(220, 53, 69, 0.5)'" : "'rgba(0, 123, 255, 0.5)'");
-                            ?>
-                            <?= $color ?>,
-                        <?php endforeach; ?>
-                    ],
-                    borderColor: [
-                        <?php foreach ($tasks as $task): ?>
-                            <?php
-                            $color = $task['Status'] === 'completed' ? "'rgba(40, 167, 69, 1)'" :
-                                    ($task['Status'] === 'incomplete' ? "'rgba(220, 53, 69, 1)'" : "'rgba(0, 123, 255, 1)'");
-                            ?>
-                            <?= $color ?>,
-                        <?php endforeach; ?>
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            boxWidth: 20,
-                            padding: 15,
-                            font: {
-                                size: 12
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.parsed || 0;
-                                return `${label}: ${value}%`;
-                            }
-                        }
-                    },
-                    datalabels: {
-                        anchor: 'center',
-                        align: 'center',
-                        formatter: (value, context) => {
-                            const statuses = [
-                                <?php foreach ($tasks as $task): ?>
-                                    "<?= ucfirst($task['Status']) ?>",
-                                <?php endforeach; ?>
-                            ];
-                            const label = context.chart.data.labels[context.dataIndex];
-                            return `${label}\n${value}%\n${statuses[context.dataIndex]}`;
-                        },
-                        color: '#333',
-                        font: {
-                            weight: 'bold',
-                            size: 10
-                        },
-                        textAlign: 'center'
+<?php if (!empty($tasks)): ?>
+new Chart(document.getElementById('taskProgressChart'), {
+    type: 'doughnut',
+    data: {
+        labels: [
+            <?php foreach ($tasks as $task): ?>
+                "<?= esc($task['TaskTitle'], 'js') ?>",
+            <?php endforeach; ?>
+        ],
+        datasets: [{
+            label: 'Task Completion',
+            data: [
+                <?php foreach ($tasks as $task): ?>
+                    <?= $task['Progress'] ?>,
+                <?php endforeach; ?>
+            ],
+            backgroundColor: [
+                '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
+                '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ab'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 3,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    boxWidth: 14,
+                    color: '#333',
+                    font: {
+                        size: 14,
+                        family: 'Arial, sans-serif'
                     }
-                },
-                cutout: '30%',
-                aspectRatio: 1.5
+                }
             },
-            plugins: [ChartDataLabels]
-        });
-    <?php endif; ?>
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.parsed}% completed`;
+                    }
+                }
+            },
+            datalabels: {
+                color: '#fff',
+                textAlign: 'center',
+                font: {
+                    weight: 'bold',
+                    size: 12
+                },
+                formatter: (value, context) => {
+                    return `${value}%`;
+                }
+            }
+        },
+        cutout: '50%',
+        aspectRatio: 1.5
+    },
+    plugins: [ChartDataLabels]
+});
+<?php endif; ?>
+
 
     // Existing Attendance Charts
     google.charts.load('current', {'packages':['corechart']});

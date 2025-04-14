@@ -50,7 +50,7 @@
         </div>
     <?php endif; ?>
 
-   <!-- Donut + Daily Check-ins Charts Section -->
+    <!-- Donut + Daily Check-ins Charts Section -->
 <?php if (!empty($tasks) || $attendance): ?>
     <div class="row g-4 mt-4">
         <!-- Donut Chart (Left) -->
@@ -67,24 +67,8 @@
             </div>
         <?php endif; ?>
 
-            <!-- Daily Check-ins Chart (Right) -->
-            <div class="chart-wrapper">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Daily Check-ins (Last 30 Days)</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="daily_checkin_chart"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php else: ?>
-        <div class="no-data-message">
-            <p>No attendance records found.</p>
-        </div>
-    <?php endif; ?>
-</div>
+    <!-- Attendance Charts Section -->
+    
 
 <?php if ($history || !empty($tasks) || $attendance): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

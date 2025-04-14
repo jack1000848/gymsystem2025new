@@ -79,7 +79,7 @@ class TaskController extends BaseController
     $taskID = $this->taskModel->insertID();
 
     // Save subtasks
-    $subtaskModel = new \App\Models\Subtask();
+    $subtaskModel = new \App\Models\SubtaskModel();
     $subtasks = $this->request->getPost('subtasks');
     foreach ($subtasks as $subtaskName) {
         $subtaskModel->insert([

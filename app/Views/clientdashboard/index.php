@@ -74,7 +74,147 @@
         </div>
     <?php endif; ?>
 </div>
+<head>
+    <title>My Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>My Tasks</h2>
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
 
+        <!-- Task Progress Chart -->
+        <?php if (!empty($tasks)): ?>
+            <div class="chart-container">
+                <canvas id="taskProgressChart"></canvas>
+            </div>
+            <script>
+                const ctx = document.getElementById('taskProgressChart').getContext('2d');
+                const taskData = {
+                    labels: [
+                        <?php foreach ($tasks as $task): ?>
+                            "<?= esc($task['TaskTitle'], 'js') ?>",
+                        <?php endforeach; ?>
+                    ],
+                    datasets: [{
+                        label: 'Task Completion (%)',
+                        data: [
+                            <?php foreach ($tasks as $task): ?>
+                                <?= $task['Progress'] ?>,
+                            <?php endforeach; ?>
+                        ],
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: taskData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Percentage Completion (%)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Tasks'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+        <?php endif; ?>
+
+        <!-- Task Table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Coach</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Progress</th>
+                    <th>Subtasks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($tasks)): ?>
+                    <?php foreach ($tasks as $task): ?>
+                        <tr>
+                            <td><?= esc($task['CoachName']) ?></td>
+                            <td><?= esc($task['TaskTitle']) ?></td>
+                            <td><?= esc($task['TaskDescription']) ?></td>
+                            <td><?= esc($task['DueDate']) ?></td>
+                            <td><?= esc($task['Status']) ?></td>
+                            <td><?= esc($task['Progress']) ?>%</td>
+                            <td>
+                                <?php if ($task['Status'] === 'pending'): ?>
+                                    <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
+                                        <?php
+                                        $subtaskModel = new \App\Models\Subtask();
+                                        $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
+                                        foreach ($subtasks as $subtask):
+                                        ?>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="subtasks[<?= $subtask['SubtaskID'] ?>]" value="1" class="form-check-input" <?= $subtask['IsCompleted'] ? 'checked' : '' ?> onchange="this.form.submit()">
+                                                <label class="form-check-label"><?= esc($subtask['SubtaskName']) ?></label>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </form>
+                                <?php else: ?>
+                                    <span class="text-muted"><?= $task['Status'] === 'completed' ? 'Completed' : 'Incomplete' ?></span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7">No tasks assigned.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</body>
 <?php if ($history): ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

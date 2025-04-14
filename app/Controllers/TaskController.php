@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\TaskModel;
 use App\Models\CustomerModel; // Assume you have a Customer model
 use App\Models\CoachModel;    // Assume you have a Coach model
+use App\Models\SubtaskModel; // Assume you have a Subtask model
+use App\Models\CoachScheduleModel; // Assume you have a CoachSchedule model
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -45,7 +47,7 @@ class TaskController extends BaseController
     $customerID = $this->request->getPost('CustomerID');
 
     // Verify the CustomerID belongs to this coach (using CoachSched)
-    $coachSchedModel = new \App\Models\CoachSched();
+    $coachSchedModel = new \App\Models\CoachScheduleModel();
     $customerIDs = array_column($coachSchedModel->getCustomerIDsByCoach($coachID), 'CustomerID');
     if (!in_array($customerID, $customerIDs)) {
         return redirect()->to('/tasks/create')->with('error', 'Invalid client selected');

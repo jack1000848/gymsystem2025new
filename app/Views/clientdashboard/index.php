@@ -242,7 +242,7 @@
                         textAlign: 'center'
                     }
                 },
-                cutout: '50%',
+                cutout: '30%',
                 aspectRatio: 1.5
             },
             plugins: [ChartDataLabels]

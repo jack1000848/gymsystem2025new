@@ -35,7 +35,7 @@
                 <?php if (!empty($tasks)): ?>
                     <?php foreach ($tasks as $task): ?>
                         <tr>
-                            <td><?= esc($task['Fullname']) ?></td>
+                            <td><?= esc($task['Firstname']) ?></td>
                             <td><?= esc($task['TaskTitle']) ?></td>
                             <td><?= esc($task['TaskDescription']) ?></td>
                             <td><?= esc($task['DueDate']) ?></td>

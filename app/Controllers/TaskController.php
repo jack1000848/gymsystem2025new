@@ -46,11 +46,11 @@ class TaskController extends BaseController
     $customerID = $this->request->getPost('CustomerID');
 
     // Verify the CustomerID belongs to this coach (using CoachSched)
-    $coachSchedModel = new \App\Models\CoachScheduleModel();
-    $customerIDs = array_column($coachSchedModel->getCustomerIDsByCoach($coachID), 'CustomerID');
-    if (!in_array($customerID, $customerIDs)) {
-        return redirect()->to('/tasks/create')->with('error', 'Invalid client selected');
-    }
+  ///  $coachSchedModel = new \App\Models\CoachScheduleModel();
+  ///  $customerIDs = array_column($coachSchedModel->getCustomerIDsByCoach($coachID), 'CustomerID');
+  // /// if (!in_array($customerID, $customerIDs)) {
+  //      return redirect()->to('/tasks/create')->with('error', 'Invalid client selected');
+   // }
 
     $validationRules = [
         'CustomerID' => 'required|integer',

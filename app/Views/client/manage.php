@@ -29,7 +29,7 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Password</th>
+            <th style="display:none;">Password</th>
             <th>Address</th>
             <th>Email</th>
             <th>QR Code</th>
@@ -44,7 +44,7 @@
         <th scope="row"><?= $coach['CoachID']; ?></th>
         <td><?= $coach['Firstname']; ?></td>
         <td><?= $coach['Lastname']; ?></td>
-        <td><?= $coach['password_hash']; ?></td>
+        <td style="display:none;"><?= $coach['password_hash']; ?></td>
         <td><?= $coach['Address']; ?></td>
         <td><?= $coach['Email']; ?></td>
         <<td><img id="qrCodeImage<?= $coach['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>

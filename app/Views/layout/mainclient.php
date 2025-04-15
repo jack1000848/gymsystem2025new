@@ -67,7 +67,7 @@
                     <ul class="nav flex-column" role="menu">
                     <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                            <i class="bi bi-bar-chart nav-icon me-2"></i>
+                            <i class="bi bi-graph-up nav-icon me-2"></i>
                                 <p class="m-0">Dashboard</p>
                             </a> 
                          </li>
@@ -156,7 +156,7 @@
                     <ul class="nav flex-column" role="menu">
                          <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                            <i class="bi bi-bar-chart nav-icon me-2"></i>
+                            <i class="bi bi-graph-up nav-icon me-2"></i>
                                 <p class="m-0">Dashboard</p>
                             </a> 
                          </li>

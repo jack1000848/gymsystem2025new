@@ -34,7 +34,7 @@
                 <?php foreach ($tasks as $task): ?>
                     <tr data-task-id="<?= $task['TaskID'] ?>">
                         <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['Firstname'] . ' ' . $task['Lastname']) ?></td>
+                        <td><?= esc($task['Firstname'] ) ?></td>
                         <td>
                             <select class="form-select status-select" data-task-id="<?= $task['TaskID'] ?>">
                                 <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>

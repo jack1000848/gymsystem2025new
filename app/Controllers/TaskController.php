@@ -208,7 +208,7 @@ class TaskController extends BaseController
                                 ->first();
 
         if (!$task) {
-            return redirect()->to('/tasks/coach')->with('error', 'Task not found or not assigned by you');
+            return redirect()->to('/coach')->with('error', 'Task not found or not assigned by you');
         }
 
         $status = $this->request->getPost('status');
@@ -247,7 +247,7 @@ class TaskController extends BaseController
             $coach = $this->coachModel->find($task['CoachID']);
 
             if (!$client || !$coach) {
-                return redirect()->to('/tasks/coach')->with('error', 'Client or coach not found.');
+                return redirect()->to('/coach')->with('error', 'Client or coach not found.');
             }
 
             // Generate PDF
@@ -267,11 +267,11 @@ class TaskController extends BaseController
 
         // If status is incomplete or completed, redirect to download PDF
         if (in_array($status, ['incomplete', 'completed'])) {
-            return redirect()->to('/tasks/download-pdf/' . $taskID)
+            return redirect()->to('download-pdf/' . $taskID)
                              ->with('success', 'Task status updated to ' . $status . '. Download the PDF below.');
         }
 
-        return redirect()->to('/tasks/coach')->with('success', 'Task status updated successfully.');
+        return redirect()->to('/coach')->with('success', 'Task status updated successfully.');
     }
 
     // Download the generated PDF
@@ -287,7 +287,7 @@ class TaskController extends BaseController
                                 ->first();
 
         if (!$task || !$task['PdfPath']) {
-            return redirect()->to('/tasks/coach')->with('error', 'PDF not found for this task.');
+            return redirect()->to('/coach')->with('error', 'PDF not found for this task.');
         }
 
         $client = $this->customerModel->find($task['CustomerID']);
@@ -305,7 +305,7 @@ class TaskController extends BaseController
         $filename = 'task_' . $taskID . '_status.pdf';
         $pdfService->outputPdfForDownload($filename);
 
-        return redirect()->to('/tasks/coach')->with('success', 'PDF downloaded successfully.');
+        return redirect()->to('/coach')->with('success', 'PDF downloaded successfully.');
     }
 
     public function checkStatus($taskID)
@@ -322,7 +322,7 @@ class TaskController extends BaseController
                             ->first();
 
     if (!$task) {
-        return redirect()->to('/tasks/coach')->with('error', 'Task not found or not assigned by you');
+        return redirect()->to('/coach')->with('error', 'Task not found or not assigned by you');
     }
 
     return view('coachdashboard/check_task_status', [

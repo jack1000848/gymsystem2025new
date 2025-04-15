@@ -2,7 +2,7 @@
 <?= $this->section('body') ?>
 
 <div class="container my-5">
-    <h2 class="text-center mb-4">Update Task Status</h2>
+    <h2 class="text-center mb-4">Assign New Task</h2>
 
     <?php if (session()->getFlashdata('error')): ?>
         <div class="alert alert-danger">
@@ -10,34 +10,82 @@
         </div>
     <?php endif; ?>
 
+    <?php if (session()->getFlashdata('errors')): ?>
+        <div class="alert alert-danger">
+            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                <p><?= esc($error) ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Task: <?= esc($task['TaskTitle']) ?></h4>
+            <h4 class="mb-0">Create Task</h4>
         </div>
         <div class="card-body">
-            <p><strong>Client:</strong> <?= esc($task['Firstname'] ) ?></p>
-            <p><strong>Current Status:</strong> <?= ucfirst($task['Status']) ?></p>
-            <p><strong>Current Progress:</strong> <?= $task['Progress'] ?>%</p>
-            <p><strong>Due Date:</strong> <?= date('F j, Y', strtotime($task['DueDate'])) ?></p>
-
-            <form action="<?= base_url('tasks/save-task-status/' . $task['TaskID']) ?>" method="post">
+            <form action="<?= base_url('tasks/store') ?>" method="post">
                 <div class="mb-3">
-                    <label for="status" class="form-label">Update Status</label>
-                    <select name="status" id="status" class="form-select" required>
-                        <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                        <option value="incomplete" <?= $task['Status'] === 'incomplete' ? 'selected' : '' ?>>Incomplete</option>
-                        <option value="completed" <?= $task['Status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
+                    <label for="CustomerID" class="form-label">Select Client</label>
+                    <select name="CustomerID" id="CustomerID" class="form-select" required>
+                        <option value="">-- Select a Client --</option>
+                        <?php foreach ($customers as $customer): ?>
+                            <option value="<?= $customer['CustomerID'] ?>" <?= old('CustomerID') == $customer['CustomerID'] ? 'selected' : '' ?>>
+                                <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
+
                 <div class="mb-3">
-                    <label for="progress" class="form-label">Progress (%)</label>
-                    <input type="number" name="progress" id="progress" class="form-control" min="0" max="100" value="<?= $task['Progress'] ?>" required>
+                    <label for="TaskTitle" class="form-label">Task Title</label>
+                    <input type="text" name="TaskTitle" id="TaskTitle" class="form-control" value="<?= old('TaskTitle') ?>" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+
+                <div class="mb-3">
+                    <label for="TaskDescription" class="form-label">Task Description</label>
+                    <textarea name="TaskDescription" id="TaskDescription" class="form-control"><?= old('TaskDescription') ?></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DueDate" class="form-label">Due Date</label>
+                    <input type="date" name="DueDate" id="DueDate" class="form-control" value="<?= old('DueDate') ?>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Subtasks</label>
+                    <div id="subtasks">
+                        <div class="input-group mb-2">
+                            <input type="text" name="subtasks[]" class="form-control" placeholder="Enter subtask" required>
+                            <button type="button" class="btn btn-danger remove-subtask">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="add-subtask">Add Subtask</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Assign Task</button>
                 <a href="<?= base_url('tasks/coach') ?>" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('add-subtask').addEventListener('click', function() {
+    const subtasksDiv = document.getElementById('subtasks');
+    const newSubtask = document.createElement('div');
+    newSubtask.className = 'input-group mb-2';
+    newSubtask.innerHTML = `
+        <input type="text" name="subtasks[]" class="form-control" placeholder="Enter subtask" required>
+        <button type="button" class="btn btn-danger remove-subtask">Remove</button>
+    `;
+    subtasksDiv.appendChild(newSubtask);
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-subtask')) {
+        e.target.parentElement.remove();
+    }
+});
+</script>
 
 <?= $this->endSection() ?>

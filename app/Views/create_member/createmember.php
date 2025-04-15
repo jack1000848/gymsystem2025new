@@ -59,7 +59,8 @@
 
     <div class="mb-3">
         <label for ="dateofregistration" class="form-label">Date of Registration</label>
-        <input type="date" class="form-control" name="dateofregistration"required>
+        <input type="date" class="form-control" name="dateofregistration"required
+        min="<?= date('Y-m-d') ?>">
    </div>
 
     <!-- Gymtimeslot -->

@@ -36,11 +36,11 @@
                         <td><?= esc($task['TaskTitle']) ?></td>
                         <td><?= esc($task['Firstname']) ?></td>
                         <td>
-                            <select class="form-select status-select" data-task-id="<?= $task['TaskID'] ?>">
-                                <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                                <option value="incomplete" <?= $task['Status'] === 'incomplete' ? 'selected' : '' ?>>Incomplete</option>
-                                <option value="completed" <?= $task['Status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
-                            </select>
+                        <select class="form-select status-select" data-task-id="<?= $task['TaskID'] ?>">
+    <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
+    <option value="incomplete" <?= $task['Status'] === 'incomplete' ? 'selected' : '' ?>>Incomplete</option>
+    <option value="completed" <?= $task['Status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
+</select>
                         </td>
                         <td class="progress-cell"><?= $task['Progress'] ?>%</td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
@@ -112,6 +112,14 @@ document.querySelectorAll('.status-select').forEach(select => {
         });
     });
 });
+fetch('<?= base_url('update-status-direct') ?>/' + taskID, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({ status: newStatus })
+})
 </script>
 
 <?= $this->endSection() ?>

@@ -228,4 +228,5 @@ $routes->post('tasks/updateSubtasks/(:num)', 'TaskController::updateSubtasks/$1'
     $routes->post('update-status/(:num)', 'TaskController::updateStatus/$1');
     $routes->get('check-status/(:num)', 'TaskController::checkStatus/$1');
     $routes->post('save-task-status/(:num)', 'TaskController::saveTaskStatus/$1');
+    $routes->post('status-modal/(:num)', 'TaskController::updateStatusModal/$1');
     $routes->get('download-pdf/(:num)', 'TaskController::downloadPdf/$1');

@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const newStatus = statusSelect.value;
 
         // Send AJAX request to update the status
-        fetch('<?= base_url('tasks/update-status-modal') ?>/' + taskId, {
+        fetch('<?= base_url('update-status-modal/') ?>/' + taskId, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

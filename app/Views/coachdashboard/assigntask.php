@@ -1,6 +1,7 @@
 <?= $this->extend('layout/maincoach') ?>
 <?= $this->section('body') ?>
 
+<!-- Styling -->
 <style>
     body {
         background-color: #f4f6f8;
@@ -74,7 +75,6 @@
         font-size: 0.95rem;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 576px) {
         .btn {
             width: 100%;
@@ -92,6 +92,7 @@
     }
 </style>
 
+<!-- Form Content -->
 <div class="container my-5">
     <h2 class="text-center mb-4">Assign New Task</h2>
 
@@ -164,6 +165,7 @@
     </div>
 </div>
 
+<!-- JS for adding/removing subtasks -->
 <script>
 document.getElementById('add-subtask').addEventListener('click', function() {
     const subtasksDiv = document.getElementById('subtasks');

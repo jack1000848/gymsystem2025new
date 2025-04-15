@@ -96,7 +96,7 @@ class TaskController extends BaseController
                              ->join('coach', 'coach.CoachID = tasks.CoachID')
                              ->where('tasks.CustomerID', $customerID)
                              ->findAll();
-        return view('clientdashboard/mytask', $data);
+        return view('clientdashboard/mytask');
     }
     public function clientDownloadPdf($taskID)
     {

@@ -1,98 +1,6 @@
 <?= $this->extend('layout/maincoach') ?>
 <?= $this->section('body') ?>
 
-<!-- Styling -->
-<style>
-    body {
-        background-color: #f4f6f8;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .container {
-        max-width: 800px;
-    }
-
-    .card {
-        border-radius: 1rem;
-        box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.07);
-        background-color: #fff;
-    }
-
-    .card-header {
-        border-radius: 1rem 1rem 0 0;
-    }
-
-    .form-label {
-        font-weight: 600;
-    }
-
-    .form-control,
-    .form-select {
-        border-radius: 0.5rem;
-        box-shadow: none !important;
-        border: 1px solid #ced4da;
-        transition: border-color 0.2s ease-in-out;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #0d6efd;
-        outline: none;
-    }
-
-    .btn {
-        border-radius: 50px;
-        padding: 0.4rem 1.2rem;
-        font-weight: 500;
-    }
-
-    .btn-primary {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-    }
-
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border-color: #dc3545;
-    }
-
-    .remove-subtask {
-        margin-left: 10px;
-    }
-
-    #add-subtask {
-        margin-top: 10px;
-        border-radius: 20px;
-    }
-
-    .alert {
-        border-radius: 0.5rem;
-        font-size: 0.95rem;
-    }
-
-    @media (max-width: 576px) {
-        .btn {
-            width: 100%;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-group {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .remove-subtask {
-            width: 100%;
-        }
-    }
-</style>
-
-<!-- Form Content -->
 <div class="container my-5">
     <h2 class="text-center mb-4">Assign New Task</h2>
 
@@ -165,7 +73,6 @@
     </div>
 </div>
 
-<!-- JS for adding/removing subtasks -->
 <script>
 document.getElementById('add-subtask').addEventListener('click', function() {
     const subtasksDiv = document.getElementById('subtasks');

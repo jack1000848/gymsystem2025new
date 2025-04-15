@@ -7,7 +7,7 @@
 
 <div class="col-12 mb-2">
 
-
+    <center><h1>Gym Equipments</h1></center>
 </div>
 
 

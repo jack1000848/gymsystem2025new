@@ -55,3 +55,4 @@
     <?php endif; ?>
 </div>
 
+<?= $this->endSection() ?>

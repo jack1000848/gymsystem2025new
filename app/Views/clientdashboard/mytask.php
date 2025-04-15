@@ -40,7 +40,7 @@
                             <?php endif; ?>
                         </td>
                         <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['Firsname']) ?></td>
+                        <td><?= esc($task['Firstname']) ?></td>
                         <td class="status-cell"><?= ucfirst($task['Status']) ?></td>
                         <td class="progress-cell"><?= $task['Progress'] ?>%</td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>

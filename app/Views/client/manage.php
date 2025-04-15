@@ -4,13 +4,11 @@
 
     ?>
 
-    
 
     <div class="p-2 row mb-3">
-
-    <div class="col-12 mb-2">
+   <div class="col-12 mb-2">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Coach</button>
-    
+    ///
     </div>
 
     
@@ -47,15 +45,11 @@
         <td style="display:none;"><?= $coach['password_hash']; ?></td>
         <td><?= $coach['Address']; ?></td>
         <td><?= $coach['Email']; ?></td>
-        <<td><img id="qrCodeImage<?= $coach['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
+        <td><img id="qrCodeImage<?= $coach['CoachID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
         <td>
 
-    <span onclick="editCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">
-  Edit
-  </span>
-  <span onclick="deleteCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-danger">
-  Delete
-  </span>
+    <span onclick="editCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">Edit</span>
+  <span onclick="deleteCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-danger"> Delete</span>
   
         </td>
        

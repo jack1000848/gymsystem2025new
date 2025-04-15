@@ -1,83 +1,57 @@
-<?php
-    $this ->extend('layout/maincoach');
-    $this ->section('body');
+<?= $this->extend('layout/maincoach') ?>
+<?= $this->section('body') ?>
 
-    ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Coach Tasks</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>My Assigned Tasks</h2>
-        <a href="<?= base_url('tasks/create') ?>" class="btn btn-success mb-3">Assign New Task</a>
-        <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success">
-                <?= session()->getFlashdata('success') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger">
-                <?= session()->getFlashdata('error') ?>
-            </div>
-        <?php endif; ?>
-        <table class="table">
-            <thead>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Manage Client Tasks</h2>
+
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($tasks)): ?>
+        <table class="table table-bordered table-striped">
+            <thead class="bg-primary text-white">
                 <tr>
-                    <th>Client</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Due Date</th>
+                    <th>Task Title</th>
+                    <th>Client Name</th>
                     <th>Status</th>
                     <th>Progress</th>
-                    <th>Subtasks</th>
-                    <th>Update Status</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($tasks)): ?>
-                    <?php foreach ($tasks as $task): ?>
-                        <tr>
-                            <td><?= esc($task['Firstname']) ?></td>
-                            <td><?= esc($task['TaskTitle']) ?></td>
-                            <td><?= esc($task['TaskDescription']) ?></td>
-                            <td><?= esc($task['DueDate']) ?></td>
-                            <td><?= esc($task['Status']) ?></td>
-                            <td><?= esc($task['Progress']) ?>%</td>
-                            <td>
-                                <?php
-                                $subtaskModel = new \App\Models\SubtaskModel();
-                                $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
-                                foreach ($subtasks as $subtask):
-                                ?>
-                                    <div>
-                                        <span class="<?= $subtask['IsCompleted'] ? 'text-success' : 'text-muted' ?>">
-                                            <?= $subtask['IsCompleted'] ? '✔' : '⬜' ?> <?= esc($subtask['SubtaskName']) ?>
-                                        </span>
-                                    </div>
-                                <?php endforeach; ?>
-                            </td>
-                            <td>
-                                <form action="<?= base_url('tasks/updateStatus/' . $task['TaskID']) ?>" method="post">
-                                    <select name="status" onchange="this.form.submit()">
-                                        <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                                        <option value="completed" <?= $task['Status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
-                                        <option value="incomplete" <?= $task['Status'] === 'incomplete' ? 'selected' : '' ?>>Incomplete</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+                <?php foreach ($tasks as $task): ?>
                     <tr>
-                        <td colspan="8">No tasks assigned.</td>
+                        <td><?= esc($task['TaskTitle']) ?></td>
+                        <td><?= esc($task['Firstname'] . ' ' . $task['Lastname']) ?></td>
+                        <td><?= ucfirst($task['Status']) ?></td>
+                        <td><?= $task['Progress'] ?>%</td>
+                        <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
+                        <td>
+                            <?php if ($task['Status'] !== 'completed'): ?>
+                                <a href="<?= base_url('coach/mark-task-completed/' . $task['TaskID']) ?>" class="btn btn-success btn-sm">Mark as Completed</a>
+                            <?php else: ?>
+                                <a href="<?= base_url('coach/download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-</body>
-</html>
-<?php $this->endSection(); ?> 
+    <?php else: ?>
+        <div class="text-center text-muted fs-5 mt-4">
+            <p>No tasks found.</p>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?= $this->endSection() ?>

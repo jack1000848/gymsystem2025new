@@ -17,6 +17,7 @@ class TaskModel extends Model
         'DueDate',
         'Status',
         'Progress',
+        'PdfPath',
     ];
     protected $useTimestamps = false;
 
@@ -59,5 +60,15 @@ public function calculateProgress($taskID)
     return round(($completedSubtasks / $totalSubtasks) * 100);
 }
 
+// New method to mark a task as completed and set the PDF path
+public function markTaskAsCompleted($taskId, $pdfPath = null)
+{
+    return $this->update($taskId, [
+        'Status' => 'completed',
+        'Progress' => 100,
+        'CompletedAt' => date('Y-m-d H:i:s'),
+        'PdfPath' => $pdfPath
+    ]);
+}
 
 }

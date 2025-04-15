@@ -6,6 +6,7 @@ use App\Models\TaskModel;
 use App\Models\CustomerModel; // Assume you have a Customer model
 use App\Models\CoachModel;    // Assume you have a Coach model
 use App\Models\SubtaskModel; // Assume you have a Subtask model // Assume you have a CoachSchedule model
+use App\Services\PdfService; // Assume you have a PdfService for generating PDFs
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -231,5 +232,90 @@ public function updateSubtasks($taskID)
     return redirect()->to('/tasks/client')->with('success', 'Subtasks updated successfully');
 }
 
+// Display the list of tasks for a coach's clients
+public function manageTasks()
+{
+    if (!session()->has('isLoggedIn') || session()->get('role') !== 'coach') {
+        return redirect()->to('/coach-login')->with('error', 'Please login as a coach.');
+    }
+
+    $coachId = session()->get('CoachID');
+    $tasks = $this->taskModel->select('tasks.*, customer.Firstname, customer.Lastname')
+                             ->join('customer', 'customer.CustomerID = tasks.CustomerID')
+                             ->where('tasks.CoachID', $coachId)
+                             ->findAll();
+
+    return view('coach/tasks', [
+        'tasks' => $tasks
+    ]);
+}
+
+// Mark a task as completed and generate PDF
+public function markTaskCompleted($taskId)
+{
+    if (!session()->has('isLoggedIn') || session()->get('role') !== 'coach') {
+        return redirect()->to('/coach-login')->with('error', 'Please login as a coach.');
+    }
+
+    $task = $this->taskModel->select('tasks.*, equipment.Description AS EquipmentName')
+                            ->join('equipment', 'equipment.EquipmentID = tasks.EquipmentID', 'left')
+                            ->find($taskId);
+
+    if (!$task) {
+        return redirect()->to('/coach/tasks')->with('error', 'Task not found.');
+    }
+
+    $client = $this->clientsModel->find($task['CustomerID']);
+    $coach = $this->coachModel->find($task['CoachID']);
+
+    if (!$client || !$coach) {
+        return redirect()->to('/coach/tasks')->with('error', 'Client or coach not found.');
+    }
+
+    // Generate PDF
+    $pdfService = new PdfService();
+    $pdfService->generateTaskCompletionPdf($task, $client, $coach);
+
+    // Save the PDF file
+    $filename = 'task_' . $taskId . '_completion.pdf';
+    $pdfPath = $pdfService->savePdf($filename);
+
+    // Update the task with the PDF path and mark as completed
+    $this->taskModel->markTaskAsCompleted($taskId, $pdfPath);
+
+    // Redirect to the download action
+    return redirect()->to('/coach/download-pdf/' . $taskId)->with('success', 'Task marked as completed. Download the PDF below.');
+}
+
+// Download the generated PDF
+public function downloadPdf($taskId)
+{
+    if (!session()->has('isLoggedIn') || session()->get('role') !== 'coach') {
+        return redirect()->to('/coach-login')->with('error', 'Please login as a coach.');
+    }
+
+    $task = $this->taskModel->find($taskId);
+
+    if (!$task || !$task['PdfPath']) {
+        return redirect()->to('/coach/tasks')->with('error', 'PDF not found for this task.');
+    }
+
+    $client = $this->clientsModel->find($task['CustomerID']);
+    $coach = $this->coachModel->find($task['CoachID']);
+    $task = $this->taskModel->select('tasks.*, equipment.Description AS EquipmentName')
+                            ->join('equipment', 'equipment.EquipmentID = tasks.EquipmentID', 'left')
+                            ->find($taskId);
+
+    // Generate the PDF again for download (or use the saved file)
+    $pdfService = new PdfService();
+    $pdfService->generateTaskCompletionPdf($task, $client, $coach);
+
+    // Output the PDF for download
+    $filename = 'task_' . $taskId . '_completion.pdf';
+    $pdfService->outputPdfForDownload($filename);
+
+    // Note: The redirect after this line won't execute because outputPdfForDownload() sends the file and exits
+    return redirect()->to('/coach/tasks')->with('success', 'PDF downloaded successfully.');
+}
 
 }

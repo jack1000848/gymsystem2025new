@@ -24,7 +24,11 @@ class EquipmentModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
-    
+    // Fetch equipment by ID
+    public function getEquipmentById($equipmentId)
+    {
+        return $this->find($equipmentId);
+    }
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

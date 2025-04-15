@@ -156,30 +156,14 @@ $.ajax({
     url: "<?= site_url('/coach-manage/update') ?>",
     method: 'POST',
     data: {
-        id: id,
+        id: id, // ✅ Send this properly
         startdate: $('#edit_start_date').val(),
         starttime: $('#edit_start_time').val(),
         enddate: $('#edit_end_date').val(),
         endtime: $('#edit_end_time').val()
     },
-    success: function (response) {
-        // Show success alert
-        Swal.fire({
-            icon: 'success',
-            title: 'Updated!',
-            text: 'Schedule updated successfully!',
-        }).then(() => {
-            location.reload(); // Refresh to show updated data
         });
-    },
-    error: function (xhr, status, error) {
-        console.error("Update failed:", xhr.responseText);
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'Failed to update schedule. Please try again.',
-        });
-    }
+    });
 });
 
     function editPlan(id) {

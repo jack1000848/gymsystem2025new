@@ -367,10 +367,10 @@ public function adminDownloadPdf($taskID)
 }
 public function adminTasks()
 {
-    $adminID = session()->get('AdminID');
-    if (!$adminID) {
-        return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');
-    }
+   // $adminID = session()->get('AdminID');
+  //  if (!$adminID) {
+  //      return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');
+  //  }
 
     $tasks = $this->taskModel->select('tasks.*, coach.Firstname as CoachFirstname, coach.Lastname as CoachLastname, customer.Firstname as ClientFirstname, customer.Lastname as ClientLastname')
                              ->join('coach', 'coach.CoachID = tasks.CoachID')

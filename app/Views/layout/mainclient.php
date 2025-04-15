@@ -67,15 +67,15 @@
                     <ul class="nav flex-column" role="menu">
                     <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                                <i class="bi bi-bullseye nav-icon"></i>
-                                <p class="m-0">My Dashboard</p>
+                            <i class="bi bi-bar-chart nav-icon me-2"></i>
+                                <p class="m-0">Dashboard</p>
                             </a> 
                          </li>
                             
                             <li class="nav-item"> 
                             <a href="<?= base_url('/view-attendance') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-calendar-check nav-icon"></i>
-                            <p class="m-0">View My Attendance</p>
+                            <p class="m-0">Attendance</p>
                             </a>
                            </li>
 
@@ -89,15 +89,15 @@
                         
                         <li class="nav-item"> 
                             <a href="<?= base_url('tasks/client') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                            <i class="fas fa-list-check nav-icon"></i>
-                            <p class="m-0">To-do</p>
+                            <i class="bi bi-journal-check nav-icon me-2"></i>
+                            <p class="m-0">My Task</p>
                             </a> 
                         </li>
 
                         <li class="nav-item"> 
                             <a href="<?= base_url('/viewequipment') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                <i class="fas fa-dumbbell nav-icon"></i>
-                                <p class="m-0">View Gym Equipment</p>
+                                <p class="m-0">Available Equipment</p>
                             </a> 
                       </li>
 
@@ -114,7 +114,12 @@
                                 <p class="m-0">My Schedule</p>
                             </a> 
                         </li>
-
+                        <li class="nav-item"> 
+                        <a href="<?= base_url('/customer/body/history') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                        <i class="bi bi-graph-up-arrow nav-icon me-2"></i> 
+                            <p class="m-0">Personal Stats</p>
+                        </a> 
+                        </li>
                         <li class="nav-item"> 
                             <a href="<?= base_url('/account-setting') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                 <i class="bi bi-gear nav-icon"></i>
@@ -151,15 +156,15 @@
                     <ul class="nav flex-column" role="menu">
                          <li class="nav-item"> 
                             <a href="<?= base_url('/clientdashboard') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                                <i class="bi bi-bullseye nav-icon"></i>
-                                <p class="m-0">My Dashboard</p>
+                            <i class="bi bi-bar-chart nav-icon me-2"></i>
+                                <p class="m-0">Dashboard</p>
                             </a> 
                          </li>
                             
                             <li class="nav-item"> 
                             <a href="<?= base_url('/view-attendance') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-calendar-check nav-icon"></i>
-                            <p class="m-0">View My Attendance</p>
+                            <p class="m-0">Attendance</p>
                             </a>
                            </li>
 
@@ -171,23 +176,23 @@
                         </li>
                         
                         <li class="nav-item"> 
-                            <a href="<?= base_url('/tasks/client') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                            <i class="fas fa-list-check nav-icon"></i>
-                            <p class="m-0">To-do</p>
+                            <a href="<?= base_url('tasks/client') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-journal-check nav-icon me-2"></i>
+                            <p class="m-0">My Task</p>
                             </a> 
                         </li>
 
                         <li class="nav-item"> 
                             <a href="<?= base_url('/viewequipment') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                <i class="fas fa-dumbbell nav-icon"></i>
-                                <p class="m-0">View Gym Equipment</p>
+                                <p class="m-0">Available Equipment</p>
                             </a> 
                       </li>
 
 
                       <li class="nav-item"> 
                         <a href="<?= base_url('/customer/body/history') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                          <i class="bi bi-cpu nav-icon"></i> 
+                        <i class="bi bi-graph-up-arrow nav-icon me-2"></i> 
                             <p class="m-0">Personal Stats</p>
                         </a> 
                         </li>

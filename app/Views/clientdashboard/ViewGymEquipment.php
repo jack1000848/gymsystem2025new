@@ -24,8 +24,8 @@
     <thead>
         <tr>
             
-            <th>Description</th>
-            <th>Qty</th>
+            <th>Name</th>
+            <th style="display:none;">Qty</th>
      
 
 
@@ -36,7 +36,7 @@
 
 <tr>
 <td><?= $equipment['Description']; ?></td>
-<td><?= $equipment['Qty']; ?></td>
+<td style="display:none;"><?= $equipment['Qty']; ?></td>
 
 
 

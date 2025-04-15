@@ -152,19 +152,19 @@ $this->section('body');
     var id = $('#editClientId').val();
 console.log("ID to update: ", id); // ✅ DEBUG: Check if this prints a correct ID
 
-        $.ajax({
-            url: "<?= site_url('/coach-manage/update') ?>",
-            method: 'POST',
-            data: {
-                id: id, // ✅ Send this properly
-                startdate: $('#edit_start_date').val(),
-                starttime: $('#edit_start_time').val(),
-                enddate: $('#edit_end_date').val(),
-                endtime: $('#edit_end_time').val()
-            },
-                
-            
+$.ajax({
+    url: "<?= site_url('/coach-manage/update') ?>",
+    method: 'POST',
+    data: {
+        id: id, // ✅ Send this properly
+        startdate: $('#edit_start_date').val(),
+        starttime: $('#edit_start_time').val(),
+        enddate: $('#edit_end_date').val(),
+        endtime: $('#edit_end_time').val()
+    },
         });
+    });
+});
 
     function editPlan(id) {
         $.ajax({

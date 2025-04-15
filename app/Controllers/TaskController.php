@@ -87,10 +87,40 @@ class TaskController extends BaseController
     // List tasks for a client
     public function clientTasks()
     {
-        $data['tasks'] = $this->taskModel->getTasksByCustomer(session()->get('CustomerID'));
-        return view('clientdashboard/mytask', $data);
+        $customerID = session()->get('CustomerID');
+    if (!$customerID) {
+        return redirect()->to('/client-login')->with('error', 'Please log in as a client');
     }
 
+    $tasks = $this->taskModel->select('tasks.*, coach.Firstname as CoachFirstname, coach.Lastname as CoachLastname')
+                             ->join('coach', 'coach.CoachID = tasks.CoachID')
+                             ->where('tasks.CustomerID', $customerID)
+                             ->findAll();
+        return view('clientdashboard/mytask', $data);
+    }
+    public function clientDownloadPdf($taskID)
+    {
+        $customerID = session()->get('CustomerID');
+        if (!$customerID) {
+            return redirect()->to('/client-login')->with('error', 'Please log in as a client');
+        }
+    
+        $task = $this->taskModel->where('TaskID', $taskID)
+                                ->where('CustomerID', $customerID)
+                                ->first();
+    
+        if (!$task || !$task['PdfPath']) {
+            return redirect()->to('/tasks/client')->with('error', 'PDF not found for this task');
+        }
+    
+        // Serve the existing PDF file
+        $pdfPath = FCPATH . $task['PdfPath'];
+        if (!file_exists($pdfPath)) {
+            return redirect()->to('/tasks/client')->with('error', 'PDF file not found on server');
+        }
+    
+        return $this->response->download($pdfPath, null, true);
+    }
     // Mark task as completed (for clients)
     public function complete($taskID)
     {

@@ -1,74 +1,55 @@
 <?= $this->extend('layout/mainclient') ?>
 <?= $this->section('body') ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Tasks</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>My Tasks</h2>
-        <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success">
-                <?= session()->getFlashdata('success') ?>
-            </div>
-        <?php endif; ?>
-        <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger">
-                <?= session()->getFlashdata('error') ?>
-            </div>
-        <?php endif; ?>
-        <table class="table">
-            <thead>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">My Tasks</h2>
+
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($tasks)): ?>
+        <table class="table table-bordered table-striped">
+            <thead class="bg-primary text-white">
                 <tr>
-                    <th>Coach</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Due Date</th>
+                    <th>Task Title</th>
+                    <th>Coach Name</th>
                     <th>Status</th>
                     <th>Progress</th>
-                    <th>Subtasks</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($tasks)): ?>
-                    <?php foreach ($tasks as $task): ?>
-                        <tr>
-                            <td><?= esc($task['Firstname']) ?></td>
-                            <td><?= esc($task['TaskTitle']) ?></td>
-                            <td><?= esc($task['TaskDescription']) ?></td>
-                            <td><?= esc($task['DueDate']) ?></td>
-                            <td><?= esc($task['Status']) ?></td>
-                            <td><?= esc($task['Progress']) ?>%</td>
-                            <td>
-                                <?php if ($task['Status'] === 'pending'): ?>
-                                    <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
-                                        <?php
-                                        $subtaskModel = new \App\Models\SubtaskModel();
-                                        $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
-                                        foreach ($subtasks as $subtask):
-                                        ?>
-                                            <div class="form-check">
-                                                <input type="checkbox" name="subtasks[<?= $subtask['SubtaskID'] ?>]" value="1" class="form-check-input" <?= $subtask['IsCompleted'] ? 'checked' : '' ?> onchange="this.form.submit()">
-                                                <label class="form-check-label"><?= esc($subtask['SubtaskName']) ?></label>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </form>
-                                <?php else: ?>
-                                    <span class="text-muted"><?= $task['Status'] === 'completed' ? 'Completed' : 'Incomplete' ?></span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7">No tasks assigned.</td>
+                <?php foreach ($tasks as $task): ?>
+                    <tr data-task-id="<?= $task['TaskID'] ?>">
+                        <td><?= esc($task['TaskTitle']) ?></td>
+                        <td><?= esc($task['CoachFirstname'] . ' ' . $task['CoachLastname']) ?></td>
+                        <td><?= ucfirst($task['Status']) ?></td>
+                        <td class="progress-cell"><?= $task['Progress'] ?>%</td>
+                        <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
+                        <td class="actions-cell">
+                            <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
+                                <a href="<?= base_url('client-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm download-pdf-btn">Download PDF</a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-</body>
-</html>
+    <?php else: ?>
+        <div class="text-center text-muted fs-5 mt-4">
+            <p>No tasks assigned to you.</p>
+        </div>
+    <?php endif; ?>
+</div>
+
 <?= $this->endSection() ?>

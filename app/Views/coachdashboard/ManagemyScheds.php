@@ -161,6 +161,18 @@ $.ajax({
         starttime: $('#edit_start_time').val(),
         enddate: $('#edit_end_date').val(),
         endtime: $('#edit_end_time').val()
+        success: function(response) {
+            if (response.status === 'success') {
+                alert("Coach Updated Successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update Coach: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error during the update:", error);
+            alert("There was an error updating the Coach.");
+        }
     },
         });
     });

@@ -188,7 +188,7 @@ class TaskController extends BaseController
             return redirect()->to('/tasks/coach')->with('error', 'Task not found or not assigned by you');
         }
 
-        return view('coachdashboard/update_task_status', [
+        return view('coachdashboard/assigntask', [
             'task' => $task
         ]);
     }

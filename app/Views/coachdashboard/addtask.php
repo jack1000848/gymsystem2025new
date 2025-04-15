@@ -66,7 +66,7 @@ document.querySelectorAll('.status-select').forEach(select => {
         const taskID = this.getAttribute('data-task-id');
         const newStatus = this.value;
 
-        fetch('<?= base_url('update-status-direct') ?>/' + taskID, {
+        fetch('<?= base_url('update-status-direct/') ?>/' + taskID, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

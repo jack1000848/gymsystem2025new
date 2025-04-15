@@ -141,7 +141,7 @@ $(document).ready(function(){
         width: 100%;
         border-collapse: collapse;
         background-color: #fff;
-        box-shadow: 0px 0px 10px rgba(14, 185, 228, 0.98);
+        box-shadow: 0px 0px 10px rgba(21, 157, 211, 0.05);
         border-radius: 10px;
         overflow: hidden;
     }
@@ -153,7 +153,7 @@ $(document).ready(function(){
     }
 
     table.display th {
-        background-color:rgb(12, 208, 243);
+        background-color:rgb(0, 107, 247);
         color: #fff;
         font-weight: 600;
     }

@@ -39,7 +39,7 @@
                         <td><?= $task['Progress'] ?>%</td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
                         <td>
-                            <a href="<?= base_url('tasks/update-status/' . $task['TaskID']) ?>" class="btn btn-warning btn-sm">Update Status</a>
+                            <a href="<?= base_url('update-status/' . $task['TaskID']) ?>" class="btn btn-warning btn-sm">Update Status</a>
                             <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
                                 <a href="<?= base_url('tasks/download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
                             <?php endif; ?>

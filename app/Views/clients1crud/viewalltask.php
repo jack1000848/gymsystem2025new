@@ -45,7 +45,7 @@ $this->section('body'); // Start the body section
                         <td><?= $task['Progress'] ?>%</td>
                         <td>
                             <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
-                                <a href="<?= base_url('tasks/admin-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
+                                <a href="<?= base_url('admin-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
                             <?php endif; ?>
                         </td>
                     </tr>

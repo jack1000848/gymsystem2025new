@@ -44,7 +44,7 @@
                             <td><?= esc($task['Progress']) ?>%</td>
                             <td>
                                 <?php if ($task['Status'] === 'pending'): ?>
-                                    <form action="<?= base_url('updateSubtasks/' . $task['TaskID']) ?>" method="post">
+                                    <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
                                         <?php
                                         $subtaskModel = new \App\Models\SubtaskModel();
                                         $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();

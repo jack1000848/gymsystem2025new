@@ -23,7 +23,7 @@
             <h4 class="mb-0">Create Task</h4>
         </div>
         <div class="card-body">
-            <form action="<?= base_url('store') ?>" method="post">
+            <form action="<?= base_url('tasks/store') ?>" method="post">
                 <div class="mb-3">
                     <label for="CustomerID" class="form-label">Select Client</label>
                     <select name="CustomerID" id="CustomerID" class="form-select" required>
@@ -55,41 +55,11 @@
                     <input type="date" name="DueDate" id="DueDate" class="form-control" value="<?= old('DueDate') ?>" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Subtasks</label>
-                    <div id="subtasks">
-                        <div class="input-group mb-2">
-                            <input type="text" name="subtasks[]" class="form-control" placeholder="Enter subtask" required>
-                            <button type="button" class="btn btn-danger remove-subtask">Remove</button>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-secondary" id="add-subtask">Add Subtask</button>
-                </div>
-
                 <button type="submit" class="btn btn-primary">Assign Task</button>
                 <a href="<?= base_url('tasks/coach') ?>" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
 </div>
-
-<script>
-document.getElementById('add-subtask').addEventListener('click', function() {
-    const subtasksDiv = document.getElementById('subtasks');
-    const newSubtask = document.createElement('div');
-    newSubtask.className = 'input-group mb-2';
-    newSubtask.innerHTML = `
-        <input type="text" name="subtasks[]" class="form-control" placeholder="Enter subtask" required>
-        <button type="button" class="btn btn-danger remove-subtask">Remove</button>
-    `;
-    subtasksDiv.appendChild(newSubtask);
-});
-
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-subtask')) {
-        e.target.parentElement.remove();
-    }
-});
-</script>
 
 <?= $this->endSection() ?>

@@ -32,7 +32,7 @@
                 <?php foreach ($tasks as $task): ?>
                     <tr data-task-id="<?= $task['TaskID'] ?>">
                         <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['CoachFirstname'] . ' ' . $task['CoachLastname']) ?></td>
+                        <td><?= esc($task['Firstname']) ?></td>
                         <td><?= ucfirst($task['Status']) ?></td>
                         <td class="progress-cell"><?= $task['Progress'] ?>%</td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>

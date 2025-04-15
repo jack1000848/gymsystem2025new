@@ -21,7 +21,10 @@ class CustomerBodyHistoryModel extends Model
     {
         return $this->insert($data);
     }
-
+    public function getCustomersByCoach($coachID)
+    {
+        return $this->where('CoachID', $coachID)->findAll();
+    }
     
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

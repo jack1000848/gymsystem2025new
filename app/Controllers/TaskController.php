@@ -25,7 +25,9 @@ class TaskController extends BaseController
     // Show form to create a task (for coaches)
     public function create()
 {
-    $data['customers'] = $this->customerModel->findAll(); // List all clients
+    $customers = $this->customerModel->findAll(); // List all clients
+    log_message('debug', 'Customers fetched: ' . json_encode($customers)); // Debug log
+    $data['customers'] = $customers;
     return view('coachdashboard/assigntask', $data);
 }
 

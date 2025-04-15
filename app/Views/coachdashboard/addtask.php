@@ -16,6 +16,8 @@
         </div>
     <?php endif; ?>
 
+    <a href="<?= base_url('tasks/create') ?>" class="btn btn-primary mb-3">Assign New Task</a>
+
     <?php if (!empty($tasks)): ?>
         <table class="table table-bordered table-striped">
             <thead class="bg-primary text-white">
@@ -37,10 +39,9 @@
                         <td><?= $task['Progress'] ?>%</td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
                         <td>
-                            <?php if ($task['Status'] !== 'completed'): ?>
-                                <a href="<?= base_url('coach/mark-task-completed/' . $task['TaskID']) ?>" class="btn btn-success btn-sm">Mark as Completed</a>
-                            <?php else: ?>
-                                <a href="<?= base_url('coach/download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
+                            <a href="<?= base_url('tasks/update-status/' . $task['TaskID']) ?>" class="btn btn-warning btn-sm">Update Status</a>
+                            <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
+                                <a href="<?= base_url('tasks/download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
                             <?php endif; ?>
                         </td>
                     </tr>

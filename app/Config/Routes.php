@@ -216,7 +216,15 @@ $routes->post('tasks/updateStatus/(:num)', 'TaskController::updateStatus/$1');
 //// new
 $routes->post('tasks/updateSubtasks/(:num)', 'TaskController::updateSubtasks/$1');
 
-//my pdf 
-$routes->get('tasks', 'TaskController::manageTasks');
-    $routes->get('mark-task-completed/(:num)', 'TaskController::markTaskCompleted/$1');
+$routes->group('tasks', ['filter' => 'auth'], function($routes) {
+    $routes->get('create', 'TaskController::create');
+    $routes->post('store', 'TaskController::store');
+    $routes->get('coach', 'TaskController::coachTasks');
+    $routes->get('client', 'TaskController::clientTasks');
+    $routes->get('complete/(:num)', 'TaskController::complete/$1');
+    $routes->post('update-progress/(:num)', 'TaskController::updateProgress/$1');
+    $routes->post('update-subtasks/(:num)', 'TaskController::updateSubtasks/$1');
+    $routes->get('update-status/(:num)', 'TaskController::updateStatus/$1');
+    $routes->post('save-task-status/(:num)', 'TaskController::saveTaskStatus/$1');
     $routes->get('download-pdf/(:num)', 'TaskController::downloadPdf/$1');
+});

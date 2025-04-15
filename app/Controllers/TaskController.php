@@ -74,7 +74,7 @@ class TaskController extends BaseController
             ]);
         }
 
-        return redirect()->to('/coach')->with('success', 'Task assigned successfully');
+        return redirect()->to('tasks/coach')->with('success', 'Task assigned successfully');
     }
 
     // List tasks for a coach

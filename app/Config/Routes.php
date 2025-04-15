@@ -223,3 +223,4 @@ $routes->get('coach', 'TaskController::coachTasks');
 $routes->post('update-status-direct/(:num)', 'TaskController::updateStatusDirect/$1');
 $routes->get('download-pdf/(:num)', 'TaskController::downloadPdf/$1');
 $routes->get('client-download-pdf/(:num)', 'TaskController::clientDownloadPdf/$1');
+$routes->post('client-update-progress/(:num)', 'TaskController::clientUpdateProgress/$1');

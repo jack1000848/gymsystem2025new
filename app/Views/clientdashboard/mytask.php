@@ -29,6 +29,7 @@
                     <th>Status</th>
                     <th>Progress</th>
                     <th>Subtasks</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,7 +44,7 @@
                             <td><?= esc($task['Progress']) ?>%</td>
                             <td>
                                 <?php if ($task['Status'] === 'pending'): ?>
-                                    <form action="<?= base_url('tasks/updateSubtasks/' . $task['TaskID']) ?>" method="post">
+                                    <form action="<?= base_url('updateSubtasks/' . $task['TaskID']) ?>" method="post">
                                         <?php
                                         $subtaskModel = new \App\Models\SubtaskModel();
                                         $subtasks = $subtaskModel->where('TaskID', $task['TaskID'])->findAll();
@@ -59,11 +60,16 @@
                                     <span class="text-muted"><?= $task['Status'] === 'completed' ? 'Completed' : 'Incomplete' ?></span>
                                 <?php endif; ?>
                             </td>
+                            <td class="actions-cell">
+                                <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
+                                    <a href="<?= base_url('client-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm download-pdf-btn">Download PDF</a>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">No tasks assigned.</td>
+                        <td colspan="8">No tasks assigned.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

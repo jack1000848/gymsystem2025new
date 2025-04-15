@@ -74,7 +74,7 @@ class TaskController extends BaseController
             ]);
         }
 
-        return redirect()->to('/tasks/coach')->with('success', 'Task assigned successfully');
+        return redirect()->to('/coach')->with('success', 'Task assigned successfully');
     }
 
     // List tasks for a coach
@@ -97,7 +97,7 @@ class TaskController extends BaseController
         $task = $this->taskModel->find($taskID);
         if ($task && $task['CustomerID'] == session()->get('CustomerID')) {
             $this->taskModel->update($taskID, ['Status' => 'completed']);
-            return redirect()->to('/tasks/client')->with('success', 'Task marked as completed');
+            return redirect()->to('/client')->with('success', 'Task marked as completed');
         }
 
         return redirect()->to('/clientdashboard/mytasks')->with('error', 'Invalid task');
@@ -329,80 +329,7 @@ class TaskController extends BaseController
         'task' => $task
     ]);
 }
-public function updateStatusModal($taskID)
-{
-    // Ensure this is an AJAX request
-    if (!$this->request->isAJAX()) {
-        return $this->response->setJSON(['success' => false, 'message' => 'Invalid request method']);
-    }
 
-    $coachID = session()->get('CoachID');
-    if (!$coachID) {
-        return $this->response->setJSON(['success' => false, 'message' => 'Please log in as a coach']);
-    }
-
-    // Fetch the task
-    $task = $this->taskModel->where('TaskID', $taskID)
-                            ->where('CoachID', $coachID)
-                            ->first();
-
-    if (!$task) {
-        return $this->response->setJSON(['success' => false, 'message' => 'Task not found or not assigned by you']);
-    }
-
-    $newStatus = $this->request->getPost('status');
-    if (!in_array($newStatus, ['pending', 'incomplete', 'completed'])) {
-        return $this->response->setJSON(['success' => false, 'message' => 'Invalid status selected']);
-    }
-
-    $data = [
-        'Status' => $newStatus,
-    ];
-
-    // If status is completed, set Progress to 100 and set CompletedAt
-    if ($newStatus === 'completed') {
-        $data['Progress'] = 100;
-        $data['CompletedAt'] = date('Y-m-d H:i:s');
-    } elseif ($newStatus === 'incomplete' && $task['CompletedAt']) {
-        // If changing from completed to incomplete, clear CompletedAt
-        $data['CompletedAt'] = null;
-    } elseif ($newStatus === 'pending') {
-        // If changing to pending, clear CompletedAt and PdfPath
-        $data['CompletedAt'] = null;
-        $data['PdfPath'] = null;
-    }
-
-    // If status is incomplete or completed, generate PDF
-    if (in_array($newStatus, ['incomplete', 'completed'])) {
-        // Fetch additional data for PDF
-        $task = $this->taskModel->select('tasks.*, equipment.Description AS EquipmentName')
-                                ->join('equipment', 'equipment.EquipmentID = tasks.EquipmentID', 'left')
-                                ->where('tasks.TaskID', $taskID)
-                                ->first();
-        $client = $this->customerModel->find($task['CustomerID']);
-        $coach = $this->coachModel->find($task['CoachID']);
-
-        if (!$client || !$coach) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Client or coach not found']);
-        }
-
-        // Generate PDF
-        $pdfService = new PdfService();
-        $pdfService->generateTaskCompletionPdf($task, $client, $coach);
-
-        // Save the PDF file
-        $filename = 'task_' . $taskID . '_status.pdf';
-        $pdfPath = $pdfService->savePdf($filename);
-
-        // Update task with PDF path
-        $data['PdfPath'] = $pdfPath;
-    }
-
-    // Update the task
-    $this->taskModel->update($taskID, $data);
-
-    return $this->response->setJSON(['success' => true, 'message' => 'Task status updated successfully']);
-}
 
 public function updateStatusDirect($taskID)
     {

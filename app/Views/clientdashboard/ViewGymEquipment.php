@@ -123,7 +123,7 @@
         <tr>
             
             <th>Name</th>
-            <th style="display:none;">Qty</th>
+            <th>Qty</th>
      
 
 

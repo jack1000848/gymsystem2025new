@@ -8,7 +8,7 @@
     <div class="p-2 row mb-3">
    <div class="col-12 mb-2">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Coach</button>
-    ///
+    
     </div>
 
     

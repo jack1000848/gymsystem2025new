@@ -325,10 +325,10 @@ class TaskController extends BaseController
     }
     public function checkStatus($taskID)
 {
-    $coachID = session()->get('CoachID');
-    if (!$coachID) {
-        return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
-    }
+    //$coachID = session()->get('CoachID');
+  //  if (!$coachID) {
+     //   return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+   // }
 
     $task = $this->taskModel->select('tasks.*, customer.Firstname, customer.Lastname')
                             ->join('customer', 'customer.CustomerID = tasks.CustomerID')
@@ -346,10 +346,10 @@ class TaskController extends BaseController
 }
 public function adminDownloadPdf($taskID)
 {
-    $adminID = session()->get('AdminID');
-    if (!$adminID) {
-        return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');
-    }
+   /// $adminID = session()->get('AdminID');
+   /// if (!$adminID) {
+    ///    return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');
+   // }
 
     $task = $this->taskModel->where('TaskID', $taskID)->first();
 

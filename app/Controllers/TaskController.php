@@ -215,7 +215,7 @@ class TaskController extends BaseController
         $progress = $this->request->getPost('progress') ?? $task['Progress'];
 
         if (!in_array($status, ['pending', 'incomplete', 'completed'])) {
-            return redirect()->to('/tasks/coach')->with('error', 'Invalid status selected.');
+            return redirect()->to('/coach')->with('error', 'Invalid status selected.');
         }
 
         $data = [

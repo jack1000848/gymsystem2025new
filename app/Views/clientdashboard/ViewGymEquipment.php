@@ -141,7 +141,7 @@ $(document).ready(function(){
         width: 100%;
         border-collapse: collapse;
         background-color: #fff;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+        box-shadow: 0px 0px 10px rgba(18, 168, 228, 0.05);
         border-radius: 10px;
         overflow: hidden;
     }

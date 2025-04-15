@@ -276,32 +276,31 @@ class TaskController extends BaseController
 
     // Download the generated PDF
     public function downloadPdf($taskID)
-{
-    $coachID = session()->get('CoachID');
-    if (!$coachID) {
-        return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+    {
+        $coachID = session()->get('CoachID');
+        if (!$coachID) {
+            return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+        }
+    
+        $task = $this->taskModel->where('TaskID', $taskID)
+                                ->where('CoachID', $coachID)
+                                ->first();
+    
+        if (!$task || !$task['PdfPath']) {
+            return redirect()->to('/tasks/coach')->with('error', 'PDF not found for this task');
+        }
+    
+        $client = $this->customerModel->find($task['CustomerID']);
+        $coach = $this->coachModel->find($task['CoachID']);
+    
+        // Generate the PDF again for download
+        $pdfService = new PdfService();
+        $pdfService->generateTaskCompletionPdf($task, $client, $coach);
+    
+        // Output the PDF for download
+        $filename = 'task_' . $taskID . '_status.pdf';
+        $pdfService->streamPdf($filename); // Use streamPdf() instead of outputPdfForDownload()
     }
-
-    $task = $this->taskModel->where('TaskID', $taskID)
-                            ->where('CoachID', $coachID)
-                            ->first();
-
-    if (!$task || !$task['PdfPath']) {
-        return redirect()->to('/coach')->with('error', 'PDF not found for this task');
-    }
-
-    $client = $this->customerModel->find($task['CustomerID']);
-    $coach = $this->coachModel->find($task['CoachID']);
-
-    // Generate the PDF again for download
-    $pdfService = new PdfService();
-    $pdfService->generateTaskCompletionPdf($task, $client, $coach);
-
-    // Output the PDF for download
-    $filename = 'task_' . $taskID . '_status.pdf';
-    $pdfService->outputPdfForDownload($filename); // Line 306 - Error here
-}
-
     public function checkStatus($taskID)
 {
     $coachID = session()->get('CoachID');

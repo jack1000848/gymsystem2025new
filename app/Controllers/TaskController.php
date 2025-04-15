@@ -87,16 +87,8 @@ class TaskController extends BaseController
     // List tasks for a client
     public function clientTasks()
     {
-        $customerID = session()->get('CustomerID');
-    if (!$customerID) {
-        return redirect()->to('/client-login')->with('error', 'Please log in as a client');
-    }
-
-    $tasks = $this->taskModel->select('tasks.*, coach.Firstname as CoachFirstname, coach.Lastname as CoachLastname')
-                             ->join('coach', 'coach.CoachID = tasks.CoachID')
-                             ->where('tasks.CustomerID', $customerID)
-                             ->findAll();
-        return view('clientdashboard/mytask');
+        $data['tasks'] = $this->taskModel->getTasksByCustomer(session()->get('CustomerID'));
+        return view('clientdashboard/mytask', $data);
     }
     public function clientDownloadPdf($taskID)
     {

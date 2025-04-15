@@ -116,6 +116,15 @@ document.querySelectorAll('.status-select').forEach(select => {
         });
     });
 });
+
+fetch('<?= base_url('update-status-direct') ?>/' + taskID, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({ status: newStatus })
+})
 </script>
 
 <?= $this->endSection() ?>

@@ -217,6 +217,6 @@ $routes->post('tasks/updateStatus/(:num)', 'TaskController::updateStatus/$1');
 $routes->post('tasks/updateSubtasks/(:num)', 'TaskController::updateSubtasks/$1');
 
 //my pdf 
-$routes->get('tasks', 'CoachController::manageTasks');
-    $routes->get('mark-task-completed/(:num)', 'CoachController::markTaskCompleted/$1');
-    $routes->get('download-pdf/(:num)', 'CoachController::downloadPdf/$1');
+$routes->get('tasks', 'TaskController::manageTasks');
+    $routes->get('mark-task-completed/(:num)', 'TaskController::markTaskCompleted/$1');
+    $routes->get('download-pdf/(:num)', 'TaskController::downloadPdf/$1');

@@ -5,6 +5,70 @@
 <head>
     <title>My Tasks</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .table thead th {
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .btn-outline-primary {
+        border-radius: 20px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .table thead {
+            display: none;
+        }
+
+        .table, .table tbody, .table tr, .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 1rem;
+            font-weight: bold;
+            text-align: left;
+        }
+    }
+</style>
+
 </head>
 <body>
     <div class="container mt-5">

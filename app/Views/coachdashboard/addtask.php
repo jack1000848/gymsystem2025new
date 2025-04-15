@@ -16,7 +16,7 @@
         </div>
     <?php endif; ?>
 
-    <a href="<?= base_url('tasks/create') ?>" class="btn btn-primary mb-3">Assign New Task</a>
+    <a href="<?= base_url('create') ?>" class="btn btn-primary mb-3">Assign New Task</a>
 
     <?php if (!empty($tasks)): ?>
         <table class="table table-bordered table-striped">

@@ -23,7 +23,7 @@
             <h4 class="mb-0">Create Task</h4>
         </div>
         <div class="card-body">
-            <form action="<?= base_url('create') ?>" method="post">
+            <form action="<?= base_url('store') ?>" method="post">
                 <div class="mb-3">
                     <label for="CustomerID" class="form-label">Select Client</label>
                     <select name="CustomerID" id="CustomerID" class="form-select" required>

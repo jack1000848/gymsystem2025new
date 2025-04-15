@@ -3,6 +3,8 @@
     $this ->section('body');
 
     ?>
+
+
    <div class="p-2 row mb-3">
 
 <div class="col-12 mb-2">
@@ -114,6 +116,88 @@ $(document).ready(function(){
 });
 
 </script>
+<style>
+    /* General styling */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* Alert */
+    .alert {
+        width: 100%;
+        max-width: 800px;
+        margin: 10px auto;
+    }
+
+    /* Table Styling */
+    table.display {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    table.display th, table.display td {
+        padding: 12px 20px;
+        text-align: left;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    table.display th {
+        background-color: #343a40;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    table.display tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+        border-radius: 12px;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .modal-header {
+        border-bottom: none;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .btn-close {
+        background-color: transparent;
+        border: none;
+    }
+
+    /* Button override (if you add buttons later) */
+    .btn {
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: 500;
+    }
+</style>
 
 
 

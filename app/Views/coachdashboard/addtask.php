@@ -16,7 +16,7 @@
         </div>
     <?php endif; ?>
 
-    <a href="<?= base_url('tasks/create') ?>" class="btn btn-primary mb-3">Assign New Task</a>
+    <a href="<?= base_url('create') ?>" class="btn btn-primary mb-3">Assign New Task</a>
 
     <?php if (!empty($tasks)): ?>
         <table class="table table-bordered table-striped">
@@ -34,7 +34,7 @@
                 <?php foreach ($tasks as $task): ?>
                     <tr data-task-id="<?= $task['TaskID'] ?>">
                         <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['Firstname'] . ' ' . $task['Lastname']) ?></td>
+                        <td><?= esc($task['Firstname']) ?></td>
                         <td>
                             <select class="form-select status-select" data-task-id="<?= $task['TaskID'] ?>">
                                 <option value="pending" <?= $task['Status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
@@ -46,7 +46,7 @@
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
                         <td class="actions-cell">
                             <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
-                                <a href="<?= base_url('tasks/download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm download-pdf-btn">Download PDF</a>
+                                <a href="<?= base_url('download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm download-pdf-btn">Download PDF</a>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -66,7 +66,7 @@ document.querySelectorAll('.status-select').forEach(select => {
         const taskID = this.getAttribute('data-task-id');
         const newStatus = this.value;
 
-        fetch('<?= base_url('tasks/update-status-direct') ?>/' + taskID, {
+        fetch('<?= base_url('update-status-direct') ?>/' + taskID, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ document.querySelectorAll('.status-select').forEach(select => {
                 if (newStatus === 'incomplete' || newStatus === 'completed') {
                     if (!downloadBtn) {
                         downloadBtn = document.createElement('a');
-                        downloadBtn.href = '<?= base_url('tasks/download-pdf') ?>/' + taskID;
+                        downloadBtn.href = '<?= base_url('download-pdf') ?>/' + taskID;
                         downloadBtn.className = 'btn btn-primary btn-sm download-pdf-btn';
                         downloadBtn.textContent = 'Download PDF';
                         actionsCell.appendChild(downloadBtn);

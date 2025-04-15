@@ -6,7 +6,80 @@
     <div class="p-2 row mb-3">
 
     <div class="col-12 mb-2">
-    
+    <style>
+/* Card-like table container */
+#myTable_wrapper {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* Table styling */
+#myTable {
+    width: 100% !important;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+#myTable th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#myTable td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#myTable tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Modal form enhancement */
+.modal-content {
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    background-color: #fefefe;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Form inputs */
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Flash message */
+.alert-success {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 200, 83, 0.1);
+}
+
+/* Button enhancements */
+.btn {
+    border-radius: 12px;
+}
+
+.btn-close {
+    filter: brightness(0.6);
+}
+
+</style>
+
     
     </div>
 

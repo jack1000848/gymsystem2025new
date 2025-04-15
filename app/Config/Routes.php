@@ -216,7 +216,7 @@ $routes->post('tasks/updateStatus/(:num)', 'TaskController::updateStatus/$1');
 //// new
 $routes->post('tasks/updateSubtasks/(:num)', 'TaskController::updateSubtasks/$1');
 
-$routes->group('tasks', ['filter' => 'auth'], function($routes) {
+
     $routes->get('create', 'TaskController::create');
     $routes->post('store', 'TaskController::store');
     $routes->get('coach', 'TaskController::coachTasks');
@@ -227,4 +227,3 @@ $routes->group('tasks', ['filter' => 'auth'], function($routes) {
     $routes->get('update-status/(:num)', 'TaskController::updateStatus/$1');
     $routes->post('save-task-status/(:num)', 'TaskController::saveTaskStatus/$1');
     $routes->get('download-pdf/(:num)', 'TaskController::downloadPdf/$1');
-});

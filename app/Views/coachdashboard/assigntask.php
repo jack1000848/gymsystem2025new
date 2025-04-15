@@ -15,7 +15,7 @@
             <h4 class="mb-0">Task: <?= esc($task['TaskTitle']) ?></h4>
         </div>
         <div class="card-body">
-            <p><strong>Client:</strong> <?= esc($task['Firstname'] . ' ' . $task['Lastname']) ?></p>
+            <p><strong>Client:</strong> <?= esc($task['Firstname'] ) ?></p>
             <p><strong>Current Status:</strong> <?= ucfirst($task['Status']) ?></p>
             <p><strong>Current Progress:</strong> <?= $task['Progress'] ?>%</p>
             <p><strong>Due Date:</strong> <?= date('F j, Y', strtotime($task['DueDate'])) ?></p>

@@ -307,4 +307,26 @@ class TaskController extends BaseController
 
         return redirect()->to('/tasks/coach')->with('success', 'PDF downloaded successfully.');
     }
+
+    public function checkStatus($taskID)
+{
+    $coachID = session()->get('CoachID');
+    if (!$coachID) {
+        return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+    }
+
+    $task = $this->taskModel->select('tasks.*, customer.Firstname, customer.Lastname')
+                            ->join('customer', 'customer.CustomerID = tasks.CustomerID')
+                            ->where('tasks.TaskID', $taskID)
+                            ->where('tasks.CoachID', $coachID)
+                            ->first();
+
+    if (!$task) {
+        return redirect()->to('/tasks/coach')->with('error', 'Task not found or not assigned by you');
+    }
+
+    return view('coachdashboard/check_task_status', [
+        'task' => $task
+    ]);
+}
 }

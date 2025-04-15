@@ -53,7 +53,7 @@
     <span onclick="editCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">
   Edit
   </span>
-  <span onclick="deleteCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-primary">
+  <span onclick="deleteCoach('<?= $coach['CoachID']; ?>')" class="btn btn-sm btn-danger">
   Delete
   </span>
   

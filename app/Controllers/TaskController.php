@@ -287,7 +287,7 @@ class TaskController extends BaseController
                             ->first();
 
     if (!$task || !$task['PdfPath']) {
-        return redirect()->to('/tasks/coach')->with('error', 'PDF not found for this task');
+        return redirect()->to('/coach')->with('error', 'PDF not found for this task');
     }
 
     $client = $this->customerModel->find($task['CustomerID']);

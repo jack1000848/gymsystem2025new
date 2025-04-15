@@ -37,15 +37,15 @@ $this->section('body'); // Start the body section
                 <?php foreach ($tasks as $task): ?>
                     <tr>
                         <td><?= esc($task['TaskTitle']) ?></td>
-                        <td><?= esc($task['Firstname'] ) ?></td>
-                        <td><?= esc($task['Firstname']) ?></td>
+                        <td><?= esc($task['CoachFirstname'] . ' ' . $task['CoachLastname']) ?></td>
+                        <td><?= esc($task['ClientFirstname'] . ' ' . $task['ClientLastname']) ?></td>
                         <td><?= esc($task['TaskDescription']) ?></td>
                         <td><?= date('F j, Y', strtotime($task['DueDate'])) ?></td>
                         <td><?= ucfirst($task['Status']) ?></td>
                         <td><?= $task['Progress'] ?>%</td>
                         <td>
                             <?php if (in_array($task['Status'], ['incomplete', 'completed'])): ?>
-                                <a href="<?= base_url('admin-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
+                                <a href="<?= base_url('tasks/admin-download-pdf/' . $task['TaskID']) ?>" class="btn btn-primary btn-sm">Download PDF</a>
                             <?php endif; ?>
                         </td>
                     </tr>

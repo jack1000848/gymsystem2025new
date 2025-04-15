@@ -76,7 +76,7 @@ class CoachController extends BaseController
             'Firstname'  => $this->request->getPost('clientFirst'),
             'Lastname'   => $this->request->getPost('clientLast'),
             'password_hash'=>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
-            'address'    => $this->request->getPost('clientAdress'), // Add 'address' to $allowedFields if not present
+            'Address'    => $this->request->getPost('clientAdress'), // Add 'address' to $allowedFields if not present
             'Email'      => $this->request->getPost('clientEmail'),
            // 'Avatar'     => $imageName,
             'RegisteredDate' => date('Y-m-d H:i:s'), // Automatically set registration date

@@ -3,7 +3,7 @@
 <?= $this->section('body') ?>
 
 <div class="container mt-5">
-        <h2>Update Body Information</h2>
+        <h2>Update Personal Stats</h2>
         <?php if (session()->has('errors')): ?>
             <div class="alert alert-danger">
                 <?php foreach (session('errors') as $error): ?>
@@ -39,7 +39,7 @@
                 <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="<?= base_url('/customer/body/history') ?>" class="btn btn-secondary">View History</a>
+            <a href="<?= base_url('/customer/body/history') ?>" class="btn btn-secondary">View Personal Stats</a>
         </form>
     </div>
     

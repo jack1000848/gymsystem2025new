@@ -5,7 +5,7 @@
 
                     <!-- uupdate--bodyinformation.php -->
     <div class="container mt-5">
-        <h2>Body Information History</h2>
+        <h2>Personal Stats Timeline</h2>
         <?php if (session()->has('success')): ?>
             <div class="alert alert-success">
                 <p><?= esc(session('success')) ?></p>
@@ -16,7 +16,7 @@
         <canvas id="weightChart" height="100"></canvas>
 
         <!-- History Table -->
-        <h3 class="mt-5">History</h3>
+        <h3 class="mt-5">Timeline</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -43,7 +43,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <a href="<?= base_url('/bodyInfo') ?>" class="btn btn-primary">Update Body Info</a>
+        <a href="<?= base_url('/bodyInfo') ?>" class="btn btn-primary">Update Personal Stats</a>
     </div>
 
     <script>

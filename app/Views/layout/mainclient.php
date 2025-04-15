@@ -188,7 +188,7 @@
                       <li class="nav-item"> 
                         <a href="<?= base_url('/customer/body/history') ?>" class="nav-link d-flex align-items-center gap-2"> 
                           <i class="bi bi-cpu nav-icon"></i> 
-                            <p class="m-0">My Body Information</p>
+                            <p class="m-0">Personal Stats</p>
                         </a> 
                         </li>
                         <li class="nav-item"> 

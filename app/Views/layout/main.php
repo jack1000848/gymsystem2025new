@@ -149,7 +149,7 @@
                         </a> 
                     </li>
                     <li class="nav-item"> 
-                        <a href="<?= base_url('/admin') ?>" class="nav-link d-flex align-items-center gap-2">
+                        <a href="<?= base_url('/admintaskview') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="bi bi-calendar2-check"></i>
                             <p class="m-0">View All Tasks</p>
                         </a> 

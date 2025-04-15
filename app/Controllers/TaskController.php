@@ -354,13 +354,13 @@ public function adminDownloadPdf($taskID)
     $task = $this->taskModel->where('TaskID', $taskID)->first();
 
     if (!$task || !$task['PdfPath']) {
-        return redirect()->to('/admin')->with('error', 'PDF not found for this task');
+        return redirect()->to('/admintaskview')->with('error', 'PDF not found for this task');
     }
 
     // Serve the existing PDF file
     $pdfPath = FCPATH . $task['PdfPath'];
     if (!file_exists($pdfPath)) {
-        return redirect()->to('/admin')->with('error', 'PDF file not found on server');
+        return redirect()->to('/admintaskview')->with('error', 'PDF file not found on server');
     }
 
     return $this->response->download($pdfPath, null, true);
@@ -377,7 +377,7 @@ public function adminTasks()
                              ->join('customer', 'customer.CustomerID = tasks.CustomerID')
                              ->findAll();
 
-    return view('admindashboard/tasks', ['tasks' => $tasks]);
+    return view('clients1crud/viewalltask', ['tasks' => $tasks]);
 }
 
 public function updateStatusDirect($taskID)

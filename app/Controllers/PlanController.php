@@ -79,7 +79,7 @@ class PlanController extends BaseController
     }
     public function storegymplan()
     {
-        if ($this->request->getMethod() !== 'post') {
+        if ($this->request->getMethod() !== 'POST') {
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid request method.'

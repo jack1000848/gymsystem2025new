@@ -247,7 +247,8 @@ $('#editPlanForm').on('submit', function (e) {
         }
     });
 });
-});
+
+
 
     // Initialize modals
     $('#addPlanModal').on('hidden.bs.modal', function () {

@@ -113,35 +113,35 @@ class QrAttendanceController extends Controller
     }
     public function save1($coachID)
     {
-        // Get current timestamp
         $timestamp = date('Y-m-d H:i:s');
-
-        // Find the coach details
+        $todayDate = date('Y-m-d');
+    
+        // Find coach
         $coach = $this->coachModel->where('CoachID', $coachID)->first();
-
         if (!$coach) {
             return $this->response->setJSON(['error' => 'Coach not found'])->setStatusCode(404);
         }
-
-        // Check if attendanceModel is properly initialized
+    
+        // Ensure attendance model is loaded
         if (!$this->attendanceModel) {
             return $this->response->setJSON(['error' => 'Attendance model not loaded'])->setStatusCode(500);
         }
-
-        // Check for last attendance record (to determine check-in or check-out)
-        $lastAttendance = $this->attendanceModel
+    
+        // Get today's attendance record
+        $todayAttendance = $this->attendanceModel
             ->where('CoachID', $coachID)
+            ->where('DATE(CheckInTime)', $todayDate)
             ->orderBy('CheckInTime', 'DESC')
             ->first();
-
-        if (!$lastAttendance || $lastAttendance['CheckOutTime'] !== null) {
-            // If no previous record or already checked out, do Check-In
+    
+        if (!$todayAttendance) {
+            // No attendance today: Do check-in
             $this->attendanceModel->insert([
                 'CoachID'     => $coachID,
                 'CheckInTime' => $timestamp,
                 'CheckOutTime' => null
             ]);
-
+    
             return $this->response->setJSON([
                 'status'   => 'check-in',
                 'message'  => 'Check-in successful',
@@ -150,10 +150,12 @@ class QrAttendanceController extends Controller
                     'FullName'  => $coach['Firstname'] . ' ' . $coach['Lastname']
                 ]
             ]);
-        } else {
-            // Otherwise, do Check-Out
-            $this->attendanceModel->update($lastAttendance['ID'], ['CheckOutTime' => $timestamp]);
-
+        }
+    
+        if ($todayAttendance && $todayAttendance['CheckOutTime'] === null) {
+            // Already checked in, but not yet checked out: Do check-out
+            $this->attendanceModel->update($todayAttendance['ID'], ['CheckOutTime' => $timestamp]);
+    
             return $this->response->setJSON([
                 'status'   => 'check-out',
                 'message'  => 'Check-out successful',
@@ -163,6 +165,12 @@ class QrAttendanceController extends Controller
                 ]
             ]);
         }
+    
+        // Already checked in and checked out today
+        return $this->response->setJSON([
+            'error' => 'You have already checked in and out today.'
+        ])->setStatusCode(403);
     }
+    
 
 }

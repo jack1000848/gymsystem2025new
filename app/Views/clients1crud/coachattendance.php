@@ -95,8 +95,7 @@ function redirectToPage() {
                     <th>Attendance ID</th>
                     <th>Full Name</th>
                     <th>Check-In</th>
-                    <th>Check-Out</th> <!-- Added this -->
-                    
+                    <th>Check-Out</th> <!-- Added this -->                    
                 </tr>
             </thead>
             <tbody>

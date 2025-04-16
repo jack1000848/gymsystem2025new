@@ -3,11 +3,13 @@ $this->extend('layout/main');
 $this->section('body');
 ?>
 
+<!-- Moved Select2 CSS to the top -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPlanModal">Add Plan</button>
     </div>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -78,7 +80,7 @@ $this->section('body');
                         <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="mb-3">
-                        <label for="coaches" class="form-label">Coaches</label>
+                        <label for="coaches" class="form-label">Coach</label>
                         <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
                             <?php foreach ($coaches as $coach): ?>
                                 <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
@@ -148,31 +150,36 @@ $this->section('body');
     </div>
 </div>
 
+<!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-$(document).ready(function() {
+$(document).ready(function () {
     // Initialize DataTable
-    let table = new DataTable('#myTable', {
+    new DataTable('#myTable', {
         responsive: true
     });
-    // Ensure Select2 is properly applied
-    $('#coaches, #editCoaches').select2({
-        dropdownParent: $('#addPlanModal, #editPlanModal'), // important for modals
+
+    // Initialize Select2 for modals
+    $('#coaches').select2({
+        dropdownParent: $('#addPlanModal'),
         placeholder: "Select coaches",
-        width: '100%' // ensure it fits the modal
-    });
-    // Initialize Select2 for coaches
-    $('#coaches, #editCoaches').select2({
-        placeholder: "Select coaches",
+        width: '100%',
         allowClear: true
     });
 
-    // Handle Add Plan Form Submission
-    $('#addPlanForm').on('submit', function(e) {
+    $('#editCoaches').select2({
+        dropdownParent: $('#editPlanModal'),
+        placeholder: "Select coaches",
+        width: '100%',
+        allowClear: true
+    });
+
+    // Handle Add Plan Form
+    $('#addPlanForm').on('submit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
 
@@ -181,8 +188,7 @@ $(document).ready(function() {
             text: "Do you want to save this plan?",
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Yes, save it!',
-            cancelButtonText: 'Cancel'
+            confirmButtonText: 'Yes, save it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -191,30 +197,21 @@ $(document).ready(function() {
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.message,
-                            icon: 'success'
-                        }).then(() => {
-                            window.location.reload();
+                    success: function (response) {
+                        Swal.fire('Saved!', response.message, 'success').then(() => {
+                            location.reload();
                         });
                     },
-                    error: function(xhr) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Failed to save plan. Please try again.',
-                            icon: 'error'
-                        });
-                        console.log(xhr.responseText);
+                    error: function (xhr) {
+                        Swal.fire('Error!', 'Could not save plan.', 'error');
                     }
                 });
             }
         });
     });
 
-    // Handle Edit Plan Form Submission
-    $('#editPlanForm').on('submit', function(e) {
+    // Handle Edit Plan Form
+    $('#editPlanForm').on('submit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
 
@@ -223,8 +220,7 @@ $(document).ready(function() {
             text: "Do you want to update this plan?",
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Yes, update it!',
-            cancelButtonText: 'Cancel'
+            confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -233,22 +229,13 @@ $(document).ready(function() {
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.message,
-                            icon: 'success'
-                        }).then(() => {
-                            window.location.reload();
+                    success: function (response) {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            location.reload();
                         });
                     },
-                    error: function(xhr) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Failed to update plan. Please try again.',
-                            icon: 'error'
-                        });
-                        console.log(xhr.responseText);
+                    error: function (xhr) {
+                        Swal.fire('Error!', 'Could not update plan.', 'error');
                     }
                 });
             }
@@ -256,7 +243,7 @@ $(document).ready(function() {
     });
 });
 
-// Edit Plan
+// Load plan into edit modal
 async function editPlan(id) {
     try {
         const response = await $.get('<?= base_url('/gymplans/edit/'); ?>' + id);
@@ -268,37 +255,24 @@ async function editPlan(id) {
             $('#editDurationim').val(plan.Duration);
             $('#editPrice').val(plan.Price);
             $('#editActive').prop('checked', plan.IsActive == 1);
-
-            // Populate coaches (assuming plan.coaches is an array of CoachIDs)
             $('#editCoaches').val(plan.coaches).trigger('change');
-
             $('#editPlanModal').modal('show');
         } else {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Failed to fetch plan details.',
-                icon: 'error'
-            });
+            Swal.fire('Error!', 'Failed to fetch plan details.', 'error');
         }
     } catch (error) {
-        Swal.fire({
-            title: 'Error!',
-            text: 'Failed to fetch plan details.',
-            icon: 'error'
-        });
-        console.log(error);
+        Swal.fire('Error!', 'Failed to fetch plan details.', 'error');
     }
 }
 
-// Delete Plan
+// Delete plan
 async function deletePlan(id) {
     const result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: 'Yes, delete it!'
     });
 
     if (result.isConfirmed) {
@@ -306,31 +280,17 @@ async function deletePlan(id) {
             await $.ajax({
                 url: '<?= base_url('/gymplans/delete/'); ?>' + id,
                 type: 'DELETE',
-                success: function(response) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Plan deleted successfully.',
-                        icon: 'success'
-                    }).then(() => {
-                        window.location.reload();
+                success: function () {
+                    Swal.fire('Deleted!', 'Plan has been deleted.', 'success').then(() => {
+                        location.reload();
                     });
                 },
-                error: function(xhr) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to delete plan. Please try again.',
-                        icon: 'error'
-                    });
-                    console.log(xhr.responseText);
+                error: function () {
+                    Swal.fire('Error!', 'Failed to delete plan.', 'error');
                 }
             });
         } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Failed to delete plan.',
-                icon: 'error'
-            });
-            console.log(error);
+            Swal.fire('Error!', 'Something went wrong.', 'error');
         }
     }
 }

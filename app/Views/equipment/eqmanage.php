@@ -81,20 +81,7 @@
 
     .btn-close {
         outline: none;
-        .btn-sm {
-        padding: 6px 12px;
-        font-size: 14px;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-sm.btn-primary:hover {
-        background-color: #2980b9;
-    }
-
-    .btn-sm.btn-danger:hover {
-        background-color: #c0392b;
-    }
+        
         
     }
 </style>
@@ -142,7 +129,7 @@
   <span onclick="editEquipment('<?= $equipment['EquipmentID']; ?>')" class="btn btn-sm btn-primary">
   Edit
   </span>
-  <span onclick="deleteEquipment('<?= $equipment['EquipmentID']; ?>')" class="btn btn-sm btn-primary">
+  <span onclick="deleteEquipment('<?= $equipment['EquipmentID']; ?>')" class="btn btn-sm btn-danger">
   Delete
   </span>
   <span>

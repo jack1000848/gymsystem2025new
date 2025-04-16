@@ -3,6 +3,7 @@ $this->extend('layout/main');
 $this->section('body');
 ?>
 <style>
+    /* General Button Styles */
     .btn-group .btn {
         font-weight: 500;
         font-size: 14px;
@@ -11,6 +12,7 @@ $this->section('body');
         transition: all 0.2s ease-in-out;
     }
 
+    /* Primary Button Styles */
     .btn-group .btn-primary {
         background-color: #3498db;
         border: none;
@@ -21,6 +23,7 @@ $this->section('body');
         color: #fff;
     }
 
+    /* Danger Button Styles */
     .btn-group .btn-danger {
         background-color: #e74c3c;
         border: none;
@@ -30,7 +33,63 @@ $this->section('body');
         background-color: #c0392b;
         color: #fff;
     }
+
+    /* Modal Header Styling */
+    .modal-header {
+        background-color: #3498db;
+        color: white;
+    }
+
+    /* Input and Form Styling */
+    .form-control, .form-select, .form-check-input {
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Styling */
+    table.dataTable {
+        width: 100% !important;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    table.dataTable thead th {
+        background-color: #3498db;
+        color: white;
+        font-size: 16px;
+        padding: 12px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    table.dataTable tbody td {
+        font-size: 15px;
+        color: #2c3e50;
+        text-align: center;
+        padding: 10px;
+    }
+
+    table.dataTable tbody tr:hover {
+        background-color: #ecf0f1;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 6px;
+        padding: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
 </style>
+
 
 
 <!-- Select2 CSS -->

@@ -3,7 +3,7 @@
     $this ->section('body');
 
     ?>
-<!-- Integrated CSS from your provided design -->
+    <!-- Integrated CSS from your provided design -->
 <style>
     body {
         background-color: #f4f4f4;
@@ -95,7 +95,6 @@
         outline: none;
     }
 </style>
-
     <div class="p-2 row mb-3">
    <div class="col-12 mb-2">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Coach</button>

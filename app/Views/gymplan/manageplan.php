@@ -62,7 +62,7 @@ $this->section('body');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addPlanForm" action="<?= site_url('/gymplan/store'); ?>" method="POST">>
+                <form id="addPlanForm"  method="POST">>
                     <div class="mb-3">
                         <label for="planName" class="form-label">Plan Name</label>
                         <input type="text" class="form-control" name="Pname" id="planName" required>

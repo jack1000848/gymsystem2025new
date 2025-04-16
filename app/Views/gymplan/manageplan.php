@@ -3,7 +3,7 @@ $this->extend('layout/main');
 $this->section('body');
 ?>
 
-<!-- Moved Select2 CSS to the top -->
+<!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <div class="p-2 row mb-3">
@@ -182,6 +182,7 @@ $(document).ready(function () {
     $('#addPlanForm').on('submit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
         $.ajax({
             url: '<?= base_url('/gymplans/store'); ?>',
@@ -190,75 +191,75 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                Swal.fire('Success!', 'Plan added successfully.', 'success').then(() => {
-                    $('#addPlanModal').modal('hide'); // Close the modal
-                    location.reload(); // Reload the page
-                });
+                if (response.status === 'success') {
+                    Swal.fire('Success!', response.message, 'success').then(() => {
+                        $('#addPlanModal').modal('hide');
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire('Error!', response.message, 'error');
+                }
             },
             error: function (xhr) {
-                Swal.fire('Error!', 'Failed to add plan.', 'error');
+                Swal.fire('Error!', 'Failed to add plan: ' + (xhr.responseText || 'Unknown error'), 'error');
             }
         });
     });
 
-    / Handle Edit Plan Form
-$('#editPlanForm').on('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    
-    // Add CSRF token
-    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
-    
-    // Log form data for debugging
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
+    // Handle Edit Plan Form
+    $('#editPlanForm').on('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to update this plan?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, update it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '<?= base_url('/gymplans/update/'); ?>' + $('#editPlanId').val(),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    console.log('Update success:', response);
-                    if (response.status === 'success') {
-                        Swal.fire('Updated!', response.message, 'success').then(() => {
-                            $('#editPlanModal').modal('hide');
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
-                    }
-                },
-                error: function (xhr) {
-                    console.error('Update failed:', xhr.responseText);
-                    Swal.fire('Error!', 'Could not update plan: ' + (xhr.responseText || 'Unknown error'), 'error');
-                }
-            });
+        // Log form data for debugging
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
         }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to update this plan?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('/gymplans/update/'); ?>' + $('#editPlanId').val(),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log('Update success:', response);
+                        if (response.status === 'success') {
+                            Swal.fire('Updated!', response.message, 'success').then(() => {
+                                $('#editPlanModal').modal('hide');
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire('Error!', response.message, 'error');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Update failed:', xhr.responseText);
+                        Swal.fire('Error!', 'Could not update plan: ' + (xhr.responseText || 'Unknown error'), 'error');
+                    }
+                });
+            }
+        });
     });
-});
-
-
 
     // Initialize modals
     $('#addPlanModal').on('hidden.bs.modal', function () {
-        $(this).find('form')[0].reset(); // Reset the form
-        $('#coaches').val(null).trigger('change'); // Reset Select2
+        $(this).find('form')[0].reset();
+        $('#coaches').val(null).trigger('change');
     });
 
     $('#editPlanModal').on('hidden.bs.modal', function () {
-        $(this).find('form')[0].reset(); // Reset the form
-        $('#editCoaches').val(null).trigger('change'); // Reset Select2
+        $(this).find('form')[0].reset();
+        $('#editCoaches').val(null).trigger('change');
     });
 });
 
@@ -266,7 +267,7 @@ $('#editPlanForm').on('submit', function (e) {
 async function editPlan(id) {
     try {
         const response = await $.get('<?= base_url('/gymplans/edit/'); ?>' + id);
-        console.log('Response from server:', response); // Log the response
+        console.log('Response from server:', response);
         if (response.status === 'success') {
             const plan = response.data;
             $('#editPlanId').val(plan.PlanID);
@@ -275,12 +276,11 @@ async function editPlan(id) {
             $('#editDurationim').val(plan.Duration);
             $('#editPrice').val(plan.Price);
             $('#editActive').prop('checked', plan.IsActive == 1);
-            // Handle coaches (array of IDs)
             $('#editCoaches').val(plan.coaches || []).trigger('change');
             $('#editPlanModal').modal('show');
         } else {
             console.error('Server responded with failure:', response);
-            Swal.fire('Error!', 'Failed to fetch plan details.', 'error');
+            Swal.fire('Error!', response.message, 'error');
         }
     } catch (error) {
         console.error('AJAX request failed:', error);
@@ -307,10 +307,14 @@ async function deletePlan(id) {
                     _method: 'DELETE',
                     <?= csrf_token() ?>: '<?= csrf_hash() ?>'
                 },
-                success: function () {
-                    Swal.fire('Deleted!', 'Plan has been deleted.', 'success').then(() => {
-                        location.reload();
-                    });
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Deleted!', response.message, 'success').then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
                 },
                 error: function () {
                     Swal.fire('Error!', 'Failed to delete plan.', 'error');

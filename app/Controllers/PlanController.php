@@ -44,19 +44,21 @@ class PlanController extends BaseController
 
     public function edit($id)
     {
-        $fetchPlan = new PlanModel();
-        $plan = $fetchPlan->find($id);
-        
+        $planModel = new PlanModel();
+        $coachPlanModel = new CoachPlanModel();
+
+        $plan = $planModel->find($id);
+
         if ($plan) {
-            // Fetch associated coaches if needed
-            // Assuming you have a relationship or separate table for plan-coaches
-            $plan['coaches'] = $this->getPlanCoaches($id); // Implement this method as needed
+            // Fetch associated coaches
+            $coachPlans = $coachPlanModel->where('PlanID', $id)->findAll();
+            $plan['coaches'] = array_column($coachPlans, 'CoachID');
             return $this->response->setJSON([
                 'status' => 'success',
                 'data' => $plan
             ]);
         }
-        
+
         return $this->response->setJSON([
             'status' => 'error',
             'message' => 'Plan not found'
@@ -84,7 +86,7 @@ class PlanController extends BaseController
         try {
             $planModel = new PlanModel();
             $coachPlanModel = new CoachPlanModel();
-    
+
             // Prepare plan data
             $data = [
                 'PlanName' => $this->request->getPost('Pname'),
@@ -93,7 +95,7 @@ class PlanController extends BaseController
                 'Price' => $this->request->getPost('price'),
                 'IsActive' => $this->request->getPost('active') == '1' ? 1 : 0
             ];
-    
+
             // Validate input data
             if (empty($data['PlanName']) || empty($data['Description']) || empty($data['Duration']) || empty($data['Price'])) {
                 return $this->response->setJSON([
@@ -101,7 +103,7 @@ class PlanController extends BaseController
                     'message' => 'All fields are required.'
                 ])->setStatusCode(400);
             }
-    
+
             // Update the plan
             if (!$planModel->update($id, $data)) {
                 $errors = $planModel->errors();
@@ -111,16 +113,16 @@ class PlanController extends BaseController
                     'message' => 'Failed to update plan: ' . json_encode($errors)
                 ])->setStatusCode(400);
             }
-    
+
             // Update coach relationships
             $coaches = $this->request->getPost('coaches');
             if (!is_array($coaches)) {
                 $coaches = $coaches ? explode(',', $coaches) : [];
             }
-    
+
             // Clear existing coach relationships
             $coachPlanModel->where('PlanID', $id)->delete();
-    
+
             // Add new coach relationships
             foreach ($coaches as $coachID) {
                 if (!empty($coachID)) {
@@ -130,7 +132,7 @@ class PlanController extends BaseController
                     ]);
                 }
             }
-    
+
             return $this->response->setJSON([
                 'status' => 'success',
                 'message' => 'Plan updated successfully'

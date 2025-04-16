@@ -6,33 +6,7 @@
     
     <style>
     body {
-      .btn-sm {
-        padding: 6px 14px;
-        font-size: 14px;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: 0.2s ease-in-out;
-    }
-
-    .btn-sm.btn-primary {
-        background-color: #3498db;
-        border: none;
-    }
-
-    .btn-sm.btn-primary:hover {
-        background-color: #2980b9;
-        color: #fff;
-    }
-
-    .btn-sm.btn-danger {
-        background-color: #e74c3c;
-        border: none;
-    }
-
-    .btn-sm.btn-danger:hover {
-        background-color: #c0392b;
-        color: #fff;
-    }
+      
         background-color: #f4f4f4;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }

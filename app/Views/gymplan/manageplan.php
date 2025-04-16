@@ -192,7 +192,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '<?= base_url('/gymplans/store'); ?>',
+                    url: '<?= base_url('/gymplans/store/'); ?>',
                     type: 'POST', // Make sure this is POST
                     data: formData,
                     processData: false,

@@ -85,51 +85,58 @@ class PlanController extends BaseController
                 'message' => 'Invalid request method.'
             ])->setStatusCode(405);
         }
-
+    
+        // Normalize checkbox value and input fields
         $planData = [
-            'PlanName' => $this->request->getPost('Pname'),
+            'PlanName'    => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
-            'Duration' => $this->request->getPost('durationim'),
-            'Price' => $this->request->getPost('price'),
-            'IsActive' => $this->request->getPost('active') ? 1 : 0,
+            'Duration'    => $this->request->getPost('durationim'),
+            'Price'       => $this->request->getPost('price'),
+            'IsActive'    => $this->request->getPost('active') == '1' ? 1 : 0,
         ];
-
-        $planId = $this->request->getPost('id'); // Check if editing
-
+    
+        $planId = $this->request->getPost('id');
+        $coachIDs = $this->request->getPost('coaches');
+    
+        // Ensure $coachIDs is an array
+        if (!is_array($coachIDs)) {
+            $coachIDs = explode(',', $coachIDs); // fallback if it's a comma-separated string
+        }
+    
         try {
             if ($planId) {
                 // Update existing plan
                 $this->planModel->update($planId, $planData);
-
-                // Update coaches in CoachPlan table
-                $this->coachPlanModel->where('PlanID', $planId)->delete(); // Remove existing associations
-                $coachIDs = $this->request->getPost('coaches');
-                if ($coachIDs) {
-                    foreach ($coachIDs as $coachID) {
+    
+                // Clear and re-add coach relationships
+                $this->coachPlanModel->where('PlanID', $planId)->delete();
+    
+                foreach ($coachIDs as $coachID) {
+                    if (!empty($coachID)) {
                         $this->coachPlanModel->insert([
                             'CoachID' => $coachID,
-                            'PlanID' => $planId
+                            'PlanID'  => $planId
                         ]);
                     }
                 }
-
+    
                 $message = 'Plan updated successfully!';
             } else {
                 // Create new plan
                 $planId = $this->planModel->insert($planData);
-                $coachIDs = $this->request->getPost('coaches');
-                if ($coachIDs) {
-                    foreach ($coachIDs as $coachID) {
+    
+                foreach ($coachIDs as $coachID) {
+                    if (!empty($coachID)) {
                         $this->coachPlanModel->insert([
                             'CoachID' => $coachID,
-                            'PlanID' => $planId
+                            'PlanID'  => $planId
                         ]);
                     }
                 }
-
+    
                 $message = 'Plan created successfully!';
             }
-
+    
             return $this->response->setJSON([
                 'status' => 'success',
                 'message' => $message
@@ -141,6 +148,6 @@ class PlanController extends BaseController
             ])->setStatusCode(500);
         }
     }
-
+    
 }
 ?>

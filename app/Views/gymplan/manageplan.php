@@ -205,6 +205,11 @@ $(document).ready(function () {
     $('#editPlanForm').on('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(this);
+    
+    // Log form data
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
 
     Swal.fire({
         title: 'Are you sure?',
@@ -232,6 +237,18 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+});
+
+    // Initialize modals
+    $('#addPlanModal').on('hidden.bs.modal', function () {
+        $(this).find('form')[0].reset(); // Reset the form
+        $('#coaches').val(null).trigger('change'); // Reset Select2
+    });
+
+    $('#editPlanModal').on('hidden.bs.modal', function () {
+        $(this).find('form')[0].reset(); // Reset the form
+        $('#editCoaches').val(null).trigger('change'); // Reset Select2
     });
 });
 

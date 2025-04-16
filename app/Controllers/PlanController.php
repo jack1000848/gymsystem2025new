@@ -79,44 +79,44 @@ class PlanController extends BaseController
         ], 400);
     }
     
-    public function update($id)
-    {
-        try {
-            $planModel = new PlanModel();
-            $data = [
-                'PlanName' => $this->request->getPost('Pname'),
-                'Description' => $this->request->getPost('description'),
-                'Duration' => $this->request->getPost('durationim'),
-                'Price' => $this->request->getPost('price'),
-                'IsActive' => $this->request->getPost('active') ? 1 : 0
-            ];
-    
-            $coaches = $this->request->getPost('coaches');
-            if ($coaches) {
-                $this->updatePlanCoaches($id, $coaches);
-            }
-    
-            if ($planModel->update($id, $data)) {
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'message' => 'Plan updated successfully'
-                ]);
-            } else {
-                $errors = $planModel->errors();
-                log_message('error', 'Failed to update plan ID ' . $id . ': ' . json_encode($errors));
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Failed to update plan: ' . json_encode($errors)
-                ])->setStatusCode(400);
-            }
-        } catch (\Exception $e) {
-            log_message('error', 'Exception in update method: ' . $e->getMessage());
+   public function update($id)
+{
+    try {
+        $planModel = new PlanModel();
+        $data = [
+            'PlanName' => $this->request->getPost('Pname'),
+            'Description' => $this->request->getPost('description'),
+            'Duration' => $this->request->getPost('durationim'),
+            'Price' => $this->request->getPost('price'),
+            'IsActive' => $this->request->getPost('active') ? 1 : 0
+        ];
+
+        $coaches = $this->request->getPost('coaches');
+        if ($coaches) {
+            $this->updatePlanCoaches($id, $coaches);
+        }
+
+        if ($planModel->update($id, $data)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Plan updated successfully'
+            ]);
+        } else {
+            $errors = $planModel->errors();
+            log_message('error', 'Failed to update plan ID ' . $id . ': ' . json_encode($errors));
             return $this->response->setJSON([
                 'status' => 'error',
-                'message' => 'Server error: ' . $e->getMessage()
-            ])->setStatusCode(500);
+                'message' => 'Failed to update plan: ' . json_encode($errors)
+            ])->setStatusCode(400);
         }
+    } catch (\Exception $e) {
+        log_message('error', 'Exception in update method: ' . $e->getMessage());
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Server error: ' . $e->getMessage()
+        ])->setStatusCode(500);
     }
+}
 
     // Placeholder method for handling plan coaches
     private function getPlanCoaches($planId)

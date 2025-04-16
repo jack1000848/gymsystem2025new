@@ -2,57 +2,55 @@
 $this->extend('layout/main');
 $this->section('body');
 ?>
+
+
+
+
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Integrated CSS from your provided design -->
 <style>
-    /* General Button Styles */
-    .btn-group .btn {
-        font-weight: 500;
-        font-size: 14px;
-        padding: 6px 16px;
-        border-radius: 6px;
-        transition: all 0.2s ease-in-out;
+    body {
+        background-color: #f4f4f4;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Primary Button Styles */
-    .btn-group .btn-primary {
+    .btn-primary {
         background-color: #3498db;
         border: none;
+        min-width: 100px;
     }
 
-    .btn-group .btn-primary:hover {
+    .btn-primary:hover {
         background-color: #2980b9;
-        color: #fff;
     }
 
-    /* Danger Button Styles */
-    .btn-group .btn-danger {
+    .btn-danger {
         background-color: #e74c3c;
         border: none;
+        min-width: 100px;
     }
 
-    .btn-group .btn-danger:hover {
+    .btn-danger:hover {
         background-color: #c0392b;
-        color: #fff;
     }
 
-    /* Modal Header Styling */
-    .modal-header {
-        background-color: #3498db;
-        color: white;
+    h1.modal-title {
+        font-weight: bold;
+        color: #2c3e50;
     }
 
-    /* Input and Form Styling */
-    .form-control, .form-select, .form-check-input {
-        border-radius: 8px;
-        font-size: 15px;
-    }
-
-    /* Modal Styling */
     .modal-content {
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
 
-    /* Table Styling */
+    .form-control, .select2-container--default .select2-selection--multiple {
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
     table.dataTable {
         width: 100% !important;
         margin: 0 auto;
@@ -88,12 +86,29 @@ $this->section('body');
         border: 1px solid #ccc;
         font-size: 14px;
     }
+
+    .alert {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .modal-footer button {
+        min-width: 100px;
+    }
+
+    .btn-close {
+        outline: none;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .form-check-input {
+        margin-top: 0.3rem;
+    }
 </style>
-
-
-
-<!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">

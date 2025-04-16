@@ -44,34 +44,84 @@ class PlanController extends BaseController
 
     public function edit($id)
     {
-        $fetchPlan =new PlanModel();
+        $fetchPlan = new PlanModel();
         $plan = $fetchPlan->find($id);
-        return $this->response->setJSON($plan);
+        
+        if ($plan) {
+            // Fetch associated coaches if needed
+            // Assuming you have a relationship or separate table for plan-coaches
+            $plan['coaches'] = $this->getPlanCoaches($id); // Implement this method as needed
+            return $this->response->setJSON([
+                'status' => 'success',
+                'data' => $plan
+            ]);
+        }
+        
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Plan not found'
+        ], 404);
     }
 
     public function delete($id)
     {
-        $fetchPlan =new PlanModel();
-        $fetchPlan->delete($id);
-        return $this->response->setJSON(['success' => true]);
+        $fetchPlan = new PlanModel();
+        if ($fetchPlan->delete($id)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Plan deleted successfully'
+            ]);
+        }
+        
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to delete plan'
+        ], 400);
     }
     
     public function update($id)
     {
-        $fetchPlan =new PlanModel();
+        $fetchPlan = new PlanModel();
         $data = [
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
             'Duration' => $this->request->getPost('durationim'),
-          ///  'GymTimeSlot' => $this->request->getPost('timeslot'),
             'Price' => $this->request->getPost('price'),
-            'TrainerIncluded' => $this->request->getPost('trainer'),
-            'IsActive' => $this->request->getPost('active')
+            'IsActive' => $this->request->getPost('active') ? 1 : 0
         ];
-        $fetchPlan->update($id, $data);
-        return $this->response->setJSON(['success' => true]);
+
+        // Handle coaches if they're being sent
+        $coaches = $this->request->getPost('coaches');
+        if ($coaches) {
+            $this->updatePlanCoaches($id, $coaches); // Implement this method as needed
+        }
+
+        if ($fetchPlan->update($id, $data)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Plan updated successfully'
+            ]);
+        }
+        
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to update plan'
+        ], 400);
     }
 
+    // Placeholder method for handling plan coaches
+    private function getPlanCoaches($planId)
+    {
+        // Implement logic to fetch associated coaches
+        // This might involve querying a junction table
+        return []; // Return array of coach IDs
+    }
+
+    private function updatePlanCoaches($planId, $coaches)
+    {
+        // Implement logic to update plan-coach relationships
+        // This might involve updating a junction table
+    }
     
     public function creategymplan()
     {

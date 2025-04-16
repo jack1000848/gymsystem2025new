@@ -62,21 +62,36 @@ public function coachattendance()
     return view('/clients1crud/coachattendance', $data);
     
 }
- public function coachcheckout()
- {
-     $coachID = $this->request->getPost('CoachID');
+public function coachcheckout()
+{
+    $coachID = $this->request->getPost('CoachID');
 
-     if ($coachID) {
-         $model = new AttendanceLogModel();
+    if ($coachID) {
+        $model = new AttendanceLogModel();
 
-         // Update CheckOut time as the current timestamp
-         $model->update($coachID, [
-             'CheckOut' => date('Y-m-d H:i:s')
-         ]);
+        // Get today's date
+        $todayDate = date('Y-m-d');
 
-         return redirect()->to('/clients1crud/coachattendance')->with('success', 'Customer Checked Out Successfully');
-     } else {
-         return redirect()->to('/clients1crud/coachattendance')->with('error', 'Invalid Customer ID');
-     }
- }
+        // Find the latest record for today with no checkout time
+        $attendance = $model
+            ->where('CoachID', $coachID)
+            ->where('DATE(CheckIn)', $todayDate)
+            ->where('CheckOut', null)
+            ->orderBy('CheckIn', 'DESC')
+            ->first();
+
+        if ($attendance) {
+            // Update the specific attendance record
+            $model->update($attendance['ID'], [
+                'CheckOut' => date('Y-m-d H:i:s')
+            ]);
+
+            return redirect()->to('/clients1crud/coachattendance')->with('success', 'Coach Checked Out Successfully');
+        } else {
+            return redirect()->to('/clients1crud/coachattendance')->with('error', 'No active check-in found for today.');
+        }
+    } else {
+        return redirect()->to('/clients1crud/coachattendance')->with('error', 'Invalid Coach ID');
+    }
+}
 }

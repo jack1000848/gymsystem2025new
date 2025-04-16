@@ -78,12 +78,13 @@ $this->section('body');
                         <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="mb-3">
-                        <label for="coaches" class="form-label">Coaches</label>
+                        <label for="exampleFormControlInput1" class="form-label">Coach</label>
                         <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
-                            <?php foreach ($coaches as $coach): ?>
-                                <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php foreach ($coaches as $coach): ?>
+                            <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                        </div> 
                     </div>
                     <div class="mb-3">
                         <label for="active" class="form-label">Active</label>

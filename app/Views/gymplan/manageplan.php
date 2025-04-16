@@ -201,12 +201,15 @@ $(document).ready(function () {
         });
     });
 
-    // Handle Edit Plan Form
-    $('#editPlanForm').on('submit', function (e) {
+    / Handle Edit Plan Form
+$('#editPlanForm').on('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(this);
     
-    // Log form data
+    // Add CSRF token
+    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+    
+    // Log form data for debugging
     for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
     }
@@ -227,9 +230,14 @@ $(document).ready(function () {
                 contentType: false,
                 success: function (response) {
                     console.log('Update success:', response);
-                    Swal.fire('Updated!', 'Plan updated successfully.', 'success').then(() => {
-                        location.reload();
-                    });
+                    if (response.status === 'success') {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            $('#editPlanModal').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
                 },
                 error: function (xhr) {
                     console.error('Update failed:', xhr.responseText);
@@ -238,6 +246,7 @@ $(document).ready(function () {
             });
         }
     });
+});
 });
 
     // Initialize modals

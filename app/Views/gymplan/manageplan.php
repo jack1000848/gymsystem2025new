@@ -77,13 +77,13 @@ $this->section('body');
                         <label for="price" class="form-label">Price</label>
                         <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                     </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Coach</label>
+                    <div class="mb-3">
+                        <label for="coaches" class="form-label">Coaches</label>
                         <select class="form-select" id="coaches" name="coaches[]" multiple="multiple">
-                        <?php foreach ($coaches as $coach): ?>
-                            <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                            <?php foreach ($coaches as $coach): ?>
+                                <option value="<?= esc($coach['CoachID']); ?>"><?= esc($coach['Firstname']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="active" class="form-label">Active</label>
@@ -159,7 +159,12 @@ $(document).ready(function() {
     let table = new DataTable('#myTable', {
         responsive: true
     });
-
+    // Ensure Select2 is properly applied
+    $('#coaches, #editCoaches').select2({
+        dropdownParent: $('#addPlanModal, #editPlanModal'), // important for modals
+        placeholder: "Select coaches",
+        width: '100%' // ensure it fits the modal
+    });
     // Initialize Select2 for coaches
     $('#coaches, #editCoaches').select2({
         placeholder: "Select coaches",

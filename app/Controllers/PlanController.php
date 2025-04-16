@@ -81,7 +81,7 @@ class PlanController extends BaseController
     
     public function update($id)
     {
-        $fetchPlan = new PlanModel();
+        $planModel = new PlanModel();
         $data = [
             'PlanName' => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
@@ -90,13 +90,12 @@ class PlanController extends BaseController
             'IsActive' => $this->request->getPost('active') ? 1 : 0
         ];
 
-        // Handle coaches if they're being sent
         $coaches = $this->request->getPost('coaches');
         if ($coaches) {
-            $this->updatePlanCoaches($id, $coaches); // Implement this method as needed
+            $this->updatePlanCoaches($id, $coaches);
         }
 
-        if ($fetchPlan->update($id, $data)) {
+        if ($planModel->update($id, $data)) {
             return $this->response->setJSON([
                 'status' => 'success',
                 'message' => 'Plan updated successfully'
@@ -106,7 +105,7 @@ class PlanController extends BaseController
         return $this->response->setJSON([
             'status' => 'error',
             'message' => 'Failed to update plan'
-        ], 400);
+        ])->setStatusCode(400);
     }
 
     // Placeholder method for handling plan coaches

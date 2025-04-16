@@ -81,6 +81,21 @@
 
     .btn-close {
         outline: none;
+        .btn-sm {
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-sm.btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-sm.btn-danger:hover {
+        background-color: #c0392b;
+    }
+        
     }
 </style>
 

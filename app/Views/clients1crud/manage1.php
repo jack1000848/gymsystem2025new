@@ -4,6 +4,146 @@ $this->extend('layout/main'); // Extend the main layout
 $this->section('body'); // Start the body section
 ?>
  
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Integrated CSS from your provided design -->
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-outline-success {
+        border-color: #27ae60;
+        color: #27ae60;
+        min-width: 100px;
+    }
+
+    .btn-outline-success:hover {
+        background-color: #27ae60;
+        color: white;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-info:hover {
+        background-color: #138496;
+    }
+
+    .btn-warning {
+        background-color: #f1c40f;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-warning:hover {
+        background-color: #d4ac0d;
+    }
+
+    .btn-success {
+        background-color: #27ae60;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-success:hover {
+        background-color: #219653;
+    }
+
+    h1.modal-title {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    table.dataTable {
+        width: 100% !important;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    table.dataTable thead th {
+        background-color: #3498db;
+        color: white;
+        font-size: 16px;
+        padding: 12px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    table.dataTable tbody td {
+        font-size: 15px;
+        color: #2c3e50;
+        text-align: center;
+        padding: 10px;
+    }
+
+    table.dataTable tbody tr:hover {
+        background-color: #ecf0f1;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 6px;
+        padding: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .alert {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .modal-footer button {
+        min-width: 100px;
+    }
+
+    .btn-close {
+        outline: none;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+</style>
 <div class="p-2 row mb-3">
     <!-- Add Client Button -->
     <div class="col-12 mb-2">

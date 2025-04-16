@@ -238,6 +238,7 @@ $(document).ready(function () {
 async function editPlan(id) {
     try {
         const response = await $.get('<?= base_url('/gymplans/edit/'); ?>' + id);
+        console.log('Response from server:', response); // Log the response
         if (response.status === 'success') {
             const plan = response.data;
             $('#editPlanId').val(plan.PlanID);
@@ -246,14 +247,15 @@ async function editPlan(id) {
             $('#editDurationim').val(plan.Duration);
             $('#editPrice').val(plan.Price);
             $('#editActive').prop('checked', plan.IsActive == 1);
-            // Handle coaches (assuming coaches is an array of IDs)
-            const coachIds = plan.coaches ? plan.coaches.split(',').map(id => parseInt(id)) : [];
-            $('#editCoaches').val(coachIds).trigger('change');
+            // Handle coaches (array of IDs)
+            $('#editCoaches').val(plan.coaches || []).trigger('change');
             $('#editPlanModal').modal('show');
         } else {
+            console.error('Server responded with failure:', response);
             Swal.fire('Error!', 'Failed to fetch plan details.', 'error');
         }
     } catch (error) {
+        console.error('AJAX request failed:', error);
         Swal.fire('Error!', 'Failed to fetch plan details.', 'error');
     }
 }

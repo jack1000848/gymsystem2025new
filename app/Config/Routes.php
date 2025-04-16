@@ -100,7 +100,7 @@ $routes->get('/coach/(:num)', 'CoachController::deleteClient/$1');
 
 ///Manage Equipment... (gymequipment,(edit,update,delete,store)) ////
 $routes->get('/gymequipment', 'EquipmentController::index' );
-///$routes->get('/gymequipment/create', 'CoachController::create');
+$routes->get('/gymequipment/create', 'CoachController::create');
 $routes->post('/gymequipment/store', 'EquipmentController::storeEquipment');
 $routes->get('/gymequipment/(:num)', 'EquipmentController::deleteEquipment/$1');
 $routes->post('/gymequipment/(:num)', 'EquipmentController::updateEquipment/$1');

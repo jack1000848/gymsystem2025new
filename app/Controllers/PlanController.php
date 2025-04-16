@@ -11,10 +11,13 @@ use app\Models\CoachScheduleModel;
 class PlanController extends BaseController
 {
     protected $session; // Declare session variable
-
+    protected $planModel;
+    protected $coachPlanModel;
     public function __construct()
     {
         $this->session = session(); // Initialize session
+        $this->planModel = new PlanModel();
+        $this->coachPlanModel = new CoachPlanModel();
     }
 /////trt to add coach schedule
     public function getCoachSchedule($coachID)
@@ -75,78 +78,69 @@ class PlanController extends BaseController
         return view('gymplan/manageplan', $data);
     }
     public function storegymplan()
-     {
-        if ($this->request->getMethod() === 'get') {
-            $planData = [
-                'PlanName' => $this->request->getGet('Pname'),
-                'Description' => $this->request->getGet('description'),
-                'Duration' => $this->request->getGet('durationim'),
-                //'GymTimeSlot' => $this->request->getPost('timeslot'),
-                'Price' => $this->request->getGet('price'),
-                'TrainerIncluded' => $this->request->getGet('trainer'),
-                'IsActive' => $this->request->getGet('active') ? 1 : 0,
-    
-            ];
-
-            $planModel = new PlanModel();
-        $planID = $planModel->insert($planData);
-        $coachIDs = $this->request->getPost('coaches'); 
-        $coachPlanModel = new CoachPlanModel();
-        if($coachIDs != null){
-            foreach ($coachIDs as $coachID) {
-                $coachPlanModel->insert([
-                    'CoachID' => $coachID,
-                    'PlanID' => $planID
-                ]);
-            }
-        }
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Plan created successfully!'
-        ]);
-        }
-        
-        else if ($this->request->getMethod() === 'post') {
-            $planData = [
-                'PlanName' => $this->request->getPost('Pname'),
-                'Description' => $this->request->getPost('description'),
-                'Duration' => $this->request->getPost('durationim'),
-                //'GymTimeSlot' => $this->request->getPost('timeslot'),
-                'Price' => $this->request->getPost('price'),
-                'TrainerIncluded' => $this->request->getPost('trainer'),
-                'IsActive' => $this->request->getPost('active') ? 1 : 0,
-    
-            ];
-
-            $planModel = new PlanModel();
-        $planID = $planModel->insert($planData);
-        $coachIDs = $this->request->getPost('coaches'); 
-        $coachPlanModel = new CoachPlanModel();
-        if($coachIDs != null){
-            foreach ($coachIDs as $coachID) {
-                $coachPlanModel->insert([
-                    'CoachID' => $coachID,
-                    'PlanID' => $planID
-                ]);
-            }
-        }
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Plan created successfully!'
-        ]);
-        }
-
-        else {
+    {
+        if ($this->request->getMethod() !== 'post') {
             return $this->response->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid request method.'
-            ]);
+            ])->setStatusCode(405);
         }
-    
-        
-        
+
+        $planData = [
+            'PlanName' => $this->request->getPost('Pname'),
+            'Description' => $this->request->getPost('description'),
+            'Duration' => $this->request->getPost('durationim'),
+            'Price' => $this->request->getPost('price'),
+            'IsActive' => $this->request->getPost('active') ? 1 : 0,
+        ];
+
+        $planId = $this->request->getPost('id'); // Check if editing
+
+        try {
+            if ($planId) {
+                // Update existing plan
+                $this->planModel->update($planId, $planData);
+
+                // Update coaches in CoachPlan table
+                $this->coachPlanModel->where('PlanID', $planId)->delete(); // Remove existing associations
+                $coachIDs = $this->request->getPost('coaches');
+                if ($coachIDs) {
+                    foreach ($coachIDs as $coachID) {
+                        $this->coachPlanModel->insert([
+                            'CoachID' => $coachID,
+                            'PlanID' => $planId
+                        ]);
+                    }
+                }
+
+                $message = 'Plan updated successfully!';
+            } else {
+                // Create new plan
+                $planId = $this->planModel->insert($planData);
+                $coachIDs = $this->request->getPost('coaches');
+                if ($coachIDs) {
+                    foreach ($coachIDs as $coachID) {
+                        $this->coachPlanModel->insert([
+                            'CoachID' => $coachID,
+                            'PlanID' => $planId
+                        ]);
+                    }
+                }
+
+                $message = 'Plan created successfully!';
+            }
+
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => $message
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to save plan: ' . $e->getMessage()
+            ])->setStatusCode(500);
+        }
     }
+
 }
-
-
 ?>

@@ -180,35 +180,24 @@ $(document).ready(function () {
 
     // Handle Add Plan Form
     $('#addPlanForm').on('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+    e.preventDefault();
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to save this plan?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, save it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('/gymplans/store/'); ?>',
-                    type: 'POST', // Make sure this is POST
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        Swal.fire('Saved!', response.message, 'success').then(() => {
-                            location.reload();
-                        });
-                    },
-                    error: function (xhr) {
-                        Swal.fire('Error!', 'Could not save plan.', 'error');
-                    }
-                });
-            }
-        });
+    const formData = new FormData(this);
+
+    $.ajax({
+        url: '<?= base_url('gymplans/store'); ?>', // Make sure this matches the POST route
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+        }
     });
+});
 
     // Handle Edit Plan Form
     $('#editPlanForm').on('submit', function (e) {

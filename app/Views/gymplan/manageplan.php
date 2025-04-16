@@ -185,7 +185,7 @@ $(document).ready(function () {
     const formData = new FormData(this);
 
     $.ajax({
-        url: '<?= base_url('gymplans/store'); ?>', // Make sure this matches the POST route
+        url: '<?= base_url('/gymplans/store'); ?>', // Make sure this matches the POST route
         type: 'POST',
         data: formData,
         processData: false,

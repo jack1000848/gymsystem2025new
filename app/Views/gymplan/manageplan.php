@@ -203,34 +203,35 @@ $(document).ready(function () {
 
     // Handle Edit Plan Form
     $('#editPlanForm').on('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+    e.preventDefault();
+    const formData = new FormData(this);
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to update this plan?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, update it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('/gymplans/update/'); ?>' + $('#editPlanId').val(),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        Swal.fire('Updated!', 'Plan updated successfully.', 'success').then(() => {
-                            location.reload();
-                        });
-                    },
-                    error: function (xhr) {
-                        Swal.fire('Error!', 'Could not update plan.', 'error');
-                    }
-                });
-            }
-        });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to update this plan?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('/gymplans/update/'); ?>' + $('#editPlanId').val(),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log('Update success:', response);
+                    Swal.fire('Updated!', 'Plan updated successfully.', 'success').then(() => {
+                        location.reload();
+                    });
+                },
+                error: function (xhr) {
+                    console.error('Update failed:', xhr.responseText);
+                    Swal.fire('Error!', 'Could not update plan: ' + (xhr.responseText || 'Unknown error'), 'error');
+                }
+            });
+        }
     });
 });
 

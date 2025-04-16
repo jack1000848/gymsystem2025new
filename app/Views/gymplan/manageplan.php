@@ -2,6 +2,36 @@
 $this->extend('layout/main');
 $this->section('body');
 ?>
+<style>
+    .btn-group .btn {
+        font-weight: 500;
+        font-size: 14px;
+        padding: 6px 16px;
+        border-radius: 6px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-group .btn-primary {
+        background-color: #3498db;
+        border: none;
+    }
+
+    .btn-group .btn-primary:hover {
+        background-color: #2980b9;
+        color: #fff;
+    }
+
+    .btn-group .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+    }
+
+    .btn-group .btn-danger:hover {
+        background-color: #c0392b;
+        color: #fff;
+    }
+</style>
+
 
 <!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

@@ -885,7 +885,7 @@ async function toggleFreeze(CustomerID) {
 
 async function renew(id) {
         try {
-            const res = await $.get('<?= base_url('/clients1/try/'); ?>' + id);
+            const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
             if (res && res.data) {
                 const client = res.data;
                 $("#renewClientId").val(client.CustomerID);

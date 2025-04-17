@@ -906,8 +906,8 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
 
 
         data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+            let selected = (coach.CoachID == selectedCoachId) ? "selected" : "";
+            $('#renewCoach').append(`<option value="${coach.CoachID}" ${selected}>${coach.FullName}</option>`);
         });
     } catch (error) {
         console.error("Error fetching coaches:", error);

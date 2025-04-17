@@ -13,7 +13,7 @@ class paymentController extends BaseController
         return view('clients1crud/payment', $data);
     }
 
-    public function myPayments($data)
+    public function myPayments()
 {
     $clientId = session()->get('CustomerID'); // adjust as needed
     $model = new \App\Models\paymentModel();

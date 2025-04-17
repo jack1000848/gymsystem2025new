@@ -40,8 +40,7 @@
             <h3>Build Your</h3>
             <h1>Dream Physique</h1>
             <h3><span class="multiple-text"></span></h3>
-            <p>Lorem ipsum dolor sit, bus earum, aliquam ipsa repellat iusto esse laudantium animi vitae consectetur
-                obcaecati.</p>
+            <p>"Whether you're starting out or leveling up, Ishow Fitness has your back!"</p>
 
             <a href="<?= base_url('join-now') ?>" class="btn">Join Us</a>
             
@@ -174,58 +173,14 @@
 
     <!-- Review Section -->
 
-    <section id="review" class="review">
-        <div class="review-box">
-            <h2 class="heading" data-aos="zoom-in-down">Client Reviews</h2>
-
-            <div class="wrapper" data-aos="zoom-in-up">
-                <div class="review-item">
-                    <img src="<?= base_url('assets/img/luiereview.jpg') ?>" alt="Review1">
-                    <h2>Ninoy Achino</h2>
-                    <div class="rating">
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                    </div>
-                    <p>I'm Ninoy Achino from NAIA 1, i'm glad to give 5 star this gym website, this is totaly good for me knowing everything in the gym how to used this shit.</p>
-                </div>
-
-                <div class="review-item">
-                    <img src="<?= base_url('assets/img/robinreview.jpg') ?>" alt="Review2">
-                    <h2>Rodrie Padilla</h2>
-                    <div class="rating">
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                    </div>
-                    <p>yes i am, Rodrie ill give 100star review bcause this is good for me helping me a lot and easy transaction for payment.</p>
-                </div>
-
-                <div class="review-item">
-                    <img src="<?= base_url('assets/img/jomsreview.jpg') ?>" alt="Review3">
-                    <h2>David Tumaex</h2>
-                    <div class="rating">
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                        <i class='bx bxs-star' id="star"></i>
-                    </div>
-                    <p>owshitt who the fucked guy create this system? im so fucking happy that this system is give me a good way body building, to build my self and learn how to use everything in the gym how the shit works on me like what the hell is goin on here like helps me in a easy way, like men what the fuck kuddos to fukcing people who made this.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Footer Section -->
 
     <footer class="footer">
         <div class="social">
             <a href="https://www.instagram.com/miguelito_tayson/"><i class='bx bxl-instagram-alt'></i></a>
-            <a href="#"><i class='bx bxl-facebook-square'></i></a>
+            <a href="https://www.facebook.com/miguelito.nosyat/"><i class='bx bxl-facebook-square'></i></a>
             <a href="#"><i class='bx bxl-linkedin-square'></i></a>
         </div>
 

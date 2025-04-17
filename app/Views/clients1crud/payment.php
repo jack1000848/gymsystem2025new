@@ -82,6 +82,7 @@ $this->section('body'); // Start the body section
                     <th>Customer ID</th>
                     <th>Paid Amount</th>
                     <th>Paid Date</th>
+                    <th>Plan ID</th>
                 </tr>
             </thead>
             <tbody id="paymentTableBody">

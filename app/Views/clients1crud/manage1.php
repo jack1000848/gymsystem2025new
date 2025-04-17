@@ -551,6 +551,7 @@ $this->section('body'); // Start the body section
         schedEl.append("<p>Failed to load schedules.</p>");
     }
   });
+});
 
 
 

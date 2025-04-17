@@ -16,7 +16,7 @@ $this->section('body'); // Start the body section
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f8f9fa;
         margin: 0;
-        padding: 20px;
+        padding: fixed;
     }
 
     .table-container {

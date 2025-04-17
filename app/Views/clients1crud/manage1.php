@@ -903,6 +903,8 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
         $("#priceInput").val(data.Price);
+        $("#renewPriceInput").val(data[0].Price);
+        $("#renewDuration").val(data[0].Duration);
 
 
         data.forEach(coach => {

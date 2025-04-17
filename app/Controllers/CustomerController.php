@@ -275,57 +275,53 @@ Thank you for signing up! To complete your registration and verify your email ad
         ]);
     }
     public function updateClients1($id)
-{
-    // Load the CustomerModel
-    $customerModel = new \App\Models\CustomerModel();
-
-    // Get the input data from the request
-    $data = [
-        'Firstname'        => $this->request->getPost('clients1Fname'),           // Maps directly
-        ///'Middlename'       => $this->request->getPost('clients1Mname') ?? null,   // Add if required
-        'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name
-        'Address'          => $this->request->getPost('clients1Fulladdress'),     // Adjusted field name
-        'Gender'           => $this->request->getPost('gender'),                  // Maps directly
-      // 'PhoneNumber'      => $this->request->getPost('phone_number'),            // Add phone field
-        'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
-        'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
-        'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
-        'types_of_workout'   => $this->request->getPost('tworkout'), 
-       // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
-        'Membership_plan'   => $this->request->getPost('plans'),    
-        
-    ];
-
-    // Validate required fields
-    if (
-        !$data['Firstname'] || !$data['Lastname'] ||
-        !$data['Address'] || !$data['password_hash'] || !$data['Gender'] ||
-        !$data['RegisteredDate'] || !$data['types_of_workout']  ||
-        !$data['Email'] || !$data['Membership_plan'] 
-        
-    ) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'All fields are required!'
-        ]);
+    {
+        // Load the CustomerModel
+        $customerModel = new CustomerModel();
+    
+        // Get the input data from the request
+        $data = [
+            'Firstname' => $this->request->getPost('clients1Fname'),
+            'Lastname' => $this->request->getPost('clients1Lname'),
+            'Address' => $this->request->getPost('clients1Fulladdress'),
+            'Gender' => $this->request->getPost('gender'),
+            'Email' => $this->request->getPost('clients1Emailaddress'),
+           // 'RegisteredDate' => $this->request->getPost('dateofregistration'),
+           // 'types_of_workout' => $this->request->getPost('tworkout'),
+        ];
+    
+        // Validate required fields
+        if (
+            empty($data['Firstname']) ||
+            empty($data['Lastname']) ||
+            empty($data['Address']) ||
+            empty($data['Gender']) ||
+            empty($data['Email']) 
+          //  empty($data['RegisteredDate']) ||
+           // empty($data['types_of_workout'])
+        ) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'All fields are required!'
+            ]);
+        }
+    
+        // Attempt to update the client in the database
+        $updated = $customerModel->update($id, $data);
+    
+        // Check if the update was successful
+        if ($updated) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Client updated successfully!'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to update client. Please try again.'
+            ]);
+        }
     }
-
-    // Attempt to update the client in the database
-    $updated = $customerModel->update($id, $data);
-
-    // Check if the update was successful
-    if ($updated) {
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Client updated successfully!'
-        ]);
-    } else {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Failed to update client. Please try again.'
-        ]);
-    }
-}
 
 
 

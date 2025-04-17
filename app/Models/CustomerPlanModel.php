@@ -6,16 +6,17 @@ use CodeIgniter\Model;
 
 class CustomerPlanModel extends Model
 {
-    protected $table = 'customerplan'; 
+    protected $table = 'customer'; // Change to the correct table
     protected $primaryKey = 'CustomerID';
-    protected $allowedFields = ['CustomerID', 'CustomerName', 'PlanName', 'ExpirationDate'];
+    protected $allowedFields = [
+        'CustomerID', 'Firstname', 'Middlename', 'Lastname', 'ExpirationDate'
+    ];
 
-    /**
-     * Fetch all customer plan data from the view.
-     * @return array
-     */
-    public function getAllCustomersWithPlans()
+    // Custom method to fetch customer data with Fullname
+    public function getCustomerWithFullname($id)
     {
-        return $this->findAll();
+        return $this->select('CustomerID, CONCAT(Firstname, " ", IFNULL(Middlename, ""), " ", Lastname) AS Fullname, ExpirationDate')
+                    ->where('CustomerID', $id)
+                    ->first();
     }
 }

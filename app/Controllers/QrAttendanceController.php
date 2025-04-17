@@ -42,8 +42,8 @@ class QrAttendanceController extends Controller
         return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
     }
 
-    ///// Check if customer exists
-    $customer = $customerPlanModel->find($id);
+    // Check if customer exists
+    $customer = $customerPlanModel->getCustomerWithFullname($id);
     if (!$customer) {
         return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
     }
@@ -55,9 +55,8 @@ class QrAttendanceController extends Controller
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
         ->where('DATE(InDate)', $currentDate)
         ->first();
-            ////12hrbebe
-        $currentTime = date('Y-m-d h:i A');
-        
+    
+    $currentTime = date('Y-m-d h:i A');
 
     if ($todayRecord) {
         if ($todayRecord['CheckOut'] === null) {
@@ -65,7 +64,11 @@ class QrAttendanceController extends Controller
             $qrAttendanceModel->update($todayRecord['AttendanceID'], ['CheckOut' => $currentTime]);
             return $this->response->setJSON([
                 'status' => 'check-out',
-                'customer' => $customer,
+                'customer' => [
+                    'CustomerID' => $customer['CustomerID'],
+                    'Fullname' => $customer['Fullname'],
+                    'expirationDate' => $customer['ExpirationDate'] ?? 'N/A' // Fallback to 'N/A' if NULL
+                ],
                 'message' => 'Checked out successfully.'
             ]);
         } else {
@@ -83,7 +86,11 @@ class QrAttendanceController extends Controller
         ]);
         return $this->response->setJSON([
             'status' => 'check-in',
-            'customer' => $customer,
+            'customer' => [
+                'CustomerID' => $customer['CustomerID'],
+                'Fullname' => $customer['Fullname'],
+                'expirationDate' => $customer['ExpirationDate'] ?? 'N/A' // Fallback to 'N/A' if NULL
+            ],
             'message' => 'Checked in successfully.'
         ]);
     }

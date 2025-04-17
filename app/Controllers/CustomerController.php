@@ -376,7 +376,15 @@ public function updaterenew($id)
         
         'types_of_workout' => $this->request->getPost('tworkout'),
         'Membership_plan' => $this->request->getPost('plans'),
-        ///'amount' => $this->request->getPost('amount'),
+        'amount' => $this->request->getPost('amount'),
+        'types_of_workout'   => $this->request->getPost('tworkout'), 
+        // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
+        // 'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
+         'WorkoutTypeID'    => null,                // Adjusted field name
+         'CurrentPlanID'    => null,                   // Adjusted field name
+         'CoachID'    =>  $this->request->getPost('plans'), // Add if necessary
+ 
+         'WorkoutPlanID'    =>  null, // Add if necessary
     ];
 
     // Validate required fields

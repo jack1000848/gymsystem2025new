@@ -452,7 +452,7 @@ $this->section('body'); // Start the body section
 
                     <!-- Total Amount -->
                     <div class="mb-3">
-                        <label for="renewtAmount" class="form-label">Total Amount</label>
+                        <label for="renewPriceInput" class="form-label">Total Amount</label>
                         <input type="text" id="renewPriceInput" class="form-control" name="amount" readonly>
                     </div>
 
@@ -928,7 +928,8 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
-        $("#priceInput").val(data.Price);
+        $("#renewPriceInput").val(data.Price);
+        $("#renewduration").val(data[0].Duration);
 
 
         data.forEach(coach => {

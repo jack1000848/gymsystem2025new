@@ -406,6 +406,7 @@ public function updaterenew($id)
         $coachId = $data['CoachID'];
         if (!empty($scheduleIds) && !empty($coachId)) {
             $db = \Config\Database::connect();
+            
             $builder = $db->table('CoachSched');
             $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
             foreach ($scheduleIds as $schedId) {

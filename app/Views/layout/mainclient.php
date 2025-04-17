@@ -120,6 +120,12 @@
                             </a> 
                         </li>
                         <li class="nav-item"> 
+                            <a href="<?= base_url('mypayments') ?>" class="nav-link d-flex align-items-center gap-2"> 
+                            <i class="bi bi-wallet nav-icon"></i>
+                                <p class="m-0">Payments</p>
+                            </a> 
+                        </li>
+                        <li class="nav-item"> 
                             <a href="<?= base_url('client-coach-absent') ?>" class="nav-link d-flex align-items-center gap-2"> 
                                 <i class="bi bi-gear nav-icon"></i>
                                 <p class="m-0">Coachotification</p>
@@ -210,7 +216,7 @@
                         </li>
                         <li class="nav-item"> 
                             <a href="<?= base_url('mypayments') ?>" class="nav-link d-flex align-items-center gap-2"> 
-                                <i class="bi bi-gear nav-icon"></i>
+                            <i class="bi bi-credit-card nav-icon"></i>
                                 <p class="m-0">Payments</p>
                             </a> 
                         </li>

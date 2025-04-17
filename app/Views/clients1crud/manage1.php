@@ -867,24 +867,20 @@ async function renew(id) {
     }
 }
 
-// Fetch Coaches for Renewal
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
-        $('#renewPriceInput').val(data[0]?.Price || '');
-        $('#renewDuration').val(data[0]?.Duration || '');
+        $("#priceInput").val(data.Price);
+
 
         data.forEach(coach => {
-            if (coach.CoachID !== null) {
-                let selected = (coach.CoachID == selectedCoachId) ? "selected" : "";
-                $('#renewCoach').append(`<option value="${coach.CoachID}" ${selected}>${coach.FullName}</option>`);
-            }
+            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
+            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
         });
     } catch (error) {
-        console.error("   } catch (error) {
-        console.error("面白い coaches:", error);
+        console.error("Error fetching coaches:", error);
     }
 }
 

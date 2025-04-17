@@ -491,67 +491,86 @@ $this->section('body'); // Start the body section
 <!-- Your custom JavaScript file -->
 <script src="path/to/your/script.js"></script>
 <script>
-    $(document).ready(function () {
-        // Initialize DataTable
-        let table = new DataTable('#clientTable', {
-            responsive: true
-        });
-
-        $("#coach").on('change', async function() {
-    const value = $(this).val();
-    console.log(value);
-
-    const schedEl = $("#coachsched");
-    schedEl.empty();
-
-    try {
-        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
-        console.log(data);
-
-        if (data.length === 0) {
-            schedEl.append("<p>No schedules available.</p>");
-            return;
-        }
-
-        data.forEach(sched => {
-            const scheduleItem = `
-                <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End} </option>
-            `;
-            schedEl.append(scheduleItem);
-        });
-    } catch (error) {
-        console.error("Error fetching schedules:", error);
-        schedEl.append("<p>Failed to load schedules.</p>");
-    }
+$(document).ready(function () {
+    // Initialize DataTable
+    let table = new DataTable('#clientTable', {
+        responsive: true
     });
-    $("#renewcoach").on('change', async function() {
-    const value = $(this).val();
-    console.log(value);
 
-    const schedEl = $("#renewcoachsched");
-    schedEl.empty();
+    // Fetch schedules when coach is selected in Add Client modal
+    $("#coach").on('change', async function() {
+        const coachId = $(this).val();
+        const schedEl = $("#coachsched");
+        schedEl.empty();
 
-    try {
-        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
-        console.log(data);
-
-        if (data.length === 0) {
-            schedEl.append("<p>No schedules available.</p>");
+        if (!coachId) {
+            schedEl.append('<option value="">Select a Schedule</option>');
             return;
         }
 
-        data.forEach(sched => {
-            const scheduleItem = `
-                <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End} </option>
-            `;
-            schedEl.append(scheduleItem);
-        });
-    } catch (error) {
-        console.error("Error fetching schedules:", error);
-        schedEl.append("<p>Failed to load schedules.</p>");
-    }
-  });
+        try {
+            const data = await $.get("<?= base_url('/getSchedules/') ?>" + coachId);
+            console.log('Schedules:', data);
+
+            if (data.length === 0) {
+                schedEl.append('<option value="">No schedules available</option>');
+                return;
+            }
+
+            data.forEach(sched => {
+                const scheduleItem = `
+                    <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>
+                `;
+                schedEl.append(scheduleItem);
+            });
+        } catch (error) {
+            console.error("Error fetching schedules:", error);
+            schedEl.append('<option value="">Failed to load schedules</option>');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to load coach schedules. Please try again.',
+            });
+        }
+    });
 });
+
+    // Fetch schedules when coach is selected in Renew Client modal
+    $("#renewCoach").on('change', async function() {
+        const coachId = $(this).val();
+        const schedEl = $("#renewcoachsched");
+        schedEl.empty();
+
+        if (!coachId) {
+            schedEl.append('<option value="">Select a Schedule</option>');
+            return;
+        }
+
+        try {
+            const data = await $.get("<?= base_url('/getSchedules/') ?>" + coachId);
+            console.log('Renew Schedules:', data);
+
+            if (data.length === 0) {
+                schedEl.append('<option value="">No schedules available</option>');
+                return;
+            }
+
+            data.forEach(sched => {
+                const scheduleItem = `
+                    <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>
+                `;
+                schedEl.append(scheduleItem);
+            });
+        } catch (error) {
+            console.error("Error fetching renew schedules:", error);
+            schedEl.append('<option value="">Failed to load schedules</option>');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to load coach schedules. Please try again.',
+            });
+        }
+    });
 
 
 

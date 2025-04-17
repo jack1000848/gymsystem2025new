@@ -12,66 +12,68 @@ $this->section('body'); // Start the body section
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment History</title>
     <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 12px;
-    }
-
-    .table-container {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-
-    .card {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        overflow-x: auto;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .styled-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 16px;
-    }
-
-    .styled-table thead tr {
-        background-color: #0CA6F7;
-        color: #ffffff;
-        text-align: left;
-    }
-
-    .styled-table th,
-    .styled-table td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .styled-table tbody tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    .styled-table td {
-        color: #333;
-    }
-
-    @media screen and (max-width: 768px) {
-        .styled-table th,
-        .styled-table td {
-            padding: 10px;
-            font-size: 14px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: fixed;
+            background-color: #f4f4f4;
         }
-    }
-</style>
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .table-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color:#0CA6F7;
+            color: white;
+        } 
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        td {
+            color: #333;
+        }
+
+        /* Placeholder for empty table */
+        .empty-message {
+            text-align: center;
+            padding: fixed;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media screen and (max-width: 600px) {
+            th, td {
+                padding: fixed;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1 style="text-align: center; color: #333;">Payment History</h1>
+    <h1>Payment History</h1>
     <div class="table-container">
         <table>
             <thead>

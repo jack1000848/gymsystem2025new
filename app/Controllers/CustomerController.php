@@ -377,20 +377,7 @@ public function updaterenew($id)
             'amount' => $this->request->getPost('amount'),
             'duration' => $this->request->getPost('duration'),
         ];
-        $validationRules = [
-            'RegisteredDate' => 'required|valid_date',
-            'types_of_workout' => 'required|in_list[Bulking,Cutting,Endurance Training,Strength Training,Functional Fitness]',
-            'Membership_plan' => 'required|is_natural_no_zero',
-            'CoachID' => 'required|is_natural_no_zero',
-            'amount' => 'required|numeric',
-            'duration' => 'required|is_natural_no_zero',
-        ];
-        if (!$this->validate($validationRules)) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => $this->validator->getErrors(),
-            ]);
-        }
+        
         $plan = $planModel->find($data['Membership_plan']);
         if (!$plan) {
             return $this->response->setJSON([

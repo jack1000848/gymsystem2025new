@@ -23,7 +23,7 @@ class paymentController extends BaseController
         ->where('CustomerID', $clientId)
         ->orderBy('PaidDate', 'DESC')
         ->findAll();
-        return view('clientdashboard/mypayment', $data);
+        return view('clientdashboard/mypayment', ['payments' => $payments]);
     }
 
     

@@ -42,6 +42,7 @@ class QrAttendanceController extends Controller
         return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
     }
 
+    ///// Check if customer exists
     // Check if customer exists
     $customer = $customerPlanModel->getCustomerWithFullname($id);
     if (!$customer) {
@@ -55,8 +56,9 @@ class QrAttendanceController extends Controller
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
         ->where('DATE(InDate)', $currentDate)
         ->first();
-    
-    $currentTime = date('Y-m-d h:i A');
+            ////12hrbebe
+        $currentTime = date('Y-m-d h:i A');
+        
 
     if ($todayRecord) {
         if ($todayRecord['CheckOut'] === null) {
@@ -64,11 +66,7 @@ class QrAttendanceController extends Controller
             $qrAttendanceModel->update($todayRecord['AttendanceID'], ['CheckOut' => $currentTime]);
             return $this->response->setJSON([
                 'status' => 'check-out',
-                'customer' => [
-                    'CustomerID' => $customer['CustomerID'],
-                    'Fullname' => $customer['Fullname'],
-                    'expirationDate' => $customer['ExpirationDate'] ?? 'N/A' // Fallback to 'N/A' if NULL
-                ],
+                'customer' => $customer,
                 'message' => 'Checked out successfully.'
             ]);
         } else {
@@ -86,11 +84,7 @@ class QrAttendanceController extends Controller
         ]);
         return $this->response->setJSON([
             'status' => 'check-in',
-            'customer' => [
-                'CustomerID' => $customer['CustomerID'],
-                'Fullname' => $customer['Fullname'],
-                'expirationDate' => $customer['ExpirationDate'] ?? 'N/A' // Fallback to 'N/A' if NULL
-            ],
+            'customer' => $customer,
             'message' => 'Checked in successfully.'
         ]);
     }

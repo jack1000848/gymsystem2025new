@@ -923,22 +923,24 @@ async function renew(id) {
         }
     }
     
-async function fetchrenewCoach(planId, selectedCoachId = null) {
-    try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
-        $('#renewCoach').empty();
-        $('#renewCoach').append('<option value="">Select a Coach</option>');
-        $("#priceInput").val(data.Price);
+// Fetch Coaches
+async function fetchCoach(planId) {
+        try {                          
+            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
+            $('#coach').empty();
+            $("#priceInput").val(data[0].Price);
+            $("#duration").val(data[0].Duration);
 
-
-        data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching coaches:", error);
+            console.log(data.Price);
+            $('#coach').append('<option value="">Select a Coach</option>');
+            data.forEach(coach => {
+                if(coach.CoachID !== null)
+                    $('#coach').append(`<option value="${coach.CoachID}">${coach.FullName}</option>`);
+            });
+        } catch (error) {
+            console.error("Error fetching coaches:", error);
+        }
     }
-}
 
 // Fetch Plans for Renewal
 async function fetchrenewPlans(selectedPlanId) {

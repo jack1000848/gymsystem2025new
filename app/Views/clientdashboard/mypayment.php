@@ -87,7 +87,7 @@ $this->section('body'); // Start the body section
                 </tr>
             </thead>
             <tbody id="paymentTableBody">
-    <?php foreach($payments1 as $payment): ?>
+    <?php foreach($payments as $payment): ?>
         <tr>
             <td><?= esc($payment['PaymentHistoryID']) ?></td>
             <td><?= esc($payment['CustomerID']) ?></td>

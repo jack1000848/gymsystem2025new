@@ -385,7 +385,11 @@ $this->section('body'); // Start the body section
                         <label for="editPassword" class="form-label">Password</label>
                         <input type="text" class="form-control" id="editPassword" name="password" required>
                     </div>
-                    
+                    <!-- Submit Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
+                    </div>
                     
                 </form>
             </div>
@@ -442,7 +446,14 @@ $this->section('body'); // Start the body section
                 <option value="">Select a Coach</option>
                     </select>
             </div>
-
+            </div>
+                    <!-- Coach Sched -->
+                    <div class="mb-3" id="coachschedSelectDiv">
+                        <label for="coachsched" class="form-label">Select Schedules</label>
+                        <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
+                            <option value="">Select a Schedule</option>
+                        </select>
+                    </div>
 
                     <!-- Total Amount -->
                     <div class="mb-3">

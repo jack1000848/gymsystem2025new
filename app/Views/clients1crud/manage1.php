@@ -442,7 +442,13 @@ $this->section('body'); // Start the body section
                 <option value="">Select a Coach</option>
                     </select>
             </div>
-
+                    <!-- Coach Sched -->    
+                    <div class="mb-3" id="coachschedSelectDiv">
+                        <label for="coachsched" class="form-label">Select Schedules</label>
+                        <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
+                            <option value="">Select a Schedule</option>
+                        </select>
+                    </div>
 
                     <!-- Total Amount -->
                     <div class="mb-3">

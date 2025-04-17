@@ -94,10 +94,7 @@ $this->section('body'); // Start the body section
             <td><?= esc($payment['PaidAmount']) ?></td>
             <td><?= esc($payment['PaidDate']) ?></td>
             <td><?= esc($payment['PlanID']) ?></td>
-            <td>
-                <button onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>, <?= $payment['CustomerID'] ?>, <?= $payment['PaidAmount'] ?>, '<?= $payment['PaidDate'] ?>', <?= $payment['PlanID'] ?>)">Edit</button>
-                <button onclick="confirmDelete(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
-            </td>
+          
         </tr>
     <?php endforeach; ?>
 </tbody>

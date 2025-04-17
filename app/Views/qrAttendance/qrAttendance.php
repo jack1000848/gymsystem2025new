@@ -90,8 +90,8 @@ $this->section('body'); // Start the body section
                 $("#showInfo").show();
 
                 $("#userId").text(customer.CustomerID || "N/A");
-                $("#fullName").text(customer.FullName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                $("#fullName").text(customer.Fullname || "N/A");
+                $("#expirationDate").text(customer.Expirationdate || "N/A");
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {

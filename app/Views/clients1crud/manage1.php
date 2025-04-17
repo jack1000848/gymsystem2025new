@@ -524,6 +524,10 @@ $this->section('body'); // Start the body section
         schedEl.append("<p>Failed to load schedules.</p>");
     }
     });
+    $("#renewcoach").on('change', async function() {
+    const value = $(this).val();
+    console.log(value);
+
     const schedEl = $("#renewcoachsched");
     schedEl.empty();
 
@@ -546,8 +550,7 @@ $this->section('body'); // Start the body section
         console.error("Error fetching schedules:", error);
         schedEl.append("<p>Failed to load schedules.</p>");
     }
-    });
-  
+  });
 
 
 

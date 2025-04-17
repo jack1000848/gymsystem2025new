@@ -542,6 +542,7 @@ $(document).ready(function () {
         schedEl.empty();
 
         if (!coachId) {
+
             schedEl.append('<option value="">Select a Schedule</option>');
             return;
         }
@@ -989,34 +990,7 @@ async function renewUpdate() {
 
 
 // Fetch Schedules for Renew Client
-async function fetchRenewSchedules(coachId) {
-        try {
-            const data = await $.get(`<?= base_url('/getSchedules/'); ?>${coachId}`);
-            console.log('Renew Schedules:', data);
-            $('#renewcoachsched').empty();
-            $('#renewcoachsched').append('<option value="">Select a Schedule</option>');
-
-
-            if (data.length === 0) {
-                $('#renewcoachsched').append('<option value="">No schedules available</option>');
-                return;
-            }
-
-            data.forEach(sched => {
-                $('#renewcoachsched').append(`<option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>`);
-            });
-        } catch (error) {
-            console.error("Error fetching renew schedules:", error);
-            $('#renewcoachsched').append('<option value="">Failed to load schedules</option>');
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Failed to load coach schedules.',
-            });
-        }
-    }
-
-
+a
 
 async function fetchEditPlans(selectedPlanId) {
     try {

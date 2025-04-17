@@ -886,17 +886,7 @@ async function fetchrenewCoach(planId, selectedCoachId = null) {
     }
 }
 // Fetch Schedules
-async function fetchSchedules(coachId) {
-    try {
-        const data = await $.get(`<?= base_url('/getCoachSchedules/'); ?>${coachId}`);
-        $('#coachsched').empty();
-        data.forEach(sched => {
-            $('#coachsched').append(`<option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>`);
-        });
-    } catch (error) {
-        console.error("Error fetching schedules:", error);
-    }
-}
+
 // Fetch Plans for Renewal
 async function fetchrenewPlans(selectedPlanId) {
     try {

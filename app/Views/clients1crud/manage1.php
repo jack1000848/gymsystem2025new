@@ -380,12 +380,12 @@ $this->section('body'); // Start the body section
                         <input type="email" class="form-control" id="editClients1Emailaddress" name="clients1Emailaddress" required>
                     </div>
 
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="editPassword" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="editPassword" name="password" required>
+                    
+                     <!-- Submit Button -->
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
                     </div>
-
                     
                 </form>
             </div>

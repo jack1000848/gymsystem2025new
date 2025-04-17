@@ -406,7 +406,7 @@ public function updaterenew($id)
         }
         $updated = $customerModel->update($id, $data);
         $db = \Config\Database::connect();
-        $sql = "INSERT INTO `paymenthistory` (`CustomerID`, `PlanID`, `Amount`, `PaymentDate`)
+        $sql = "INSERT INTO `paymenthistory` (`CustomerID`, `PlanID`, `PaidAmount`, `PaidDate`)
         VALUES (?, ?, ?, NOW())";
         $db->query($sql, [$id, $data["CurrentPlanID"], $data["PaidAmount"]]);
 

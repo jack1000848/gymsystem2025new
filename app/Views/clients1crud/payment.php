@@ -1,21 +1,15 @@
-<?php
-$this->extend('layout/main'); // Extend the main layout
-$this->section('body'); // Start the body section
-?>
-
-
+<?= $this->extend('layout/main') ?>
+<?= $this->section('body') ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment History</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: fixed;
             background-color: #f4f4f4;
         }
 
@@ -46,7 +40,7 @@ $this->section('body'); // Start the body section
         th {
             background-color:#0CA6F7;
             color: white;
-        } 
+        }
 
         tr:hover {
             background-color: #f5f5f5;
@@ -56,20 +50,24 @@ $this->section('body'); // Start the body section
             color: #333;
         }
 
-        /* Placeholder for empty table */
-        .empty-message {
-            text-align: center;
-            padding: fixed;
-            color: #666;
-            font-style: italic;
+        .btn {
+            padding: 6px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
         }
 
-        @media screen and (max-width: 600px) {
-            th, td {
-                padding: fixed;
-                font-size: 14px;
-            }
+        .btn-edit {
+            background-color: #4CAF50;
+            color: white;
         }
+
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
@@ -78,58 +76,78 @@ $this->section('body'); // Start the body section
         <table>
             <thead>
                 <tr>
-                    <th>Payment History ID</th>
+                    <th>Payment ID</th>
                     <th>Customer ID</th>
                     <th>Paid Amount</th>
                     <th>Paid Date</th>
                     <th>Plan ID</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="paymentTableBody">
-                        <?php foreach($payments as $payment): ?>
-                        <tr>
-                            <td><?= esc($payment['PaymentHistoryID']) ?></td>
-                            <td><?= esc($payment['CustomerID']) ?></td>
-                            <td><?= esc($payment['PaidAmount']) ?></td>
-                            <td><?= esc($payment['PaidDate']) ?></td>
-                            <td><?= esc($payment['PlanID']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tr>
+                <?php foreach($payments as $payment): ?>
+                    <tr>
+                        <td><?= esc($payment['PaymentHistoryID']) ?></td>
+                        <td><?= esc($payment['CustomerID']) ?></td>
+                        <td><?= esc($payment['PaidAmount']) ?></td>
+                        <td><?= esc($payment['PaidDate']) ?></td>
+                        <td><?= esc($payment['PlanID']) ?></td>
+                        <td>
+                            <button class="btn btn-edit" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>, <?= $payment['CustomerID'] ?>, <?= $payment['PaidAmount'] ?>, '<?= $payment['PaidDate'] ?>', <?= $payment['PlanID'] ?>)">Edit</button>
+                            <button class="btn btn-delete" onclick="confirmDelete(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
-    <!-- Optional JavaScript to demonstrate dynamic data insertion -->
+    <form id="editForm" action="<?= site_url('payment-history/update') ?>" method="post" style="display:none;">
+        <input type="hidden" name="PaymentHistoryID" id="editID">
+        <label>Customer ID:</label><input type="number" name="CustomerID" id="editCustomer"><br>
+        <label>Paid Amount:</label><input type="number" name="PaidAmount" id="editAmount" step="0.01"><br>
+        <label>Paid Date:</label><input type="datetime-local" name="PaidDate" id="editDate"><br>
+        <label>Plan ID:</label><input type="number" name="PlanID" id="editPlan"><br>
+        <button type="submit">Update</button>
+    </form>
+
     <script>
-        // Example: Uncomment to simulate adding data dynamically
-        /*
-        const paymentData = [
-            { paymentHistoryId: 'PH001', customerId: 'CUST101', paidAmount: '$150.00', paidDate: '2025-04-01' },
-            { paymentHistoryId: 'PH002', customerId: 'CUST102', paidAmount: '$89.99', paidDate: '2025-04-05' },
-            { paymentHistoryId: 'PH003', customerId: 'CUST103', paidAmount: '$250.50', paidDate: '2025-04-10' }
-        ];
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This will permanently delete the record.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "<?= site_url('payment-history/delete/') ?>" + id;
+                }
+            });
+        }
 
-        const tbody = document.getElementById('paymentTableBody');
-        tbody.innerHTML = ''; // Clear placeholder
+        function editPayment(id, customerId, paidAmount, paidDate, planId) {
+            document.getElementById('editID').value = id;
+            document.getElementById('editCustomer').value = customerId;
+            document.getElementById('editAmount').value = paidAmount;
+            document.getElementById('editDate').value = paidDate.replace(" ", "T");
+            document.getElementById('editPlan').value = planId;
 
-        paymentData.forEach(data => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${data.paymentHistoryId}</td>
-                <td>${data.customerId}</td>
-                <td>${data.paidAmount}</td>
-                <td>${data.paidDate}</td>
-            `;
-            tbody.appendChild(row);
-        });
-        */
+            Swal.fire({
+                title: 'Edit Payment',
+                html: document.getElementById('editForm'),
+                showCancelButton: true,
+                showConfirmButton: false,
+                didOpen: () => {
+                    document.getElementById('editForm').style.display = 'block';
+                },
+                willClose: () => {
+                    document.getElementById('editForm').style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
 
-
-
-
-
-<?php $this->endSection(); ?>
+<?= $this->endSection() ?>

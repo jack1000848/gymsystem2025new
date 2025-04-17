@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use App\Models\PaymentHistoryModel;
 
-class PaymentHistory extends BaseController
+class paymentController extends BaseController
 {
     public function payment()
     {

@@ -380,13 +380,9 @@ $this->section('body'); // Start the body section
                         <input type="email" class="form-control" id="editClients1Emailaddress" name="clients1Emailaddress" required>
                     </div>
 
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="editPassword" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="editPassword" name="password" required>
-                    </div>
-                    <!-- Submit Button -->
-                    <div class="modal-footer">
+                    
+                     <!-- Submit Button -->
+                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
                     </div>
@@ -446,8 +442,7 @@ $this->section('body'); // Start the body section
                 <option value="">Select a Coach</option>
                     </select>
             </div>
-            </div>
-                    <!-- Coach Sched -->
+                    <!-- Coach Sched -->    
                     <div class="mb-3" id="coachschedSelectDiv">
                         <label for="coachsched" class="form-label">Select Schedules</label>
                         <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
@@ -850,12 +845,11 @@ async function renew(id) {
             const client = res.data;
             $("#renewClientId").val(client.CustomerID);
             $("#renewDateofregistration").val(client.RegisteredDate);
-            $("#renewTworkout").val(client.workout_type);
-            $("#renewPlans").val(client.plans);  // Ensure this matches the dropdown ID
+            $("#renewTworkout").val(client.types_of_workout);
+            $("#renewPlans").val(client.plans);
             $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
             $("#renewDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
-
             $("#tryClientModal").modal('show');
 
             // Fetch plans and set the selected one

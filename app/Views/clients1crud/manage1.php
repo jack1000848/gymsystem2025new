@@ -386,61 +386,7 @@ $this->section('body'); // Start the body section
                         <input type="text" class="form-control" id="editPassword" name="password" required>
                     </div>
 
-                    <!-- Date of Registration -->
-                    <div class="mb-3">
-                        <label for="editDateofregistration" class="form-label">Date of Registration</label>
-                        <input type="date" class="form-control" id="editDateofregistration" name="dateofregistration" required>
-                    </div>
-
-                     <!-- Gymtimeslot -->
-                     
-
-                    <!-- Types of Workout -->
-                    <div class="mb-3">
-                        <label for="editTworkout" class="form-label">Types of Workout</label>
-                        <select id="editTworkout" class="form-control" name="tworkout" required>
-                            <option value="Bulking">Bulking</option>
-                            <option value="Cutting">Cutting</option>
-                            <option value="Endurance Training">Endurance Training</option>
-                            <option value="Strength Training">Strength Training</option>
-                            <option value="Functional Fitness">Functional Fitness</option>
-                        </select>
-                    </div>
-
-                   <!-- Membership Plan -->
-                <div class="mb-3">
-                       <label for="editPlanSelect" class="form-label">Membership Plan</label>
-                   <select id="editPlanSelect" class="form-control" name="plans" required>
-                      <!-- Options will be dynamically added by AJAX -->
-                   </select>
-                </div>
-
-                <!-- Coach Selection -->
-            <div class="mb-3">
-                <label for="editCoach" class="form-label">Select Coach</label>
-                    <select id="editCoach" class="form-control" name="coach" required>
-                <option value="">Select a Coach</option>
-                    </select>
-            </div>
-
-
-                    <!-- Total Amount -->
-                    <div class="mb-3">
-                        <label for="editAmount" class="form-label">Total Amount</label>
-                        <input type="text" id="editPriceInput" class="form-control" name="amount" readonly>
-                    </div>
-
-                    <!-- Duration -->
-                    <div class="mb-3">
-                        <label for="editDuration" class="form-label">Duration</label>
-                        <input type="number" class="form-control" id="editDuration" name="duration" readonly>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
-                    </div>
+                    
                 </form>
             </div>
         </div>

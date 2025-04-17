@@ -366,107 +366,78 @@ public function toggleFreeze($id)
     }
 }
 public function updaterenew($id)
-{
-    // Load the CustomerModel
-    $customerModel = new \App\Models\CustomerModel();
-    $planModel = new \App\Models\PlanModel();
-
-    // Get the input data from the request
-    $data = [
-        'RegisteredDate' => $this->request->getPost('dateofregistration'),
-        
-        'types_of_workout' => $this->request->getPost('tworkout'),
-        'Membership_plan' => $this->request->getPost('plans'),
-        'amount' => $this->request->getPost('amount'),
-        'types_of_workout'   => $this->request->getPost('tworkout'), 
-        // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
-        // 'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
-         'WorkoutTypeID'    => null,                // Adjusted field name
-         'CurrentPlanID'    => null,                   // Adjusted field name
-         'CoachID'    =>  $this->request->getPost('plans'), // Add if necessary
- 
-         'WorkoutPlanID'    =>  null, // Add if necessary
-    ];
-
-    // Validate required fields
-    $validationRules = [
-        'RegisteredDate' => 'required|valid_date',
-        'types_of_workout' => 'required|in_list[Bulking,Cutting,Endurance Training,Strength Training,Functional Fitness]',
-        'Membership_plan' => 'required|is_natural_no_zero',
-        'amount' => 'required|numeric',
-        'CoachID' => 'permit_empty|is_natural_no_zero',
-    ];
-
-    if (!$this->validate($validationRules)) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => $this->validator->getErrors(),
-        ]);
-    }
-
-    // Verify plan exists
-    $plan = $planModel->find($data['Membership_plan']);
-    if (!$plan) {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Invalid membership plan selected.',
-        ]);
-    }
-
-    // Calculate new end date based on plan duration
-    $startDate = new \DateTime($data['RegisteredDate']);
-    $duration = $plan['Duration'] ?? 30; // Default to 30 days if not set
-    $endDate = (clone $startDate)->modify("+{$duration} days");
-    $data['EndDate'] = $endDate->format('Y-m-d'); // Assuming EndDate field exists
-
-    // Update CoachSched table
-    $scheduleIds = $this->request->getPost('coachsched');
-    $coachId = $data['CoachID'];
-    if (!empty($scheduleIds) && !empty($coachId)) {
-        $db = \Config\Database::connect();
-        $builder = $db->table('CoachSched');
-
-        // Reset previous schedules for this customer
-        $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
-
-        // Assign new schedules
-        foreach ($scheduleIds as $schedId) {
-            $builder->where('CoachID', $coachId)
-                    ->where('ID', $schedId)
-                    ->update(['CustomerID' => $id]);
+    {
+        $customerModel = new CustomerModel();
+        $planModel = new PlanModel();
+        $data = [
+            'RegisteredDate' => $this->request->getPost('dateofregistration'),
+            'types_of_workout' => $this->request->getPost('tworkout'),
+            'Membership_plan' => $this->request->getPost('plans'),
+            'CoachID' => $this->request->getPost('coach'),
+            'amount' => $this->request->getPost('amount'),
+            'duration' => $this->request->getPost('duration'),
+        ];
+        $validationRules = [
+            'RegisteredDate' => 'required|valid_date',
+            'types_of_workout' => 'required|in_list[Bulking,Cutting,Endurance Training,Strength Training,Functional Fitness]',
+            'Membership_plan' => 'required|is_natural_no_zero',
+            'CoachID' => 'required|is_natural_no_zero',
+            'amount' => 'required|numeric',
+            'duration' => 'required|is_natural_no_zero',
+        ];
+        if (!$this->validate($validationRules)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => $this->validator->getErrors(),
+            ]);
+        }
+        $plan = $planModel->find($data['Membership_plan']);
+        if (!$plan) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid membership plan selected.',
+            ]);
+        }
+        $startDate = new \DateTime($data['RegisteredDate']);
+        $duration = $data['duration'] ?? 30;
+        $endDate = (clone $startDate)->modify("+{$duration} days");
+        $data['EndDate'] = $endDate->format('Y-m-d');
+        $scheduleIds = $this->request->getPost('coachsched');
+        $coachId = $data['CoachID'];
+        if (!empty($scheduleIds) && !empty($coachId)) {
+            $db = \Config\Database::connect();
+            $builder = $db->table('CoachSched');
+            $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
+            foreach ($scheduleIds as $schedId) {
+                $builder->where('CoachID', $coachId)
+                        ->where('ID', $schedId)
+                        ->update(['CustomerID' => $id]);
+            }
+        }
+        $updated = $customerModel->update($id, $data);
+        if ($updated) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Client renewed successfully!'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to renew client. Please try again.'
+            ]);
         }
     }
-
-    // Update customer
-    $updated = $customerModel->update($id, $data);
-
-    if ($updated) {
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Client renewed successfully!',
-        ]);
-    } else {
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Failed to renew client. Please try again.',
-        ]);
-    }
-}
 
 public function try($id)
 {
     $clients1Model = new CustomerModel();
-
-    // Fetch the Client data by ID
     $editclient = $clients1Model->find($id);
-
     if (!$editclient) {
         return $this->response->setJSON([
             'status' => 'error',
             'message' => 'Client not found'
         ]);
     }
-
     return $this->response->setJSON([
         'status' => 'success',
         'data' => $editclient

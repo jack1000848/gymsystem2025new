@@ -10,7 +10,7 @@ $this->section('body'); // Start the body section
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1 style="text-align: center; color: #333;">Payment History</h1>
+    <title>Payment History</title>
     <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -71,7 +71,7 @@ $this->section('body'); // Start the body section
 </style>
 </head>
 <body>
-    <h1>Payment History</h1>
+<h1 style="text-align: center; color: #333;">Payment History</h1>
     <div class="table-container">
         <table>
             <thead>

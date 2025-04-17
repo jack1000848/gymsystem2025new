@@ -19,7 +19,7 @@ class paymentController extends BaseController
     $model = new \App\Models\paymentModel();
 
     $payments = $model->select('paymenthistory.*, plans.name as PlanName')
-        ->join('plans', 'plans.PlanID = payment_history.PlanID', 'left')
+        ->join('plans', 'plans.PlanID = paymenthistory.PlanID', 'left')
         ->where('CustomerID', $clientId)
         ->orderBy('PaidDate', 'DESC')
         ->findAll();

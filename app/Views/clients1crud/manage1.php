@@ -569,45 +569,46 @@ $this->section('body'); // Start the body section
     });
         ///submit edit
         
-        $("#renewClientForm").submit(function(event) {
-        event.preventDefault(); // Prevent default form submission
+       // Renew Client Form Submission
+$("#renewClientForm").submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-        const formData = $(this).serialize(); // Serialize form data for form-encoded submission
-        const clientId = $("#renewClientId").val(); // Get client ID
+    const formData = $(this).serialize(); // Serialize form data
+    const clientId = $("#renewClientId").val(); // Get client ID
 
-        $.ajax({
-            url: "<?= base_url('/clients1/renewupdate/') ?>/" + clientId, // Corrected route
-            type: "POST",
-            data: formData, // Use form-encoded format, NOT JSON
-            dataType: "json",
-            success: function(response) {
-                if (response.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Updated!",
-                        text: "Client details updated successfully.",
-                        confirmButtonText: "OK"
-                    }).then(() => {
-                        location.reload(); // Reload the page
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Update Failed",
-                        text: response.message
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
+    $.ajax({
+        url: "<?= base_url('/clients1/updaterenew/') ?>/" + clientId,
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function(response) {
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: "success",
+                    title: "Renewed!",
+                    text: response.message,
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    location.reload(); // Reload the page
+                });
+            } else {
                 Swal.fire({
                     icon: "error",
-                    title: "Error",
-                    text: "Something went wrong. Please try again."
+                    title: "Renewal Failed",
+                    text: response.message || "Failed to renew client.",
                 });
-                console.error(xhr.responseText);
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Something went wrong. Please try again.",
+            });
+            console.error(xhr.responseText);
+        }
     });
+});
 
         // Fetch Plans and Coaches
         fetchPlans();
@@ -845,12 +846,11 @@ async function renew(id) {
             const client = res.data;
             $("#renewClientId").val(client.CustomerID);
             $("#renewDateofregistration").val(client.RegisteredDate);
-            $("#renewTworkout").val(client.workout_type);
-            $("#renewPlans").val(client.plans);  // Ensure this matches the dropdown ID
+            $("#renewTworkout").val(client.types_of_workout);
+            $("#renewPlans").val(client.plans);
             $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
             $("#renewDuration").val(client.duration);
             $("#renewCoach").val(client.coach);
-
             $("#tryClientModal").modal('show');
 
             // Fetch plans and set the selected one

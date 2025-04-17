@@ -380,12 +380,12 @@ $this->section('body'); // Start the body section
                         <input type="email" class="form-control" id="editClients1Emailaddress" name="clients1Emailaddress" required>
                     </div>
 
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="editPassword" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="editPassword" name="password" required>
+                    
+                     <!-- Submit Button -->
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"id="btn-update">Save changes</button>
                     </div>
-
                     
                 </form>
             </div>
@@ -442,7 +442,13 @@ $this->section('body'); // Start the body section
                 <option value="">Select a Coach</option>
                     </select>
             </div>
-
+                    <!-- Coach Sched -->    
+                    <div class="mb-3" id="coachschedSelectDiv">
+                        <label for="coachsched" class="form-label">Select Schedules</label>
+                        <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
+                            <option value="">Select a Schedule</option>
+                        </select>
+                    </div>
 
                     <!-- Total Amount -->
                     <div class="mb-3">
@@ -563,45 +569,46 @@ $this->section('body'); // Start the body section
     });
         ///submit edit
         
-        $("#renewClientForm").submit(function(event) {
-        event.preventDefault(); // Prevent default form submission
+       // Renew Client Form Submission
+$("#renewClientForm").submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-        const formData = $(this).serialize(); // Serialize form data for form-encoded submission
-        const clientId = $("#renewClientId").val(); // Get client ID
+    const formData = $(this).serialize(); // Serialize form data
+    const clientId = $("#renewClientId").val(); // Get client ID
 
-        $.ajax({
-            url: "<?= base_url('/clients1/renewupdate/') ?>/" + clientId, // Corrected route
-            type: "POST",
-            data: formData, // Use form-encoded format, NOT JSON
-            dataType: "json",
-            success: function(response) {
-                if (response.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Updated!",
-                        text: "Client details updated successfully.",
-                        confirmButtonText: "OK"
-                    }).then(() => {
-                        location.reload(); // Reload the page
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Update Failed",
-                        text: response.message
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
+    $.ajax({
+        url: "<?= base_url('/clients1/updaterenew/') ?>/" + clientId,
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function(response) {
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: "success",
+                    title: "Renewed!",
+                    text: response.message,
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    location.reload(); // Reload the page
+                });
+            } else {
                 Swal.fire({
                     icon: "error",
-                    title: "Error",
-                    text: "Something went wrong. Please try again."
+                    title: "Renewal Failed",
+                    text: response.message || "Failed to renew client.",
                 });
-                console.error(xhr.responseText);
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Something went wrong. Please try again.",
+            });
+            console.error(xhr.responseText);
+        }
     });
+});
 
         // Fetch Plans and Coaches
         fetchPlans();
@@ -833,26 +840,23 @@ async function toggleFreeze(CustomerID) {
 
 async function renew(id) {
     try {
-        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
+        const res = await $.get('<?= base_url('/clients1/try/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;
             $("#renewClientId").val(client.CustomerID);
             $("#renewDateofregistration").val(client.RegisteredDate);
-            $("#renewTworkout").val(client.workout_type);
-            $("#renewPlans").val(client.plans);  // Ensure this matches the dropdown ID
-            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#renewDuration").val(client.duration);
-            $("#renewCoach").val(client.coach);
-
+            $("#renewTworkout").val(client.types_of_workout);
+            $("#renewPriceInput").val(client.amount || '');
+            $("#renewDuration").val(client.duration || '');
             $("#tryClientModal").modal('show');
 
-            // Fetch plans and set the selected one
-            await fetchrenewPlans(client.PlanID);  // <== Added this line
+            // Fetch plans and coaches
+            await fetchrenewPlans(client.Membership_plan);
+            await fetchrenewCoach(client.Membership_plan, client.CoachID);
 
-            // Fetch coaches for the selected plan
-            await fetchrenewCoach(client.PlanID, client.CoachID);
-
+            // Fetch schedules
+            await fetchSchedules(client.CoachID);
         } else {
             console.error('No data found in the response:', res);
         }
@@ -861,27 +865,44 @@ async function renew(id) {
     }
 }
 
+// Fetch Coaches for Renewal
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
-        $("#priceInput").val(data.Price);
-
+        $('#renewPriceInput').val(data[0]?.Price || '');
+        $('#renewDuration').val(data[0]?.Duration || '');
 
         data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+            if (coach.CoachID !== null) {
+                let selected = (coach.CoachID == selectedCoachId) ? "selected" : "";
+                $('#renewCoach').append(`<option value="${coach.CoachID}" ${selected}>${coach.FullName}</option>`);
+            }
         });
     } catch (error) {
-        console.error("Error fetching coaches:", error);
+        console.error("   } catch (error) {
+        console.error("面白い coaches:", error);
     }
 }
-
+// Fetch Schedules
+async function fetchSchedules(coachId) {
+    try {
+        const data = await $.get(`<?= base_url('/getCoachSchedules/'); ?>${coachId}`);
+        $('#coachsched').empty();
+        data.forEach(sched => {
+            $('#coachsched').append(`<option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching schedules:", error);
+    }
+}
+// Fetch Plans for Renewal
 async function fetchrenewPlans(selectedPlanId) {
     try {
         const data = await $.get("<?= base_url('/fetchPlans'); ?>");
-        $('#renewPlans').empty(); // Ensure this matches the ID in `renew(id)`
+        $('#renewPlans').empty();
+        $('#renewPlans').append('<option value="">Select a Plan</option>');
 
         data.forEach(plan => {
             let selected = plan.PlanID == selectedPlanId ? "selected" : "";

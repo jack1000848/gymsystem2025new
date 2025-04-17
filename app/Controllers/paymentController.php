@@ -18,7 +18,7 @@ class paymentController extends BaseController
     $clientId = session()->get('CustomerID'); // adjust as needed
     $model = new \App\Models\paymentModel();
 
-    $payments = $model->select('paymenthistory.*, plans.name as PlanName')
+    $payments = $model->select('paymenthistory.*, plan.name as PlanName')
         ->join('plans', 'plans.PlanID = paymenthistory.PlanID', 'left')
         ->where('CustomerID', $clientId)
         ->orderBy('PaidDate', 'DESC')

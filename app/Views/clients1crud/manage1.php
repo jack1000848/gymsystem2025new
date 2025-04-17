@@ -444,8 +444,8 @@ $this->section('body'); // Start the body section
             </div>
                     <!-- Coach Sched -->    
                     <div class="mb-3" id="coachschedSelectDiv">
-                        <label for="coachsched" class="form-label">Select Schedules</label>
-                        <select id="coachsched" class="form-control" multiple name="coachsched[]" required>
+                        <label for="renewcoachsched" class="form-label">Select Schedules</label>
+                        <select id="renewcoachsched" class="form-control" multiple name="renewcoachsched[]" required>
                             <option value="">Select a Schedule</option>
                         </select>
                     </div>
@@ -524,7 +524,30 @@ $this->section('body'); // Start the body section
         schedEl.append("<p>Failed to load schedules.</p>");
     }
     });
-  });
+    const schedEl = $("#renewcoachsched");
+    schedEl.empty();
+
+    try {
+        const data = await $.get("<?= base_url('/getCoachSchedules') ?>/" + value);
+        console.log(data);
+
+        if (data.length === 0) {
+            schedEl.append("<p>No schedules available.</p>");
+            return;
+        }
+
+        data.forEach(sched => {
+            const scheduleItem = `
+                <option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End} </option>
+            `;
+            schedEl.append(scheduleItem);
+        });
+    } catch (error) {
+        console.error("Error fetching schedules:", error);
+        schedEl.append("<p>Failed to load schedules.</p>");
+    }
+    });
+  
 
 
 

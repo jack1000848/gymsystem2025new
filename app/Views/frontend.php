@@ -25,10 +25,11 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#plans">Pricing</a></li>
-           
+            <li><a href="#review">Review</a></li>
+        </ul>
 
         <div class="top-btn">
-            <a href="<?= base_url('joinus') ?>" class="nav-btn">Login</a>
+            <a href="<?= base_url('member-login') ?>" class="nav-btn">Login</a>
         </div>
     </header>
 
@@ -39,15 +40,15 @@
             <h3>Build Your</h3>
             <h1>Dream Physique</h1>
             <h3><span class="multiple-text"></span></h3>
-            <p>"Whether you're starting out or leveling up, Ishow Fitness has your back!"</p>
-            <p>"It’s a slow process, but quitting won’t speed it up."</p>
+            <p>Lorem ipsum dolor sit, bus earum, aliquam ipsa repellat iusto esse laudantium animi vitae consectetur
+                obcaecati.</p>
 
-            <a href="<?= base_url('member-login') ?>" class="btn">Join Us</a>
+            <a href="<?= base_url('join-now') ?>" class="btn">Join Us</a>
             
         </div>
 
         <div class="home-img" data-aos="zoom-in">
-            <img src="<?= base_url('assets/img/alex.jpg.png') ?>" alt="HeroImage">
+            <img src="<?= base_url('assets/img/alexfrontend11.jpg.png') ?>" alt="HeroImage">
         </div>
     </section>
 
@@ -83,7 +84,7 @@
             </div>
 
             <div class="row">
-                <img src="<?= base_url('assets/img/jomarie.jpg.jpg') ?>" alt="">
+                <img src="<?= base_url('assets/img/weightlif.jpg.jpg') ?>" alt="">
 
                 <h4>Weightlifting</h4>
             </div>
@@ -95,7 +96,7 @@
             </div>
 
             <div class="row">
-                <img src="<?= base_url('assets/img/groupworkout.jpg.jpg') ?>" alt="">
+                <img src="<?= base_url('assets/img/weightgain.jpg.jpg') ?>" alt="">
 
                 <h4>Wsheesh Gain</h4>
             </div>
@@ -135,7 +136,7 @@
                     <li>Smart workout plan</li>
                     <li>At home workouts</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -148,7 +149,7 @@
                     <li>Smart workout plan</li>
                     <li>At home workouts</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -163,7 +164,7 @@
                     <li>At home workouts</li>
                     <li>Personal Training</li>
                 </ul>
-                <a href="<?= base_url('joinus') ?>">
+                <a href="<?= base_url('join-now') ?>">
                     Join Now
                     <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -173,7 +174,46 @@
 
     <!-- Review Section -->
 
-    
+    <section id="review" class="review">
+        <div class="review-box">
+            <h2 class="heading" data-aos="zoom-in-down">Client Reviews</h2>
+
+            <div class="wrapper" data-aos="zoom-in-up">
+                <div class="review-item">
+                    <img src="<?= base_url('assets/img/luiereview.jpg') ?>" alt="Review1">
+                    <h2>Ninoy Achino</h2>
+                    <div class="rating">
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                    </div>
+                    <p>I'm Ninoy Achino from NAIA 1, i'm glad to give 5 star this gym website, this is totaly good for me knowing everything in the gym how to used this shit.</p>
+                </div>
+
+                <div class="review-item">
+                    <img src="<?= base_url('assets/img/robinreview.jpg') ?>" alt="Review2">
+                    <h2>Rodrie Padilla</h2>
+                    <div class="rating">
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                    </div>
+                    <p>yes i am, Rodrie ill give 100star review bcause this is good for me helping me a lot and easy transaction for payment.</p>
+                </div>
+
+                <div class="review-item">
+                    <img src="<?= base_url('assets/img/jomsreview.jpg') ?>" alt="Review3">
+                    <h2>David Tumaex</h2>
+                    <div class="rating">
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                        <i class='bx bxs-star' id="star"></i>
+                    </div>
                     <p>owshitt who the fucked guy create this system? im so fucking happy that this system is give me a good way body building, to build my self and learn how to use everything in the gym how the shit works on me like what the hell is goin on here like helps me in a easy way, like men what the fuck kuddos to fukcing people who made this.</p>
                 </div>
             </div>

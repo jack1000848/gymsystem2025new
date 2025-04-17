@@ -5,7 +5,7 @@ use App\Models\PaymentHistoryModel;
 
 class PaymentHistory extends BaseController
 {
-    public function index()
+    public function payment()
     {
         $model = new PaymentHistoryModel();
         $data['payments'] = $model->findAll();

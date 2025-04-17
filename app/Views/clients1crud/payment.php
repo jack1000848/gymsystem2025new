@@ -15,7 +15,7 @@ $this->section('body'); // Start the body section
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: fixed;
             background-color: #f4f4f4;
         }
 
@@ -59,14 +59,14 @@ $this->section('body'); // Start the body section
         /* Placeholder for empty table */
         .empty-message {
             text-align: center;
-            padding: 20px;
+            padding: fixed;
             color: #666;
             font-style: italic;
         }
 
         @media screen and (max-width: 600px) {
             th, td {
-                padding: 8px;
+                padding: fixed;
                 font-size: 14px;
             }
         }

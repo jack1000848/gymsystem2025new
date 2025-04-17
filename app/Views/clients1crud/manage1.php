@@ -840,25 +840,23 @@ async function toggleFreeze(CustomerID) {
 
 async function renew(id) {
     try {
-        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
+        const res = await $.get('<?= base_url('/clients1/try/'); ?>' + id);
 
         if (res && res.data) {
             const client = res.data;
             $("#renewClientId").val(client.CustomerID);
             $("#renewDateofregistration").val(client.RegisteredDate);
             $("#renewTworkout").val(client.types_of_workout);
-            $("#renewPlans").val(client.plans);
-            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#renewDuration").val(client.duration);
-            $("#renewCoach").val(client.coach);
+            $("#renewPriceInput").val(client.amount || '');
+            $("#renewDuration").val(client.duration || '');
             $("#tryClientModal").modal('show');
 
-            // Fetch plans and set the selected one
-            await fetchrenewPlans(client.PlanID);  // <== Added this line
+            // Fetch plans and coaches
+            await fetchrenewPlans(client.Membership_plan);
+            await fetchrenewCoach(client.Membership_plan, client.CoachID);
 
-            // Fetch coaches for the selected plan
-            await fetchrenewCoach(client.PlanID, client.CoachID);
-
+            // Fetch schedules
+            await fetchSchedules(client.CoachID);
         } else {
             console.error('No data found in the response:', res);
         }
@@ -867,27 +865,44 @@ async function renew(id) {
     }
 }
 
+// Fetch Coaches for Renewal
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
-        $("#priceInput").val(data.Price);
-
+        $('#renewPriceInput').val(data[0]?.Price || '');
+        $('#renewDuration').val(data[0]?.Duration || '');
 
         data.forEach(coach => {
-            let selected = (coach.coachID == selectedCoachId) ? "selected" : "";
-            $('#renewCoach').append(`<option value="${coach.coachID}" ${selected}>${coach.FullName}</option>`);
+            if (coach.CoachID !== null) {
+                let selected = (coach.CoachID == selectedCoachId) ? "selected" : "";
+                $('#renewCoach').append(`<option value="${coach.CoachID}" ${selected}>${coach.FullName}</option>`);
+            }
         });
     } catch (error) {
-        console.error("Error fetching coaches:", error);
+        console.error("   } catch (error) {
+        console.error("面白い coaches:", error);
     }
 }
-
+// Fetch Schedules
+async function fetchSchedules(coachId) {
+    try {
+        const data = await $.get(`<?= base_url('/getCoachSchedules/'); ?>${coachId}`);
+        $('#coachsched').empty();
+        data.forEach(sched => {
+            $('#coachsched').append(`<option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>`);
+        });
+    } catch (error) {
+        console.error("Error fetching schedules:", error);
+    }
+}
+// Fetch Plans for Renewal
 async function fetchrenewPlans(selectedPlanId) {
     try {
         const data = await $.get("<?= base_url('/fetchPlans'); ?>");
-        $('#renewPlans').empty(); // Ensure this matches the ID in `renew(id)`
+        $('#renewPlans').empty();
+        $('#renewPlans').append('<option value="">Select a Plan</option>');
 
         data.forEach(plan => {
             let selected = plan.PlanID == selectedPlanId ? "selected" : "";

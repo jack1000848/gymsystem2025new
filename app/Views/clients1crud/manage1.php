@@ -408,13 +408,11 @@ $this->section('body'); // Start the body section
 
                     <!-- Date of Registration -->
                     <div class="mb-3">
-                        <label for="renewDateofregistration" class="form-label">Date of Registration</label>
+                        <label for="renewDateofregistration" class="form-label">Expiration Date</label>
                         <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
                     </div>
 
                      <!-- Gymtimeslot -->
-                     
-
                     <!-- Types of Workout -->
                     <div class="mb-3">
                         <label for="renewTworkout" class="form-label">Types of Workout</label>
@@ -459,7 +457,11 @@ $this->section('body'); // Start the body section
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="renewDuration" class="form-label">Duration</label>
-                        <input type="number" class="form-control" id="renewDuration" name="duration" readonly>
+                        <input type="hidden" class="form-control" id="renewDuration" name="duration" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="renewtAmount" class="form-label">Paid Amount</label>
+                        <input type="text" id="paidamount" class="form-control" name="paidamount" required>
                     </div>
 
                     <!-- Submit Button -->

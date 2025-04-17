@@ -370,9 +370,11 @@ public function updaterenew($id)
         $customerModel = new CustomerModel();
         $planModel = new PlanModel();
         $data = [
-            'RegisteredDate' => $this->request->getPost('dateofregistration'),
+            'ExpirationDate' => $this->request->getPost('dateofregistration'),
             'types_of_workout' => $this->request->getPost('tworkout'),
             'Membership_plan' => $this->request->getPost('plans'),
+            'CurrentPlanID' => $this->request->getPost('plans'),
+            "PaidAmount" => $this->request->getPost('paidamount'),
             'CoachID' => $this->request->getPost('coach'),
             'amount' => $this->request->getPost('amount'),
             'duration' => $this->request->getPost('duration'),
@@ -385,7 +387,7 @@ public function updaterenew($id)
                 'message' => 'Invalid membership plan selected.',
             ]);
         }
-        $startDate = new \DateTime($data['RegisteredDate']);
+        $startDate = new \DateTime($data['ExpirationDate']);
         $duration = $data['duration'] ?? 30;
         $endDate = (clone $startDate)->modify("+{$duration} days");
         $data['EndDate'] = $endDate->format('Y-m-d');
@@ -403,6 +405,11 @@ public function updaterenew($id)
             }
         }
         $updated = $customerModel->update($id, $data);
+        $db = \Config\Database::connect();
+        $sql = "INSERT INTO `paymenthistory` (`CustomerID`, `PlanID`, `Amount`, `PaymentDate`)
+        VALUES (?, ?, ?, NOW())";
+        $db->query($sql, [$id, $data["CurrentPlanID"], $data["PaidAmount"]]);
+
         if ($updated) {
             return $this->response->setJSON([
                 'status' => 'success',

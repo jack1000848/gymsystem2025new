@@ -1,5 +1,5 @@
 <?php
-$this->extend('layout/main'); // Extend the main layout
+$this->extend('layout/mainclient'); // Extend the main layout
 $this->section('body'); // Start the body section
 ?>
 
@@ -87,7 +87,7 @@ $this->section('body'); // Start the body section
                 </tr>
             </thead>
             <tbody id="paymentTableBody">
-    <?php foreach($payments as $payment): ?>
+    <?php foreach($payments1 as $payment): ?>
         <tr>
             <td><?= esc($payment['PaymentHistoryID']) ?></td>
             <td><?= esc($payment['CustomerID']) ?></td>

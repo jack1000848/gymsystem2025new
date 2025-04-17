@@ -13,6 +13,18 @@ class paymentController extends BaseController
         return view('clients1crud/payment', $data);
     }
 
+    public function myPayments()
+{
+    $clientId = session()->get('CustomerID'); // adjust as needed
+    $model = new \App\Models\paymentModel();
+
+    $payments = $model->select('payment_history.*, plans.name as PlanName')
+        ->join('plans', 'plans.PlanID = payment_history.PlanID', 'left')
+        ->where('CustomerID', $clientId)
+        ->orderBy('PaidDate', 'DESC')
+        ->findAll();
+        return view('clientdashboard/mypayment', $data);
+    }
 
     
 }

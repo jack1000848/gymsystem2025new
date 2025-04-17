@@ -153,7 +153,8 @@ $routes->get('/customer/body/history', 'ClientsDashboardController::bodyHistory'
 // view my schedule
 $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
 
-
+///payment history
+$routes->get('/mypayments', 'paymentController::payment');
 /// account setting
 $routes->get('/account-setting', 'ClientsDashboardController::accountSettings');
 $routes->post('/update-account', 'ClientsDashboardController::updateAccount');

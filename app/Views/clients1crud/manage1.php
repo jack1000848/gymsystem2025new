@@ -615,46 +615,45 @@ $(document).ready(function () {
     });
         ///submit edit
         
-       // Renew Client Form Submission
-$("#renewClientForm").submit(function(event) {
-    event.preventDefault(); // Prevent default form submission
+     // Renew Client Form Submission
+    $("#renewClientForm").submit(function(event) {
+        event.preventDefault();
+        const formData = $(this).serialize();
+        const clientId = $("#renewClientId").val();
 
-    const formData = $(this).serialize(); // Serialize form data
-    const clientId = $("#renewClientId").val(); // Get client ID
-
-    $.ajax({
-        url: "<?= base_url('/clients1/updaterenew/') ?>/" + clientId,
-        type: "POST",
-        data: formData,
-        dataType: "json",
-        success: function(response) {
-            if (response.status === "success") {
-                Swal.fire({
-                    icon: "success",
-                    title: "Renewed!",
-                    text: response.message,
-                    confirmButtonText: "OK"
-                }).then(() => {
-                    location.reload(); // Reload the page
-                });
-            } else {
+        $.ajax({
+            url: "<?= base_url('/clients1/updaterenew/') ?>" + clientId,
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function(response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Renewed!",
+                        text: response.message,
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Renewal Failed",
+                        text: response.message || "Failed to renew client.",
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
                 Swal.fire({
                     icon: "error",
-                    title: "Renewal Failed",
-                    text: response.message || "Failed to renew client.",
+                    title: "Error",
+                    text: "Something went wrong. Please try again.",
                 });
+                console.error(xhr.responseText);
             }
-        },
-        error: function(xhr, status, error) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Something went wrong. Please try again.",
-            });
-            console.error(xhr.responseText);
-        }
+        });
     });
-});
 
         // Fetch Plans and Coaches
         fetchPlans();
@@ -885,34 +884,43 @@ async function toggleFreeze(CustomerID) {
 }
 
 async function renew(id) {
-    try {
-        const res = await $.get('<?= base_url('/clients1/renew/'); ?>' + id);
+        try {
+            const res = await $.get('<?= base_url('/clients1/try/'); ?>' + id);
+            if (res && res.data) {
+                const client = res.data;
+                $("#renewClientId").val(client.CustomerID);
+                $("#renewDateofregistration").val(client.RegisteredDate);
+                $("#renewTworkout").val(client.types_of_workout);
+                $("#renewPriceInput").val(client.amount || '');
+                $("#renewDuration").val(client.duration || '');
+                $("#tryClientModal").modal('show');
 
-        if (res && res.data) {
-            const client = res.data;
-            $("#renewClientId").val(client.CustomerID);
-            $("#renewDateofregistration").val(client.RegisteredDate);
-            $("#renewTworkout").val(client.types_of_workout);
-            $("#renewPlans").val(client.plans);
-            $("#renewAmount").val(parseFloat(client.amount).toFixed(2));
-            $("#renewDuration").val(client.duration);
-            $("#renewCoach").val(client.coach);
-            $("#tryClientModal").modal('show');
-
-            // Fetch plans and set the selected one
-            await fetchrenewPlans(client.PlanID);  // <== Added this line
-
-            // Fetch coaches for the selected plan
-            await fetchrenewCoach(client.PlanID, client.CoachID);
-
-        } else {
-            console.error('No data found in the response:', res);
+                // Fetch plans and set the selected one
+                await fetchrenewPlans(client.Membership_plan);
+                // Fetch coaches and set the selected one
+                await fetchrenewCoach(client.Membership_plan, client.CoachID);
+                // Fetch schedules for the selected coach
+                if (client.CoachID) {
+                    await fetchRenewSchedules(client.CoachID);
+                }
+            } else {
+                console.error('No data found in the response:', res);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to load client data.',
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching client data:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to load client data.',
+            });
         }
-    } catch (error) {
-        console.error('Error fetching client data:', error);
     }
-}
-
+    
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
         const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
@@ -977,9 +985,35 @@ async function renewUpdate() {
             alert("There was an error updating the client.");
         }
     });
+    }
 
 
-}
+// Fetch Schedules for Renew Client
+async function fetchRenewSchedules(coachId) {
+        try {
+            const data = await $.get(`<?= base_url('/getSchedules/'); ?>${coachId}`);
+            console.log('Renew Schedules:', data);
+            $('#renewcoachsched').empty();
+            $('#renewcoachsched').append('<option value="">Select a Schedule</option>');
+
+            if (data.length === 0) {
+                $('#renewcoachsched').append('<option value="">No schedules available</option>');
+                return;
+            }
+
+            data.forEach(sched => {
+                $('#renewcoachsched').append(`<option value="${sched.ID}">${sched.ScheduleDate} : ${sched.Start} - ${sched.End}</option>`);
+            });
+        } catch (error) {
+            console.error("Error fetching renew schedules:", error);
+            $('#renewcoachsched').append('<option value="">Failed to load schedules</option>');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to load coach schedules.',
+            });
+        }
+    }
 
 
 

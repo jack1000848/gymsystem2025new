@@ -118,7 +118,8 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 /// adding fetching  plans and coaches
 $routes->get('/fetchPlans', 'CustomerController::getPlans');
 $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
-
+/// payments
+$routes->get('/payment', 'ClientsDashboardController::payment');
 ///View Schedule...
 $routes->get('/view-schedule', 'ViewScheduleForAllUserController::adminview');
 
@@ -149,6 +150,7 @@ $routes->post('/customer/body/save', 'ClientsDashboardController::saveBodyInfo')
 $routes->get('/customer/body/history', 'ClientsDashboardController::bodyHistory');
 // view my schedule
 $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
+
 
 /// account setting
 $routes->get('/account-setting', 'ClientsDashboardController::accountSettings');

@@ -443,7 +443,7 @@ $this->section('body'); // Start the body section
                     </select>
             </div>
                     <!-- Coach Sched -->    
-                    <div class="mb-3" id="coachschedSelectDiv">
+                    <div class="mb-3" id="renewcoachschedSelectDiv">
                         <label for="renewcoachsched" class="form-label">Select Schedules</label>
                         <select id="renewcoachsched" class="form-control" multiple name="renewcoachsched[]" required>
                             <option value="">Select a Schedule</option>
@@ -995,6 +995,7 @@ async function fetchRenewSchedules(coachId) {
             console.log('Renew Schedules:', data);
             $('#renewcoachsched').empty();
             $('#renewcoachsched').append('<option value="">Select a Schedule</option>');
+
 
             if (data.length === 0) {
                 $('#renewcoachsched').append('<option value="">No schedules available</option>');

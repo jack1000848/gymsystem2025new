@@ -93,14 +93,14 @@ function redirectToPage() {
             type: "POST",
             success: function(response) {
                 console.log("Response from server:", response);
-                const customer = response.customer;
+                const coach = response.coach;
 
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
 
-                $("#coachId").text(customer.CoachID || "N/A");
-                $("#fullName").text(customer.FullName || "N/A");
-                $("#expirationDate").text(customer.ExpirationDate || "N/A");
+                $("#coachId").text(coach.CoachID || "N/A");
+                $("#fullName").text(coach.FullName || "N/A");
+              
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {

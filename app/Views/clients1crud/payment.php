@@ -168,7 +168,7 @@ $this->section('body'); // Start the body section
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <h2>Add Payment</h2>
-            <form id="paymentForm" action="/payment/add" method="post">
+            <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
     <?= csrf_field() ?>
     <label for="CustomerID">Customer ID:</label>
     <input type="number" id="CustomerID" name="CustomerID" required>

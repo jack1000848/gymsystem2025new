@@ -37,6 +37,7 @@ $this->section('body'); // Start the body section
     .btn-outline-success {
         border-color: #27ae60;
         color: #27ae60;
+        min-width: 100px;
     }
 
     .btn-outline-success:hover {
@@ -47,6 +48,7 @@ $this->section('body'); // Start the body section
     .btn-info {
         background-color: #17a2b8;
         border: none;
+        min-width: 100px;
     }
 
     .btn-info:hover {
@@ -54,21 +56,23 @@ $this->section('body'); // Start the body section
     }
 
     .btn-warning {
-        background-color: #f39c12;
+        background-color: #f1c40f;
         border: none;
+        min-width: 100px;
     }
 
     .btn-warning:hover {
-        background-color: #e67e22;
+        background-color: #d4ac0d;
     }
 
-    .btn-secondary {
-        background-color: #7f8c8d;
+    .btn-success {
+        background-color: #27ae60;
         border: none;
+        min-width: 100px;
     }
 
-    .btn-secondary:hover {
-        background-color: #6c757d;
+    .btn-success:hover {
+        background-color: #219653;
     }
 
     h1.modal-title {
@@ -81,7 +85,7 @@ $this->section('body'); // Start the body section
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
 
-    .form-control, .select2-container--default .select2-selection--multiple {
+    .form-control, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
         border-radius: 8px;
         font-size: 15px;
     }
@@ -138,10 +142,6 @@ $this->section('body'); // Start the body section
 
     .select2-container {
         width: 100% !important;
-    }
-
-    .form-check-input {
-        margin-top: 0.3rem;
     }
 </style>
 <div class="p-2 row mb-3">

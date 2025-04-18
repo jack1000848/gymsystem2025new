@@ -55,46 +55,67 @@ class CoachDashboardController extends BaseController
         // Filter schedules by the logged-in coach
         $data['coach'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
 
-        // Aggregate check-ins by date for the chart (last 60 days to be safe)
-        $startDate = date('Y-m-d', strtotime('-60 days'));
-        $endDate = date('Y-m-d');
-        $attendanceCounts = $this->attendanceModel
+        // Debug: Log schedule data
+        log_message('debug', 'Schedule Data: ' . json_encode($data['coach']));
+
+        // Fetch all check-ins for the coach (no date filter)
+        $query = $this->attendanceModel
             ->select("DATE(CheckInTime) as date, COUNT(*) as count")
             ->where('CoachID', $coachID)
-            ->where('CheckInTime >=', $startDate . ' 00:00:00')
-            ->where('CheckInTime <=', $endDate . ' 23:59:59')
             ->groupBy('DATE(CheckInTime)')
-            ->orderBy('DATE(CheckInTime)', 'ASC')
-            ->findAll();
+            ->orderBy('DATE(CheckInTime)', 'ASC');
+
+        // Debug: Log raw SQL query
+        log_message('debug', 'Attendance Query: ' . $query->getCompiledSelect());
+
+        $attendanceCounts = $query->findAll();
 
         // Debug: Log query results
         log_message('debug', 'Attendance Counts: ' . json_encode($attendanceCounts));
 
-        // Prepare data for Chart.js (last 30 days for display)
+        // Prepare data for Chart.js (last 30 days)
         $labels = [];
         $counts = [];
-        $currentDate = strtotime('-30 days');
+        $startDate = date('Y-m-d', strtotime('-30 days'));
+        $endDate = date('Y-m-d');
+        $currentDate = strtotime($startDate);
         $endTimestamp = strtotime($endDate);
 
-        while ($currentDate <= $endTimestamp) {
-            $dateStr = date('Y-m-d', $currentDate);
-            $labels[] = $dateStr;
-            $found = false;
-            foreach ($attendanceCounts as $row) {
-                if ($row['date'] === $dateStr) {
-                    $counts[] = (int)$row['count'];
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
+        if (empty($attendanceCounts)) {
+            // Fallback: Populate with zeros
+            log_message('debug', 'No attendance data found, using fallback');
+            while ($currentDate <= $endTimestamp) {
+                $dateStr = date('Y-m-d', $currentDate);
+                $labels[] = $dateStr;
                 $counts[] = 0;
+                $currentDate = strtotime('+1 day', $currentDate);
             }
-            $currentDate = strtotime('+1 day', $currentDate);
+        } else {
+            // Use actual data
+            while ($currentDate <= $endTimestamp) {
+                $dateStr = date('Y-m-d', $currentDate);
+                $labels[] = $dateStr;
+                $found = false;
+                foreach ($attendanceCounts as $row) {
+                    if ($row['date'] === $dateStr) {
+                        $counts[] = (int)$row['count'];
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $counts[] = 0;
+                }
+                $currentDate = strtotime('+1 day', $currentDate);
+            }
         }
 
         $data['chartLabels'] = json_encode($labels);
         $data['chartData'] = json_encode($counts);
+
+        // Debug: Log chart data
+        log_message('debug', 'Chart Labels: ' . $data['chartLabels']);
+        log_message('debug', 'Chart Data: ' . $data['chartData']);
 
         return view('/coachdashboard/TimeSheds', $data);
     }

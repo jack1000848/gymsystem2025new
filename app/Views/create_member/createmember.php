@@ -57,13 +57,13 @@
                  </div>
 
 
-    <div class="mb-3">
-        <label for ="dateofregistration" class="form-label">Date of Registration</label>
-        <input type="date" class="form-control" name="dateofregistration"required
-        min="<?= date('Y-m-d') ?>">
-   </div>
+                 <div class="mb-3">
+    <label for="dateofregistration" class="form-label">Date of Registration</label>
+    <input type="date" class="form-control" name="dateofregistration" required
+           min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d') ?>">
+</div>
 
-    <!-- Gymtimeslot -->
+    <!-- Gymtimeslot 
     
     
    <div class="mb-3">
@@ -77,7 +77,7 @@
                     </select>
                  </div>
 
-   
+                 -->
 
 <div class="mb-3">
    <label for="plans" class="form-label">Membership Plan</label>

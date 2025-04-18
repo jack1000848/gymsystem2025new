@@ -31,9 +31,11 @@
             
 
           <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-                <input type="text" class="form-control" name="password">
-             </div>
+               <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required
+              minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Password must be at least 8 characters long, including at least one number, one lowercase letter, and one uppercase letter.">
+          </div>
 
             <div class="mb-3">
                 <label for="clients1Fulladdress" class="form-label">Full Address</label>

@@ -51,7 +51,7 @@ class CoachDashboardController extends BaseController
 
         // Filter schedules by the logged-in coach only
         $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
-
+        
         return view('/coachdashboard/ManagemyScheds', $data);
     }
 

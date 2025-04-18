@@ -163,7 +163,7 @@ $this->section('body'); // Start the body section
         </table>
     </div>
 
-    <form id="paymentForm" action="/payment/add" method="post">
+    <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
     <?= csrf_field() ?>
     <label for="CustomerID">Customer:</label>
     <select id="CustomerID" name="CustomerID" required>

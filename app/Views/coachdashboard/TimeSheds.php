@@ -141,13 +141,19 @@
 
     <!-- Chart Section -->
     <div class="col-12">
-        <div class="chart-container">
-            <canvas id="attendanceChart"></canvas>
-        </div>
+        <?php if (isset($chartLabels) && isset($chartData)): ?>
+            <div class="chart-container">
+                <canvas id="attendanceChart"></canvas>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                No attendance data available to display the chart.
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Success Message -->
-    <?php if (session()->getFlashdata('success')) : ?>
+    <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?= session()->getFlashdata('success') ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -169,11 +175,11 @@
             <tbody>
                 <?php foreach ($coach as $coachSched): ?>
                     <tr>
-                        <th scope="row"><?= $coachSched['ID']; ?></th>
-                        <td><?= $coachSched['ScheduleDate']; ?></td>
-                        <td><?= $coachSched['Start']; ?></td>
-                        <td><?= $coachSched['End']; ?></td>
-                        <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+                        <th scope="row"><?= esc($coachSched['ID']); ?></th>
+                        <td><?= esc($coachSched['ScheduleDate']); ?></td>
+                        <td><?= esc($coachSched['Start']); ?></td>
+                        <td><?= esc($coachSched['End']); ?></td>
+                        <td><?= isset($coachSched['CustomerName']) ? esc($coachSched['CustomerName']) : 'N/A'; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -198,7 +204,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-                <input type="text" class="form-control" name="Equantity" required>
+                <input type="file" class="form-control" name="equipmentpic" required>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Description</label>
@@ -219,60 +225,62 @@
             responsive: true
         });
 
-        // Chart.js setup for bar chart
-        const ctx = document.getElementById('attendanceChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo $chartLabels; ?>,
-                datasets: [{
-                    label: 'Check-ins per Day',
-                    data: <?php echo $chartData; ?>,
-                    backgroundColor: '#3498db',
-                    borderColor: '#2980b9',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Number of Check-ins'
-                        },
-                        ticks: {
-                            stepSize: 1 // Whole numbers for check-in counts
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        },
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 45
-                        }
-                    }
+        // Initialize Chart.js if data is available
+        <?php if (isset($chartLabels) && isset($chartData)): ?>
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo $chartLabels; ?>,
+                    datasets: [{
+                        label: 'Check-ins per Day',
+                        data: <?php echo $chartData; ?>,
+                        backgroundColor: '#3498db',
+                        borderColor: '#2980b9',
+                        borderWidth: 1
+                    }]
                 },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Coach Attendance (Last 30 Days)',
-                        font: {
-                            size: 18,
-                            family: 'Segoe UI'
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Check-ins'
+                            },
+                            ticks: {
+                                stepSize: 1 // Whole numbers for check-in counts
+                            }
                         },
-                        color: '#2c3e50'
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Coach Attendance (Last 30 Days)',
+                            font: {
+                                size: 18,
+                                family: 'Segoe UI'
+                            },
+                            color: '#2c3e50'
+                        }
                     }
                 }
-            }
-        });
+            });
+        <?php endif; ?>
 
         // btn-save click handler (if needed)
         $("#btn-save").on('click', function(){

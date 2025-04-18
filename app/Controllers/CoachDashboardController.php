@@ -90,7 +90,7 @@ class CoachDashboardController extends BaseController
         $data['chartLabels'] = json_encode($labels);
         $data['chartData'] = json_encode($counts);
 
-        return view('/coachdashboard/ManagemyScheds', $data);
+        return view('/coachdashboard/TimeSheds', $data);
     }
 
     // Store Schedule

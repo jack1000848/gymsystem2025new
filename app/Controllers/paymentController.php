@@ -8,7 +8,11 @@ class paymentController extends BaseController
     public function payment()
     {
         $model = new paymentModel();
+        $planModel = new PlanModel();
+        
         $data['payments'] = $model->findAll();
+        $data['plans'] = $planModel->findAll(); // Fetch all plans
+
         return view('clients1crud/payment', $data);
     }
 
@@ -66,7 +70,7 @@ class paymentController extends BaseController
         ]);
 
         if ($result) {
-            return redirect()->to('/clientdashboard/make_payment')->with('success', 'Payment added successfully.');
+            return redirect()->to('/clients1crud/payment')->with('success', 'Payment added successfully.');
         } else {
             return redirect()->back()->with('error', 'Failed to add payment.');
         }

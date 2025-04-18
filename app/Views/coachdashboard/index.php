@@ -1,161 +1,137 @@
 <?php
-$this->extend('layout/main'); // Extend the main layout
-$this->section('body'); // Start the body section
-?>
+    $this ->extend('layout/maincoach');
+    $this ->section('body');
+
+    ?>
 
 <!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make a Payment</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Coach Attendance Chart</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .payment-container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .payment-container h2 {
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 20px 0;
             text-align: center;
-            color: #333;
         }
-        .form-group {
-            margin-bottom: 15px;
+
+        .chart-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
+
+        canvas {
+            max-width: 100%;
         }
-        select, #card-element {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        #card-element {
-            background: #fff;
-        }
-        button {
-            width: 100%;
+
+        .alert {
+            border-radius: 10px;
             padding: 12px;
-            background-color: #0CA6F7;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0990d1;
-        }
-        #payment-message {
-            margin-top: 10px;
-            text-align: center;
-            color: red;
+            font-size: 15px;
+            width: 80%;
+            margin: 20px auto;
         }
     </style>
 </head>
 <body>
-    <div class="payment-container">
-        <h2>Make a Payment</h2>
-        <form id="payment-form">
-            <div class="form-group">
-                <label for="plan">Select Plan</label>
-                <select id="plan" name="plan_id" required>
-                    <option value="">Choose a plan</option>
-                    <?php foreach ($plans as $plan): ?>
-                        <option value="<?= esc($plan['PlanID']) ?>" data-price="<?= esc($plan['Price']) ?>">
-                            <?= esc($plan['PlanName']) ?> - $<?= esc($plan['Price']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="card-element">Credit or Debit Card</label>
-                <div id="card-element"></div>
-            </div>
-            <button type="submit">Pay Now</button>
-            <div id="payment-message"></div>
-        </form>
+<div class="p-2 row mb-3">
+    <h2>COACH ATTENDANCE</h2>
+
+    <!-- Chart Section -->
+    <div class="col-12">
+        <div class="chart-container">
+            <canvas id="attendanceChart"></canvas>
+        </div>
     </div>
 
-    <script>
-        // Initialize Stripe
-        const stripe = Stripe('<?= env('STRIPE_PUBLIC_KEY') ?>'); // Load from .env
-        const elements = stripe.elements();
-        const card = elements.create('card');
-        card.mount('#card-element');
+    <!-- Debug Message (if no data) -->
+    <?php if (empty(json_decode($chartData))): ?>
+        <div class="alert alert-warning">
+            No attendance data available for the last 30 days.
+        </div>
+    <?php endif; ?>
+</div>
 
-        const form = document.getElementById('payment-form');
-        const paymentMessage = document.getElementById('payment-message');
-        const planSelect = document.getElementById('plan');
+<script>
+    $(document).ready(function(){
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const labels = <?php echo isset($chartLabels) ? $chartLabels : '["No Data"]'; ?>;
+        const data = <?php echo isset($chartData) ? $chartData : '[0]'; ?>;
 
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            paymentMessage.textContent = '';
-
-            const planId = planSelect.value;
-            const price = planSelect.options[planSelect.selectedIndex].dataset.price * 100; // Convert to cents
-
-            if (!planId) {
-                paymentMessage.textContent = 'Please select a plan.';
-                return;
-            }
-
-            // Call backend to create PaymentIntent
-            try {
-                const response = await fetch('/payment/create-payment-intent', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount: price, plan_id: planId })
-                });
-                const { clientSecret, error } = await response.json();
-
-                if (error) {
-                    paymentMessage.textContent = error;
-                    return;
-                }
-
-                // Confirm payment with Stripe
-                const result = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: { card }
-                });
-
-                if (result.error) {
-                    paymentMessage.textContent = result.error.message;
-                } else {
-                    if (result.paymentIntent.status === 'succeeded') {
-                        paymentMessage.style.color = 'green';
-                        paymentMessage.textContent = 'Payment successful!';
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Payment Successful',
-                            text: 'Your payment has been processed.',
-                            confirmButtonText: 'OK'
-                        }).then(() => {
-                            window.location.href = '/clientdashboard/mypayment'; // Redirect to payment history
-                        });
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Check-ins per Day',
+                    data: data,
+                    backgroundColor: '#3498db',
+                    borderColor: '#2980b9',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Check-ins'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Coach Attendance (Last 30 Days)',
+                        font: {
+                            size: 18,
+                            family: 'Segoe UI'
+                        },
+                        color: '#2c3e50'
                     }
                 }
-            } catch (error) {
-                paymentMessage.textContent = 'An error occurred. Please try again.';
             }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
 
-<?php $this->endSection(); ?>
+<?php $this->endSection(); ?> 

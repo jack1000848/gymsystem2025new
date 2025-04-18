@@ -63,13 +63,17 @@ class CoachDashboardController extends BaseController
             ->groupBy('DATE(CheckInTime)')
             ->orderBy('DATE(CheckInTime)', 'ASC');
 
-        // Debug: Log raw SQL
-        log_message('debug', 'Attendance Query: ' . $query->getCompiledSelect());
+        // Debug: Log query structure
+        log_message('debug', 'Attendance Query Structure: SELECT DATE(CheckInTime) as date, COUNT(*) as count FROM coachattendance WHERE CoachID = ' . $coachID . ' GROUP BY DATE(CheckInTime) ORDER BY DATE(CheckInTime) ASC');
 
         $attendanceCounts = $query->findAll();
 
         // Debug: Log raw results
         log_message('debug', 'Attendance Counts: ' . json_encode($attendanceCounts));
+
+        // Debug: Log last executed query
+        $db = \Config\Database::connect();
+        log_message('debug', 'Last Query: ' . $db->getLastQuery());
 
         // Prepare chart data (last 30 days)
         $labels = [];

@@ -38,7 +38,7 @@ class CoachDashboardController extends BaseController
     }
 
     ///here's the coach manage my schedules
-     public function coachManage()
+    public function coachManage()
     {
         if (!session()->has('CoachID')) {
             return redirect()->to('/coach-login'); // Redirect if not logged in
@@ -50,8 +50,46 @@ class CoachDashboardController extends BaseController
         }
 
         // Filter schedules by the logged-in coach only
-        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
-        
+        $data['coach'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
+
+        // Aggregate check-ins by date for the chart (last 30 days)
+        $startDate = date('Y-m-d', strtotime('-30 days'));
+        $endDate = date('Y-m-d');
+        $attendanceCounts = $this->attendanceModel
+            ->select("DATE(CheckInTime) as date, COUNT(*) as count")
+            ->where('CoachID', $coachID)
+            ->where('CheckInTime >=', $startDate . ' 00:00:00')
+            ->where('CheckInTime <=', $endDate . ' 23:59:59')
+            ->groupBy('DATE(CheckInTime)')
+            ->orderBy('DATE(CheckInTime)', 'ASC')
+            ->findAll();
+
+        // Prepare data for Chart.js
+        $labels = [];
+        $counts = [];
+        $currentDate = strtotime($startDate);
+        $endTimestamp = strtotime($endDate);
+
+        while ($currentDate <= $endTimestamp) {
+            $dateStr = date('Y-m-d', $currentDate);
+            $labels[] = $dateStr;
+            $found = false;
+            foreach ($attendanceCounts as $row) {
+                if ($row['date'] === $dateStr) {
+                    $counts[] = $row['count'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $counts[] = 0;
+            }
+            $currentDate = strtotime('+1 day', $currentDate);
+        }
+
+        $data['chartLabels'] = json_encode($labels);
+        $data['chartData'] = json_encode($counts);
+
         return view('/coachdashboard/ManagemyScheds', $data);
     }
 

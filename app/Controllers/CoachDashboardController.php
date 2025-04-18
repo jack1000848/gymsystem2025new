@@ -50,30 +50,28 @@ class CoachDashboardController extends BaseController
         }
 
         // Debug: Log CoachID
-        log_message('debug', 'CoachID: ' . $coachID);
+        log_message('debug', 'Session CoachID: ' . $coachID);
 
-        // Filter schedules by the logged-in coach
+        // Fetch schedules
         $data['coach'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
+        log_message('debug', 'Schedule Data Count: ' . count($data['coach']));
 
-        // Debug: Log schedule data
-        log_message('debug', 'Schedule Data: ' . json_encode($data['coach']));
-
-        // Fetch all check-ins for the coach (no date filter)
+        // Fetch all attendance records for the coach
         $query = $this->attendanceModel
-            ->select("DATE(CheckInTime) as date, COUNT(*) as count")
+            ->select('DATE(CheckInTime) as date, COUNT(*) as count')
             ->where('CoachID', $coachID)
             ->groupBy('DATE(CheckInTime)')
             ->orderBy('DATE(CheckInTime)', 'ASC');
 
-        // Debug: Log raw SQL query
+        // Debug: Log raw SQL
         log_message('debug', 'Attendance Query: ' . $query->getCompiledSelect());
 
         $attendanceCounts = $query->findAll();
 
-        // Debug: Log query results
+        // Debug: Log raw results
         log_message('debug', 'Attendance Counts: ' . json_encode($attendanceCounts));
 
-        // Prepare data for Chart.js (last 30 days)
+        // Prepare chart data (last 30 days)
         $labels = [];
         $counts = [];
         $startDate = date('Y-m-d', strtotime('-30 days'));
@@ -82,16 +80,13 @@ class CoachDashboardController extends BaseController
         $endTimestamp = strtotime($endDate);
 
         if (empty($attendanceCounts)) {
-            // Fallback: Populate with zeros
             log_message('debug', 'No attendance data found, using fallback');
             while ($currentDate <= $endTimestamp) {
-                $dateStr = date('Y-m-d', $currentDate);
-                $labels[] = $dateStr;
+                $labels[] = date('Y-m-d', $currentDate);
                 $counts[] = 0;
                 $currentDate = strtotime('+1 day', $currentDate);
             }
         } else {
-            // Use actual data
             while ($currentDate <= $endTimestamp) {
                 $dateStr = date('Y-m-d', $currentDate);
                 $labels[] = $dateStr;

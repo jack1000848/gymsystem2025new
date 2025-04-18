@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\paymentModel;
-use App\Models\planModel;
+use App\Models\PlanModel;
 use App\Models\CustomerModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
@@ -12,7 +12,7 @@ class paymentController extends BaseController
     {
         $model = new paymentModel();
         $customerModel = new \App\Models\CustomerModel(); // Assuming you have a customer model
-        $planModel = new \App\Models\planModel(); // Assuming you have a plan model
+        $planModel = new \App\Models\PlanModel(); // Assuming you have a plan model
     
         $data['payments'] = $model->findAll();
         $data['customers'] = $customerModel->findAll();

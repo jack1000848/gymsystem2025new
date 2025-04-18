@@ -173,7 +173,7 @@
                             <p class="m-0">View My Clients</p>
                         </a>
                     </li>
-                    tasks/create
+                    
                     <li class="nav-item">
                         <a href="<?= base_url('viewequipment1') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="fas fa-dumbbell nav-icon"></i>

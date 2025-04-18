@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\paymentModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class paymentController extends BaseController
 {
@@ -13,18 +14,43 @@ class paymentController extends BaseController
         return view('clients1crud/payment', $data);
     }
 
-    public function myPayments()
-{
-    $clientId = session()->get('CustomerID'); // adjust as needed
-    $model = new \App\Models\paymentModel();
+    public function add()
+    {
+        $model = new paymentModel();
 
-    $payments = $model->select('paymenthistory.*, PlanName as PlanName')
-        ->join('plan', 'plan.PlanID = paymenthistory.PlanID', 'left')
-        ->where('CustomerID', $clientId)
-        ->orderBy('PaidDate', 'DESC')
-        ->findAll();
-        return view('clientdashboard/mypayment', ['payments' => $payments]);
+        if ($this->request->getMethod() === 'post' && $this->validate([
+            'CustomerID' => 'required|integer',
+            'PaidAmount' => 'required|decimal',
+            'PaidDate' => 'required|valid_date',
+            'PlanID' => 'required|integer',
+        ])) {
+            $data = [
+                'CustomerID' => $this->request->getPost('CustomerID'),
+                'PaidAmount' => $this->request->getPost('PaidAmount'),
+                'PaidDate' => $this->request->getPost('PaidDate'),
+                'PlanID' => $this->request->getPost('PlanID'),
+            ];
+
+            if ($model->insert($data)) {
+                return redirect()->to('/payment')->with('success', 'Payment added successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Failed to add payment.')->withInput();
+            }
+        } else {
+            return redirect()->back()->with('error', 'Invalid input.')->withInput();
+        }
     }
 
-    
+    public function myPayments()
+    {
+        $clientId = session()->get('CustomerID'); // Adjust as needed
+        $model = new paymentModel();
+
+        $payments = $model->select('paymenthistory.*, PlanName as PlanName')
+            ->join('plan', 'plan.PlanID = paymenthistory.PlanID', 'left')
+            ->where('CustomerID', $clientId)
+            ->orderBy('PaidDate', 'DESC')
+            ->findAll();
+        return view('clientdashboard/mypayment', ['payments' => $payments]);
+    }
 }

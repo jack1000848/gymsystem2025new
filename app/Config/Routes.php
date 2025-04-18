@@ -122,6 +122,7 @@ $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 $routes->get('/payment', 'paymentController::payment');
 $routes->post('/payment/update', 'paymentController::update');
 $routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
+$routes->post('/payment/add', 'paymentController::add');
 ///View Schedule...
 $routes->get('/view-schedule', 'ViewScheduleForAllUserController::adminview');
 

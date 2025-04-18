@@ -9,8 +9,13 @@ class paymentController extends BaseController
     public function payment()
     {
         $model = new paymentModel();
+        $customerModel = new \App\Models\customerModel(); // Assuming you have a customer model
+        $planModel = new \App\Models\planModel(); // Assuming you have a plan model
+    
         $data['payments'] = $model->findAll();
-
+        $data['customers'] = $customerModel->findAll();
+        $data['plans'] = $planModel->findAll();
+    
         return view('clients1crud/payment', $data);
     }
 
@@ -53,4 +58,5 @@ class paymentController extends BaseController
             ->findAll();
         return view('clientdashboard/mypayment', ['payments' => $payments]);
     }
+    
 }

@@ -163,6 +163,33 @@ $this->section('body'); // Start the body section
         </table>
     </div>
 
+    <form id="paymentForm" action="/payment/add" method="post">
+    <?= csrf_field() ?>
+    <label for="CustomerID">Customer:</label>
+    <select id="CustomerID" name="CustomerID" required>
+        <option value="">Select Customer</option>
+        <?php foreach ($customers as $customer): ?>
+            <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['CustomerName']) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="PaidAmount">Paid Amount:</label>
+    <input type="number" id="PaidAmount" name="PaidAmount" step="0.01" required>
+
+    <label for="PaidDate">Paid Date:</label>
+    <input type="date" id="PaidDate" name="PaidDate" value="<?= date('Y-m-d') ?>" required>
+
+    <label for="PlanID">Plan:</label>
+    <select id="PlanID" name="PlanID" required>
+        <option value="">Select Plan</option>
+        <?php foreach ($plans as $plan): ?>
+            <option value="<?= esc($plan['PlanID']) ?>"><?= esc($plan['PlanName']) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <button type="submit">Add Payment</button>
+    <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
+</form>
     <!-- Modal for Adding Payment -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">

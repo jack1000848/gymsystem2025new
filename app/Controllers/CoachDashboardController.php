@@ -41,19 +41,22 @@ class CoachDashboardController extends BaseController
     public function coachManage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login');
         }
-        $coachID = session()->get('CoachID'); // Get logged-in coach's ID
+        $coachID = session()->get('CoachID');
 
         if (!$coachID) {
             return redirect()->to('/coach-login')->with('error', 'Please login first.');
         }
 
-        // Filter schedules by the logged-in coach only
+        // Debug: Log CoachID
+        log_message('debug', 'CoachID: ' . $coachID);
+
+        // Filter schedules by the logged-in coach
         $data['coach'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
 
-        // Aggregate check-ins by date for the chart (last 30 days)
-        $startDate = date('Y-m-d', strtotime('-30 days'));
+        // Aggregate check-ins by date for the chart (last 60 days to be safe)
+        $startDate = date('Y-m-d', strtotime('-60 days'));
         $endDate = date('Y-m-d');
         $attendanceCounts = $this->attendanceModel
             ->select("DATE(CheckInTime) as date, COUNT(*) as count")
@@ -64,10 +67,13 @@ class CoachDashboardController extends BaseController
             ->orderBy('DATE(CheckInTime)', 'ASC')
             ->findAll();
 
-        // Prepare data for Chart.js
+        // Debug: Log query results
+        log_message('debug', 'Attendance Counts: ' . json_encode($attendanceCounts));
+
+        // Prepare data for Chart.js (last 30 days for display)
         $labels = [];
         $counts = [];
-        $currentDate = strtotime($startDate);
+        $currentDate = strtotime('-30 days');
         $endTimestamp = strtotime($endDate);
 
         while ($currentDate <= $endTimestamp) {
@@ -76,7 +82,7 @@ class CoachDashboardController extends BaseController
             $found = false;
             foreach ($attendanceCounts as $row) {
                 if ($row['date'] === $dateStr) {
-                    $counts[] = $row['count'];
+                    $counts[] = (int)$row['count'];
                     $found = true;
                     break;
                 }
@@ -92,7 +98,6 @@ class CoachDashboardController extends BaseController
 
         return view('/coachdashboard/TimeSheds', $data);
     }
-
     // Store Schedule
     public function storemanage()
     {

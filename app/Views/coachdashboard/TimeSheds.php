@@ -141,15 +141,9 @@
 
     <!-- Chart Section -->
     <div class="col-12">
-        <?php if (isset($chartLabels) && isset($chartData)): ?>
-            <div class="chart-container">
-                <canvas id="attendanceChart"></canvas>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-warning">
-                No attendance data available to display the chart.
-            </div>
-        <?php endif; ?>
+        <div class="chart-container">
+            <canvas id="attendanceChart"></canvas>
+        </div>
     </div>
 
     <!-- Success Message -->
@@ -204,7 +198,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-                <input type="file" class="form-control" name="equipmentpic" required>
+                <input type="text" class="form-control" name="Equantity" required>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Description</label>
@@ -225,62 +219,63 @@
             responsive: true
         });
 
-        // Initialize Chart.js if data is available
-        <?php if (isset($chartLabels) && isset($chartData)): ?>
-            const ctx = document.getElementById('attendanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: <?php echo $chartLabels; ?>,
-                    datasets: [{
-                        label: 'Check-ins per Day',
-                        data: <?php echo $chartData; ?>,
-                        backgroundColor: '#3498db',
-                        borderColor: '#2980b9',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Number of Check-ins'
-                            },
-                            ticks: {
-                                stepSize: 1 // Whole numbers for check-in counts
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Date'
-                            },
-                            ticks: {
-                                maxRotation: 45,
-                                minRotation: 45
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        },
+        // Initialize Chart.js with fallback data
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const labels = <?php echo isset($chartLabels) ? $chartLabels : '[]'; ?>;
+        const data = <?php echo isset($chartData) ? $chartData : '[]'; ?>;
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels.length ? labels : ['No Data'],
+                datasets: [{
+                    label: 'Check-ins per Day',
+                    data: data.length ? data : [0],
+                    backgroundColor: '#3498db',
+                    borderColor: '#2980b9',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Coach Attendance (Last 30 Days)',
-                            font: {
-                                size: 18,
-                                family: 'Segoe UI'
-                            },
-                            color: '#2c3e50'
+                            text: 'Number of Check-ins'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
                         }
                     }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Coach Attendance (Last 30 Days)',
+                        font: {
+                            size: 18,
+                            family: 'Segoe UI'
+                        },
+                        color: '#2c3e50'
+                    }
                 }
-            });
-        <?php endif; ?>
+            }
+        });
 
         // btn-save click handler (if needed)
         $("#btn-save").on('click', function(){

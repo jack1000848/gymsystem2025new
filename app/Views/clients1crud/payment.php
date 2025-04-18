@@ -169,7 +169,7 @@ $this->section('body'); // Start the body section
     <select id="CustomerID" name="CustomerID" required>
         <option value="">Select Customer</option>
         <?php foreach ($customers as $customer): ?>
-            <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['CustomerName']) ?></option>
+            <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['Firstname']) ?></option>
         <?php endforeach; ?>
     </select>
 

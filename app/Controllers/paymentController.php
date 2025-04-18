@@ -24,7 +24,8 @@ class paymentController extends BaseController
     public function add()
     {
         $model = new paymentModel();
-
+        log_message('debug', 'Payment add request received: ' . json_encode($this->request->getPost()));
+    
         if ($this->request->getMethod() === 'post' && $this->validate([
             'CustomerID' => 'required|integer',
             'PaidAmount' => 'required|decimal',
@@ -37,17 +38,23 @@ class paymentController extends BaseController
                 'PaidDate' => $this->request->getPost('PaidDate'),
                 'PlanID' => $this->request->getPost('PlanID'),
             ];
-
+    
+            log_message('debug', 'Validated data: ' . json_encode($data));
+    
             if ($model->insert($data)) {
+                log_message('debug', 'Payment inserted successfully');
                 return redirect()->to('/payment')->with('success', 'Payment added successfully.');
             } else {
-                return redirect()->back()->with('error', 'Failed to add payment.')->withInput();
+                $errors = $model->errors();
+                log_message('error', 'Failed to insert payment: ' . json_encode($errors));
+                return redirect()->back()->with('error', 'Failed to add payment: ' . json_encode($errors))->withInput();
             }
         } else {
-            return redirect()->back()->with('error', 'Invalid input.')->withInput();
+            $validationErrors = $this->validator->getErrors();
+            log_message('error', 'Validation failed: ' . json_encode($validationErrors));
+            return redirect()->back()->with('error', 'Invalid input: ' . json_encode($validationErrors))->withInput();
         }
     }
-
     public function myPayments()
     {
         $clientId = session()->get('CustomerID'); // Adjust as needed

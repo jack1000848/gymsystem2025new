@@ -215,31 +215,39 @@ $this->section('body'); // Start the body section
     </div>
 
     <script>
-        function openModal() {
-            document.getElementById('paymentModal').style.display = 'flex';
-        }
+    function openModal() {
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
 
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
+    function closeModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
 
-        // Optional: Close modal if clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('paymentModal');
-            if (event.target === modal) {
-                closeModal();
-            }
+    window.onclick = function(event) {
+        const modal = document.getElementById('paymentModal');
+        if (event.target === modal) {
+            closeModal();
         }
+    }
 
-        // Optional: Show SweetAlert2 on successful submission
-        <?php if (session()->getFlashdata('success')): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '<?= session()->getFlashdata('success') ?>',
-            });
-        <?php endif; ?>
-    </script>
+    // Add this to log form submission
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent submission for testing
+        const formData = new FormData(this);
+        console.log('Form Data:', Object.fromEntries(formData));
+        alert('Check console for form data!');
+        // Remove e.preventDefault() and this block after testing
+        this.submit(); // Proceed with submission
+    });
+
+    <?php if (session()->getFlashdata('success')): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '<?= session()->getFlashdata('success') ?>',
+        });
+    <?php endif; ?>
+</script>
 </body>
 </html>
 

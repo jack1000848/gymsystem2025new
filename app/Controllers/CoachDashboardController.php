@@ -31,10 +31,70 @@ class CoachDashboardController extends BaseController
     public function dashboardindex()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/coach-login');
         }
+        $coachID = session()->get('CoachID');
+
+        if (!$coachID) {
+            return redirect()->to('/coach-login')->with('error', 'Please login first.');
+        }
+
+        // Debug: Log CoachID
+        log_message('debug', 'attendanceChart - Session CoachID: ' . $coachID);
+
+        // Fetch attendance records (no date filter to maximize data)
+        $attendanceCounts = $this->attendanceModel
+            ->select('DATE(CheckInTime) as date, COUNT(*) as count')
+            ->where('CoachID', $coachID)
+            ->groupBy('DATE(CheckInTime)')
+            ->orderBy('DATE(CheckInTime)', 'ASC')
+            ->findAll();
+
+        // Debug: Log results
+        log_message('debug', 'attendanceChart - Attendance Counts: ' . json_encode($attendanceCounts));
+
+        // Prepare chart data (last 30 days)
+        $labels = [];
+        $counts = [];
+        $startDate = date('Y-m-d', strtotime('-30 days'));
+        $endDate = date('Y-m-d');
+        $currentDate = strtotime($startDate);
+        $endTimestamp = strtotime($endDate);
+
+        if (empty($attendanceCounts)) {
+            log_message('debug', 'attendanceChart - No attendance data found, using fallback');
+            while ($currentDate <= $endTimestamp) {
+                $labels[] = date('Y-m-d', $currentDate);
+                $counts[] = 0;
+                $currentDate = strtotime('+1 day', $currentDate);
+            }
+        } else {
+            while ($currentDate <= $endTimestamp) {
+                $dateStr = date('Y-m-d', $currentDate);
+                $labels[] = $dateStr;
+                $found = false;
+                foreach ($attendanceCounts as $row) {
+                    if ($row['date'] === $dateStr) {
+                        $counts[] = (int)$row['count'];
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $counts[] = 0;
+                }
+                $currentDate = strtotime('+1 day', $currentDate);
+            }
+        }
+
+        $data['chartLabels'] = json_encode($labels);
+        $data['chartData'] = json_encode($counts);
+
+        // Debug: Log chart data
+        log_message('debug', 'attendanceChart - Chart Labels: ' . $data['chartLabels']);
+        log_message('debug', 'attendanceChart - Chart Data: ' . $data['chartData']);
         
-        return view('coachdashboard/index');
+        return view('coachdashboard/index', $data);
     }
 
     ///here's the coach manage my schedules

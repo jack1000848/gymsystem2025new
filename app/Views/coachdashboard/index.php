@@ -1,17 +1,15 @@
 <?php
-    $this ->extend('layout/maincoach');
-    $this ->section('body');
-
-    ?>
-
+    $this->extend('layout/maincoach');
+    $this->section('body');
+?>
 <!DOCTYPE html>
-<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coach Attendance Chart</title>
+    <title>Coach Dashboard - Attendance & Schedule</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <style>
         body {
@@ -29,6 +27,84 @@
             text-align: center;
         }
 
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            min-width: 100px;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+            min-width: 100px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        table.dataTable {
+            width: 80% !important;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        table.dataTable thead th {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        table.dataTable tbody td {
+            font-size: 15px;
+            color: #2c3e50;
+            text-align: center;
+            padding: 10px;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #ecf0f1;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border-radius: 6px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 15px;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .btn-close {
+            outline: none;
+        }
+
         .chart-container {
             width: 80%;
             margin: 20px auto;
@@ -42,19 +118,11 @@
         canvas {
             max-width: 100%;
         }
-
-        .alert {
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 15px;
-            width: 80%;
-            margin: 20px auto;
-        }
     </style>
 </head>
 <body>
 <div class="p-2 row mb-3">
-    <h2>COACH ATTENDANCE</h2>
+    <h2>COACH DASHBOARD</h2>
 
     <!-- Chart Section -->
     <div class="col-12">
@@ -63,7 +131,41 @@
         </div>
     </div>
 
-    <!-- Debug Message (if no data) -->
+    <!-- Schedule Table -->
+    <div class="col-12">
+        <table id="myTable" class="display dataTable">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th>Schedule Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Customer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($coach as $coachSched): ?>
+                    <tr>
+                        <th scope="row"><?= esc($coachSched['ID']); ?></th>
+                        <td><?= esc($coachSched['ScheduleDate']); ?></td>
+                        <td><?= esc($coachSched['Start']); ?></td>
+                        <td><?= esc($coachSched['End']); ?></td>
+                        <td><?= isset($coachSched['CustomerName']) ? esc($coachSched['CustomerName']) : 'N/A'; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Success Message -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= session()->getFlashdata('success') ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Debug Message (if no chart data) -->
     <?php if (empty(json_decode($chartData))): ?>
         <div class="alert alert-warning">
             No attendance data available for the last 30 days.
@@ -71,8 +173,45 @@
     <?php endif; ?>
 </div>
 
+<!-- Equipment Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Equipment Picture</label>
+                <input type="file" class="form-control" name="equipmentpic" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Amount</label>
+                <input type="text" class="form-control" name="Eamount" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Quantity</label>
+                <input type="text" class="form-control" name="Equantity" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Description</label>
+                <input type="text" class="form-control" name="Ediscription" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Purchase Date</label>
+                <input type="date" class="form-control" name="Epurchasedate" required>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function(){
+        // Initialize DataTable
+        let table = new DataTable('#myTable', {
+            responsive: true
+        });
+
+        // Initialize Chart.js
         const ctx = document.getElementById('attendanceChart').getContext('2d');
         const labels = <?php echo isset($chartLabels) ? $chartLabels : '["No Data"]'; ?>;
         const data = <?php echo isset($chartData) ? $chartData : '[0]'; ?>;
@@ -129,9 +268,13 @@
                 }
             }
         });
+
+        // btn-save click handler (if needed)
+        $("#btn-save").on('click', function(){
+            alert('Client Added Successfully!');
+        });
     });
 </script>
 </body>
 </html>
-
-<?php $this->endSection(); ?> 
+<?php $this->endSection(); ?>

@@ -553,4 +553,14 @@ span {
     html{
         font-size: 50%;
     }
+    .toggle-password {
+        border-left: none;
+    }
+    .toggle-password:hover {
+        background-color: #f8f9fa;
+    }
+    .input-group .form-control:focus + .toggle-password {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
 }

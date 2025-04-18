@@ -21,6 +21,7 @@ class CoachDashboardController extends BaseController
     {
         $this->attendanceModel = new eCoachAttendanceModel(); // Load the model
         $this->session = session(); // Load session
+        
     
         $this->coachScheduleModel = new CoachScheduleModel();
        //  $this->timeModel = new TimeScheduleModel();
@@ -130,62 +131,61 @@ class CoachDashboardController extends BaseController
 
 ///// this is coach attendance log\\\\\\\
 public function mylogs()
-{
-    // Ensure coach is logged in
-    // if (!$this->session->has('logged_in') || $this->session->get('role') !== 'coach') {
-    //     return redirect()->to('/coach-login')->with('error', 'Please log in first.');
-    // }
+    {
+        // Ensure coach is logged in
+        // if (!$this->session->has('logged_in') || $this->session->get('role') !== 'coach') {
+        //     return redirect()->to('/coach-login')->with('error', 'Please log in first.');
+        // }
 
-    // Get the logged-in coach ID
-    $coachID = $this->session->get('CoachID');
+        // Get the logged-in coach ID
+        $coachID = $this->session->get('CoachID');
 
-    // Fetch attendance records for the logged-in coach
-    $data['attendance'] = $this->attendanceModel
-        ->where('CoachID', $coachID)
-        ->orderBy('CheckInTime', 'DESC')
-        ->findAll();
+        // Fetch attendance records for the logged-in coach
+        $data['attendance'] = $this->attendanceModel
+            ->where('CoachID', $coachID)
+            ->orderBy('CheckInTime', 'DESC')
+            ->findAll();
 
-    // Aggregate check-ins by date for the chart (last 30 days)
-    $startDate = date('Y-m-d', strtotime('-30 days'));
-    $endDate = date('Y-m-d');
-    $attendanceCounts = $this->AttendanceModel
-        ->select("DATE(CheckInTime) as date, COUNT(*) as count")
-        ->where('CoachID', $coachID)
-        ->where('CheckInTime >=', $startDate . ' 00:00:00')
-        ->where('CheckInTime <=', $endDate . ' 23:59:59')
-        ->groupBy('DATE(CheckInTime)')
-        ->orderBy('DATE(CheckInTime)', 'ASC')
-        ->findAll();
+        // Aggregate check-ins by date for the chart (last 30 days)
+        $startDate = date('Y-m-d', strtotime('-30 days'));
+        $endDate = date('Y-m-d');
+        $attendanceCounts = $this->attendanceModel
+            ->select("DATE(CheckInTime) as date, COUNT(*) as count")
+            ->where('CoachID', $coachID)
+            ->where('CheckInTime >=', $startDate . ' 00:00:00')
+            ->where('CheckInTime <=', $endDate . ' 23:59:59')
+            ->groupBy('DATE(CheckInTime)')
+            ->orderBy('DATE(CheckInTime)', 'ASC')
+            ->findAll();
 
-    // Prepare data for Chart.js
-    $labels = [];
-    $counts = [];
-    $currentDate = strtotime($startDate);
-    $endTimestamp = strtotime($endDate);
+        // Prepare data for Chart.js
+        $labels = [];
+        $counts = [];
+        $currentDate = strtotime($startDate);
+        $endTimestamp = strtotime($endDate);
 
-    while ($currentDate <= $endTimestamp) {
-        $dateStr = date('Y-m-d', $currentDate);
-        $labels[] = $dateStr;
-        $found = false;
-        foreach ($attendanceCounts as $row) {
-            if ($row['date'] === $dateStr) {
-                $counts[] = $row['count'];
-                $found = true;
-                break;
+        while ($currentDate <= $endTimestamp) {
+            $dateStr = date('Y-m-d', $currentDate);
+            $labels[] = $dateStr;
+            $found = false;
+            foreach ($attendanceCounts as $row) {
+                if ($row['date'] === $dateStr) {
+                    $counts[] = $row['count'];
+                    $found = true;
+                    break;
+                }
             }
+            if (!$found) {
+                $counts[] = 0;
+            }
+            $currentDate = strtotime('+1 day', $currentDate);
         }
-        if (!$found) {
-            $counts[] = 0;
-        }
-        $currentDate = strtotime('+1 day', $currentDate);
+
+        $data['chartLabels'] = json_encode($labels);
+        $data['chartData'] = json_encode($counts);
+
+        return view('coachdashboard/viewmyattendance', $data);
     }
-
-    $data['chartLabels'] = json_encode($labels);
-    $data['chartData'] = json_encode($counts);
-
-    return view('coachdashboard/viewmyattendance', $data);
-}
-   
 
     ///////////// this is the coach client list!
     public function coachclientlist(){

@@ -5,7 +5,16 @@ body, html {
     height: auto;
     font-family: Arial, sans-serif;
 }
-
+.toggle-password {
+    border-left: none;
+}
+.toggle-password:hover {
+    background-color: #f8f9fa;
+}
+.input-group .form-control:focus + .toggle-password {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
 /* Background image styling */
 .background {
     background-image: url('gym-background.jpg'); /* Add your background image */
@@ -93,4 +102,6 @@ form .back-to-login {
 
 form .back-to-login:hover {
     color: #2980b9;
+
+    
 }

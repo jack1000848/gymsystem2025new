@@ -43,8 +43,7 @@ class QrAttendanceController extends Controller
     }
 
     ///// Check if customer exists
-    // Check if customer exists
-    $customer = $customerPlanModel->getCustomerWithFullname($id);
+    $customer = $customerPlanModel->find($id);
     if (!$customer) {
         return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
     }
@@ -56,7 +55,7 @@ class QrAttendanceController extends Controller
     $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
         ->where('DATE(InDate)', $currentDate)
         ->first();
-            ////12hrbebe
+            
         $currentTime = date('Y-m-d h:i A');
         
 

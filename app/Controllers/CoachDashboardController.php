@@ -38,86 +38,23 @@ class CoachDashboardController extends BaseController
     }
 
     ///here's the coach manage my schedules
-    public function coachManage()
+     public function coachManage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login');
+            return redirect()->to('/coach-login'); // Redirect if not logged in
         }
-        $coachID = session()->get('CoachID');
+        $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
         if (!$coachID) {
             return redirect()->to('/coach-login')->with('error', 'Please login first.');
         }
 
-        // Debug: Log CoachID
-        log_message('debug', 'Session CoachID: ' . $coachID);
+        // Filter schedules by the logged-in coach only
+        $data['sched'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
 
-        // Fetch schedules
-        $data['coach'] = $this->coachScheduleModel->where('CoachID', $coachID)->findAll();
-        log_message('debug', 'Schedule Data Count: ' . count($data['coach']));
-
-        // Fetch all attendance records for the coach
-        $query = $this->attendanceModel
-            ->select('DATE(CheckInTime) as date, COUNT(*) as count')
-            ->where('CoachID', $coachID)
-            ->groupBy('DATE(CheckInTime)')
-            ->orderBy('DATE(CheckInTime)', 'ASC');
-
-        // Debug: Log query structure
-        log_message('debug', 'Attendance Query Structure: SELECT DATE(CheckInTime) as date, COUNT(*) as count FROM coachattendance WHERE CoachID = ' . $coachID . ' GROUP BY DATE(CheckInTime) ORDER BY DATE(CheckInTime) ASC');
-
-        $attendanceCounts = $query->findAll();
-
-        // Debug: Log raw results
-        log_message('debug', 'Attendance Counts: ' . json_encode($attendanceCounts));
-
-        // Debug: Log last executed query
-        $db = \Config\Database::connect();
-        log_message('debug', 'Last Query: ' . $db->getLastQuery());
-
-        // Prepare chart data (last 30 days)
-        $labels = [];
-        $counts = [];
-        $startDate = date('Y-m-d', strtotime('-30 days'));
-        $endDate = date('Y-m-d');
-        $currentDate = strtotime($startDate);
-        $endTimestamp = strtotime($endDate);
-
-        if (empty($attendanceCounts)) {
-            log_message('debug', 'No attendance data found, using fallback');
-            while ($currentDate <= $endTimestamp) {
-                $labels[] = date('Y-m-d', $currentDate);
-                $counts[] = 0;
-                $currentDate = strtotime('+1 day', $currentDate);
-            }
-        } else {
-            while ($currentDate <= $endTimestamp) {
-                $dateStr = date('Y-m-d', $currentDate);
-                $labels[] = $dateStr;
-                $found = false;
-                foreach ($attendanceCounts as $row) {
-                    if ($row['date'] === $dateStr) {
-                        $counts[] = (int)$row['count'];
-                        $found = true;
-                        break;
-                    }
-                }
-                if (!$found) {
-                    $counts[] = 0;
-                }
-                $currentDate = strtotime('+1 day', $currentDate);
-            }
-        }
-
-        $data['chartLabels'] = json_encode($labels);
-        $data['chartData'] = json_encode($counts);
-
-        // Debug: Log chart data
-        log_message('debug', 'Chart Labels: ' . $data['chartLabels']);
-        log_message('debug', 'Chart Data: ' . $data['chartData']);
-
-        return view('/coachdashboard/TimeSheds', $data);
+        return view('/coachdashboard/ManagemyScheds', $data);
     }
+
     // Store Schedule
     public function storemanage()
     {

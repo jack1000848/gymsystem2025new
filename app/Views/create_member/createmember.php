@@ -36,7 +36,6 @@
         <input type="password" class="form-control" name="password" id="password" required
                minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                title="Password must be at least 8 characters long, including at least one number, one lowercase letter, and one uppercase letter.">
-        <button type="button" class="btn btn-outline-secondary toggle-password" id="togglePassword">
             <i class="bi bi-eye" id="toggleIcon"></i>
         </button>
     </div>

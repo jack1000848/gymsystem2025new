@@ -1,20 +1,10 @@
 <?php
 namespace App\Controllers;
 use App\Models\paymentModel;
-use App\Models\PlanModel; // Assuming you have a PlanModel
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\PlanModel;
 
 class paymentController extends BaseController
 {
-    protected $stripe;
-
-    public function __construct()
-    {
-        // Initialize Stripe (if using Stripe)
-        $this->stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY')); // Load from .env
-    }
-
     public function payment()
     {
         $model = new paymentModel();
@@ -42,43 +32,43 @@ class paymentController extends BaseController
     {
         $clientId = session()->get('CustomerID');
         if (!$clientId) {
-            return redirect()->to('/login')->with('error', 'Please log in to make a payment.');
+            return redirect()->to('/login')->with('error', 'Please log in to add a payment.');
         }
 
-        $planModel = new PlanModel(); // Fetch available plans
+        $planModel = new PlanModel();
         $data['plans'] = $planModel->findAll();
-
         return view('clientdashboard/make_payment', $data);
     }
 
-    public function createPaymentIntent()
+    public function addPayment()
     {
         $clientId = session()->get('CustomerID');
         if (!$clientId) {
-            return $this->response->setJSON(['error' => 'Unauthorized access.']);
+            return redirect()->to('/login')->with('error', 'Please log in to add a payment.');
         }
 
-        $data = $this->request->getJSON(true);
-        $amount = $data['amount'] ?? 0;
+        $data = $this->request->getPost();
         $planId = $data['plan_id'] ?? null;
+        $amount = $data['amount'] ?? 0;
+        $paidDate = $data['paid_date'] ?? date('Y-m-d');
 
-        if ($amount <= 0 || !$planId) {
-            return $this->response->setJSON(['error' => 'Invalid amount or plan.']);
+        // Validate input
+        if (!$planId || $amount <= 0 || !$paidDate) {
+            return redirect()->back()->with('error', 'Invalid plan, amount, or date.');
         }
 
-        try {
-            // Create a PaymentIntent with Stripe
-            $paymentIntent = $this->stripe->paymentIntents->create([
-                'amount' => $amount, // Amount in cents
-                'currency' => 'usd',
-                'payment_method_types' => ['card'],
-                'metadata' => ['customer_id' => $clientId, 'plan_id' => $planId]
-            ]);
+        $model = new paymentModel();
+        $result = $model->insert([
+            'CustomerID' => $clientId,
+            'PaidAmount' => $amount,
+            'PaidDate' => $paidDate,
+            'PlanID' => $planId
+        ]);
 
-            // Save to paymenthistory after successful payment (optional, can be done via webhook)
-            return $this->response->setJSON(['clientSecret' => $paymentIntent->client_secret]);
-        } catch (\Exception $e) {
-            return $this->response->setJSON(['error' => $e->getMessage()]);
+        if ($result) {
+            return redirect()->to('/clientdashboard/make_payment')->with('success', 'Payment added successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to add payment.');
         }
     }
 }

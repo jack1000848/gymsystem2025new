@@ -163,54 +163,28 @@ $this->section('body'); // Start the body section
         </table>
     </div>
 
-    <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
+   
+    <!-- Modal for Adding Payment -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h2>Add Payment</h2>
+            <form id="paymentForm" action="/payment/add" method="post">
     <?= csrf_field() ?>
-    <label for="CustomerID">Customer:</label>
-    <select id="CustomerID" name="CustomerID" required>
-        <option value="">Select Customer</option>
-        <?php foreach ($customers as $customer): ?>
-            <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['Firstname']) ?></option>
-        <?php endforeach; ?>
-    </select>
+    <label for="CustomerID">Customer ID:</label>
+    <input type="number" id="CustomerID" name="CustomerID" required>
 
     <label for="PaidAmount">Paid Amount:</label>
     <input type="number" id="PaidAmount" name="PaidAmount" step="0.01" required>
 
     <label for="PaidDate">Paid Date:</label>
-    <input type="date" id="PaidDate" name="PaidDate" value="<?= date('Y-m-d') ?>" required>
+    <input type="date" id="PaidDate" name="PaidDate" required>
 
-    <label for="PlanID">Plan:</label>
-    <select id="PlanID" name="PlanID" required>
-        <option value="">Select Plan</option>
-        <?php foreach ($plans as $plan): ?>
-            <option value="<?= esc($plan['PlanID']) ?>"><?= esc($plan['PlanName']) ?></option>
-        <?php endforeach; ?>
-    </select>
+    <label for="PlanID">Plan ID:</label>
+    <input type="number" id="PlanID" name="PlanID" required>
 
     <button type="submit">Add Payment</button>
     <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
 </form>
-    <!-- Modal for Adding Payment -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <h2>Add Payment</h2>
-            <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
-                <?= csrf_field() ?>
-                <label for="CustomerID">Customer ID:</label>
-                <input type="number" id="CustomerID" name="CustomerID" required>
-
-                <label for="PaidAmount">Paid Amount:</label>
-                <input type="number" id="PaidAmount" name="PaidAmount" step="0.01" required>
-
-                <label for="PaidDate">Paid Date:</label>
-                <input type="date" id="PaidDate" name="PaidDate" required>
-
-                <label for="PlanID">Plan ID:</label>
-                <input type="number" id="PlanID" name="PlanID" required>
-
-                <button type="submit">Add Payment</button>
-                <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
-            </form>
         </div>
     </div>
 

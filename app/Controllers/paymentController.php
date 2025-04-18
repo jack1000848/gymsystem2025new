@@ -26,33 +26,43 @@ class paymentController extends BaseController
         $model = new paymentModel();
         log_message('debug', 'Payment add request received: ' . json_encode($this->request->getPost()));
     
-        if ($this->request->getMethod() === 'post' && $this->validate([
+        // Check if the request method is POST
+        if ($this->request->getMethod() !== 'post') {
+            log_message('error', 'Invalid request method: Expected POST, got ' . $this->request->getMethod());
+            return redirect()->back()->with('error', 'Invalid request method.')->withInput();
+        }
+    
+        // Perform validation
+        $validationRules = [
             'CustomerID' => 'required|integer',
             'PaidAmount' => 'required|decimal',
             'PaidDate' => 'required|valid_date',
             'PlanID' => 'required|integer',
-        ])) {
-            $data = [
-                'CustomerID' => $this->request->getPost('CustomerID'),
-                'PaidAmount' => $this->request->getPost('PaidAmount'),
-                'PaidDate' => $this->request->getPost('PaidDate'),
-                'PlanID' => $this->request->getPost('PlanID'),
-            ];
+        ];
     
-            log_message('debug', 'Validated data: ' . json_encode($data));
-    
-            if ($model->insert($data)) {
-                log_message('debug', 'Payment inserted successfully');
-                return redirect()->to('/payment')->with('success', 'Payment added successfully.');
-            } else {
-                $errors = $model->errors();
-                log_message('error', 'Failed to insert payment: ' . json_encode($errors));
-                return redirect()->back()->with('error', 'Failed to add payment: ' . json_encode($errors))->withInput();
-            }
-        } else {
+        if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             log_message('error', 'Validation failed: ' . json_encode($validationErrors));
             return redirect()->back()->with('error', 'Invalid input: ' . json_encode($validationErrors))->withInput();
+        }
+    
+        // If validation passes, proceed with insertion
+        $data = [
+            'CustomerID' => $this->request->getPost('CustomerID'),
+            'PaidAmount' => $this->request->getPost('PaidAmount'),
+            'PaidDate' => $this->request->getPost('PaidDate'),
+            'PlanID' => $this->request->getPost('PlanID'),
+        ];
+    
+        log_message('debug', 'Validated data: ' . json_encode($data));
+    
+        if ($model->insert($data)) {
+            log_message('debug', 'Payment inserted successfully');
+            return redirect()->to('/payment')->with('success', 'Payment added successfully.');
+        } else {
+            $errors = $model->errors();
+            log_message('error', 'Failed to insert payment: ' . json_encode($errors));
+            return redirect()->back()->with('error', 'Failed to add payment: ' . json_encode($errors))->withInput();
         }
     }
     public function myPayments()

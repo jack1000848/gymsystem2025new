@@ -173,7 +173,7 @@
                         <td><?= esc($coachSched['ScheduleDate']); ?></td>
                         <td><?= esc($coachSched['Start']); ?></td>
                         <td><?= esc($coachSched['End']); ?></td>
-                        <td><?= isset($coachSched['CustomerName']) ? esc($coachSched['CustomerName']) : 'N/A'; ?></td>
+                        <td><?= isset($coachSched['Firstname']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

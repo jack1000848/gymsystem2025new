@@ -130,6 +130,7 @@ $this->section('body');
                     <th>Plan Name</th>
                     <th>Description</th>
                     <th>Duration in Months</th>
+                    <th>Expiration Date</th>
                     <th>Price</th>
                     <th>Active</th>
                     <th>Action</th>

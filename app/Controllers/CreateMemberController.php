@@ -92,6 +92,7 @@ class CreateMemberController extends BaseController
             'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
             'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
             'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
+            'ExpirationDate' => $this->request->getPost('expirationdate'), 
            /// 'GymTimeSlot'       => $this->request->getPost('timeslot'),
             'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
             'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name

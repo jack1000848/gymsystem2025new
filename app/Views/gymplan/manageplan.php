@@ -177,7 +177,11 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Months</label>
-                        <input type="number" class="form-control" id="durationim" name="durationim" required>
+                        <select type="number" class="form-control" id="durationim" name="durationim" required>
+                            <option value="Bulking">ONE MONTH</option>
+                            <option value="Cutting">3 MONTHS</option>
+                            <option value="Endurance Training">1 YEAR</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>

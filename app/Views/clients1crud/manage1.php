@@ -272,16 +272,7 @@ $this->section('body'); // Start the body section
                     
 
                     <!-- Types of Workout -->
-                    <div class="mb-3">
-                        <label for="tworkout" class="form-label">Types of Workout</label>
-                        <select id="tworkout" class="form-control" name="tworkout" required>
-                            <option value="Bulking">Bulking</option>
-                            <option value="Cutting">Cutting</option>
-                            <option value="Endurance Training">Endurance Training</option>
-                            <option value="Strength Training">Strength Training</option>
-                            <option value="Functional Fitness">Functional Fitness</option>
-                        </select>
-                    </div>
+                    
 
                     <!-- Membership Plan -->
                     <div class="mb-3">

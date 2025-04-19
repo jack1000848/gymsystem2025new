@@ -156,7 +156,7 @@ $routes->get('/viewmyschedule', 'ViewScheduleForAllUserController::clientview');
 
 ///payment history
 $routes->get('/mypayments', 'paymentController::myPayments');
-$routes->get('/clientdashboard/make_payment', 'paymentController::makePayment');
+//$routes->get('/clientdashboard/make_payment', 'paymentController::makePayment');
 ///$routes->post('/payment/create-payment-intent', 'paymentController::createPaymentIntent');
 //$routes->post('/payment/add-payment', 'paymentController::addPayment');
 /// account setting

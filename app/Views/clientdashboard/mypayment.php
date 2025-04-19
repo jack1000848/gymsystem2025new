@@ -1,6 +1,6 @@
 <?php
-$this->extend('clientdashboard/layout'); // Assuming you have a client dashboard layout
-$this->section('content');
+    $this->extend('layout/mainclient');
+    $this->section('body');
 ?>
 
 <!DOCTYPE html>

@@ -15,14 +15,15 @@ class paymentController extends BaseController
         $planModel = new PlanModel();
 
         $data = [
-            'payments' => $paymentModel->getPaymentsWithDetails(), // Use the new method
+            'payments' => $paymentModel->getPaymentsWithDetails(),
             'customers' => $customerModel->select('CustomerID, CONCAT(Firstname, " ", Lastname) as CustomerName')->findAll(),
-            'plans' => $planModel->findAll(),
+            'plans' => $planModel->select('PlanID, PlanName, Price')->where('IsActive', 1)->findAll(), // Include Price, filter active plans
         ];
 
         return view('clients1crud/payment', $data);
     }
 
+    // Rest of the controller remains the same (add, edit, delete, myPayments methods)
     public function add()
     {
         $model = new paymentModel();
@@ -87,7 +88,7 @@ class paymentController extends BaseController
         $data = [
             'payment' => $paymentModel->find($id),
             'customers' => $customerModel->select('CustomerID, CONCAT(Firstname, " ", Lastname) as CustomerName')->findAll(),
-            'plans' => $planModel->findAll(),
+            'plans' => $planModel->select('PlanID, PlanName, Price')->where('IsActive', 1)->findAll(),
         ];
 
         if (!$data['payment']) {

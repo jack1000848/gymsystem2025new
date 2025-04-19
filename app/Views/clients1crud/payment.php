@@ -96,6 +96,11 @@ $this->section('body');
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        .modal-content .price-display {
+            margin: 10px 0;
+            color: #333;
+            font-weight: bold;
+        }
         .modal-content button {
             padding: 10px;
             background-color: #0CA6F7;
@@ -174,9 +179,13 @@ $this->section('body');
                 <select id="PlanID" name="PlanID" required>
                     <option value="">Select Plan</option>
                     <?php foreach ($plans as $plan): ?>
-                        <option value="<?= esc($plan['PlanID']) ?>"><?= esc($plan['PlanName']) ?></option>
+                        <option value="<?= esc($plan['PlanID']) ?>" data-price="<?= esc($plan['Price']) ?>">
+                            <?= esc($plan['PlanName']) . ' - $' . number_format($plan['Price'], 2) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
+
+                <div class="price-display" id="priceDisplay">Plan Price: Select a plan to see the price.</div>
 
                 <button type="submit">Add Payment</button>
                 <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
@@ -187,6 +196,8 @@ $this->section('body');
     <script>
         function openModal() {
             document.getElementById('paymentModal').style.display = 'flex';
+            document.getElementById('priceDisplay').textContent = 'Plan Price: Select a plan to see the price.';
+            document.getElementById('PaidAmount').value = ''; // Clear PaidAmount on open
         }
 
         function closeModal() {
@@ -199,6 +210,21 @@ $this->section('body');
                 closeModal();
             }
         }
+
+        // Update price display when a plan is selected
+        document.getElementById('PlanID').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            const priceDisplay = document.getElementById('priceDisplay');
+            if (price) {
+                priceDisplay.textContent = `Plan Price: $${parseFloat(price).toFixed(2)}`;
+                // Optionally pre-fill PaidAmount with the plan's price
+                document.getElementById('PaidAmount').value = parseFloat(price).toFixed(2);
+            } else {
+                priceDisplay.textContent = 'Plan Price: Select a plan to see the price.';
+                document.getElementById('PaidAmount').value = '';
+            }
+        });
 
         <?php if (session()->getFlashdata('success')): ?>
             Swal.fire({

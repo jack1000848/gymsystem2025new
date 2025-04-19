@@ -14,7 +14,7 @@ $this->section('body');
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: fixed;
             background-color: #f4f4f4;
         }
         h1 {
@@ -217,7 +217,7 @@ $this->section('body');
             const price = selectedOption.getAttribute('data-price');
             const priceDisplay = document.getElementById('priceDisplay');
             if (price) {
-                priceDisplay.textContent = `Plan Price: $${parseFloat(price).toFixed(2)}`;
+                priceDisplay.textContent = `Plan Price: ₱${parseFloat(price).toFixed(2)}`;
                 // Optionally pre-fill PaidAmount with the plan's price
                 document.getElementById('PaidAmount').value = parseFloat(price).toFixed(2);
             } else {

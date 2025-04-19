@@ -177,8 +177,7 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Days</label>
-                        <input type="number" class="form-control" id="durationim" name="durationim" required>
-                            
+                        <input type="number" min="0" class="form-control" id="durationim" name="durationim" required>
                     </div>
                     
                     <div class="mb-3">
@@ -228,8 +227,7 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Days</label>
-                        <input type="number" class="form-control" id="durationim" name="durationim" required>
-                        
+                        <input type="number" min="0" class="form-control" id="durationim" name="durationim" required>
                     </div>
                     
                     <div class="mb-3">
@@ -434,6 +432,11 @@ async function deletePlan(id) {
     }
 }
 document.getElementById("price").addEventListener("input", function() {
+        if (this.value < 0) {
+            this.value = 0;
+        }       
+    });
+    document.getElementById("durationim").addEventListener("input", function() {
         if (this.value < 0) {
             this.value = 0;
         }

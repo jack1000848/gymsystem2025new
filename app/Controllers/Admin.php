@@ -67,6 +67,7 @@ class Admin extends BaseController
             }
         }
 
+        $paymentData = $this->getMonthlyPayments();
         $data = [
             'male' => $maleCount,
             'female' => $femaleCount,

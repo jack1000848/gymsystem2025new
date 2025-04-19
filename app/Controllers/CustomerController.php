@@ -185,23 +185,8 @@ class CustomerController extends BaseController
      ]; 
      
      
-     $startDate = new \DateTime($data['ExpirationDate']);
-     $duration = $data['duration'] ?? 30;
-     $endDate = (clone $startDate)->modify("+{$duration} days");
-     $data['EndDate'] = $endDate->format('Y-m-d');
-     $scheduleIds = $this->request->getPost('coachsched');
-     $coachId = $data['CoachID'];
-     if (!empty($scheduleIds) && !empty($coachId)) {
-         $db = \Config\Database::connect();
-         
-         $builder = $db->table('CoachSched');
-         $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
-         foreach ($scheduleIds as $schedId) {
-             $builder->where('CoachID', $coachId)
-                     ->where('ID', $schedId)
-                     ->update(['CustomerID' => $id]);
-         }
-     }
+     
+     
      
 
         $insertClients->insert($data);

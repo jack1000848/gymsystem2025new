@@ -441,6 +441,11 @@ document.getElementById("price").addEventListener("input", function() {
             this.value = 0;
         }
     });
+    document.getElementById("editPrice").addEventListener("input", function() {
+        if (this.value < 0) {
+            this.value = 0;
+        }
+    });
 </script>
 
 <?php $this->endSection(); ?>

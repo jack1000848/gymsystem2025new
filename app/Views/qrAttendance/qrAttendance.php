@@ -41,7 +41,7 @@ $this->section('body'); // Start the body section
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">
-                        <h4>Scanned User Information:</h4>
+                        
                         <p><strong>Status:</strong> <span id="status">-</span></p>
                         <p><strong>User ID:</strong> <span id="userId">-</span></p>
                         <p><strong>Full Name:</strong> <span id="fullName">-</span></p>

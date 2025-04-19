@@ -6,7 +6,7 @@ use Config\Database;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
 use App\Models\GenderChartModel;
-use App\Models\PaymentModel;
+use App\Models\paymentModel;
 use CodeIgniter\I18n\Time;
 
 class Admin extends BaseController
@@ -17,7 +17,7 @@ class Admin extends BaseController
     {
         helper('url');
         $this->session = session();
-        $this->paymentModel = new PaymentModel();
+        $this->paymentModel = new paymentModel();
 
         header("Cache-Control: no-cache, no-store, must-revalidate");
         header("Pragma: no-cache");

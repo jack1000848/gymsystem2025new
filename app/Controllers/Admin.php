@@ -42,7 +42,7 @@ class Admin extends BaseController
 
         if(!$this->session->get('Role') == 'Admin'){
             $roleVal = $this->session->get('Role');
-            if($roleVal == 'Client'){
+            if($roleVal == 'Customer'){
                 return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
             }else if($roleVal == 'Coach'){
                 return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');

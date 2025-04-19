@@ -194,7 +194,7 @@ $this->section('body');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addPaymentForm">
+                <form id="addPaymentForm" action="<?= base_url('/payment/add') ?>" method="POST">
                     <?= csrf_field() ?>
                     <div class="mb-3">
                         <label for="customerId" class="form-label">Customer</label>
@@ -244,7 +244,7 @@ $this->section('body');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editPaymentForm">
+                <form id="editPaymentForm" action="<?= base_url('/payment/update') ?>" method="POST">
                     <?= csrf_field() ?>
                     <input type="hidden" name="PaymentHistoryID" id="editPaymentId">
                     <div class="mb-3">
@@ -294,6 +294,8 @@ $this->section('body');
 
 <script>
 $(document).ready(function () {
+    console.log('jQuery loaded and document ready');
+
     // Initialize DataTable
     new DataTable('#paymentTable', {
         responsive: true
@@ -317,6 +319,7 @@ $(document).ready(function () {
     // Update price display on plan selection
     function updatePriceDisplay(selectElement, displayElement) {
         $(selectElement).on('change', function () {
+            console.log('Plan selected:', $(this).val());
             const price = $(this).find(':selected').data('price');
             if (price) {
                 $(displayElement).text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
@@ -335,8 +338,14 @@ $(document).ready(function () {
     // Handle Add Payment Form
     $('#addPaymentForm').on('submit', function (e) {
         e.preventDefault();
+        console.log('Add payment form submitted');
         const formData = new FormData(this);
         formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+
+        // Log form data for debugging
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
 
         $.ajax({
             url: '<?= base_url('/payment/add') ?>',
@@ -345,17 +354,19 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
+                console.log('AJAX success:', response);
                 if (response.status === 'success') {
                     Swal.fire('Success!', response.message, 'success').then(() => {
                         $('#addPaymentModal').modal('hide');
                         location.reload();
                     });
                 } else {
-                    Swal.fire('Error!', response.message, 'error');
+                    Swal.fire('Error!', response.message || 'Failed to add payment.', 'error');
                 }
             },
-            error: function (xhr) {
-                Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+            error: function (xhr, status, error) {
+                console.error('AJAX error:', xhr, status, error);
+                Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || error), 'error');
             }
         });
     });
@@ -363,6 +374,7 @@ $(document).ready(function () {
     // Handle Edit Payment Form
     $('#editPaymentForm').on('submit', function (e) {
         e.preventDefault();
+        console.log('Edit payment form submitted');
         const formData = new FormData(this);
         formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
@@ -381,17 +393,19 @@ $(document).ready(function () {
                     processData: false,
                     contentType: false,
                     success: function (response) {
+                        console.log('Update success:', response);
                         if (response.status === 'success') {
                             Swal.fire('Updated!', response.message, 'success').then(() => {
                                 $('#editPaymentModal').modal('hide');
                                 location.reload();
                             });
                         } else {
-                            Swal.fire('Error!', response.message, 'error');
+                            Swal.fire('Error!', response.message || 'Failed to update payment.', 'error');
                         }
                     },
-                    error: function (xhr) {
-                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+                    error: function (xhr, status, error) {
+                        console.error('Update error:', xhr, status, error);
+                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || error), 'error');
                     }
                 });
             }
@@ -415,7 +429,9 @@ $(document).ready(function () {
 // Load payment into edit modal
 async function editPayment(id) {
     try {
+        console.log('Fetching payment:', id);
         const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
+        console.log('Edit response:', response);
         if (response.status === 'success') {
             const payment = response.data;
             $('#editPaymentId').val(payment.PaymentHistoryID);
@@ -429,6 +445,7 @@ async function editPayment(id) {
             Swal.fire('Error!', response.message, 'error');
         }
     } catch (error) {
+        console.error('Edit error:', error);
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
@@ -445,14 +462,16 @@ async function deletePayment(id) {
 
     if (result.isConfirmed) {
         try {
+            console.log('Deleting payment:', id);
             await $.ajax({
                 url: '<?= base_url('/payment/delete/') ?>' + id,
                 type: 'POST',
                 data: {
                     _method: 'DELETE',
-                    <?= csrf_token() ?>: '<?= csrf_hash() ?>'
+                    <?= csrf_token() ?>: '<?= csrf_hash() ?>
                 },
                 success: function (response) {
+                    console.log('Delete success:', response);
                     if (response.status === 'success') {
                         Swal.fire('Deleted!', response.message, 'success').then(() => {
                             location.reload();
@@ -461,11 +480,13 @@ async function deletePayment(id) {
                         Swal.fire('Error!', response.message, 'error');
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
+                    console.error('Delete error:', xhr, status, error);
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });
         } catch (error) {
+            console.error('Delete error:', error);
             Swal.fire('Error!', 'Something went wrong.', 'error');
         }
     }

@@ -24,6 +24,14 @@ class paymentModel extends Model
             ->join('plan', 'plan.PlanID = paymenthistory.PlanID', 'left')
             ->findAll();
     }
+    public function getPaymentWithDetails($id)
+    {
+        return $this->select('PaymentHistory.*, Customers.CustomerName, Plans.PlanName, Plans.Price as PlanPrice')
+            ->join('Customers', 'Customers.CustomerID = PaymentHistory.CustomerID')
+            ->join('Plans', 'Plans.PlanID = PaymentHistory.PlanID')
+            ->where('PaymentHistory.PaymentHistoryID', $id)
+            ->first();
+    }
 
     public function getMonthlyPayments()
     {

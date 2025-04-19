@@ -92,6 +92,7 @@ class PlanController extends BaseController
                 'PlanName' => $this->request->getPost('Pname'),
                 'Description' => $this->request->getPost('description'),
                 'Duration' => $this->request->getPost('durationim'),
+                'ExpirationDate' => $this->request->getpost('expirationdate'),
                 'Price' => $this->request->getPost('price'),
                 'IsActive' => $this->request->getPost('active') == '1' ? 1 : 0
             ];
@@ -178,6 +179,7 @@ class PlanController extends BaseController
             'PlanName'    => $this->request->getPost('Pname'),
             'Description' => $this->request->getPost('description'),
             'Duration'    => $this->request->getPost('durationim'),
+            'ExpirationDate' => $this->request->getpost('expirationdate'),
             'Price'       => $this->request->getPost('price'),
             'IsActive'    => $this->request->getPost('active') == '1' ? 1 : 0,
         ];

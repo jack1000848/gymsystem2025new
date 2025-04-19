@@ -13,7 +13,7 @@ class PlanModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'PlanID', 'PlanName', 'Description', 'Duration', 'GymTimeSlot', 'TrainerIncluded', 'Price', 'IsActive',
+        'PlanID', 'PlanName', 'Description', 'Duration','ExpirationDate', 'GymTimeSlot', 'TrainerIncluded', 'Price', 'IsActive',
     ];
     
 

@@ -178,10 +178,15 @@ $this->section('body');
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Months</label>
                         <select type="number" class="form-control" id="durationim" name="durationim" required>
-                            <option value="Bulking">ONE MONTH</option>
-                            <option value="Cutting">3 MONTHS</option>
-                            <option value="Endurance Training">1 YEAR</option>
+                            <option value="One Month">ONE MONTH</option>
+                            <option value="three Months">THREE MONTHS</option>
+                            <option value="One Year">ONE YEAR</option>
                         </select>
+                    </div>
+                    <!-- Expiration date -->
+                    <div class="mb-3">
+                        <label for="expiration" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expiration" name="expirationdate" required>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
@@ -229,8 +234,17 @@ $this->section('body');
                         <textarea class="form-control" id="editDescription" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="editDurationim" class="form-label">Duration in Months</label>
-                        <input type="number" class="form-control" id="editDurationim" name="durationim" required>
+                        <label for="durationim" class="form-label">Duration in Months</label>
+                        <select type="number" class="form-control" id="durationim" name="durationim" required>
+                            <option value="One Month">ONE MONTH</option>
+                            <option value="three Months">THREE MONTHS</option>
+                            <option value="One Year">ONE YEAR</option>
+                        </select>
+                    </div>
+                    <!-- Expiration date -->
+                    <div class="mb-3">
+                        <label for="expiration" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expiration" name="expirationdate" required>
                     </div>
                     <div class="mb-3">
                         <label for="editPrice" class="form-label">Price</label>

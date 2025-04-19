@@ -433,6 +433,11 @@ async function deletePlan(id) {
         }
     }
 }
+document.getElementById("price").addEventListener("input", function() {
+        if (this.value < 0) {
+            this.value = 0;
+        }
+    });
 </script>
 
 <?php $this->endSection(); ?>

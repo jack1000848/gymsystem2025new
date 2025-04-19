@@ -366,7 +366,7 @@ $(document).ready(function () {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '<?= base_url('/payment/edit/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
+                url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
                 type: 'POST',
                 data: formData,
                 processData: false,

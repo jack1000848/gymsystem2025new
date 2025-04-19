@@ -159,25 +159,33 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="<?php echo site_url('/gymequipment/store'); ?>" method="POST" enctype="multipart/form-data">
+      <form action="<?php echo site_url('/gymequipment/store'); ?>" method="POST" enctype="multipart/form-data" id="equipmentForm">
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Name</label>
-              <input type="text" class="form-control" name="Ename" required>
+        <label for="Ename" class="form-label">Name</label>
+        <input type="text" class="form-control" name="Ename" id="Ename" required pattern="\S+.*" title="Name cannot be only spaces">
+        <div class="invalid-feedback">
+            Name cannot be only spaces.
+        </div>
     </div>
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Amount</label>
-              <input type="text" class="form-control" name="Eamount"required>
-    </div> 
-    <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-              <input type="text" class="form-control" name="Equantity"required>
-    </div> 
+        <label for="Eamount" class="form-label">Amount</label>
+        <input type="number" class="form-control" name="Eamount" id="Eamount" required min="0" step="0.01" title="Amount must be a non-negative number">
+        <div class="invalid-feedback">
+            Amount must be a non-negative number.
+        </div>
     </div>
-      <div class="modal-footer">
+    <div class="mb-3">
+        <label for="Equantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" name="Equantity" id="Equantity" required min="0" step="1" title="Quantity must be a non-negative integer">
+        <div class="invalid-feedback">
+            Quantity must be a non-negative integer.
+        </div>
+    </div>
+    <div class="modal-footerKILL">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary" id="btn-save">Save changes</button>
-      </div>
-    </form>
+    </div>
+</form>
     </div>
   </div>
 
@@ -354,7 +362,65 @@
         }
     });
   }
+// Real-time validation for text input (Ename)
+document.getElementById('Ename').addEventListener('input', function () {
+        const value = this.value.trim();
+        if (value.length === 0) {
+            this.classList.add('is-invalid');
+            this.setCustomValidity('Name cannot be only spaces.');
+        } else {
+            this.classList.remove('is-invalid');
+            this.setCustomValidity('');
+        }
+    });
 
+    // Real-time validation for numeric inputs (Eamount, Equantity)
+    ['Eamount', 'Equantity'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function () {
+            const value = this.value;
+            if (value < 0 || (id === 'Equantity' && !Number.isInteger(Number(value)))) {
+                this.classList.add('is-invalid');
+                this.setCustomValidity(id === 'Equantity' ? 'Quantity must be a non-negative integer.' : 'Amount must be a non-negative number.');
+            } else {
+                this.classList.remove('is-invalid');
+                this.setCustomValidity('');
+            }
+        });
+    });
+
+    // Form submission validation
+    document.getElementById('equipmentForm').addEventListener('submit', function (e) {
+        const ename = document.getElementById('Ename').value.trim();
+        const eamount = document.getElementById('Eamount').value;
+        const equantity = document.getElementById('Equantity').value;
+
+        let isValid = true;
+
+        if (ename.length === 0) {
+            document.getElementById('Ename').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('Ename').classList.remove('is-invalid');
+        }
+
+        if (eamount < 0mediapropTypes.number && eamount < 0) {
+            document.getElementById('Eamount').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('Eamount').classList.remove('is-invalid');
+        }
+
+        if (equantity < 0 || !Number.isInteger(Number(equantity))) {
+            document.getElementById('Equantity').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('Equantity').classList.remove('is-invalid');
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
 
    
 </script>

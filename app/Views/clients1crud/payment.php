@@ -187,10 +187,10 @@ $this->section('body');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="PaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                    </div>
+                      <div class="mb-3">
+                           <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                          </div>
                     <div class="mb-3">
                         <label for="PaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="PaidDate" name="PaidDate" required>
@@ -238,9 +238,9 @@ $this->section('body');
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="editPaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" class="form-control" id="editPaidAmount" name="PaidAmount" required>
-                    </div>
+                     <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                        </div>
                     <div class="mb-3">
                         <label for="editPaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="editPaidDate" name="PaidDate" required>

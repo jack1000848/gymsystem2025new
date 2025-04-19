@@ -14,7 +14,7 @@ $this->section('body');
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: fixed;
             background-color: #f4f4f4;
         }
         .form-container {

@@ -144,7 +144,7 @@ class Admin extends BaseController
     private function getMonthlyPayments()
     {
         $db = \Config\Database::connect();
-        $builder = $db->table('PaymentHistory');
+        $builder = $db->table('paymenthistory');
         $data = [['Month', 'Total Paid Amount']];
         $totalPayments = 0;
 

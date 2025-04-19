@@ -302,7 +302,10 @@ $this->section('body'); // Start the body section
                         <label for="duration" class="form-label">Duration</label>
                         <input type="text" id="duration" readonly disabled class="form-control" name="duration" required>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="expiration" class="form-label">Expiration Date</label>
+                        <input type="hidden" class="form-control" id="expiration" name="expirationdate" required>
+                    </div>
                     <!-- Total Amount -->
                     <div class="mb-3">
                         <label for="amount" class="form-label">Total Amount</label>
@@ -446,7 +449,7 @@ $this->section('body'); // Start the body section
                         <label for="renewtAmount" class="form-label">Total Amount</label>
                         <input type="text" id="renewPriceInput" class="form-control" name="amount" readonly>
                     </div>
-
+                    
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="renewDuration" class="form-label">Duration</label>

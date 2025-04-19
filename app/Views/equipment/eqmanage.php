@@ -354,18 +354,15 @@
         }
     });
   }
-  document.querySelector('form').addEventListener('submit', function(e) {
-    const nameInput = document.getElementById('Ename');
-    const nameValue = nameInput.value.trim(); // Remove whitespace
 
-    if (nameValue === '') {
-        e.preventDefault(); // Stop form submission
-        alert('Name cannot be empty or only spaces.');
-        nameInput.focus();
-    }
-});
-
-
+  document.getElementById('exampleFormControlInput1').addEventListener('input', function (e) {
+        const value = e.target.value.trim();
+        if (value.length === 0) {
+            e.target.setCustomValidity('Description cannot be only spaces.');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
    
 </script>
 

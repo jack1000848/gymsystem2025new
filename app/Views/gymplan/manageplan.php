@@ -234,11 +234,7 @@ $this->section('body');
                             <option value="One Year">ONE YEAR</option>
                         </select>
                     </div>
-                    <!-- Expiration date -->
-                    <div class="mb-3">
-                        <label for="expiration" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="expiration" name="expirationdate" required>
-                    </div>
+                    
                     <div class="mb-3">
                         <label for="editPrice" class="form-label">Price</label>
                         <input type="number" step="0.01" class="form-control" id="editPrice" name="price" required>

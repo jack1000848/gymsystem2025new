@@ -75,6 +75,7 @@ class Admin extends BaseController
             'totalClients' => $totalClients,
             'totalClient' => $totalClient,
             'totalEquipment' => $totalEquipment,
+            'totalPaidAmount' => $paymentData['total'], // Add total paid amount for the card
             'monthlyCheckinData' => $this->getMonthlyCheckins(),
             'monthlyCoachAttendance' => $this->getMonthlyCoachAttendance(),
             'monthlyPaymentData' => $this->getMonthlyPayments() // Ensure this is included

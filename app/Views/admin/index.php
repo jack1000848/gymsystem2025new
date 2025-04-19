@@ -128,7 +128,7 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-primary">
+            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
                     <div class="inner">
                         <h3><?= 0 ?><sup class="fs-5"></sup></h3>
                         <p>Total Paid Amount</p>

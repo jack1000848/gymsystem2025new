@@ -407,6 +407,7 @@ $(document).ready(function () {
 async function editPayment(id) {
     try {
         const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
+        console.log(response); // Log the response to check its structure
         if (response.status === 'success') {
             const payment = response.data;
             $('#editPaymentId').val(payment.PaymentHistoryID);
@@ -423,7 +424,6 @@ async function editPayment(id) {
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
-
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({
@@ -444,6 +444,7 @@ async function deletePayment(id) {
                     <?= csrf_token() ?>: '<?= csrf_hash() ?>'
                 },
                 success: function (response) {
+                    console.log(response); // Log the response
                     if (response.status === 'success') {
                         Swal.fire('Deleted!', response.message, 'success').then(() => {
                             location.reload();
@@ -452,7 +453,8 @@ async function deletePayment(id) {
                         Swal.fire('Error!', response.message, 'error');
                     }
                 },
-                error: function () {
+                error: function (xhr) {
+                    console.log(xhr); // Log any errors
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });

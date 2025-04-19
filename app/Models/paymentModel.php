@@ -16,7 +16,7 @@ class paymentModel extends Model
         'PaidDate' => 'required|valid_date',
         'PlanID' => 'required|integer',
     ];
-
+    
     public function getPaymentsWithDetails()
     {
         return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')

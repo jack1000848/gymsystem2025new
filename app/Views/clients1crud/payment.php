@@ -159,37 +159,37 @@ $this->section('body');
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <h2>Add Payment</h2>
-            <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
-                <?= csrf_field() ?>
-                <label for="CustomerID">Customer:</label>
-                <select id="CustomerID" name="CustomerID" required>
-                    <option value="">Select Customer</option>
-                    <?php foreach ($customers as $customer): ?>
-                        <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['CustomerName']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                    <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
+            <?= csrf_field() ?>
+            <label for="CustomerID">Customer:</label>
+            <select id="CustomerID" name="CustomerID" required>
+                <option value="">Select Customer</option>
+                <?php foreach ($customers as $customer): ?>
+                    <option value="<?= esc($customer['CustomerID']) ?>"><?= esc($customer['CustomerName']) ?></option>
+                <?php endforeach; ?>
+            </select>
 
-                <label for="PaidAmount">Paid Amount:</label>
-                <input type="number" id="PaidAmount" name="PaidAmount" step="0.01" required>
+            <label for="PaidAmount">Paid Amount:</label>
+            <input type="number" id="PaidAmount" name="PaidAmount" step="0.01" required>
 
-                <label for="PaidDate">Paid Date:</label>
-                <input type="date" id="PaidDate" name="PaidDate" required>
+            <label for="PaidDate">Paid Date:</label>
+            <input type="date" id="PaidDate" name="PaidDate" required>
 
-                <label for="PlanID">Plan:</label>
-                <select id="PlanID" name="PlanID" required>
-                    <option value="">Select Plan</option>
-                    <?php foreach ($plans as $plan): ?>
-                        <option value="<?= esc($plan['PlanID']) ?>" data-price="<?= esc($plan['Price']) ?>">
-                            <?= esc($plan['PlanName']) . ' - $' . number_format($plan['Price'], 2) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <label for="PlanID">Plan:</label>
+            <select id="PlanID" name="PlanID" required>
+                <option value="">Select Plan</option>
+                <?php foreach ($plans as $plan): ?>
+                    <option value="<?= esc($plan['PlanID']) ?>" data-price="<?= esc($plan['Price']) ?>">
+                        <?= esc($plan['PlanName']) . ' - ₱' . number_format($plan['Price'], 2) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-                <div class="price-display" id="priceDisplay">Plan Price: Select a plan to see the price.</div>
+            <div class="price-display" id="priceDisplay">Plan Price: Select a plan to see the price.</div>
 
-                <button type="submit">Add Payment</button>
-                <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
-            </form>
+            <button type="submit">Add Payment</button>
+            <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
+        </form>
         </div>
     </div>
 
@@ -241,6 +241,13 @@ $this->section('body');
                 text: '<?= session()->getFlashdata('error') ?>',
             });
         <?php endif; ?>
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent submission for testing
+    const formData = new FormData(this);
+    console.log('Form Data:', Object.fromEntries(formData));
+    alert('Check console for form data!');
+    this.submit(); // Proceed with submission
+});
     </script>
 </body>
 </html>

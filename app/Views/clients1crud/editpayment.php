@@ -107,7 +107,7 @@ $this->section('body');
             const price = selectedOption.getAttribute('data-price');
             const priceDisplay = document.getElementById('priceDisplay');
             if (price) {
-                priceDisplay.textContent = `Plan Price: $${parseFloat(price).toFixed(2)}`;
+                priceDisplay.textContent = `Plan Price: ₱${parseFloat(price).toFixed(2)}`;
             } else {
                 priceDisplay.textContent = 'Plan Price: Select a plan to see the price.';
             }

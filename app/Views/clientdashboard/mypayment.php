@@ -14,7 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: fixed;
             background-color: #f4f4f4;
         }
         h1 {
@@ -74,10 +74,10 @@
                     <?php foreach ($payments as $payment): ?>
                         <tr>
                             <td><?= esc($payment['PaymentHistoryID']) ?></td>
-                            <td>$<?= number_format($payment['PaidAmount'], 2) ?></td>
+                            <td>₱<?= number_format($payment['PaidAmount'], 2) ?></td>
                             <td><?= esc($payment['PaidDate']) ?></td>
                             <td><?= esc($payment['PlanName']) ?></td>
-                            <td>$<?= number_format($payment['Price'], 2) ?></td>
+                            <td>₱<?= number_format($payment['Price'], 2) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>

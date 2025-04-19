@@ -353,41 +353,41 @@ $(document).ready(function () {
 
     // Handle Edit Payment Form
     $('#editPaymentForm').on('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to update this payment?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, update it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            Swal.fire('Updated!', response.message, 'success').then(() => {
-                                $('#editPaymentModal').modal('hide');
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire('Error!', response.message, 'error');
-                        }
-                    },
-                    error: function (xhr) {
-                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to update this payment?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('/payment/edit/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            $('#editPaymentModal').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
                     }
-                });
-            }
-        });
+                },
+                error: function (xhr) {
+                    Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+                }
+            });
+        }
     });
+});
 
     // Reset forms when modals are closed
     $('#addPaymentModal').on('hidden.bs.modal', function () {

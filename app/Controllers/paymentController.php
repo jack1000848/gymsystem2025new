@@ -130,6 +130,42 @@ class paymentController extends BaseController
             ]);
         }
     }
+    // New method to handle POST request for updating payments
+    public function update($id)
+    {
+        $paymentModel = new paymentModel();
+
+        if (!$this->validate([
+            'CustomerID' => 'required|integer',
+            'PaidAmount' => 'required|decimal',
+            'PaidDate' => 'required|valid_date',
+            'PlanID' => 'required|integer',
+        ])) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => implode(', ', $this->validator->getErrors())
+            ]);
+        }
+
+        $data = [
+            'CustomerID' => $this->request->getPost('CustomerID'),
+            'PaidAmount' => $this->request->getPost('PaidAmount'),
+            'PaidDate' => $this->request->getPost('PaidDate'),
+            'PlanID' => $this->request->getPost('PlanID'),
+        ];
+
+        if ($paymentModel->update($id, $data)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Payment updated successfully.'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Failed to update payment.'
+            ]);
+        }
+    }
     public function myPayments()
     {
         $clientId = session()->get('CustomerID');

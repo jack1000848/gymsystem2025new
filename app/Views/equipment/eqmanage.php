@@ -162,15 +162,15 @@
       <form action="<?php echo site_url('/gymequipment/store'); ?>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Name</label>
-              <input type="text" class="form-control" name="Ename" required>
+              <input type="text" class="form-control" name="Ename" id="name" required>
     </div>
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Amount</label>
-              <input type="number" class="form-control" name="Eamount"required>
+              <input type="number" class="form-control" name="Eamount" id="amount"required>
     </div> 
     <div class="mb-3">
          <label for="exampleFormControlInput1" class="form-label">Quantity</label>
-              <input type="number" class="form-control" name="Equantity"required>
+              <input type="number" class="form-control" name="Equantity" id="quantity"required>
     </div> 
     </div>
       <div class="modal-footer">
@@ -355,7 +355,7 @@
     });
   }
 
-  document.getElementById('exampleFormControlInput1').addEventListener('input', function (e) {
+  document.getElementById('name').addEventListener('input', function (e) {
         const value = e.target.value.trim();
         if (value.length === 0) {
             e.target.setCustomValidity('Description cannot be only spaces.');
@@ -363,7 +363,16 @@
             e.target.setCustomValidity('');
         }
     });
-   
+    document.getElementById("amount").addEventListener("input", function() {
+        if (this.value < 0) {
+            this.value = 0;
+        }
+    });
+    document.getElementById("quantity").addEventListener("input", function() {
+        if (this.value < 0) {
+            this.value = 0;
+        }
+    });
 </script>
 
 

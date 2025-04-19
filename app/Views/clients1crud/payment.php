@@ -146,7 +146,7 @@ $this->section('body');
                             <td><?= esc($payment['PlanName']) ?></td>
                             <td>
                                 <a href="<?= base_url('/payment/edit/' . $payment['PaymentHistoryID']) ?>" class="action-btn edit-btn">Edit</a>
-                                <a href="<?= base_url('/payment/delete/' . $payment['PaymentHistoryID']) ?>" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</a>
+                                
                             </td>
                         </tr>
                     <?php endforeach; ?>

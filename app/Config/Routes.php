@@ -244,4 +244,5 @@ $routes->get('/payment', 'paymentController::payment');
 $routes->post('/payment/add', 'paymentController::add');
 $routes->match(['get', 'post'], '/payment/edit/(:num)', 'paymentController::edit/$1');
 $routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
-$routes->get('/myPayments', 'paymentController::myPayments');
+///$routes->get('/myPayments', 'paymentController::myPayments');
+$routes->get('/payment/edit', 'paymentController::edit');

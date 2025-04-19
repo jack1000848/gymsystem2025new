@@ -64,7 +64,7 @@ class paymentController extends BaseController
         $customerModel = new CustomerModel();
         $planModel = new PlanModel();
 
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if (!$this->validate([
                 'CustomerID' => 'required|integer',
                 'PaidAmount' => 'required|decimal',
@@ -98,8 +98,9 @@ class paymentController extends BaseController
             throw new PageNotFoundException('Payment not found.');
         }
 
-        return view('clients1crud/edit_payment', $data);
+        return view('clients1crud/editpayment', $data);
     }
+
 
     public function delete($id)
     {

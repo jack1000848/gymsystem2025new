@@ -3,23 +3,28 @@ $this->extend('layout/main');
 $this->section('body');
 ?>
 
-<!-- Bootstrap 5 CSS (explicitly included to ensure modals work) -->
+<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" rel="stylesheet" integrity="sha256-0e0e1tLh1z6tP2bW5qG3hIdM6b1f0qLqK0gG9N1j1E=" crossorigin="anonymous">
 
 <!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous" />
 
-<!-- Scoped CSS to prevent conflicts -->
+<!-- Scoped CSS -->
 <style>
 .payment-history {
-    background-color: #f4f4f4;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .payment-history .btn-primary {
     background-color: #3498db !important;
     border: none !important;
     min-width: 100px !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
 }
 
 .payment-history .btn-primary:hover {
@@ -30,6 +35,8 @@ $this->section('body');
     background-color: #e74c3c !important;
     border: none !important;
     min-width: 100px !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
 }
 
 .payment-history .btn-danger:hover {
@@ -40,6 +47,8 @@ $this->section('body');
     background-color: #28a745 !important;
     border: none !important;
     min-width: 100px !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
 }
 
 .payment-history .btn-success:hover {
@@ -151,7 +160,7 @@ $this->section('body');
     <?php endif; ?>
 
     <div class="col-12">
-        <table id="paymentTable" class="display">
+        <table id="paymentTable" class="display table table-bordered">
             <thead>
                 <tr>
                     <th>Payment ID</th>
@@ -294,16 +303,50 @@ $this->section('body');
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha256-XHDO7HHEcH6Ay3uQ7ZlcT6lK5xKx5xWORf3oQTP/r9o=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js" integrity="sha256-/F0e1tLh1z6tP2bW5qG3hIdM6b1f0qLqK0gG9N1j1E=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" integrity="sha256-2Zf3Zo9oQWVZ41s+/31X3uXXjG5pD5kB1cEHsT3j0do=" crossorigin="anonymous"></script>
 
-<!-- Fallback for jQuery -->
+<!-- Fallbacks -->
 <script>
     if (typeof jQuery === 'undefined') {
         console.error('jQuery not loaded from CDN, loading fallback');
-        document.write('<script src="/js/jquery-3.7.1.min.js"><\/script>');
+        document.write('<script src="<?= base_url('/js/jquery-3.7.1.min.js') ?>"><\/script>');
     } else {
         console.log('jQuery loaded successfully');
+    }
+</script>
+<script>
+    if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap not loaded from CDN, loading fallback');
+        document.write('<script src="<?= base_url('/js/bootstrap.bundle.min.js') ?>"><\/script>');
+    } else {
+        console.log('Bootstrap loaded successfully');
+    }
+</script>
+<script>
+    if (typeof DataTable === 'undefined') {
+        console.error('DataTables not loaded from CDN, loading fallback');
+        document.write('<script src="<?= base_url('/js/dataTables.min.js') ?>"><\/script>');
+        document.write('<script src="<?= base_url('/js/dataTables.bootstrap5.min.js') ?>"><\/script>');
+    } else {
+        console.log('DataTables loaded successfully');
+    }
+</script>
+<script>
+    if (typeof $.fn.select2 === 'undefined') {
+        console.error('Select2 not loaded from CDN, loading fallback');
+        document.write('<script src="<?= base_url('/js/select2.min.js') ?>"><\/script>');
+    } else {
+        console.log('Select2 loaded successfully');
+    }
+</script>
+<script>
+    if (typeof Swal === 'undefined') {
+        console.error('SweetAlert2 not loaded from CDN, loading fallback');
+        document.write('<script src="<?= base_url('/js/sweetalert2.min.js') ?>"><\/script>');
+    } else {
+        console.log('SweetAlert2 loaded successfully');
     }
 </script>
 
@@ -344,8 +387,8 @@ $(document).ready(function () {
     }
 
     // Update price display on plan selection
-    function updatePriceDisplay(selectElement, displayElement) {
-        try {
+    try {
+        function updatePriceDisplay(selectElement, displayElement) {
             $(selectElement).on('change', function () {
                 console.log('Plan selected:', $(this).val());
                 const price = $(this).find(':selected').data('price');
@@ -358,13 +401,13 @@ $(document).ready(function () {
                     $(this).closest('form').find('input[name="PaidAmount"]').val('');
                 }
             });
-        } catch (e) {
-            console.error('Price display update failed:', e.message);
         }
+        updatePriceDisplay('#planId', '#priceDisplay');
+        updatePriceDisplay('#editPlanId', '#editPriceDisplay');
+        console.log('Price display handler attached');
+    } catch (e) {
+        console.error('Price display handler failed:', e.message);
     }
-
-    updatePriceDisplay('#planId', '#priceDisplay');
-    updatePriceDisplay('#editPlanId', '#editPriceDisplay');
 
     // Handle Add Payment Form
     try {
@@ -373,7 +416,6 @@ $(document).ready(function () {
             console.log('Add payment form submitted');
             const formData = new FormData(this);
 
-            // Log form data
             for (let pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
             }

@@ -228,11 +228,8 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Months</label>
-                        <select type="number" class="form-control" id="durationim" name="durationim" required>
-                            <option value="One Month">ONE MONTH</option>
-                            <option value="three Months">THREE MONTHS</option>
-                            <option value="One Year">ONE YEAR</option>
-                        </select>
+                        <label type="number" class="form-control" id="durationim" name="durationim" required>
+                        
                     </div>
                     
                     <div class="mb-3">

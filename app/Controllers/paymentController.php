@@ -25,38 +25,50 @@ class paymentController extends BaseController
 
     // Rest of the controller remains the same (add, edit, delete, myPayments methods)
     public function add()
-    {
-        $model = new paymentModel();
+{
+    $model = new paymentModel();
 
-        // Log the incoming request data
-        log_message('debug', 'Add payment request: ' . json_encode($this->request->getPost()));
+    // Log the incoming request data
+    log_message('debug', 'Add payment request: ' . json_encode($this->request->getPost()));
 
-        if ($this->request->getMethod() !== 'POST') {
-            return redirect()->back()->with('error', 'Invalid request method.');
-        }
-
-        if (!$this->validate([
-            'CustomerID' => 'required|integer',
-            'PaidAmount' => 'required|decimal',
-            'PaidDate' => 'required|valid_date',
-            'PlanID' => 'required|integer',
-        ])) {
-            return redirect()->back()->with('error', implode(', ', $this->validator->getErrors()))->withInput();
-        }
-
-        $data = [
-            'CustomerID' => $this->request->getPost('CustomerID'),
-            'PaidAmount' => $this->request->getPost('PaidAmount'),
-            'PaidDate' => $this->request->getPost('PaidDate'),
-            'PlanID' => $this->request->getPost('PlanID'),
-        ];
-
-        if ($model->insert($data)) {
-            return redirect()->to('/payment')->with('success', 'Payment added successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to add payment.')->withInput();
-        }
+    if ($this->request->getMethod() !== 'POST') {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Invalid request method.'
+        ]);
     }
+
+    if (!$this->validate([
+        'CustomerID' => 'required|integer',
+        'PaidAmount' => 'required|decimal',
+        'PaidDate' => 'required|valid_date',
+        'PlanID' => 'required|integer',
+    ])) {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => implode(', ', $this->validator->getErrors())
+        ]);
+    }
+
+    $data = [
+        'CustomerID' => $this->request->getPost('CustomerID'),
+        'PaidAmount' => $this->request->getPost('PaidAmount'),
+        'PaidDate' => $this->request->getPost('PaidDate'),
+        'PlanID' => $this->request->getPost('PlanID'),
+    ];
+
+    if ($model->insert($data)) {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Payment added successfully.'
+        ]);
+    } else {
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Failed to add payment.'
+        ]);
+    }
+}
 
     public function edit($id)
     {

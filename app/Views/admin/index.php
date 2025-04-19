@@ -130,7 +130,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-primary">
                     <div class="inner">
-                        <h3><?= $$totalAmount ?><sup class="fs-5"></sup></h3>
+                        <h3><?= $totalPayments ?><sup class="fs-5"></sup></h3>
                         <p>Total Paid Amount</p>
                     </div>
                     <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

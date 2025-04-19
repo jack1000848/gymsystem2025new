@@ -306,7 +306,7 @@ $this->section('body'); // Start the body section
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="duration" class="form-label">Duration</label>
-                        <input type="number" id="duration" readonly disabled class="form-control" name="duration" required>
+                        <input type="text" id="duration" readonly disabled class="form-control" name="duration" required>
                     </div>
 
                     <!-- Submit Button -->

@@ -40,6 +40,15 @@ class Admin extends BaseController
             return redirect()->to('/joinus')->with('error', 'Please log in first.');
         }
 
+        if(!this->session->get('Role') == 'Admin'){
+            $roleVal = $this->session->get('Role');
+            if($roleVal == 'Client'){
+                return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+            }else if($roleVal == 'Coach'){
+                return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+            }
+        }
+
        /// if(!$this->session->get('Role') == null || $this->session->get('Role') != 'Admin'){
      ///       return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
     //    }

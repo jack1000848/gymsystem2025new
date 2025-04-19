@@ -450,7 +450,7 @@ $this->section('body'); // Start the body section
                     <!-- Duration -->
                     <div class="mb-3">
                         <label for="renewDuration" class="form-label">Duration</label>
-                        <input type="hidden" class="form-control" id="renewDuration" name="duration" readonly>
+                        <input type="text" class="form-control" id="renewDuration" name="duration" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="renewtAmount" class="form-label">Paid Amount</label>

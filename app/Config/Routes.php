@@ -119,10 +119,10 @@ $routes->delete('/gymplans/delete/(:num)', 'PlanController::delete/$1');
 $routes->get('/fetchPlans', 'CustomerController::getPlans');
 $routes->get('/fetchCoachPlan', 'CustomerController::getCoaches');
 /// payments
-$routes->get('/payment', 'paymentController::payment');
-$routes->post('/payment/update', 'paymentController::update');
-$routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
-$routes->post('/payment/add', 'paymentController::add');
+//$routes->get('/payment', 'paymentController::payment');
+//$routes->post('/payment/update', 'paymentController::update');
+//$routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
+//$routes->post('/payment/add', 'paymentController::add');
 ///View Schedule...
 $routes->get('/view-schedule', 'ViewScheduleForAllUserController::adminview');
 

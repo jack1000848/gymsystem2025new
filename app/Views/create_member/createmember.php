@@ -107,15 +107,17 @@
                                     </select>
             </div>
 
+            <div class="mb-3">
+        <label for ="duration" class="form-label">Duration </label>
+        <input type="text" id="duration" readonly disabled class="form-control" name="duration" required>
+   </div>
+
         <div class="mb-3">
             <label for="amount" class="form-label">Total Amount</label>
-            <input type="text" id="priceInput" readonly disabled class="form-control" name="amount" readonly>
+            <input type="number" id="priceInput" readonly disabled class="form-control" name="amount" readonly>
         </div>
 
-    <div class="mb-3">
-        <label for ="duration" class="form-label">Duration </label>
-        <input type="number" id="duration" readonly disabled class="form-control" name="duration" required>
-   </div>
+    
 
 
 

@@ -115,15 +115,29 @@ class paymentController extends BaseController
 
     public function myPayments()
     {
+        // Get the logged-in client's CustomerID from session
         $clientId = session()->get('CustomerID');
+        
+        // Check if client is logged in
+        if (!$clientId) {
+            log_message('error', 'No CustomerID in session for myPayments');
+            return redirect()->to('/login')->with('error', 'Please log in to view your payment history.');
+        }
+
         $model = new paymentModel();
 
-        $data['payments'] = $model->select('paymenthistory.*, plan.PlanName')
+        // Fetch payments for the logged-in client, joined with plan details
+        $payments = $model->select('paymenthistory.*, plan.PlanName, plan.Price')
             ->join('plan', 'plan.PlanID = paymenthistory.PlanID', 'left')
-            ->where('CustomerID', $clientId)
-            ->orderBy('PaidDate', 'DESC')
+            ->where('paymenthistory.CustomerID', $clientId)
+            ->orderBy('paymenthistory.PaidDate', 'DESC')
             ->findAll();
 
-        return view('clientdashboard/mypayment', $data);
+        log_message('debug', 'Payments fetched for CustomerID ' . $clientId . ': ' . json_encode($payments));
+
+        return view('clientdashboard/mypayment', [
+            'payments' => $payments,
+            'clientId' => $clientId
+        ]);
     }
 }

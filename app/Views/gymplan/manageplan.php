@@ -177,7 +177,7 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Days</label>
-                        <label type="number" class="form-control" id="durationim" name="durationim" required>
+                        <input type="number" class="form-control" id="durationim" name="durationim" required>
                             
                     </div>
                     
@@ -228,7 +228,7 @@ $this->section('body');
                     </div>
                     <div class="mb-3">
                         <label for="durationim" class="form-label">Duration in Days</label>
-                        <label type="number" class="form-control" id="durationim" name="durationim" required>
+                        <input type="number" class="form-control" id="durationim" name="durationim" required>
                         
                     </div>
                     

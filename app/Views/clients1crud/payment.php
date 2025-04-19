@@ -3,131 +3,135 @@ $this->extend('layout/main');
 $this->section('body');
 ?>
 
+<!-- Bootstrap 5 CSS (explicitly included to ensure modals work) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 <!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous" />
 
-<!-- Integrated CSS from Gym Plans design -->
+<!-- Scoped CSS to prevent conflicts -->
 <style>
-    body {
-        background-color: #f4f4f4;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+.payment-history {
+    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .btn-primary {
-        background-color: #3498db;
-        border: none;
-        min-width: 100px;
-    }
+.payment-history .btn-primary {
+    background-color: #3498db !important;
+    border: none !important;
+    min-width: 100px !important;
+}
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-    }
+.payment-history .btn-primary:hover {
+    background-color: #2980b9 !important;
+}
 
-    .btn-danger {
-        background-color: #e74c3c;
-        border: none;
-        min-width: 100px;
-    }
+.payment-history .btn-danger {
+    background-color: #e74c3c !important;
+    border: none !important;
+    min-width: 100px !important;
+}
 
-    .btn-danger:hover {
-        background-color: #c0392b;
-    }
+.payment-history .btn-danger:hover {
+    background-color: #c0392b !important;
+}
 
-    .btn-success {
-        background-color: #28a745;
-        border: none;
-        min-width: 100px;
-    }
+.payment-history .btn-success {
+    background-color: #28a745 !important;
+    border: none !important;
+    min-width: 100px !important;
+}
 
-    .btn-success:hover {
-        background-color: #218838;
-    }
+.payment-history .btn-success:hover {
+    background-color: #218838 !important;
+}
 
-    h1.modal-title {
-        font-weight: bold;
-        color: #2c3e50;
-    }
+.payment-history .modal-title {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+}
 
-    .modal-content {
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    }
+.payment-history .modal-content {
+    border-radius: 12px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1) !important;
+}
 
-    .form-control, .select2-container--default .select2-selection--single {
-        border-radius: 8px;
-        font-size: 15px;
-    }
+.payment-history .form-control,
+.payment-history .select2-container--default .select2-selection--single {
+    border-radius: 8px !important;
+    font-size: 15px !important;
+}
 
-    table.dataTable {
-        width: 100% !important;
-        margin: 0 auto;
-        background-color: #ffffff;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
+.payment-history table.dataTable {
+    width: 100% !important;
+    margin: 0 auto !important;
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
 
-    table.dataTable thead th {
-        background-color: #3498db;
-        color: white;
-        font-size: 16px;
-        padding: 12px;
-        text-transform: uppercase;
-        text-align: center;
-    }
+.payment-history table.dataTable thead th {
+    background-color: #3498db !important;
+    color: white !important;
+    font-size: 16px !important;
+    padding: 12px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+}
 
-    table.dataTable tbody td {
-        font-size: 15px;
-        color: #2c3e50;
-        text-align: center;
-        padding: 10px;
-    }
+.payment-history table.dataTable tbody td {
+    font-size: 15px !important;
+    color: #2c3e50 !important;
+    text-align: center !important;
+    padding: 10px !important;
+}
 
-    table.dataTable tbody tr:hover {
-        background-color: #ecf0f1;
-    }
+.payment-history table.dataTable tbody tr:hover {
+    background-color: #ecf0f1 !important;
+}
 
-    .dataTables_wrapper .dataTables_filter input {
-        border-radius: 6px;
-        padding: 6px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-    }
+.payment-history .dataTables_wrapper .dataTables_filter input {
+    border-radius: 6px !important;
+    padding: 6px !important;
+    border: 1px solid #ccc !important;
+    font-size: 14px !important;
+}
 
-    .alert {
-        border-radius: 10px;
-        padding: 12px;
-        font-size: 15px;
-    }
+.payment-history .alert {
+    border-radius: 10px !important;
+    padding: 12px !important;
+    font-size: 15px !important;
+}
 
-    .modal-footer button {
-        min-width: 100px;
-    }
+.payment-history .modal-footer button {
+    min-width: 100px !important;
+}
 
-    .btn-close {
-        outline: none;
-    }
+.payment-history .btn-close {
+    outline: none !important;
+}
 
-    .select2-container {
-        width: 100% !important;
-    }
+.payment-history .select2-container {
+    width: 100% !important;
+}
 
-    .price-display {
-        margin: 10px 0;
-        color: #2c3e50;
-        font-weight: bold;
-        font-size: 15px;
-    }
+.payment-history .price-display {
+    margin: 10px 0 !important;
+    color: #2c3e50 !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+}
 
-    .empty-message {
-        text-align: center;
-        padding: 20px;
-        color: #666;
-        font-style: italic;
-    }
+.payment-history .empty-message {
+    text-align: center !important;
+    padding: 20px !important;
+    color: #666 !important;
+    font-style: italic !important;
+}
 </style>
 
-<div class="p-2 row mb-3">
+<div class="payment-history p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
     </div>
@@ -186,7 +190,7 @@ $this->section('body');
 </div>
 
 <!-- Add Payment Modal -->
-<div class="modal fade" id="addPaymentModal" tabindex="-1" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
+<div class="modal fade payment-history" id="addPaymentModal" tabindex="-1" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -236,7 +240,7 @@ $this->section('body');
 </div>
 
 <!-- Edit Payment Modal -->
-<div class="modal fade" id="editPaymentModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
+<div class="modal fade payment-history" id="editPaymentModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -286,33 +290,41 @@ $this->section('body');
     </div>
 </div>
 
-<!-- JS Scripts (moved to end for DOM readiness) -->
+<!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha256-XHDO7HHEcH6Ay3uQ7ZlcT6lK5xKx5xWORf3oQTP/r9o=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" integrity="sha256-2Zf3Zo9oQWVZ41s+/31X3uXXjG5pD5kB1cEHsT3j0do=" crossorigin="anonymous"></script>
 
+<!-- Fallback for jQuery -->
 <script>
-if (typeof jQuery === 'undefined') {
-    console.error('jQuery is not loaded');
-} else {
-    console.log('jQuery loaded successfully');
-}
+    if (typeof jQuery === 'undefined') {
+        console.error('jQuery not loaded from CDN, loading fallback');
+        document.write('<script src="/js/jquery-3.7.1.min.js"><\/script>');
+    } else {
+        console.log('jQuery loaded successfully');
+    }
+</script>
 
+<script>
 $(document).ready(function () {
     console.log('Document ready');
 
     // Initialize DataTable
     try {
         new DataTable('#paymentTable', {
-            responsive: true
+            responsive: true,
+            searching: true,
+            ordering: true,
+            paging: true
         });
         console.log('DataTable initialized');
     } catch (e) {
-        console.error('DataTable initialization failed:', e);
+        console.error('DataTable initialization failed:', e.message);
     }
 
-    // Initialize Select2 for modals
+    // Initialize Select2
     try {
         $('#customerId, #planId').select2({
             dropdownParent: $('#addPaymentModal'),
@@ -328,118 +340,147 @@ $(document).ready(function () {
         });
         console.log('Select2 initialized');
     } catch (e) {
-        console.error('Select2 initialization failed:', e);
+        console.error('Select2 initialization failed:', e.message);
     }
 
     // Update price display on plan selection
     function updatePriceDisplay(selectElement, displayElement) {
-        $(selectElement).on('change', function () {
-            console.log('Plan selected:', $(this).val());
-            const price = $(this).find(':selected').data('price');
-            if (price) {
-                $(displayElement).text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
-                const amountInput = $(this).closest('form').find('input[name="PaidAmount"]');
-                amountInput.val(parseFloat(price).toFixed(2));
-            } else {
-                $(displayElement).text('Plan Price: Select a plan to see the price.');
-                $(this).closest('form').find('input[name="PaidAmount"]').val('');
-            }
-        });
+        try {
+            $(selectElement).on('change', function () {
+                console.log('Plan selected:', $(this).val());
+                const price = $(this).find(':selected').data('price');
+                if (price) {
+                    $(displayElement).text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
+                    const amountInput = $(this).closest('form').find('input[name="PaidAmount"]');
+                    amountInput.val(parseFloat(price).toFixed(2));
+                } else {
+                    $(displayElement).text('Plan Price: Select a plan to see the price.');
+                    $(this).closest('form').find('input[name="PaidAmount"]').val('');
+                }
+            });
+        } catch (e) {
+            console.error('Price display update failed:', e.message);
+        }
     }
 
     updatePriceDisplay('#planId', '#priceDisplay');
     updatePriceDisplay('#editPlanId', '#editPriceDisplay');
 
     // Handle Add Payment Form
-    $('#addPaymentForm').on('submit', function (e) {
-        e.preventDefault();
-        console.log('Add payment form submitted');
-        const formData = new FormData(this);
+    try {
+        $('#addPaymentForm').on('submit', function (e) {
+            e.preventDefault();
+            console.log('Add payment form submitted');
+            const formData = new FormData(this);
 
-        // Log form data for debugging
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
-        }
-
-        $.ajax({
-            url: '<?= base_url('/payment/add') ?>',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                console.log('Sending AJAX request to:', '<?= base_url('/payment/add') ?>');
-            },
-            success: function (response) {
-                console.log('AJAX success:', response);
-                if (response.status === 'success') {
-                    Swal.fire('Success!', response.message, 'success').then(() => {
-                        $('#addPaymentModal').modal('hide');
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire('Error!', response.message || 'Failed to add payment.', 'error');
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('AJAX error:', xhr.status, xhr.responseText, status, error);
-                Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || error), 'error');
+            // Log form data
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
             }
-        });
-    });
 
-    // Handle Edit Payment Form
-    $('#editPaymentForm').on('submit', function (e) {
-        e.preventDefault();
-        console.log('Edit payment form submitted');
-        const formData = new FormData(this);
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to update this payment?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, update it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        console.log('Update success:', response);
+            $.ajax({
+                url: '<?= base_url('/payment/add') ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    console.log('Sending AJAX request to:', '<?= base_url('/payment/add') ?>');
+                },
+                success: function (response) {
+                    console.log('AJAX success:', response);
+                    try {
                         if (response.status === 'success') {
-                            Swal.fire('Updated!', response.message, 'success').then(() => {
-                                $('#editPaymentModal').modal('hide');
+                            Swal.fire('Success!', response.message, 'success').then(() => {
+                                $('#addPaymentModal').modal('hide');
                                 location.reload();
                             });
                         } else {
-                            Swal.fire('Error!', response.message || 'Failed to update payment.', 'error');
+                            Swal.fire('Error!', response.message || 'Failed to add payment.', 'error');
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Update error:', xhr.status, xhr.responseText, status, error);
-                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || error), 'error');
+                    } catch (e) {
+                        console.error('Success handler error:', e.message);
+                        Swal.fire('Error!', 'Invalid server response.', 'error');
                     }
-                });
-            }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', xhr.status, xhr.responseText, status, error);
+                    Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || error), 'error');
+                }
+            });
         });
-    });
+        console.log('Add payment form handler attached');
+    } catch (e) {
+        console.error('Add payment form handler failed:', e.message);
+    }
+
+    // Handle Edit Payment Form
+    try {
+        $('#editPaymentForm').on('submit', function (e) {
+            e.preventDefault();
+            console.log('Edit payment form submitted');
+            const formData = new FormData(this);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to update this payment?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            console.log('Update success:', response);
+                            try {
+                                if (response.status === 'success') {
+                                    Swal.fire('Updated!', response.message, 'success').then(() => {
+                                        $('#editPaymentModal').modal('hide');
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire('Error!', response.message || 'Failed to update payment.', 'error');
+                                }
+                            } catch (e) {
+                                console.error('Update success handler error:', e.message);
+                                Swal.fire('Error!', 'Invalid server response.', 'error');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Update error:', xhr.status, xhr.responseText, status, error);
+                            Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || error), 'error');
+                        }
+                    });
+                }
+            });
+        });
+        console.log('Edit payment form handler attached');
+    } catch (e) {
+        console.error('Edit payment form handler failed:', e.message);
+    }
 
     // Reset forms on modal close
-    $('#addPaymentModal').on('hidden.bs.modal', function () {
-        $(this).find('form')[0].reset();
-        $('#customerId, #planId').val(null).trigger('change');
-        $('#priceDisplay').text('Plan Price: Select a plan to see the price.');
-    });
+    try {
+        $('#addPaymentModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+            $('#customerId, #planId').val(null).trigger('change');
+            $('#priceDisplay').text('Plan Price: Select a plan to see the price.');
+        });
 
-    $('#editPaymentModal').on('hidden.bs.modal', function () {
-        $(this).find('form')[0].reset();
-        $('#editCustomerId, #editPlanId').val(null).trigger('change');
-        $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
-    });
+        $('#editPaymentModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+            $('#editCustomerId, #editPlanId').val(null).trigger('change');
+            $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
+        });
+        console.log('Modal reset handlers attached');
+    } catch (e) {
+        console.error('Modal reset handlers failed:', e.message);
+    }
 });
 
 // Load payment into edit modal
@@ -461,23 +502,23 @@ async function editPayment(id) {
             Swal.fire('Error!', response.message, 'error');
         }
     } catch (error) {
-        console.error('Edit error:', error);
+        console.error('Edit error:', error.message);
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
 
 // Delete payment
 async function deletePayment(id) {
-    const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!'
-    });
+    try {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        });
 
-    if (result.isConfirmed) {
-        try {
+        if (result.isConfirmed) {
             console.log('Deleting payment:', id);
             await $.ajax({
                 url: '<?= base_url('/payment/delete/') ?>' + id,
@@ -501,10 +542,10 @@ async function deletePayment(id) {
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });
-        } catch (error) {
-            console.error('Delete error:', error);
-            Swal.fire('Error!', 'Something went wrong.', 'error');
         }
+    } catch (error) {
+        console.error('Delete error:', error.message);
+        Swal.fire('Error!', 'Something went wrong.', 'error');
     }
 }
 </script>

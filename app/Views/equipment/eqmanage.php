@@ -161,15 +161,15 @@
       <div class="modal-body">
       <form action="<?php echo site_url('/gymequipment/store'); ?>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Name</label>
+         <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" name="Ename" id="name" required>
     </div>
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Amount</label>
+         <label for="amount" class="form-label">Amount</label>
               <input type="number" class="form-control" name="Eamount" id="amount"required>
     </div> 
     <div class="mb-3">
-         <label for="exampleFormControlInput1" class="form-label">Quantity</label>
+         <label for="quantity" class="form-label">Quantity</label>
               <input type="number" class="form-control" name="Equantity" id="quantity"required>
     </div> 
     </div>

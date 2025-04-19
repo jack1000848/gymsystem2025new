@@ -11,13 +11,12 @@
             <p class="card-text">Last Name: <?= $client['Lastname']; ?></p>
             <p class="card-text">Address: <?= $client['Address']; ?></p>
             <p class="card-text">Gender: <?= $client['Gender']; ?></p>
-            <p class="card-text">Email: <?= $client['Email']; ?></p>
-            <p class="card-text">Password: <?= $client['password_hash']; ?> </p>         
+            <p class="card-text">Email: <?= $client['Email']; ?></p>    
             <p class="card-text">Registered Date: <?= $client['RegisteredDate']; ?></p>
             <p class="card-text">Types of Workout: <?= $client['types_of_workout']; ?></p>
             <p class="card-text">Membership Plan: <?= $client['Membership_plan']; ?></p>
             <h5>QR Code:</h5>
-            <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px; ">
+            <img id="qrCodeImage" src="" alt="QR Code" style="width: 230px; ">
         </div>
     </div>
 </div>

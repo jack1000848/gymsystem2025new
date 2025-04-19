@@ -88,7 +88,7 @@ $this->section('body'); // Start the body section
             success: function(response) {
                 console.log("Response from server:", response);
                 const customer = response.customer;
-
+                $("#status").text(response.status || "N/A");
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
 

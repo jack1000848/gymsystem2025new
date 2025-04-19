@@ -104,6 +104,35 @@ class Admin extends BaseController
     
     
 }
+private function getMonthlyPayments()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('PaymentHistory');
+        $data = [['Month', 'Total Paid Amount']];
+        $totalPayments = 0;
+
+        for ($i = 4; $i >= 0; $i--) {
+            $monthStart = Time::now()->subMonths($i)->modify('first day of this month')->setTime(0, 0, 0);
+            $monthEnd = Time::now()->subMonths($i)->modify('last day of this month')->setTime(23, 59, 59);
+
+            $builder->resetQuery();
+            $builder->selectSum('PaidAmount', 'total_amount');
+            $builder->where('PaidDate >=', $monthStart->toDateString());
+            $builder->where('PaidDate <=', $monthEnd->toDateString());
+
+            $result = $builder->get()->getRow();
+            $totalAmount = $result->total_amount ? (float)$result->total_amount : 0;
+            $monthLabel = $monthStart->format('F Y');
+
+            $data[] = [$monthLabel, $totalAmount];
+            $totalPayments += $totalAmount;
+        }
+
+        return [
+            'data' => $data,
+            'total' => $totalPayments
+        ];
+    }
    private function getMonthlyCheckins()
 {
     $db = \Config\Database::connect();

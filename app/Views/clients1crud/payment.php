@@ -4,7 +4,7 @@ $this->section('body');
 ?>
 
 <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous" />
 
 <!-- Integrated CSS from Gym Plans design -->
 <style>
@@ -194,8 +194,8 @@ $this->section('body');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addPaymentForm" action="<?= base_url('/payment/add') ?>" method="POST">
-                    <?= csrf_field() ?>
+                <form id="addPaymentForm" action="<?= base_url('/payment/add') ?>" method="POST" onsubmit="return false;">
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                     <div class="mb-3">
                         <label for="customerId" class="form-label">Customer</label>
                         <select class="form-select" id="customerId" name="CustomerID" required>
@@ -244,8 +244,8 @@ $this->section('body');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editPaymentForm" action="<?= base_url('/payment/update') ?>" method="POST">
-                    <?= csrf_field() ?>
+                <form id="editPaymentForm" action="<?= base_url('/payment/update') ?>" method="POST" onsubmit="return false;">
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                     <input type="hidden" name="PaymentHistoryID" id="editPaymentId">
                     <div class="mb-3">
                         <label for="editCustomerId" class="form-label">Customer</label>
@@ -286,35 +286,50 @@ $this->section('body');
     </div>
 </div>
 
-<!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- JS Scripts (moved to end for DOM readiness) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha256-XHDO7HHEcH6Ay3uQ7ZlcT6lK5xKx5xWORf3oQTP/r9o=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha256-8WKr1tB7hH9yG2bQN4yJ6R4dEzS2v4G7n7i7y0iPWc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" integrity="sha256-2Zf3Zo9oQWVZ41s+/31X3uXXjG5pD5kB1cEHsT3j0do=" crossorigin="anonymous"></script>
 
 <script>
+if (typeof jQuery === 'undefined') {
+    console.error('jQuery is not loaded');
+} else {
+    console.log('jQuery loaded successfully');
+}
+
 $(document).ready(function () {
-    console.log('jQuery loaded and document ready');
+    console.log('Document ready');
 
     // Initialize DataTable
-    new DataTable('#paymentTable', {
-        responsive: true
-    });
+    try {
+        new DataTable('#paymentTable', {
+            responsive: true
+        });
+        console.log('DataTable initialized');
+    } catch (e) {
+        console.error('DataTable initialization failed:', e);
+    }
 
     // Initialize Select2 for modals
-    $('#customerId, #planId').select2({
-        dropdownParent: $('#addPaymentModal'),
-        placeholder: "Select an option",
-        width: '100%',
-        allowClear: true
-    });
-
-    $('#editCustomerId, #editPlanId').select2({
-        dropdownParent: $('#editPaymentModal'),
-        placeholder: "Select an option",
-        width: '100%',
-        allowClear: true
-    });
+    try {
+        $('#customerId, #planId').select2({
+            dropdownParent: $('#addPaymentModal'),
+            placeholder: "Select an option",
+            width: '100%',
+            allowClear: true
+        });
+        $('#editCustomerId, #editPlanId').select2({
+            dropdownParent: $('#editPaymentModal'),
+            placeholder: "Select an option",
+            width: '100%',
+            allowClear: true
+        });
+        console.log('Select2 initialized');
+    } catch (e) {
+        console.error('Select2 initialization failed:', e);
+    }
 
     // Update price display on plan selection
     function updatePriceDisplay(selectElement, displayElement) {
@@ -340,7 +355,6 @@ $(document).ready(function () {
         e.preventDefault();
         console.log('Add payment form submitted');
         const formData = new FormData(this);
-        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
         // Log form data for debugging
         for (let pair of formData.entries()) {
@@ -353,6 +367,9 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
+            beforeSend: function () {
+                console.log('Sending AJAX request to:', '<?= base_url('/payment/add') ?>');
+            },
             success: function (response) {
                 console.log('AJAX success:', response);
                 if (response.status === 'success') {
@@ -365,7 +382,7 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.error('AJAX error:', xhr, status, error);
+                console.error('AJAX error:', xhr.status, xhr.responseText, status, error);
                 Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || error), 'error');
             }
         });
@@ -376,7 +393,6 @@ $(document).ready(function () {
         e.preventDefault();
         console.log('Edit payment form submitted');
         const formData = new FormData(this);
-        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
         Swal.fire({
             title: 'Are you sure?',
@@ -404,7 +420,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error('Update error:', xhr, status, error);
+                        console.error('Update error:', xhr.status, xhr.responseText, status, error);
                         Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || error), 'error');
                     }
                 });
@@ -468,7 +484,7 @@ async function deletePayment(id) {
                 type: 'POST',
                 data: {
                     _method: 'DELETE',
-                    <?= csrf_token() ?>: '<?= csrf_hash() ?>
+                    [<?= json_encode(csrf_token()) ?>]: <?= json_encode(csrf_hash()) ?>
                 },
                 success: function (response) {
                     console.log('Delete success:', response);
@@ -481,7 +497,7 @@ async function deletePayment(id) {
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error('Delete error:', xhr, status, error);
+                    console.error('Delete error:', xhr.status, xhr.responseText, status, error);
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });

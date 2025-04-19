@@ -235,3 +235,13 @@ $routes->get('client-download-pdf/(:num)', 'TaskController::clientDownloadPdf/$1
 $routes->post('client-update-progress/(:num)', 'TaskController::clientUpdateProgress/$1');
 $routes->get('admintaskview', 'TaskController::adminTasks');
 $routes->get('admin-download-pdf/(:num)', 'TaskController::adminDownloadPdf/$1');
+
+
+
+
+///payment 
+$routes->get('/payment', 'paymentController::payment');
+$routes->post('/payment/add', 'paymentController::add');
+$routes->match(['get', 'post'], '/payment/edit/(:num)', 'paymentController::edit/$1');
+$routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
+$routes->get('/myPayments', 'paymentController::myPayments');

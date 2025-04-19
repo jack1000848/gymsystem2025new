@@ -159,7 +159,7 @@ $this->section('body');
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <h2>Add Payment</h2>
-                    <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="post">
+                    <form id="paymentForm" action="<?= base_url('/payment/add') ?>" method="POST">
             <?= csrf_field() ?>
             <label for="CustomerID">Customer:</label>
             <select id="CustomerID" name="CustomerID" required>

@@ -30,8 +30,8 @@ class paymentController extends BaseController
 
         // Log the incoming request data
         log_message('debug', 'Add payment request: ' . json_encode($this->request->getPost()));
-        
-        if ($this->request->getMethod() !== 'post') {
+
+        if ($this->request->getMethod() !== 'POST') {
             return redirect()->back()->with('error', 'Invalid request method.');
         }
 

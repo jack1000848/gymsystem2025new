@@ -227,7 +227,7 @@ $this->section('body');
                         <textarea class="form-control" id="editDescription" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="durationim" class="form-label">Duration in Months</label>
+                        <label for="durationim" class="form-label">Duration in Days</label>
                         <label type="number" class="form-control" id="durationim" name="durationim" required>
                         
                     </div>

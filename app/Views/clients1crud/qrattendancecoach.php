@@ -41,6 +41,7 @@ $this->section('body'); // Start the body section
                 <div class="card-body text-center">
                     <!-- Scanned User Info (Initially Hidden) -->
                     <div id="showInfo" class="alert alert-success">
+                        <p><strong>Status:</strong> <span id="status">-</span></p>
                         <p><strong>User ID:</strong> <span id="coachId">-</span></p>
                         <p><strong>Full Name:</strong> <span id="fullName">-</span></p>
                     </div>
@@ -93,11 +94,14 @@ function redirectToPage() {
             type: "POST",
             success: function(response) {
                 console.log("Response from server:", response);
-                const coach = response.coach;
+                const coach = response.coach;   
+                $("#status").text(response.status || "N/A");
 
+               
                 $("#loadingSpinner").hide();
                 $("#showInfo").show();
 
+                $("#status").text(response.status || "N/A");
                 $("#coachId").text(coach.CoachID || "N/A");
                 $("#fullName").text(coach.FullName || "N/A");
               

@@ -143,6 +143,7 @@ $this->section('body');
                         <td><?= esc($plan['PlanName']); ?></td>
                         <td><?= esc($plan['Description']); ?></td>
                         <td><?= $plan['Duration']; ?></td>
+                        <td><?= $plan['ExpirationDate']; ?></td>
                         <td><?= $plan['Price']; ?></td>
                         <td><?= $plan['IsActive'] ? 'Yes' : 'No'; ?></td>
                         <td>

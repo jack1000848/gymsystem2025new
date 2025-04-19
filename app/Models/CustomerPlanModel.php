@@ -8,7 +8,7 @@ class CustomerPlanModel extends Model
 {
     protected $table = 'customerplan'; 
     protected $primaryKey = 'CustomerID';
-    protected $allowedFields = ['CustomerID', 'CustomerName', 'PlanName', 'ExpirationDate'];
+    protected $allowedFields = ['CustomerID', 'CustomerName', 'Membership_plan', 'ExpirationDate'];
 
     /**
      * Fetch all customer plan data from the view.

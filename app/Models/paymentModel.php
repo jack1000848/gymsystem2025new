@@ -10,7 +10,6 @@ class paymentModel extends Model
     protected $primaryKey = 'PaymentHistoryID';
     protected $allowedFields = ['CustomerID', 'PaidAmount', 'PaidDate', 'PlanID'];
 
-    // Optional: Add validation rules
     protected $validationRules = [
         'CustomerID' => 'required|integer',
         'PaidAmount' => 'required|decimal',
@@ -18,7 +17,6 @@ class paymentModel extends Model
         'PlanID' => 'required|integer',
     ];
 
-    // Fetch payments with customer and plan details
     public function getPaymentsWithDetails()
     {
         return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')

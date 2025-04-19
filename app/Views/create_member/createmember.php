@@ -113,7 +113,7 @@
    </div>
    <div class="mb-3">
                         <label for="expiration" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="expiration" name="expirationdate" required>
+                        <input type="date" readonly disabled class="form-control" id="expiration" name="expirationdate" required>
                     </div>
         <div class="mb-3">
             <label for="amount" class="form-label">Total Amount</label>

@@ -446,6 +446,22 @@ document.getElementById("price").addEventListener("input", function() {
             this.value = 0;
         }
     });
+    document.getElementById('editPlanName').addEventListener('input', function (e) {
+        const value = e.target.value.trim();
+        if (value.length === 0) {
+            e.target.setCustomValidity('Plan name cannot be only spaces.');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
+    document.getElementById('description').addEventListener('input', function (e) {
+        const value = e.target.value.trim();
+        if (value.length === 0) {
+            e.target.setCustomValidity('Description cannot be only spaces.');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
 </script>
 
 <?php $this->endSection(); ?>

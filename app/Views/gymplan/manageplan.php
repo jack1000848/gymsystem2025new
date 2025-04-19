@@ -129,8 +129,7 @@ $this->section('body');
                     <th>Plan ID</th>
                     <th>Plan Name</th>
                     <th>Description</th>
-                    <th>Duration in Months</th>
-                    <th>Expiration Date</th>
+                    <th>Duration in Days</th>
                     <th>Price</th>
                     <th>Active</th>
                     <th>Action</th>
@@ -143,7 +142,6 @@ $this->section('body');
                         <td><?= esc($plan['PlanName']); ?></td>
                         <td><?= esc($plan['Description']); ?></td>
                         <td><?= $plan['Duration']; ?></td>
-                        <td><?= $plan['ExpirationDate']; ?></td>
                         <td><?= $plan['Price']; ?></td>
                         <td><?= $plan['IsActive'] ? 'Yes' : 'No'; ?></td>
                         <td>
@@ -178,18 +176,11 @@ $this->section('body');
                         <textarea class="form-control" id="description" name="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="durationim" class="form-label">Duration in Months</label>
-                        <select type="number" class="form-control" id="durationim" name="durationim" required>
-                            <option value="One Month">ONE MONTH</option>
-                            <option value="three Months">THREE MONTHS</option>
-                            <option value="One Year">ONE YEAR</option>
-                        </select>
+                        <label for="durationim" class="form-label">Duration in Days</label>
+                        <label type="number" class="form-control" id="durationim" name="durationim" required>
+                            
                     </div>
-                    <!-- Expiration date -->
-                    <div class="mb-3">
-                        <label for="expiration" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="expiration" name="expirationdate" required>
-                    </div>
+                    
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="number" step="0.01" class="form-control" id="price" name="price" required>

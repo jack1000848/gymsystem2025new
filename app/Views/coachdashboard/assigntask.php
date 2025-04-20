@@ -92,6 +92,19 @@ document.addEventListener('click', function(e) {
         e.target.parentElement.remove();
     }
 });
+document.getElementById('DueDate').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time for comparison
+
+        const errorDiv = document.getElementById('date-error');
+        if (selectedDate < today) {
+            errorDiv.style.display = 'block';
+            this.value = ''; // Clear invalid selection
+        } else {
+            errorDiv.style.display = 'none';
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

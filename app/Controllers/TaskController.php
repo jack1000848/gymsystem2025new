@@ -5,7 +5,6 @@ use App\Models\TaskModel;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
 use App\Models\SubtaskModel;
-use App\Models\SelectedCoachFromRegistrationModel;
 use App\Services\PdfService;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -23,37 +22,19 @@ class TaskController extends BaseController
         $this->taskModel = new TaskModel();
         $this->customerModel = new CustomerModel();
         $this->coachModel = new CoachModel();
-        $this->customerModel = new \App\Models\CustomerModel();
-        $this->SelectedCoachFromRegistrationModel = new \App\Models\SelectedCoachFromRegistrationModel();
     }
 
     // Show form to create a task (for coaches)
     public function create()
-    {
-        $coachId = $this->session->get('ID');
-        log_message('debug', 'Coach ID: ' . $coachId);
-
-        if (!$coachId) {
-            log_message('error', 'No Coach ID found in session');
-            return redirect()->to('login')->with('error', 'Please log in to continue');
-        }
-
-        // Join customers and SelectedCoachFromRegistration tables
-        $customers = $this->customerModel
-            ->select('customer.CustomerID, customer.Firstname, customer.Lastname')
-            ->join('SelectedCoachFromRegistration', 'SelectedCoachFromRegistration.CustomerID = customer.CustomerID')
-            ->where('SelectedCoachFromRegistration.CoachID', $coachId)
-            ->findAll();
-        log_message('debug', 'Last query: ' . $this->customerModel->db->getLastQuery());
-        log_message('debug', 'Customers fetched: ' . json_encode($customers));
-
-        if (empty($customers)) {
-            session()->setFlashdata('error', 'No clients found for this coach.');
-        }
-
-        $data['customers'] = $customers;
-        return view('coachdashboard/assigntask', $data);
-    }
+{
+    $coachId = $this->session->get('ID');
+    $customers = $this->customerModel
+    ->where('CoachID', $coachId)
+    ->findAll();
+    log_message('debug', 'Customers fetched: ' . json_encode($customers)); // Debug log
+    $data['customers'] = $customers;
+    return view('coachdashboard/assigntask', $data);
+}
 
     // Save a new task
     public function store()

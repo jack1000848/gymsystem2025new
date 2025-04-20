@@ -32,9 +32,10 @@ class TaskController extends BaseController
 {
     $coachId = $this->session->get('ID');
 
+    // Fetch customers assigned to the coach
     $customers = $this->customerModel
-        ->select('customers.ID AS CustomerID, customers.Firstname, customers.Lastname')
-        ->join('SelectedCoachFromRegistration scr', 'scr.CustomerID = customers.ID', 'inner')
+        ->select('customer.CustomerID, customer.Firstname, customer.Lastname')
+        ->join('selected_coach_from_registration scr', 'scr.CustomerID = customer.CustomerID', 'inner')
         ->where('scr.CoachID', $coachId)
         ->findAll();
 

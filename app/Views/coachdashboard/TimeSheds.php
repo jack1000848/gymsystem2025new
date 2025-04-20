@@ -137,7 +137,7 @@
     <td><?= $coachSched['ScheduleDate']; ?></td>
     <td><?= $coachSched['Start']; ?></td>
     <td><?= $coachSched['End']; ?></td>
-    <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'N/A'; ?></td>
+    <td><?= isset($coachSched['CustomerName']) ? $coachSched['CustomerName'] : 'Not Assigned'; ?></td>
     
 </tr>
 <?php endforeach; ?>

@@ -34,10 +34,7 @@
                                     <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
                                     
                                 </option>
-                                <option value="<?= esc($customer['CustomerID']) ?>" <?= old('CustomerID') == $customer['CustomerID'] ? 'selected' : '' ?>>
-                                    <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
-                                    
-                                </option>
+                                
                             <?php endforeach; ?>
                         <?php else: ?>
                             <option value="" disabled>No clients available</option>

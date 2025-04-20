@@ -175,7 +175,7 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-    <div class="small-box" style="background-color: #6f42c1;">
+    <div class="small-box" style="background-color:rgb(142, 233, 221);">
         <div class="inner">
             <h3>₱<?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>
             <p>Equipment Expenses</p>

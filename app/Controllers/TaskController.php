@@ -17,6 +17,8 @@ class TaskController extends BaseController
 
     public function __construct()
     {
+        helper('url');
+        $this->session = session();
         $this->taskModel = new TaskModel();
         $this->customerModel = new CustomerModel();
         $this->coachModel = new CoachModel();

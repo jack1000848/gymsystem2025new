@@ -529,8 +529,8 @@ $this->section('body'); // Start the body section
             $("#addClientModal").modal('show'); 
         });
 
-        $("#btnSubmit").on('click', function (evt) {
-            evt.preventDefault(); // Prevent default form submission
+        $("#btnSubmit").on('click', async function (evt) {
+            evt.preventDefault(); 
             const selectedEmail = $("#customerSelect").val();
             const selectedUser = registeredUsers.find(user => user.Email === selectedEmail);
 
@@ -540,6 +540,9 @@ $this->section('body'); // Start the body section
                 $("#clients1Adress").val(selectedUser.Address);
                 $("#gender").val(selectedUser.Gender);
                 $("#clients1Emailaddress").val(selectedUser.Email);
+                $("#planSelect").val(selectedUser.Membership_plan).trigger('change');
+                $("#coach").val(selectedUser.CoachID).trigger('change');
+
             }
             $("#customerModal").modal('hide'); 
         });

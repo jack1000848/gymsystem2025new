@@ -186,13 +186,9 @@ class CustomerController extends BaseController
         //    'is_verified' => 0
 
      ]; 
-     
-     
-     
-     
-     
 
-        $insertClients->insert($data);
+     $customerId = $this->request->getPost('customerid') ?? null; // Get the customer ID from the form input
+     $insertClients->insert($data);
        
     $customerId = $insertClients->getInsertID();
 
@@ -214,6 +210,13 @@ class CustomerController extends BaseController
         {
             // Send verification email
            // $this->sendVerificationEmail($data['Email'], $token);
+           if(!empty($customerId)){
+            $db = \Config\Database::connect();
+            $builder = $db->table('registration');
+            $builder->where('CustomerID', $customerId)->delete();
+            $builder = $db->table('SelectedCoachFromRegistration');
+            $builder->where('CustomerID', $customerId)->delete();
+           }
     
             session()->setFlashdata('success', 'Account created successfully.');
             return redirect()->to('/clients1');

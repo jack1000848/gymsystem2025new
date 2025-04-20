@@ -45,9 +45,9 @@ use App\Models\CustomerModel;
     }
 
     // Check if the account is verified
-    if ($client['is_verified'] == 0) {  // Assuming 0 means not verified
-        return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
-    }
+    ////if ($client['is_verified'] == 0) {  // Assuming 0 means not verified
+      //  return redirect()->back()->with('error', 'Your account is not verified. Please check your email for verification.');
+    //}
 
     // Check the password (Use password_verify if password is hashed)
     if (password_verify($password, $client['password_hash'])) {  // Change to password_verify() if needed

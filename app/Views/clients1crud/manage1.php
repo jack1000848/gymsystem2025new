@@ -225,19 +225,19 @@ $this->section('body'); // Start the body section
                     <!-- First Name -->
                     <div class="mb-3">
                         <label for="clients1Fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="clients1Fname" placeholder="Juan"  required>
+                        <input type="text" id="clients1Fname" class="form-control" name="clients1Fname" placeholder="Juan"  required>
                     </div>
 
                     <!-- Last Name -->
                     <div class="mb-3">
                         <label for="clients1Lname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="clients1Lname" placeholder="Dela Cruz" required>
+                        <input type="text" id="clients1Lname" class="form-control" name="clients1Lname" placeholder="Dela Cruz" required>
                     </div>
 
                     <!-- Address -->
                     <div class="mb-3">
                         <label for="clients1Adress" class="form-label">Address</label>
-                        <input type="text" class="form-control" name="clients1Adress" placeholder="123 Main St" required>
+                        <input type="text" id="clients1Adress" class="form-control" name="clients1Adress" placeholder="123 Main St" required>
                     </div>
 
                     <!-- Gender -->
@@ -252,7 +252,7 @@ $this->section('body'); // Start the body section
                     <!-- Email Address -->
                     <div class="mb-3">
                         <label for="clients1Emailaddress" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" name="clients1Emailaddress" placeholder="juan.delacruz@gmail.com" required>
+                        <input type="email" id="clients1Emailaddress" class="form-control" name="clients1Emailaddress" placeholder="juan.delacruz@gmail.com" required>
                         <small id="emailError" style="color: red; display: none;">Only Gmail addresses are allowed!</small>
                     </div>
 
@@ -571,7 +571,6 @@ $this->section('body'); // Start the body section
 
     $("#coach").on('change', async function() {
     const value = $(this).val();
-    console.log(value);
 
     const schedEl = $("#coachsched");
     schedEl.empty();

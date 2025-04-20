@@ -54,7 +54,7 @@
 
                 <div class="mb-3">
                     <label for="DueDate" class="form-label">Due Date</label>
-                    <input type="date" name="DueDate" id="DueDate" class="form-control" value="<?= old('DueDate') ?>" required>
+                    <input type="date" name="DueDate" id="DueDate" class="form-control" value="<?= old('DueDate') ?>" min="<?= date('Y-m-d') ?>" required>
                 </div>
 
                 <div class="mb-3">
@@ -92,19 +92,7 @@ document.addEventListener('click', function(e) {
         e.target.parentElement.remove();
     }
 });
-document.getElementById('DueDate').addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time for comparison
 
-        const errorDiv = document.getElementById('date-error');
-        if (selectedDate < today) {
-            errorDiv.style.display = 'block';
-            this.value = ''; // Clear invalid selection
-        } else {
-            errorDiv.style.display = 'none';
-        }
-    });
 </script>
 
 <?= $this->endSection() ?>

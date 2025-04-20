@@ -524,7 +524,7 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
-        $("#btnShowRegistration").click(function() {
+        $("#btnShowRegistration").on('click', function() {
             $("#customerModal").modal('show');
         });
 
@@ -538,12 +538,7 @@ $this->section('body'); // Start the body section
                     const option = `<option value="${user.Email}">${user.Email}</option>`;
                     customerSelect.append(option);
                 });
-                $("#customerSelect").select2({
-                    placeholder: "Select a customer",
-                    allowClear: true,
-                    dropdownParent: $("#customerModal")
-                });
-            } catch (error) {
+                            } catch (error) {
                 console.error("Error fetching users:", error);
             }
         });

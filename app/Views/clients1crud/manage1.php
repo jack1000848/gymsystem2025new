@@ -540,7 +540,8 @@ $this->section('body'); // Start the body section
                 });
                 $("#customerSelect").select2({
                     placeholder: "Select a customer",
-                    allowClear: true
+                    allowClear: true,
+                    dropdownParent: $("#customerModal")
                 });
             } catch (error) {
                 console.error("Error fetching users:", error);

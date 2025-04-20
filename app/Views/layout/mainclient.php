@@ -141,7 +141,7 @@
         <aside class="app-sidebar bg-body-secondary shadow d-none d-md-block" data-bs-theme="dark">
             <div class="sidebar-brand text-center py-3">
                 <a href="#" class="brand-link">
-                    <img src="<?= base_url('admin-assets/img/logo.png') ?>" alt="Logo" class="brand-image opacity-75 shadow">
+                    <img src="" alt="Logo" class="brand-image opacity-75 shadow">
                     <span class="brand-text fw-light">ISHOW FITNESS GYM</span>
                 </a>
             </div>

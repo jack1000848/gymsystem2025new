@@ -389,7 +389,7 @@ public function adminTasks()
                              ->join('customer', 'customer.CustomerID = tasks.CustomerID')
                              ->findAll();
         }
-    return view('clients1crud/viewalltask', $data);
+    return view('clients1crud/viewalltask', ['tasks' => $data]);
 }
 
 public function updateStatusDirect($taskID)

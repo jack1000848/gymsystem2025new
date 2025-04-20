@@ -22,6 +22,8 @@ class TaskController extends BaseController
         $this->taskModel = new TaskModel();
         $this->customerModel = new CustomerModel();
         $this->coachModel = new CoachModel();
+        $this->customerModel = new \App\Models\CustomerModel();
+        $this->selectedCoachModel = new \App\Models\SelectedCoachModel();
     }
 
     // Show form to create a task (for coaches)

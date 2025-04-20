@@ -139,7 +139,7 @@
                        <li class="nav-item menu-open">
                         <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
                             <i class="bi bi-bullseye nav-icon""></i>
-                            <p class="m-0">Mision & Vision</p>
+                            <p class="m-0">Dashboard</p>
                         </a>
                     </li>
 
@@ -206,9 +206,9 @@
 
         </main> <!--end::App Main--> <!--begin::Footer-->
         <footer class="app-footer"> <!--begin::To the end-->
-            <div class="float-end d-none d-sm-inline">ikaw ba'y buo?</div> <!--end::To the end--> <!--begin::Copyright--> <strong>
+            <div class="float-end d-none d-sm-inline"></div> <!--end::To the end--> <!--begin::Copyright--> <strong>
                 Copyright &copy; 2024-2025&nbsp;
-                <a href="https://www.instagram.com/miguelito_tayson/" class="text-decoration-none">Migsmapagmahal</a>.
+                <a href="https://www.instagram.com/miguelito_tayson/" class="text-decoration-none">IshowFitenssGym by Migs</a>.
             </strong>
             All rights reserved.
             <!--end::Copyright-->

@@ -229,11 +229,7 @@
             responsive: true
         });
 
-        $("#btn-save").on('click', function(){
-
-            alert('Equipment Added Successfully!')
-
-        });
+        
 
         $("#btn-update").on('click', function(){
           updateEquipment();

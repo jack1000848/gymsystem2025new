@@ -541,7 +541,7 @@ $this->section('body'); // Start the body section
                 $("#gender").val(selectedUser.Gender);
                 $("#clients1Emailaddress").val(selectedUser.Email);
                 $("#planSelect").val(selectedUser.Membership_plan).trigger('change');
-                settimeout(() => {
+                setTimeout(() => {
                     $("#coach").val(selectedUser.CoachID).trigger('change');
                 }, 1000); // Delay to ensure coach options are loaded
 

@@ -316,7 +316,7 @@ $this->section('body'); // Start the body section
 
                     <!-- Submit Button -->
                     <div class="modal-footer">
-                        <button type="button" id="btnShowRegistration" class="btn btn-primary" onclick="$('#customerModal').show();">Add Client from Registration</button>
+                        <button type="button" id="btnShowRegistration" class="btn btn-primary">Add Client from Registration</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -522,6 +522,10 @@ $this->section('body'); // Start the body section
         // Initialize DataTable
         let table = new DataTable('#clientTable', {
             responsive: true
+        });
+
+        $("#btnShowRegistration").click(function() {
+            $("#customerModal").modal('show');
         });
 
         $("#customerModal").on('show.bs.modal', async function () {

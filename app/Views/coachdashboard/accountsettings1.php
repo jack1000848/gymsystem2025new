@@ -81,7 +81,7 @@
     </style>
 </head>
 <body>
-<h2>Account Settings</h2>
+<center> <h2>Account Settings</h2> </center>
 
 <?php if (session()->getFlashdata('success')): ?>
     <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>

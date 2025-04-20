@@ -201,6 +201,14 @@ Thank you for signing up! To complete your registration and verify your email ad
             }
         }
 
+        public function getUsers(){
+            $db = \Config\Database::connect();
+            $builder = $db->table('registration');
+            $query = $builder->get();
+            $data['users'] = $query->getResultArray();
+            return json_encode($data['users']);
+        }
+
         
     public function resendToken()
         {

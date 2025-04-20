@@ -316,6 +316,7 @@ $this->section('body'); // Start the body section
 
                     <!-- Submit Button -->
                     <div class="modal-footer">
+                        <button type="button" id="btnShowRegistration" class="btn btn-primary">Add Client from Registration</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -489,12 +490,13 @@ $this->section('body'); // Start the body section
 <!-- Your custom JavaScript file -->
 <script src="path/to/your/script.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(async function () {
         // Initialize DataTable
         let table = new DataTable('#clientTable', {
             responsive: true
         });
-
+        const data = await $.get("<?= base_url('/registration/getUsers') ?>");
+        console.log(data);
     $("#coach").on('change', async function() {
     const value = $(this).val();
     console.log(value);

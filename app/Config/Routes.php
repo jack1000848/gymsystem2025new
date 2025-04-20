@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 //// member joining and creating account.
 $routes->get('join-now', 'CreateMemberController::index');
+$routes->get('/registration/getUsers', 'CreateMemberController::getUsers');
 $routes->post('join-now/store', 'CreateMemberController::storeClient');
 $routes->get('verify-email/(:any)', 'CreateMemberController::verifyEmail/$1');
 $routes->get('verify-email/(:any)', 'CustomerController::verifyEmail/$1');

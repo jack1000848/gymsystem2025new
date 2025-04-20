@@ -5,6 +5,7 @@ use App\Models\TaskModel;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
 use App\Models\SubtaskModel;
+use App\Models\SelectedCoachFromRegistration;
 use App\Services\PdfService;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;

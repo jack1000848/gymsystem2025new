@@ -215,7 +215,7 @@ $routes->get('/coach-logout', 'CoachDashboardController::logout');
 
 
 ////// add task kunno
-///$routes->get('tasks/create', 'TaskController::create');
+$routes->get('tasks/create', 'TaskController::create');
 ///$routes->post('tasks/store', 'TaskController::store');
 ///$routes->get('tasks/coach', 'TaskController::coachTasks');
 ///$routes->get('tasks/client', 'TaskController::clientTasks');

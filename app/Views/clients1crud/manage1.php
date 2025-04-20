@@ -524,6 +524,11 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
+        $("#customerModal").on('hide.bs.modal', function () {
+            $("#customerSelect").empty(); 
+            $("#addClientModal").modal('show'); 
+        });
+
         // When button is clicked
         $("#btnShowRegistration").on('click', async function () {
         const customerSelect = $("#customerSelect");

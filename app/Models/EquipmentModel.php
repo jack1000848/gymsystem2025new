@@ -24,6 +24,10 @@ class EquipmentModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+    public function getTotalExpense()
+    {
+        return $this->selectSum('Amount')->get()->getRow()->Amount;
+    }
     // Fetch equipment by ID
     public function getEquipmentById($equipmentId)
     {

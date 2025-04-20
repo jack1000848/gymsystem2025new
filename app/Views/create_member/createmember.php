@@ -61,17 +61,7 @@
                       <option value="Female">Female</option>   
                     </select>
                  </div>
-
-
-                 <div class="mb-3">
-    <label for="dateofregistration" class="form-label">Date of Registration</label>
-    <input type="date" class="form-control" name="dateofregistration" required
-           min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d') ?>">
-</div>
-
     <!-- Gymtimeslot 
-    
-    
    <div class="mb-3">
                   <label for="tworkout" class="form-label">Types of Workout</label>
                  <select id="tworkout" class="form-control" name="tworkout"required>

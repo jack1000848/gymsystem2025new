@@ -179,8 +179,8 @@ class CustomerController extends BaseController
        
         'WorkoutPlanID'    =>  null, // Add if necessary
 
-         'verification_token' => $token,
-            'is_verified' => 0
+       //  'verification_token' => $token,
+        //    'is_verified' => 0
 
      ]; 
      

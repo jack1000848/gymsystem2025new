@@ -555,7 +555,8 @@ $this->section('body'); // Start the body section
         customerSelect.empty(); // Clear previous options
 
         try {
-            const data = await $.get("<?= base_url('/registration/getUsers') ?>");
+            let data = await $.get("<?= base_url('/registration/getUsers') ?>");
+            data = data.filter(user => user.is_verified === 1); 
 
             if (Array.isArray(data)) {
                 data.forEach(user => {

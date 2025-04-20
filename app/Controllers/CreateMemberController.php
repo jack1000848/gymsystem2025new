@@ -103,7 +103,7 @@ class CreateMemberController extends BaseController
         'WorkoutTypeID'      => null,
         'WorkoutPlanID'      => null,
         'is_frozen'          => 0,
-        'CoachID'            => $this->request->getPost('plans'),
+        'CoachID'            => $this->request->getPost('coach'),
         'reset_token'        => null,
         'reset_token_expires'=> null,
         'verification_token' => $token,

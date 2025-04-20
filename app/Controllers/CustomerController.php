@@ -175,7 +175,7 @@ class CustomerController extends BaseController
         'ExpirationDate' => $this->request->getPost('dateofregistration'),
         'WorkoutTypeID'    => null,                // Adjusted field name
         'CurrentPlanID'    => null,                   // Adjusted field name
-        'CoachID'    =>  $this->request->getPost('plans'), // Add if necessary
+        'CoachID'    =>  $this->request->getPost('coach'), // Add if necessary
        
         'WorkoutPlanID'    =>  null, // Add if necessary
 

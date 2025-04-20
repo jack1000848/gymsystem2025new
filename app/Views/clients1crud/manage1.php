@@ -529,7 +529,8 @@ $this->section('body'); // Start the body section
             $("#addClientModal").modal('show'); 
         });
 
-        $("#btnSubmit").on('click', function () {
+        $("#btnSubmit").on('click', function (evt) {
+            evt.preventDefault(); // Prevent default form submission
             const selectedEmail = $("#customerSelect").val();
             const selectedUser = registeredUsers.find(user => user.Email === selectedEmail);
 

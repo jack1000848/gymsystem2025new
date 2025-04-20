@@ -60,8 +60,9 @@ $this->section('body');
             <div class="modal-body">
                 <form action="<?= site_url('/coach-manage/store'); ?>" method="POST">
                 <div class="mb-3">
-                    <label>Start Date:</label>
-                    <input type="date" name="startdate" id="start_date" class="form-control" min="<?= date('Y-m-d') ?>">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" name="startdate" id="start_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
+                    <div id="date-error" class="text-danger" style="display: none;">Please select today or a future date.</div>
                 </div>
                     <div class="mb-3">
                         <label>Start Time:</label>
@@ -197,9 +198,19 @@ $.ajax({
             }
         });
     }
-    // Get today's date in YYYY-MM-DD format
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("start_date").setAttribute('min', today);
+    document.getElementById('start_date').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time for comparison
+
+        const errorDiv = document.getElementById('date-error');
+        if (selectedDate < today) {
+            errorDiv.style.display = 'block';
+            this.value = ''; // Clear invalid selection
+        } else {
+            errorDiv.style.display = 'none';
+        }
+    });
 </script>
 
 <?php $this->endSection(); ?>

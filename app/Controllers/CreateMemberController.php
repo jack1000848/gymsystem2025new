@@ -88,13 +88,10 @@ class CreateMemberController extends BaseController
             'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name
             'Address'          => $this->request->getPost('clients1Username'),     // Adjusted field name
             'Gender'           => $this->request->getPost('gender'),                  // Maps directly
-          // 'PhoneNumber'      => $this->request->getPost('phone_number'),            // Add phone field
             'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
             'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
-            'RegisteredDate'   => $this->request->getPost('dateofregistration'), 
-            'ExpirationDate' => $this->request->getPost('expirationdate'), 
+            'RegisteredDate'   => date('Y-m-d H:i:s'), // Current date and time
            /// 'GymTimeSlot'       => $this->request->getPost('timeslot'),
-            'types_of_workout'   => $this->request->getPost('tworkout'),                   // Maps directly
             'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
             'WorkoutTypeID'    => null,                // Adjusted field name
             'CurrentPlanID'    => null,                   // Adjusted field name     
@@ -104,28 +101,58 @@ class CreateMemberController extends BaseController
             'is_verified' => 0
 
          ];
+
+         $db = \Config\Database::connect();
+
+         $sql = "INSERT INTO registration 
+             (CustomerID, Firstname, Middlename, Lastname, Address, Gender, PhoneNumber, Email, Password, password_hash, RegisteredDate, types_of_workout, Membership_plan, qr_code, CurrentPlanID, ExpirationDate, WorkoutTypeID, WorkoutPlanID, is_frozen, CoachID, reset_token, reset_token_expires, verification_token, is_verified)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
          
-
-        
-
-         if ($insertClients->insert($data)) {
-            $customerId = $insertClients->getInsertID();
-    
-            $scheduleIds = $this->request->getPost('coachsched'); 
-            $coachId = $this->request->getPost('coach');
-    
-            if (!empty($scheduleIds) && !empty($coachId)) {
-                $db = \Config\Database::connect();
-                $builder = $db->table('CoachSched');
-    
-                foreach ($scheduleIds as $schedId) {
-                    $builder->where('CoachID', $coachId)
-                            ->where('ID', $schedId)
-                            ->update(['CustomerID' => $customerId]);
-                }
-            }
-    
-            $this->sendVerificationEmail($data['Email'], $token);
+         $db->query($sql, [
+             $data['CustomerID'],
+             $data['Firstname'],
+             $data['Middlename'],
+             $data['Lastname'],
+             $data['Address'],
+             $data['Gender'],
+             $data['PhoneNumber'],
+             $data['Email'],
+             $data['Password'],
+             $data['password_hash'],
+             $data['RegisteredDate'],
+             $data['types_of_workout'],
+             $data['Membership_plan'],
+             $data['qr_code'],
+             $data['CurrentPlanID'],
+             $data['ExpirationDate'],
+             $data['WorkoutTypeID'],
+             $data['WorkoutPlanID'],
+             $data['is_frozen'],
+             $data['CoachID'],
+             $data['reset_token'],
+             $data['reset_token_expires'],
+             $data['verification_token'],
+             $data['is_verified']
+         ]);
+         
+         $customerId = $db->insertID(); 
+         $scheduleIds = $this->request->getPost('coachsched'); 
+         $coachId     = $this->request->getPost('coach');
+         
+         if (!empty($scheduleIds) && !empty($coachId)) {
+             foreach ($scheduleIds as $schedId) {
+                 $db->query(
+                     "UPDATE SelectedCoachFromRegistration 
+                      SET CustomerID = ? 
+                      WHERE CoachID = ? AND ID = ?",
+                     [$customerId, $coachId, $schedId]
+                 );
+             }
+         }
+         
+         // 4. Send verification email
+         $this->sendVerificationEmail($data['Email'], $token);
+         
     
             session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
             return redirect()->to('/redirect');

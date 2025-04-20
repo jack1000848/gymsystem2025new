@@ -259,7 +259,7 @@ $this->section('body'); // Start the body section
                     <!-- Password -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" name="password" value="<?= isset($client1Password) ? $clients1Password : ''; ?>"required>
+                        <input type="password" id="password" class="form-control" name="password" value="<?= isset($client1Password) ? $clients1Password : ''; ?>"required>
                     </div>
 
                     <!-- Date of Registration -->
@@ -545,6 +545,7 @@ $this->section('body'); // Start the body section
                 setTimeout(() => {
                     $("#coach").val(selectedUser.CoachID).trigger('change');
                 }, 1000); 
+                $("#password").val(selectedUser.Password);
 
             }
             $("#customerModal").modal('hide'); 

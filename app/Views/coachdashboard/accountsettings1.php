@@ -41,7 +41,7 @@
             color: #fff;
         }
 
-        /* Card styling for profile */
+        /* Card styling */
         .card {
             background-color: #ffffff;
             color: #212529;
@@ -146,16 +146,16 @@
             <!-- Sidebar -->
             <div class="col-md-4 mb-4">
                 <div class="list-group bg-white rounded shadow">
-                    <a href="#" class="list-group-item list-group-item-action active">
+                    <a href="#" class="list-group-item list-group-item-action active" onclick="toggleSection('profile', 'password')">
                         <i class="bi bi-person"></i> My Profile
                     </a>
-                    <a href="#change-password" class="list-group-item list-group-item-action" onclick="toggleSection('profile', 'password')">
+                    <a href="#" class="list-group-item list-group-item-action" onclick="toggleSection('password', 'profile')">
                         <i class="bi bi-lock"></i> Change Password
                     </a>
                 </div>
             </div>
 
-            <!-- Profile Info -->
+            <!-- Profile and Password Sections -->
             <div class="col-md-8">
                 <!-- Flash Messages -->
                 <?php if (session()->getFlashdata('success')): ?>
@@ -195,7 +195,7 @@
                     <p class="text-muted">Update your account password</p>
                     <hr class="bg-secondary">
 
-                    <form id="changePasswordForm" action="<?= base_url('update-password') ?>" method="post" onsubmit="return validatePassword()">
+                    <form action="<?= base_url('update-password') ?>" method="post" onsubmit="return validatePassword()">
                         <?= csrf_field() ?>
                         <div class="mb-3 password-container">
                             <strong>New Password</strong>
@@ -238,7 +238,7 @@
             document.getElementById(`${showSection}-section`).style.display = 'block';
             document.getElementById(`${hideSection}-section`).style.display = 'none';
             document.querySelectorAll('.list-group-item').forEach(item => item.classList.remove('active'));
-            document.querySelector(`a[href="#${showSection}"]`).classList.add('active');
+            document.querySelector(`a[onclick*="toggleSection('${showSection}')"]`).classList.add('active');
         }
 
         function validatePassword() {

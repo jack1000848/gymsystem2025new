@@ -533,7 +533,7 @@ $this->section('body'); // Start the body section
                 $("#customerid").val(selectedUser.CustomerID);
                 $("#gender").val(selectedUser.Gender);
                 $("#clients1Emailaddress").val(selectedUser.Email);
-                $("#planSelect").val(selectedUser.Membership_plan).trigger('change');
+                $("#planSelect").val(selectedUser.PlanName).trigger('change');
                 $("#dateOfRegistration").val(new Date().toISOString().split('T')[0]); 
                 setTimeout(() => {
                     $("#coach").val(selectedUser.CoachID).trigger('change');
@@ -1008,7 +1008,7 @@ async function renewUpdate() {
         types_of_workout: $("#editTworkout").val().trim(),
         amount: $("#editAmount").val().trim(),
         duration: $("#editDuration").val().trim(),
-        Membership_plan: $("#editPlanSelect").val(), // Include the plan
+        PlanName: $("#editPlanSelect").val(), // Include the plan
         coach: $("#editCoach").val() // Include the coach
     };
       if  (!clientData.amount || !clientData.duration || !clientData.plan) {

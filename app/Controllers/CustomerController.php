@@ -34,6 +34,9 @@ class CustomerController extends BaseController
         }
         $fetchClients1 =new CustomerModel();
         $data['clients1'] = $fetchClients1 ->findAll();
+        // use sql raw query to get the data from the database example
+        // SELECT *, p.PlanName FROM `customer` left join plan p on customer.CurrentPlanID = p.PlanID;
+         $data['clients1'] = $fetchClients1->query("SELECT *, p.PlanName FROM `customer` left join plan p on customer.CurrentPlanID = p.PlanID")->getResultArray();
       
     
       $maxId = $fetchClients1->selectMax('customerid')->first(); 

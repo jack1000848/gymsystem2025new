@@ -187,7 +187,7 @@ $this->section('body'); // Start the body section
                         <td><?= $client['Email']; ?></td>
                         <td style="display:none;"><?= $client['password_hash']; ?></td>
                         <td><?= $client['RegisteredDate']; ?></td>
-                        <td><?= $client['Membership_plan']; ?></td>
+                        <td><?= $client['PlanName']; ?></td>
                         <td><img id="qrCodeImage<?= $client['CustomerID']; ?>" src="" alt="QR Code" style="width: 100px;"></td>
                         <td>
                             <span onclick="editClient('<?= $client['CustomerID']; ?>')" class="btn btn-sm btn-primary">Edit</span>

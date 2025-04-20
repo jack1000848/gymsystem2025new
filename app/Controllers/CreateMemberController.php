@@ -88,7 +88,7 @@ class CreateMemberController extends BaseController
         'Firstname'          => $this->request->getPost('clients1Fname'),
         'Middlename'         => $this->request->getPost('clients1Mname') ?? null,
         'Lastname'           => $this->request->getPost('clients1Lname'),
-        'Address'            => $this->request->getPost('clients1Username'),
+        'Address'            => $this->request->getPost('clients1Fulladdress'),
         'Gender'             => $this->request->getPost('gender'),
         'PhoneNumber'        => $this->request->getPost('clients1Phone') ?? null,
         'Email'              => $email,

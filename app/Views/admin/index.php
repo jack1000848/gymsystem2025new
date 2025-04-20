@@ -162,7 +162,7 @@ $this->section('body');
                 
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box bg-orange text-white">
+                <div class="small-box text-bg-danger">
                     <div class="inner">
                         <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>

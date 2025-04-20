@@ -10,6 +10,8 @@ class ViewScheduleForAllUserController extends BaseController
 {
     public function __construct()
     {
+        helper('url');
+        $this->session = session();
         $this->coachScheduleModel = new CoachScheduleModel();
        //  $this->timeModel = new TimeScheduleModel();
     }
@@ -17,6 +19,20 @@ class ViewScheduleForAllUserController extends BaseController
     
     public function adminview()
     {  
+        
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+    }
+
+    if ($this->session->get('Role') != 'Admin') {
+        $roleVal = $this->session->get('Role');
+        if ($roleVal == 'Customer') {
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        } else if ($roleVal == 'Coach') {
+            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+        }
+    }
+    
         $fetchClients1 =new ViewScheduleForAllUserModel();
         $data['coach1'] = $fetchClients1 ->findAll();
 

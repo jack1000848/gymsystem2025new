@@ -31,7 +31,7 @@ class TaskController extends BaseController
     $customers = $this->customerModel
     ->where('CoachID', $coachId)
     ->findAll();
-    log_message('debug', 'Customers fetched: ' . json_encode($customers)); // Debug log
+    log_message('debug', 'Customer fetched: ' . json_encode($customers)); // Debug log
     $data['customers'] = $customers;
     return view('coachdashboard/assigntask', $data);
 }

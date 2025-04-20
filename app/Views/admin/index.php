@@ -128,7 +128,7 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="bg-purple text-white">
+                <div class="small-box text-bg-primary">
                     <div class="inner">
                         <h3><?= $totalPaidAmount ?><sup class="fs-5"></sup></h3>
                         <p>Total Paid Amount</p>
@@ -162,7 +162,7 @@ $this->section('body');
                 
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-danger">
+                <div class="bg-orange text-white">
                     <div class="inner">
                         <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>

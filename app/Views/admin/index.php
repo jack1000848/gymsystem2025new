@@ -2,7 +2,7 @@
 $this->extend('layout/main');
 $this->section('body');
 ?>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
     #payment_bar_chart {
         height: 420px;
@@ -128,16 +128,16 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-primary">
-                    <div class="inner">
-                        <h3><?= $totalPaidAmount ?><sup class="fs-5"></sup></h3>
-                        <p>Total Paid Amount</p>
-                    </div>
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                    </svg>
-                </div>
-            </div>
+    <div class="small-box text-bg-primary position-relative">
+        <div class="inner">
+            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
+            <p>Total Paid Amount</p>
+        </div>
+        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
+            <i class="fas fa-receipt fa-3x"></i>
+        </div>
+    </div>
+</div>
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-success">
                     <div class="inner">

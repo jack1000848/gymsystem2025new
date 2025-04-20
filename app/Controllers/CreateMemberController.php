@@ -206,7 +206,7 @@ Thank you for signing up! To complete your registration and verify your email ad
             $builder = $db->table('registration');
             $query = $builder->get();
             $data['users'] = $query->getResultArray();
-            return json_encode($data['users']);
+            return $this->response->setJSON($data['users']);       
         }
 
         

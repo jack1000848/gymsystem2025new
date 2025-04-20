@@ -164,10 +164,7 @@
       <div class="modal-body">
       <form action="<?php echo site_url('/coach/store'); ?>" method="POST" enctype="multipart/form-data">
       <div class="mb-3">
-      <div class="mb-3">
-    <label for="gymcode" class="form-label">Gym Code</label>
-    <input type="text" class="form-control" name="gymcode" value="<?= $next_id; ?>" disabled readonly>
-</div>
+     
 
              </div>
 

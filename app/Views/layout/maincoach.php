@@ -65,7 +65,7 @@
                     <li class="nav-item menu-open">
                     <a href="<?= base_url('coachdashboard') ?>" class="nav-link active d-flex align-items-center gap-2">
                         <i class="bi bi-bullseye nav-icon"></i>
-                        <p class="m-0">Mission & Vision</p>
+                        <p class="m-0">Dashboard</p>
                     </a>
                 </li>
 
@@ -180,12 +180,7 @@
                             <p class="m-0">View Gym Equipment</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('coach-markAbsence') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="fas fa-dumbbell nav-icon"></i>
-                            <p class="m-0">Mark Absent</p>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="<?= base_url('tasks/coach') ?>" class="nav-link d-flex align-items-center gap-2">
                             <i class="fas fa-dumbbell nav-icon"></i>

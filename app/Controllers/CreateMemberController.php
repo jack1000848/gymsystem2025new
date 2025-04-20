@@ -214,46 +214,41 @@ Thank you for signing up! To complete your registration and verify your email ad
         {
             return view('create_member/resendtoken'); // Correct path to the view
         }
-    public function resendVerification()
-    {
-        $email = $this->request->getPost('clients1Emailaddress'); // Match with form input name
-        $userModel = new CreateMemberModel(); // Ensure using correct model
+        public function resendVerification()
+        {
+            $email = $this->request->getPost('clients1Emailaddress'); // Match with form input name
+            $userModel = new CreateMemberModel(); // Ensure using correct model
+            
+            $user = $userModel->where('Email', $email)->first();
         
-        $user = $userModel->where('Email', $email)->first();
-
-        if (!$user) {
-            return redirect()->to()->with('error', 'Email not found.');
-        }
-
-        if ($user['is_verified'] == 1) {
-            return redirect()->back()->with('error', 'Your account is already verified.');
-        }
-
-        // Generate a new token
-        $newToken = bin2hex(random_bytes(50));
-
-        // Update token in the database
-        $userModel->update($user['CustomerID'], ['verification_token' => $newToken]);
-
-        // Send the new verification email
-       // $verificationLink = base_url("verify/$newToken");
-       // $message = "Click the link to verify your account: <a href='$verificationLink'>$verificationLink</a>";
-
-        // Send email (ensure email is configured in .env)
-        $emailService = \Config\Services::email();
-        $emailService->setTo($email);
-        $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
-        $emailService->setSubject('Email Verification');
-        $emailService->setMessage(" hi,
-            Click the link to verify your account: <a href='" . base_url("verify-email/$newToken") . "'>Verify Email</a>");
-
-        if ($emailService->send()) {
-            return redirect()->back()->with('success', 'Verification email has been resent. Please check your inbox.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to send verification email.');
-        }
+            if (!$user) {
+                return redirect()->back()->with('error', 'Email not found.'); // Fixed: Use redirect()->back()
+            }
         
-    }
+            if ($user['is_verified'] == 1) {
+                return redirect()->back()->with('error', 'Your account is already verified.');
+            }
+        
+            // Generate a new token
+            $newToken = bin2hex(random_bytes(50));
+        
+            // Update token in the database
+            $userModel->update($user['CustomerID'], ['verification_token' => $newToken]);
+        
+            // Send the new verification email
+            $emailService = \Config\Services::email();
+            $emailService->setTo($email);
+            $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
+            $emailService->setSubject('Email Verification');
+            $emailService->setMessage(" hi,
+                Click the link to verify your account: <a href='" . base_url("verify-email/$newToken") . "'>Verify Email</a>");
+        
+            if ($emailService->send()) {
+                return redirect()->back()->with('success', 'Verification email has been resent. Please check your inbox.');
+            } else {
+                return redirect()->back()->with('error', 'Failed to send verification email.');
+            }
+        }
 
     public function verify($token)
     {

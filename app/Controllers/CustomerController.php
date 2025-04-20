@@ -172,11 +172,11 @@ class CustomerController extends BaseController
         'types_of_workout'   => $this->request->getPost('tworkout'), 
        // 'GymTimeSlot' => $this->request->getPost('timeslot'),                  // Maps directly
         'Membership_plan'   => $this->request->getPost('plans'),    
-        'ExpirationDate' => $this->request->getPost('expirationdate'),  // Adjusted field name
+        'ExpirationDate' => $this->request->getPost('dateofregistration'),
         'WorkoutTypeID'    => null,                // Adjusted field name
         'CurrentPlanID'    => null,                   // Adjusted field name
         'CoachID'    =>  $this->request->getPost('plans'), // Add if necessary
-
+       
         'WorkoutPlanID'    =>  null, // Add if necessary
 
          'verification_token' => $token,
@@ -185,7 +185,30 @@ class CustomerController extends BaseController
      ]; 
      
      
-     
+     $plan = $planModel->find($data['Membership_plan']);
+     if (!$plan) {
+         return $this->response->setJSON([
+             'status' => 'error',
+             'message' => 'Invalid membership plan selected.',
+         ]);
+     }
+     $startDate = new \DateTime($data['ExpirationDate']);
+     $duration = $data['duration'] ?? 30;
+     $endDate = (clone $startDate)->modify("+{$duration} days");
+     $data['EndDate'] = $endDate->format('Y-m-d');
+     $scheduleIds = $this->request->getPost('coachsched');
+     $coachId = $data['CoachID'];
+     if (!empty($scheduleIds) && !empty($coachId)) {
+         $db = \Config\Database::connect();
+         
+         $builder = $db->table('CoachSched');
+         $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
+         foreach ($scheduleIds as $schedId) {
+             $builder->where('CoachID', $coachId)
+                     ->where('ID', $schedId)
+                     ->update(['CustomerID' => $id]);
+         }
+     }
      
      
 

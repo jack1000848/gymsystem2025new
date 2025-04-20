@@ -380,7 +380,7 @@ public function adminTasks()
                 ->findAll();
         } else {
             $data = [
-                'tasks' => $tasks,
+                
                 'search' => $search // Pass the search query to retain it in the form
             ];
             
@@ -389,7 +389,7 @@ public function adminTasks()
                              ->join('customer', 'customer.CustomerID = tasks.CustomerID')
                              ->findAll();
         }
-    return view('clients1crud/viewalltask', ['tasks' => $data]);
+    return view('clients1crud/viewalltask', ['tasks' => $tasks]);
 }
 
 public function updateStatusDirect($taskID)

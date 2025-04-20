@@ -290,35 +290,45 @@ public function accountSettings()
 
     public function updateAccount()
 {
-    $session = session();
-    $coachID = $session->get('CoachID');
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'firstname' => 'required|min_length[2]',
+        'lastname' => 'required|min_length[2]',
+        'email' => 'required|valid_email'
+    ]);
 
-    $firstname = $this->request->getPost('firstname');
-    $lastname = $this->request->getPost('lastname');
-    $email = $this->request->getPost('email');
-    $password = $this->request->getPost('password');
+    if ($this->request->getMethod() === 'post' && $validation->withRequest($this->request)->run()) {
+        $userModel = new \App\Models\UserModel();
+        $userModel->update($this->request->getPost('id'), [
+            'Firstname' => $this->request->getPost('firstname'),
+            'Lastname' => $this->request->getPost('lastname'),
+            'Email' => $this->request->getPost('email')
+        ]);
 
-    $data = [
-        'Firstname' => $firstname,
-        'Lastname'  => $lastname,
-        'Email'     => $email,
-    ];
-
-    if (!empty($password)) {
-        $data['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+        return redirect()->to('account-settings')->with('success', 'Profile updated successfully');
+    } else {
+        return redirect()->to('account-settings')->with('error', 'Failed to update profile');
     }
-
-    // Check if $data has at least one value to update
-    if (empty($data)) {
-        return redirect()->back()->with('error', 'There is no data to update.');
-    }
-
-    $model = new CoachModel();
-    $model->update($coachID, $data);
-
-    return redirect()->back()->with('success', 'Account updated successfully.');
 }
+public function updatePassword()
+{
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'password' => 'required|min_length[6]',
+        'confirmPassword' => 'required|matches[password]'
+    ]);
 
+    if ($this->request->getMethod() === 'post' && $validation->withRequest($this->request)->run()) {
+        $userModel = new \App\Models\UserModel();
+        $userModel->update(auth()->id(), [
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
+        ]);
+
+        return redirect()->to('account-settings')->with('success', 'Password updated successfully');
+    } else {
+        return redirect()->to('account-settings')->with('error', 'Failed to update password');
+    }
+}
 ///try the coach absent 
 public function markAbsence()
 {

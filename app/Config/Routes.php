@@ -205,6 +205,8 @@ $routes->get('/viewequipment1', 'ViewEquipmentController::indexviewequipment1');
 /// account setting
 $routes->get('/account-setting1', 'CoachDashboardController::accountSettings');
 $routes->post('/update-account1', 'CoachDashboardController::updateAccount');
+$routes->post('/update-password1', 'CoachDashboardController::updatePassword');
+
 ///Logout...
 $routes->get('/coach-logout', 'CoachDashboardController::logout');
 

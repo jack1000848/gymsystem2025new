@@ -3,6 +3,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <style>
     body {
         background-color: #f8f9fa;
@@ -97,6 +98,27 @@
     .btn-save:hover {
         background-color: #0990d6;
     }
+
+    .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #6c757d;
+    }
+
+    .password-field {
+        padding-right: 40px;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
 </style>
 
 <div class="container mt-5 d-flex justify-content-center">
@@ -104,10 +126,10 @@
         <!-- Sidebar -->
         <div class="col-md-4 mb-4">
             <div class="list-group bg-white rounded shadow">
-                <a href="<?= base_url('account-settings') ?>" class="list-group-item list-group-item-action active">
+                <a href="#" class="list-group-item list-group-item-action active" data-tab="profile">
                     <i class="bi bi-person"></i> My Profile
                 </a>
-                <a href="<?= base_url('change-password') ?>" class="list-group-item list-group-item-action">
+                <a href="#" class="list-group-item list-group-item-action" data-tab="change-password">
                     <i class="bi bi-lock"></i> Change Password
                 </a>
             </div>
@@ -121,9 +143,10 @@
             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
         <?php endif; ?>
 
-        <!-- Profile Info -->
+        <!-- Content Area -->
         <div class="col-md-8">
-            <div class="card">
+            <!-- Profile Tab -->
+            <div id="profile" class="card tab-content active">
                 <h4>My Profile</h4>
                 <p class="text-muted">Manage your account information</p>
                 <hr class="bg-secondary">
@@ -149,12 +172,56 @@
                     <button type="submit" class="btn btn-save">Save Changes</button>
                 </form>
             </div>
+
+            <!-- Change Password Tab -->
+            <div id="change-password" class="card tab-content">
+                <h4>Change Password</h4>
+                <p class="text-muted">Update your account password</p>
+                <hr class="bg-secondary">
+
+                <form id="changePasswordForm" action="<?= base_url('update-password') ?>" method="post">
+                    <?= csrf_field() ?>
+                    <div class="mb-3 position-relative">
+                        <strong>New Password</strong>
+                        <input type="password" id="password" name="password" class="form-control password-field" required>
+                        <span class="password-toggle" onclick="togglePassword('password', 'eye1')">
+                            <i id="eye1" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <strong>Confirm Password</strong>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control password-field" required>
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword', 'eye2')">
+                            <i id="eye2" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <p id="errorMessage" class="text-danger text-sm mt-2 hidden">Passwords do not match!</p>
+                    <button type="submit" class="btn btn-save">Change Password</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
+    // Tab Switching
+    document.querySelectorAll('.list-group-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tab = this.getAttribute('data-tab');
+
+            // Update active tab
+            document.querySelectorAll('.list-group-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            // Show/hide content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+        });
+    });
+
+    // Profile Form Validation
     document.getElementById('profileForm').addEventListener('submit', function(event) {
         const firstname = document.getElementById('firstname').value.trim();
         const lastname = document.getElementById('lastname').value.trim();
@@ -172,6 +239,36 @@
             return;
         }
     });
+
+    // Change Password Form Validation
+    document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            errorMessage.classList.remove('hidden');
+            return;
+        } else {
+            errorMessage.classList.add('hidden');
+        }
+    });
+
+    // Password Toggle
+    function togglePassword(inputId, eyeId) {
+        const input = document.getElementById(inputId);
+        const eye = document.getElementById(eyeId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            eye.classList.remove('fa-eye');
+            eye.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            eye.classList.remove('fa-eye-slash');
+            eye.classList.add('fa-eye');
+        }
+    }
 </script>
 
 <?= $this->endSection() ?>

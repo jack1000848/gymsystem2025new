@@ -96,7 +96,7 @@ $this->section('body'); // Start the body section
                 $("#userId").text(customer.CustomerID || "N/A");
                 $("#fullName").text(customer.CustomerName || "N/A");
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
-                $("#planId").text(customer.Membership_plan || "N/A");
+                $("#planId").text(customer.PlanName || "N/A");
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {

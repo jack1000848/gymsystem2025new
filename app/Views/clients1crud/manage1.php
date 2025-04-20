@@ -511,9 +511,12 @@ $this->section('body'); // Start the body section
         });
         let registeredUsers = [];
 
+        $("#addClientModal").on('hidden.bs.modal', function () {
+            $("customerid").val("");
+        });
+
         $("#customerModal").on('hidden.bs.modal', function () {
             $("#customerSelect").empty(); 
-            $("customerid").val("");
             registeredUsers = [];
             $("#addClientModal").modal('show'); 
         });

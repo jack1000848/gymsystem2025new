@@ -540,6 +540,7 @@ $this->section('body'); // Start the body section
 
                 // Show the modal
                 $("#customerModal").modal('show');
+                $("#addClientModal").modal('hide');
             } else {
                 console.error("Unexpected data format:", data);
             }

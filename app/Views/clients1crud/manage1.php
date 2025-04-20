@@ -530,15 +530,17 @@ $this->section('body'); // Start the body section
 
         $("#customerModal").on('show.bs.modal', async function () {
             const customerSelect = $("#customerSelect");
-            customerSelect.empty(); // Clear previous options
-
+            customerSelect.empty(); 
             try {
                 const data = await $.get("<?= base_url('/registration/getUsers') ?>");
-                console.log(data);
 
                 data.forEach(user => {
                     const option = `<option value="${user.Email}">${user.Email}</option>`;
                     customerSelect.append(option);
+                });
+                $("#customerSelect").select2({
+                    placeholder: "Select a customer",
+                    allowClear: true
                 });
             } catch (error) {
                 console.error("Error fetching users:", error);

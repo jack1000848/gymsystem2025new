@@ -1,7 +1,7 @@
 <?= $this->extend('layout/maincoach') ?>
 <?= $this->section('body') ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <style>
     body {
@@ -12,7 +12,6 @@
         padding: 0;
     }
 
-    /* Sidebar styles */
     .list-group {
         background-color: #ffffff;
         border-radius: 12px;
@@ -34,7 +33,6 @@
         color: #fff;
     }
 
-    /* Card styling for profile */
     .card {
         background-color: #ffffff;
         color: #212529;
@@ -59,12 +57,10 @@
         color: #0CA6F7;
     }
 
-    /* Horizontal divider */
     hr.bg-secondary {
         border-top: 1px solid #dee2e6;
     }
 
-    /* Responsive fix */
     @media (max-width: 768px) {
         .list-group-item {
             padding: 12px 16px;
@@ -78,7 +74,7 @@
 
     .container {
         display: flex;
-        justify-content-center;
+        justify-content: center;
     }
 
     .row {
@@ -108,10 +104,10 @@
         <!-- Sidebar -->
         <div class="col-md-4 mb-4">
             <div class="list-group bg-white rounded shadow">
-                <a href="#" class="list-group-item list-group-item-action active">
+                <a href="<?= base_url('account-settings') ?>" class="list-group-item list-group-item-action active">
                     <i class="bi bi-person"></i> My Profile
                 </a>
-                <a href="change-password" class="list-group-item list-group-item-action">
+                <a href="<?= base_url('change-password') ?>" class="list-group-item list-group-item-action">
                     <i class="bi bi-lock"></i> Change Password
                 </a>
             </div>
@@ -136,19 +132,19 @@
                     <?= csrf_field() ?>
                     <div class="mb-3">
                         <strong>Account ID</strong>
-                        <input type="text" class="form-control" value="123456789" readonly>
+                        <input type="text" class="form-control" value="<?= esc($user['id'] ?? '123456789') ?>" readonly>
                     </div>
                     <div class="mb-3">
                         <strong>Firstname</strong>
-                        <input type="text" id="firstname" name="firstname" class="form-control" value="<?= esc($user['Firstname']) ?>" required>
+                        <input type="text" id="firstname" name="firstname" class="form-control" value="<?= esc($user['Firstname'] ?? '') ?>" required>
                     </div>
                     <div class="mb-3">
                         <strong>Lastname</strong>
-                        <input type="text" id="lastname" name="lastname" class="form-control" value="<?= esc($user['Lastname']) ?>" required>
+                        <input type="text" id="lastname" name="lastname" class="form-control" value="<?= esc($user['Lastname'] ?? '') ?>" required>
                     </div>
                     <div class="mb-3">
                         <strong>Email</strong>
-                        <input type="email" id="email" name="email" class="form-control" value="<?= esc($user['Email']) ?>" required>
+                        <input type="email" id="email" name="email" class="form-control" value="<?= esc($user['Email'] ?? '') ?>" required>
                     </div>
                     <button type="submit" class="btn btn-save">Save Changes</button>
                 </form>
@@ -157,6 +153,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
     document.getElementById('profileForm').addEventListener('submit', function(event) {
         const firstname = document.getElementById('firstname').value.trim();

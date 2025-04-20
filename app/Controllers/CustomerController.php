@@ -215,51 +215,52 @@ class CustomerController extends BaseController
             session()->setFlashdata('success', 'Account created successfully.');
             return redirect()->to('/clients1');
         
-    }}
-    private function sendVerificationEmail($email, $token)
-    {
-        $emailService = service('email');
-    
-        $emailService->setTo($email);
-        $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
-        $emailService->setSubject('Email Verification');
-        $emailService->setMessage("Hello,
-
-Thank you for signing up! To complete your registration and verify your email address, please click the link below: <a href='" . base_url("verify-email/$token") . "'>Verify Email</a>");
-    
-        if (!$emailService->send()) {
-            log_message('error', $emailService->printDebugger(['headers']));
-        }
     }
-
-    public function verifyEmail($token)
-    {
-        $memberModel = new CreateMemberModel();
-        $user = $memberModel->where('verification_token', $token)->first();
+}
+   /// private function sendVerificationEmail($email, $token)
+   /// {
+    ///    $emailService = service('email');
     
-        if ($user) {
-            $memberModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
-            session()->setFlashdata('success', 'Email verified successfully! You can now log in.');
-            return redirect()->to('/member-login');
-        } else {
-            session()->setFlashdata('error', 'Invalid verification link.');
-            return redirect()->to('/member-login');
-        }
-    }
-    public function verify($token)
-    {
-        $userModel = new CreateMemberModel(); // Ensure using correct model
-        $user = $userModel->where('verification_token', $token)->first();
+    ///    $emailService->setTo($email);
+     ///   $emailService->setFrom('taysonmiguelito125@gmail.com', 'IshowFitnessGYM');
+      //  $emailService->setSubject('Email Verification');
+///$emailService->setMessage("Hello,
 
-        if (!$user) {
-            return redirect()->to('/loginclient')->with('error', 'Invalid or expired verification token.');
-        }
+  ///  Thank you for signing up! To complete your registration and verify your email address, please click the link below: <a href='" . base_url("verify-email/$token") . "'>Verify Email</a>");
+    
+     //   if (!$emailService->send()) {
+       //     log_message('error', $emailService->printDebugger(['headers']));
+      //  }
+   // }
+
+    ///public function verifyEmail($token)
+  ///  {
+     ///   $memberModel = new CreateMemberModel();
+       /// $user = $memberModel->where('verification_token', $token)->first();
+    
+     ///   if ($user) {
+//$memberModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
+      ///      session()->setFlashdata('success', 'Email verified successfully! You can now log in.');
+     //       return redirect()->to('/member-login');
+     //   } else {
+     //       session()->setFlashdata('error', 'Invalid verification link.');
+      //      return redirect()->to('/member-login');
+     //   }
+ //   }
+  //  public function verify($token)
+   // {
+   //     $userModel = new CreateMemberModel(); // Ensure using correct model
+///$user = $userModel->where('verification_token', $token)->first();
+
+      //  if (!$user) {
+     //       return redirect()->to('/loginclient')->with('error', 'Invalid or expired verification token.');
+     //   }
 
         // Mark user as verified
-        $userModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
+     //   $userModel->update($user['CustomerID'], ['is_verified' => 1, 'verification_token' => null]);
 
-        return redirect()->to('/loginclient')->with('success', 'Your account has been verified. You can now log in.');
-    }
+       // return redirect()->to('/loginclient')->with('success', 'Your account has been verified. You can now log in.');
+  //  }
     public function editClients1($id)
     {
         $clients1Model = new CustomerModel();

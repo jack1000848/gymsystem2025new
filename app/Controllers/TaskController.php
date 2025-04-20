@@ -367,18 +367,11 @@ public function adminDownloadPdf($taskID)
 }
 public function adminTasks()
 {
-   /// if (!$this->session->has('logged_in')) {
-  ///      return redirect()->to('/joinus')->with('error', 'Please log in first.');
-  //  }
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+   }
 
-    if($this->session->get('Role') != 'Admin'){
-        $roleVal = $this->session->get('Role');
-        if($roleVal == 'Customer'){
-            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
-        }else if($roleVal == 'Coach'){
-            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
-        }
-    }
+    
    // $adminID = session()->get('AdminID');
   //  if (!$adminID) {
   //      return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');

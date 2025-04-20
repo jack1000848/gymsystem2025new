@@ -142,7 +142,7 @@ class CustomerController extends BaseController
         $insertClients = new CustomerModel ();
 
         // Retrieve the email from the form input
-   /// $email = $this->request->getPost('clients1Emailaddress');
+    $email = $this->request->getPost('clients1Emailaddress');
 
     // Check if email is retrieved properly
     if (empty($email)) {
@@ -186,7 +186,7 @@ class CustomerController extends BaseController
      
      
      
-
+     
      
 
         $insertClients->insert($data);
@@ -210,14 +210,14 @@ class CustomerController extends BaseController
     }
         {
             // Send verification email
-           /// $this->sendVerificationEmail($data['Email'], $token);
+            $this->sendVerificationEmail($data['Email'], $token);
     
             session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
             return redirect()->to('/clients1');
         
     }}
     private function sendVerificationEmail($email, $token)
-   {
+    {
         $emailService = service('email');
     
         $emailService->setTo($email);

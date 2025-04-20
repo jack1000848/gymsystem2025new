@@ -62,105 +62,113 @@ class CreateMemberController extends BaseController
         return view('create_member/createmember', $data);
     }
     public function storeClient()
-     {
-        $insertClients = new CreateMemberModel ();
-        
-         // Retrieve the email from the form input
+{
+    $insertClients = new CreateMemberModel();
+    $db = \Config\Database::connect();
+
+    // Retrieve the email from the form input
     $email = $this->request->getPost('clients1Emailaddress');
 
-    // Check if email is retrieved properly
+    // Check if email is provided
     if (empty($email)) {
         return redirect()->back()->with('error', 'Email field is required.');
     }
 
-    // Check if the email is a Gmail address
+    // Allow only Gmail addresses
     if (!preg_match("/^[a-zA-Z0-9._%+-]+@gmail\.com$/", $email)) {
         return redirect()->back()->with('error', 'Only Gmail addresses are allowed.');
     }
 
-       // Generate unique token
+    // Generate verification token
     $token = bin2hex(random_bytes(50));
 
-        $data = [
-            'CustomerID'       => $this->request->getPost('gymcode'),                 // Maps directly
-            'Firstname'        => $this->request->getPost('clients1Fname'),           // Maps directly
-            ///'Middlename'       => $this->request->getPost('clients1Mname') ?? null,   // Add if required
-            'Lastname'         => $this->request->getPost('clients1Lname'),           // Adjusted field name
-            'Address'          => $this->request->getPost('clients1Username'),     // Adjusted field name
-            'Gender'           => $this->request->getPost('gender'),                  // Maps directly
-            'Email'            => $this->request->getPost('clients1Emailaddress'),    // Adjusted field name
-            'password_hash'         =>  password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash the password
-            'RegisteredDate'   => date('Y-m-d H:i:s'), // Current date and time
-           /// 'GymTimeSlot'       => $this->request->getPost('timeslot'),
-            'Membership_plan'   => $this->request->getPost('plans'),      // Adjusted field name
-            'WorkoutTypeID'    => null,                // Adjusted field name
-            'CurrentPlanID'    => null,                   // Adjusted field name     
-            'WorkoutPlanID'    =>  null, // Add if necessary
-            'CoachID'    =>  $this->request->getPost('plans'), // Add if necessary
-            'verification_token' => $token,
-            'is_verified' => 0
+    // Prepare user data
+    $data = [
+        'CustomerID'         => $this->request->getPost('gymcode'),
+        'Firstname'          => $this->request->getPost('clients1Fname'),
+        'Middlename'         => $this->request->getPost('clients1Mname') ?? null,
+        'Lastname'           => $this->request->getPost('clients1Lname'),
+        'Address'            => $this->request->getPost('clients1Username'),
+        'Gender'             => $this->request->getPost('gender'),
+        'PhoneNumber'        => $this->request->getPost('clients1Phone') ?? null,
+        'Email'              => $email,
+        'Password'           => $this->request->getPost('password'),
+        'password_hash'      => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+        'RegisteredDate'     => date('Y-m-d'),
+        'types_of_workout'   => null,
+        'Membership_plan'    => $this->request->getPost('plans'),
+        'qr_code'            => null,
+        'CurrentPlanID'      => null,
+        'ExpirationDate'     => null,
+        'WorkoutTypeID'      => null,
+        'WorkoutPlanID'      => null,
+        'is_frozen'          => 0,
+        'CoachID'            => $this->request->getPost('plans'),
+        'reset_token'        => null,
+        'reset_token_expires'=> null,
+        'verification_token' => $token,
+        'is_verified'        => 0
+    ];
 
-         ];
+    // Run insert using raw SQL
+    $sql = "INSERT INTO registration 
+        (CustomerID, Firstname, Middlename, Lastname, Address, Gender, PhoneNumber, Email, Password, password_hash, RegisteredDate, types_of_workout, Membership_plan, qr_code, CurrentPlanID, ExpirationDate, WorkoutTypeID, WorkoutPlanID, is_frozen, CoachID, reset_token, reset_token_expires, verification_token, is_verified)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-         $db = \Config\Database::connect();
+    $result = $db->query($sql, [
+        $data['CustomerID'],
+        $data['Firstname'],
+        $data['Middlename'],
+        $data['Lastname'],
+        $data['Address'],
+        $data['Gender'],
+        $data['PhoneNumber'],
+        $data['Email'],
+        $data['Password'],
+        $data['password_hash'],
+        $data['RegisteredDate'],
+        $data['types_of_workout'],
+        $data['Membership_plan'],
+        $data['qr_code'],
+        $data['CurrentPlanID'],
+        $data['ExpirationDate'],
+        $data['WorkoutTypeID'],
+        $data['WorkoutPlanID'],
+        $data['is_frozen'],
+        $data['CoachID'],
+        $data['reset_token'],
+        $data['reset_token_expires'],
+        $data['verification_token'],
+        $data['is_verified']
+    ]);
 
-         $sql = "INSERT INTO registration 
-             (CustomerID, Firstname, Middlename, Lastname, Address, Gender, PhoneNumber, Email, Password, password_hash, RegisteredDate, types_of_workout, Membership_plan, qr_code, CurrentPlanID, ExpirationDate, WorkoutTypeID, WorkoutPlanID, is_frozen, CoachID, reset_token, reset_token_expires, verification_token, is_verified)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-         
-         $db->query($sql, [
-             $data['CustomerID'],
-             $data['Firstname'],
-             $data['Middlename'],
-             $data['Lastname'],
-             $data['Address'],
-             $data['Gender'],
-             $data['PhoneNumber'],
-             $data['Email'],
-             $data['Password'],
-             $data['password_hash'],
-             $data['RegisteredDate'],
-             $data['types_of_workout'],
-             $data['Membership_plan'],
-             $data['qr_code'],
-             $data['CurrentPlanID'],
-             $data['ExpirationDate'],
-             $data['WorkoutTypeID'],
-             $data['WorkoutPlanID'],
-             $data['is_frozen'],
-             $data['CoachID'],
-             $data['reset_token'],
-             $data['reset_token_expires'],
-             $data['verification_token'],
-             $data['is_verified']
-         ]);
-         
-         $customerId = $db->insertID(); 
-         $scheduleIds = $this->request->getPost('coachsched'); 
-         $coachId     = $this->request->getPost('coach');
-         
-         if (!empty($scheduleIds) && !empty($coachId)) {
-             foreach ($scheduleIds as $schedId) {
-                 $db->query(
-                     "UPDATE SelectedCoachFromRegistration 
-                      SET CustomerID = ? 
-                      WHERE CoachID = ? AND ID = ?",
-                     [$customerId, $coachId, $schedId]
-                 );
-             }
-         }
-         
-         // 4. Send verification email
-         $this->sendVerificationEmail($data['Email'], $token);
-         
-    
-            session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
-            return redirect()->to('/redirect');
-        } else {
-            session()->setFlashdata('error', 'Failed to register.');
-            return redirect()->back();
+    // ✅ Check if insert succeeded
+    if ($result && $db->affectedRows() > 0) {
+        $customerId  = $db->insertID();
+        $scheduleIds = $this->request->getPost('coachsched'); 
+        $coachId     = $this->request->getPost('coach');
+
+        if (!empty($scheduleIds) && !empty($coachId)) {
+            foreach ($scheduleIds as $schedId) {
+                $db->query(
+                    "UPDATE SelectedCoachFromRegistration 
+                     SET CustomerID = ? 
+                     WHERE CoachID = ? AND ID = ?",
+                    [$customerId, $coachId, $schedId]
+                );
+            }
         }
+
+        $this->sendVerificationEmail($data['Email'], $token);
+
+        session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
+        return redirect()->to('/redirect');
+    } else {
+        session()->setFlashdata('error', 'Failed to register.');
+        return redirect()->back();
     }
+}
+
     
         private function sendVerificationEmail($email, $token)
         {

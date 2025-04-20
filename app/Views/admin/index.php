@@ -117,7 +117,7 @@ $this->section('body');
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-primary">
+                <<div class="small-box text-bg-dark">
                     <div class="inner">
                         <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
                         <p>Total Members</p>
@@ -162,7 +162,7 @@ $this->section('body');
                 
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-danger">
+            <div class="small-box text-bg-light text-dark">
                     <div class="inner">
                         <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>

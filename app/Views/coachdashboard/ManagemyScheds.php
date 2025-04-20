@@ -61,7 +61,7 @@ $this->section('body');
                 <form action="<?= site_url('/coach-manage/store'); ?>" method="POST">
                     <div class="mb-3">
                         <label>Start Date:</label>
-                        <input type="text" name="startdate" id="start_date" class="form-control">
+                        <input type="date" name="startdate" id="start_date" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label>Start Time:</label>
@@ -197,6 +197,9 @@ $.ajax({
             }
         });
     }
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("start_date").setAttribute('min', today);
 </script>
 
 <?php $this->endSection(); ?>

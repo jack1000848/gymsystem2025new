@@ -157,7 +157,7 @@ $this->section('body');
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
-                                    <button type="button" class="btn btn-danger" onclick="deletePayment(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
+                                    
                                 </div>
                             </td>
                         </tr>

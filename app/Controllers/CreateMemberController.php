@@ -151,13 +151,13 @@ class CreateMemberController extends BaseController
         if (!empty($scheduleIds) && !empty($coachId)) {
             foreach ($scheduleIds as $schedId) {
                 $db->query(
-                    "UPDATE SelectedCoachFromRegistration 
-                     SET CustomerID = ? 
-                     WHERE CoachID = ? AND ID = ?",
+                    "INSERT INTO SelectedCoachFromRegistration (CustomerID, CoachID, ScheduleID)
+                     VALUES (?, ?, ?)",
                     [$customerId, $coachId, $schedId]
                 );
             }
         }
+        
 
         $this->sendVerificationEmail($data['Email'], $token);
 

@@ -123,7 +123,15 @@ class Admin extends BaseController
             'total' => $totalCheckins
         ];
     }
-
+    private function getTotalEquipmentExpense()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('equipment');
+        $builder->selectSum('Amount', 'totalExpense');
+    
+        $result = $builder->get()->getRow();
+        return $result->totalExpense ?? 0;
+    }
     private function getMonthlyCoachAttendance()
     {
         $db = \Config\Database::connect();

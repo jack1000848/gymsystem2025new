@@ -107,16 +107,37 @@
         color: #7f8c8d !important;
     }
 
-    .dataTables_wrapper .dataTables_filter input {
+    .search-form {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+    .search-form input {
         border-radius: 6px;
-        padding: 6px;
+        padding: 6px 12px;
         border: 1px solid #ccc;
+        font-size: 14px;
+        width: 250px;
+    }
+
+    .search-form button {
+        border-radius: 6px;
+        padding: 6px 12px;
+        margin-left: 10px;
         font-size: 14px;
     }
 </style>
+
 <div class="container my-5">
     <div class="card shadow-lg border-0 rounded-4 p-4">
         <h2 class="text-center mb-4 text-primary fw-bold">📋 All Tasks</h2>
+
+        <!-- Search Form -->
+        <form action="<?= base_url('admin/tasks') ?>" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search by Client or Coach Name" value="<?= esc($search ?? '') ?>">
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+        </form>
 
         <?php if (session()->getFlashdata('success')): ?>
             <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>

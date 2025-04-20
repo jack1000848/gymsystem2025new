@@ -265,7 +265,7 @@ $this->section('body'); // Start the body section
                     <!-- Date of Registration -->
                     <div class="mb-3">
                         <label for="dateofregistration" class="form-label">Date of Registration</label>
-                        <input type="date" class="form-control" name="dateofregistration" required>
+                        <input type="date" class="form-control" name="dateofregistration" id="dateOfRegistration" required>
                     </div>
 
                      <!-- Gymtimeslot -->
@@ -541,9 +541,10 @@ $this->section('body'); // Start the body section
                 $("#gender").val(selectedUser.Gender);
                 $("#clients1Emailaddress").val(selectedUser.Email);
                 $("#planSelect").val(selectedUser.Membership_plan).trigger('change');
+                $("#dateOfRegistration").val(new Date().toISOString().split('T')[0]); 
                 setTimeout(() => {
                     $("#coach").val(selectedUser.CoachID).trigger('change');
-                }, 1000); // Delay to ensure coach options are loaded
+                }, 1000); 
 
             }
             $("#customerModal").modal('hide'); 

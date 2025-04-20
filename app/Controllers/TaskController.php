@@ -367,9 +367,9 @@ public function adminDownloadPdf($taskID)
 }
 public function adminTasks()
 {
-    if (!$this->session->has('logged_in')) {
-        return redirect()->to('/joinus')->with('error', 'Please log in first.');
-    }
+   /// if (!$this->session->has('logged_in')) {
+  ///      return redirect()->to('/joinus')->with('error', 'Please log in first.');
+  //  }
 
     if($this->session->get('Role') != 'Admin'){
         $roleVal = $this->session->get('Role');

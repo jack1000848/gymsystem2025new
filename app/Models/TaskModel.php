@@ -70,5 +70,17 @@ public function markTaskAsCompleted($taskId, $pdfPath = null)
         'PdfPath' => $pdfPath
     ]);
 }
+public function getTasks($search = null)
+    {
+        $builder = $this->select('tasks.*, coaches.Firstname as CoachFirstname, coaches.Lastname as CoachLastname, clients.Firstname as ClientFirstname, clients.Lastname as ClientLastname')
+            ->join('coaches', 'coaches.CoachID = tasks.CoachID')
+            ->join('clients', 'clients.ClientID = tasks.ClientID');
 
+        if ($search) {
+            $builder->like('CONCAT(clients.Firstname, " ", clients.Lastname)', $search)
+                    ->orLike('CONCAT(coaches.Firstname, " ", coaches.Lastname)', $search);
+        }
+
+        return $builder->findAll();
+    }
 }

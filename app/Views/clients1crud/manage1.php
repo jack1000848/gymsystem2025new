@@ -524,7 +524,7 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
-        $("#customerModal").on('hide.bs.modal', function () {
+        $("#customerModal").on('hidden.bs.modal', function () {
             $("#customerSelect").empty(); 
             $("#addClientModal").modal('show'); 
         });

@@ -524,24 +524,29 @@ $this->section('body'); // Start the body section
             responsive: true
         });
 
-        $("#btnShowRegistration").on('click', function() {
-            $("#customerModal").modal('show');
+        // When button is clicked
+$("#btnShowRegistration").on('click', async function () {
+    const customerSelect = $("#customerSelect");
+    customerSelect.empty(); // Clear previous options
+
+    try {
+        // Fetch users
+        const data = await $.get("<?= base_url('/registration/getUsers') ?>");
+
+        // Add options
+        data.forEach(user => {
+            const option = `<option value="${user.Email}">${user.Email}</option>`;
+            customerSelect.append(option);
         });
 
-        $("#customerModal").on('show.bs.modal', async function () {
-            const customerSelect = $("#customerSelect");
-            customerSelect.empty(); 
-            try {
-                const data = await $.get("<?= base_url('/registration/getUsers') ?>");
+        // Now safely show the modal
+        $("#customerModal").modal('show');
 
-                data.forEach(user => {
-                    const option = `<option value="${user.Email}">${user.Email}</option>`;
-                    customerSelect.append(option);
-                });
-                            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
-        });
+    } catch (error) {
+        console.error("Error fetching users:", error);
+    }
+});
+
     $("#coach").on('change', async function() {
     const value = $(this).val();
     console.log(value);

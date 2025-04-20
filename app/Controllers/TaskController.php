@@ -5,7 +5,7 @@ use App\Models\TaskModel;
 use App\Models\CustomerModel;
 use App\Models\CoachModel;
 use App\Models\SubtaskModel;
-use App\Models\SelectedCoachFromRegistration;
+use App\Models\SelectedCoachFromRegistrationModel;
 use App\Services\PdfService;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -24,7 +24,7 @@ class TaskController extends BaseController
         $this->customerModel = new CustomerModel();
         $this->coachModel = new CoachModel();
         $this->customerModel = new \App\Models\CustomerModel();
-        $this->SelectedCoachFromRegistration = new \App\Models\SelectedCoachFromRegistration();
+        $this->SelectedCoachFromRegistrationModel = new \App\Models\SelectedCoachFromRegistrationModel();
     }
 
     // Show form to create a task (for coaches)

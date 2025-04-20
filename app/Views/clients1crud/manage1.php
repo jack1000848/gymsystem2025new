@@ -843,7 +843,7 @@ $('#renewPlans').on('change', function () {
     // Fetch Coaches
     async function fetchCoach(planId) {
         try {                          
-            const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?> ?planId=${planId}`);
+            const data = await $.get(`<?= base_url('/fetchCoachPlan');?>?planId=${planId}`);
             $('#coach').empty();
             $("#priceInput").val(data[0].Price);
             $("#duration").val(data[0].Duration);
@@ -978,7 +978,7 @@ async function renew(id) {
 
 async function fetchrenewCoach(planId, selectedCoachId = null) {
     try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        const data = await $.get(`<?= base_url('/fetchCoachPlan');?>?planId=${planId}`);
         $('#renewCoach').empty();
         $('#renewCoach').append('<option value="">Select a Coach</option>');
         $("#priceInput").val(data.Price);
@@ -1062,7 +1062,7 @@ async function fetchEditPlans(selectedPlanId) {
 
 async function fetchEditCoach(planId, selectedCoachId = null) {
     try {
-        const data = await $.get(`<?= base_url('/fetchCoachPlan'); ?>?planId=${planId}`);
+        const data = await $.get(`<?= base_url('/fetchCoachPlan');?>?planId=${planId}`);
         $('#editCoach').empty();
         $('#editCoach').append('<option value="">Select a Coach</option>');
 

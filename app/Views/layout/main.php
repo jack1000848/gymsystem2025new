@@ -150,13 +150,13 @@
                     </li>
                     <li class="nav-item"> 
                         <a href="<?= base_url('/payment') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="bi bi-calendar2-check"></i>
-                            <p class="m-0">View Payments</p>
+                        <i class="bi bi-credit-card nav-icon"></i>
+                            <p class="m-0">Payments</p>
                         </a> 
                     </li>
                     <li class="nav-item"> 
                         <a href="<?= base_url('/admintaskview') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="bi bi-calendar2-check"></i>
+                        <i class="fas fa-user-check nav-icon"></i>
                             <p class="m-0">View All Tasks</p>
                         </a> 
                     </li>

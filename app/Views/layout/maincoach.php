@@ -92,13 +92,13 @@
 
                 <li class="nav-item">
                     <a href="<?= base_url('viewmyclients') ?>" class="nav-link d-flex align-items-center gap-2">
-                        <i class="bi bi-people nav-icon"></i>
+                    <i class="fas fa-user-check nav-icon"></i>
                         <p class="m-0">View My Clients</p>
                     </a>
                 </li>
                 <li class="nav-item">
                         <a href="<?= base_url('tasks/coach') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="fas fa-dumbbell nav-icon"></i>
+                        <i class="fas fa-clipboard-list nav-icon"></i>
                             <p class="m-0">Add Task to Clients</p>
                         </a>
                     </li>
@@ -180,7 +180,7 @@
                     
                     <li class="nav-item">
                         <a href="<?= base_url('tasks/coach') ?>" class="nav-link d-flex align-items-center gap-2">
-                            <i class="fas fa-dumbbell nav-icon"></i>
+                        <i class="fas fa-user-check nav-icon"></i>
                             <p class="m-0">Add Task to Clients</p>
                         </a>
                     </li>

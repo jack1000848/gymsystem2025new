@@ -8,6 +8,7 @@ use App\Models\eCoachAttendanceModel; // Correct model name
 use App\Models\CustomerPlanModel;
 use App\Models\QrAttendanceLogModel;
 use App\Models\CoachModel;
+use App\Models\PlanModel; // Add this line to import PlanModel
 
 
 class QrAttendanceController extends Controller
@@ -19,6 +20,7 @@ class QrAttendanceController extends Controller
     public function __construct()
     {
         $this->coachModel = new CoachModel();
+        $this->session = session(); //
      ///   $this->attendanceModel = new CoachAttendanceModel();
 
      helper(['url', 'form']); // Load helpers
@@ -36,29 +38,29 @@ class QrAttendanceController extends Controller
     {
         $customerPlanModel = new CustomerPlanModel();
         $qrAttendanceModel = new QrAttendanceModel();
-        $planModel = new PlanModel(); // Add PlanModel
-    
+        $planModel = new PlanModel(); // This should now work
+
         // Validate ID
         if (empty($id) || !is_numeric($id)) {
             return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
         }
-    
+
         // Check if customer exists
         $customer = $customerPlanModel->find($id);
         if (!$customer) {
             return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
         }
-    
+
         // Fetch all plans and create a mapping of PlanID to PlanName
         $plans = $planModel->findAll();
         $planMap = [];
         foreach ($plans as $plan) {
             $planMap[$plan['PlanID']] = $plan['PlanName'];
         }
-    
+
         // Add PlanName to the customer data
         $customer['PlanName'] = isset($planMap[$customer['Membership_plan']]) ? $planMap[$customer['Membership_plan']] : 'No Plan';
-    
+
         // Get the current date (YYYY-MM-DD) for daily check-in restriction
         $currentDate = date('Y-m-d');
         
@@ -68,7 +70,7 @@ class QrAttendanceController extends Controller
             ->first();
                 
         $currentTime = date('Y-m-d h:i A');
-    
+
         if ($todayRecord) {
             if ($todayRecord['CheckOut'] === null) {
                 // If already checked in today but not checked out, update CheckOut

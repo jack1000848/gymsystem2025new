@@ -185,13 +185,7 @@ class CustomerController extends BaseController
      ]; 
      
      
-     $plan = $planModel->find($data['Membership_plan']);
-     if (!$plan) {
-         return $this->response->setJSON([
-             'status' => 'error',
-             'message' => 'Invalid membership plan selected.',
-         ]);
-     }
+     
      $startDate = new \DateTime($data['ExpirationDate']);
      $duration = $data['duration'] ?? 30;
      $endDate = (clone $startDate)->modify("+{$duration} days");

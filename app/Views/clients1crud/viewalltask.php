@@ -202,44 +202,42 @@
 </div>
 
 <!-- JavaScript for Client-Side Search -->
+
+   <!-- JavaScript for Client-Side Search -->
 <script>
-    (function() {
-        // Cache DOM elements
+    document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('searchInput');
         const table = document.getElementById('taskTable');
-        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        const rows = table.querySelectorAll('tbody tr');
 
-        // Debounce function to limit search execution
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
+        // Log to verify elements are found
+        console.log('Search Input:', searchInput);
+        console.log('Table:', table);
+        console.log('Rows found:', rows.length);
 
-        // Search function
-        function searchTable() {
-            const searchValue = searchInput.value.trim().toLowerCase();
+        searchInput.addEventListener('input', function() {
+            const searchValue = this.value.trim().toLowerCase();
+            console.log('Search term:', searchValue); // Debug search term
 
-            for (let i = 0; i < rows.length; i++) {
-                const coachCell = rows[i].getElementsByTagName('td')[1];
-                const clientCell = rows[i].getElementsByTagName('td')[2];
+            rows.forEach(row => {
+                const coachCell = row.cells[1]; // Coach name (second column)
+                const clientCell = row.cells[2]; // Client name (third column)
                 const coachText = coachCell ? coachCell.textContent.toLowerCase() : '';
                 const clientText = clientCell ? clientCell.textContent.toLowerCase() : '';
 
-                // Show/hide row based on search match
-                rows[i].style.display = (coachText.includes(searchValue) || clientText.includes(searchValue)) ? '' : 'none';
-            }
-        }
+                // Log row data for debugging
+                console.log('Coach:', coachText, 'Client:', clientText);
 
-        // Add debounced event listener
-        searchInput.addEventListener('input', debounce(searchTable, 300));
-    })();
+                // Show or hide row based on search match
+                if (coachText.includes(searchValue) || clientText.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+
 </script>
 
 <?= $this->endSection() ?>

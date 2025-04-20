@@ -152,7 +152,7 @@ $this->section('body');
             </div>
 
             <div class="col-lg-3 col-6">
-             <div class="small-box  style="background-color:rgb(233, 224, 105);">
+             <div class="small-box  style="background-color:rgb(235, 216, 50);">
                   <div class="inner">
                   <h3><?= $totalEquipment ?><sup class="fs-5"></sup></h3>
                      <p>Total Equipments</p>

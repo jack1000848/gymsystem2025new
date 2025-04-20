@@ -37,6 +37,7 @@ use App\Models\CoachModel;
                     'logged_in' => true,
                 ]);
                 session()->set('Role', "Coach"); // Set the role to "Coach"
+                session()->set('ID', $user["CoachID"]); // Set the role to "Coach"
 
                 return redirect()->to('/coachdashboard'); // Redirect to the client dashboard
             } else {

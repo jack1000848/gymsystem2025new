@@ -31,6 +31,12 @@ class CustomerModel extends Model
     {
         return $this->insert($data);
     }
+    public function getClientsWithPlan()
+    {
+        return $this->select('customer.*, plan.PlanName')
+                    ->join('plan', 'plan.PlanID = customer.Membership_plan', 'left')
+                    ->findAll();
+    }
     
     
     protected bool $allowEmptyInserts = false;

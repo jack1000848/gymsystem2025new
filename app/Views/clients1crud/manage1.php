@@ -262,7 +262,7 @@ $this->section('body'); // Start the body section
                     <!-- Date of Registration -->
                     <div class="mb-3">
                         <label for="dateofregistration" class="form-label">Date of Registration</label>
-                        <input type="date" class="form-control" name="dateofregistration" id="dateOfRegistration" required>
+                        <input type="date" class="form-control" name="dateofregistration" id="dateOfRegistration"  min="<?= date('Y-m-d') ?>"  required>
                     </div>
 
                      <!-- Gymtimeslot -->
@@ -404,7 +404,7 @@ $this->section('body'); // Start the body section
                     <!-- Date of Registration -->
                     <div class="mb-3">
                         <label for="renewDateofregistration" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
+                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" min="<?= date('Y-m-d') ?>"  required>
                     </div>
 
                      <!-- Gymtimeslot -->

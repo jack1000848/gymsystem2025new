@@ -26,14 +26,31 @@ class TaskController extends BaseController
 
     // Show form to create a task (for coaches)
     public function create()
-{
-    $customers = $this->customerModel
-    ->select('SelectedCoachFromRegistration.*, Firstname, Lastname')
-    ->join('customer', 'CustomerID = SelectedCoachFromRegistration.CustomerID')
-    ->where('SelectedCoachFromRegistration.CoachID', $coachId)
-    ->findAll();
-    return view('coachdashboard/assigntask', $data);
-}
+    {
+        $coachId = $this->session->get('ID');
+        log_message('debug', 'Coach ID: ' . $coachId);
+
+        if (!$coachId) {
+            log_message('error', 'No Coach ID found in session');
+            return redirect()->to('login')->with('error', 'Please log in to continue');
+        }
+
+        // Join customers and SelectedCoachFromRegistration tables
+        $customers = $this->customerModel
+            ->select('customer.CustomerID, customer.Firstname, customer.Lastname')
+            ->join('SelectedCoachFromRegistration', 'SelectedCoachFromRegistration.CustomerID = customer.CustomerID')
+            ->where('SelectedCoachFromRegistration.CoachID', $coachId)
+            ->findAll();
+        log_message('debug', 'Last query: ' . $this->customerModel->db->getLastQuery());
+        log_message('debug', 'Customers fetched: ' . json_encode($customers));
+
+        if (empty($customers)) {
+            session()->setFlashdata('error', 'No clients found for this coach.');
+        }
+
+        $data['customers'] = $customers;
+        return view('coachdashboard/assigntask', $data);
+    }
 
     // Save a new task
     public function store()

@@ -128,7 +128,7 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-primary">
+                <div class="bg-purple text-white">
                     <div class="inner">
                         <h3><?= $totalPaidAmount ?><sup class="fs-5"></sup></h3>
                         <p>Total Paid Amount</p>
@@ -174,7 +174,7 @@ $this->section('body');
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-            <div class="small-box text-bg-dark">
+            <div class="small-box text-bg-danger">
         <div class="inner">
             <h3><?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>
             <p>Total Expense for Equipment</p>

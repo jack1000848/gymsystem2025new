@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class CreateMemberModel extends Model
 {
-    protected $table            = 'customer';
+    protected $table            = 'registration';
     protected $primaryKey       = 'CustomerID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

@@ -186,7 +186,7 @@ Thank you for signing up! To complete your registration and verify your email ad
             }
         }
 
-        public function verifyEmail($token)
+      /*  public function verifyEmail($token)
         {
             $memberModel = new CreateMemberModel();
             $user = $memberModel->where('verification_token', $token)->first();
@@ -200,7 +200,7 @@ Thank you for signing up! To complete your registration and verify your email ad
                 return redirect()->to('/member-login');
             }
         }
-
+        */
         public function getUsers(){
             $db = \Config\Database::connect();
             $builder = $db->table('registration');

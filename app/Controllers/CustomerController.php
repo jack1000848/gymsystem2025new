@@ -24,7 +24,9 @@ class CustomerController extends BaseController
 {
     public function __construct()
     {
-        $this->session = session(); // Initialize session
+        helper('url');
+        $this->session = session();
+       
     }
  
     public function index()
@@ -33,6 +35,14 @@ class CustomerController extends BaseController
         return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
 
+    if ($this->session->get('Role') != 'Admin') {
+        $roleVal = $this->session->get('Role');
+        if ($roleVal == 'Customer') {
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        } else if ($roleVal == 'Coach') {
+            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+        }
+    }
     $customerModel = new CustomerModel();
     $data['clients1'] = $customerModel->getClientsWithPlan();
 

@@ -131,6 +131,19 @@ class QrAttendanceController extends Controller
 
     public function viewqrcodecoach()
     {
+        if (!$this->session->has('logged_in')) {
+            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+        }
+    
+        if ($this->session->get('Role') != 'Admin') {
+            $roleVal = $this->session->get('Role');
+            if ($roleVal == 'Customer') {
+                return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+            } else if ($roleVal == 'Coach') {
+                return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+            }
+        }
+
         $scanModel = new QrAttendanceModel();
         $data['coachattendanceqr'] = $scanModel->findAll();
         return view('/clients1crud/qrattendancecoach', $data);

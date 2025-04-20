@@ -17,7 +17,7 @@
             <p class="card-text">Membership Plan: <?= $client['PlanName']; ?></p>
             <p class="card-text">Expiration Date: <?= $client['ExpirationDate']; ?></p>
             <h5>QR Code:</h5>
-            <img id="qrCodeImage" src="" alt="QR Code" style="width: 230px; ">
+            <img id="qrCodeImage" src="" alt="QR Code" style="width: 200px; ">
         </div>
     </div>
 </div>

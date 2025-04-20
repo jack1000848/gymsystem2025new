@@ -369,13 +369,20 @@ public function adminTasks()
 {
     if (!$this->session->has('logged_in')) {
         return redirect()->to('/joinus')->with('error', 'Please log in first.');
-   }
+    }
 
-    
-   // $adminID = session()->get('AdminID');
-  //  if (!$adminID) {
-  //      return redirect()->to('/admin-login')->with('error', 'Please log in as an admin');
-  //  }
+    if($this->session->get('Role') != 'Admin'){
+        $roleVal = $this->session->get('Role');
+        if($roleVal == 'Customer'){
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        }else if($roleVal == 'Coach'){
+            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+        }
+    }
+
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+    }
 
     $tasks = $this->taskModel->select('tasks.*, coach.Firstname as CoachFirstname, coach.Lastname as CoachLastname, customer.Firstname as ClientFirstname, customer.Lastname as ClientLastname')
                              ->join('coach', 'coach.CoachID = tasks.CoachID')

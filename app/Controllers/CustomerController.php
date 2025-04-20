@@ -447,12 +447,28 @@ public function try($id)
 public function viewClient($id)
 {
     $customerModel = new CustomerModel();
+    $planModel = new PlanModel();
+
+    // Fetch the client by ID
     $client = $customerModel->find($id);
 
-    
+    if (!$client) {
+        return redirect()->to('/clients1')->with('error', 'Client not found.');
+    }
+
+    // Fetch all plans
+    $plans = $planModel->findAll();
+
+    // Create a mapping of PlanID to PlanName
+    $planMap = [];
+    foreach ($plans as $plan) {
+        $planMap[$plan['PlanID']] = $plan['PlanName'];
+    }
+
+    // Add PlanName to the client
+    $client['PlanName'] = isset($planMap[$client['Membership_plan']]) ? $planMap[$client['Membership_plan']] : 'No Plan';
 
     return view('clients1crud/client_view', ['client' => $client]);
-
 }
 
 }

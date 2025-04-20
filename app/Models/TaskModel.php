@@ -33,10 +33,12 @@ class TaskModel extends Model
     
     public function getTasksByCoach($coachID)
 {
-    return $this->select('tasks.*, customer.Firstname') // Adjust CustomerName as needed
-                ->join('customer', 'customer.CustomerID = tasks.CustomerID')
-                ->where('tasks.CoachID', $coachID) // Explicitly specify the table
-                ->findAll();
+    return $this->select('tasks.*, customer.Firstname')
+            ->join('customer', 'customer.CustomerID = tasks.CustomerID')
+            ->where('tasks.CoachID', $coachID)
+            ->where('customer.CoachID', $coachID) 
+            ->findAll();
+
 }
 // Fetch subtasks for a task
 public function getSubtasks($taskID)

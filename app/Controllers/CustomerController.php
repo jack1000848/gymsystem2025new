@@ -210,7 +210,7 @@ class CustomerController extends BaseController
     }
         {
             // Send verification email
-            $this->sendVerificationEmail($data['Email'], $token);
+           /// $this->sendVerificationEmail($data['Email'], $token);
     
             session()->setFlashdata('success', 'Account created successfully! Please verify your email.');
             return redirect()->to('/clients1');

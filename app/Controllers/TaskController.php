@@ -32,14 +32,18 @@ class TaskController extends BaseController
 {
     $coachId = $this->session->get('ID');
 
-    // Fetch customers assigned to the coach
     $customers = $this->customerModel
-        ->select('ID AS CustomerID, customer.Firstname, customer.Lastname')
-        ->join('SelectedCoachFromRegistration scr', 'scr.CustomerID = ID', 'inner')
+        ->select('customers.ID AS CustomerID, customers.Firstname, customers.Lastname')
+        ->join('selected_coach_from_registration scr', 'scr.CustomerID = customers.ID', 'inner')
         ->where('scr.CoachID', $coachId)
         ->findAll();
 
-    log_message('debug', 'Customers fetched: ' . json_encode($customers)); // Debug log
+    log_message('debug', 'Coach ID: ' . $coachId);
+    log_message('debug', 'Customers fetched: ' . json_encode($customers));
+
+    if (empty($customers)) {
+        session()->setFlashdata('error', 'No clients are assigned to you.');
+    }
 
     $data['customers'] = $customers;
     return view('coachdashboard/assigntask', $data);

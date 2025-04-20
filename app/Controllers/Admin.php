@@ -67,9 +67,18 @@ class Admin extends BaseController
             }
         }
 
+        //fetch all active members where ExpirationDate is greater than or equal to today
+        $db = \Config\Database::connect();
+        $builder = $db->table('customer');
+        $builder->where('ExpirationDate >=', date('Y-m-d'));
+
+        $countActiveMembers = $builder->countAllResults();
+        $builder->resetQuery();
+
         $paymentData = $this->getMonthlyPayments();
         $data = [
             'male' => $maleCount,
+            'activeMembers' => $countActiveMembers  ,
             'female' => $femaleCount,
             'coachCount' => $coachCount,
             'clientCount' => $clientCount,

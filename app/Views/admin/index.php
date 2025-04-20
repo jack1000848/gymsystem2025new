@@ -164,7 +164,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>
                     </div>
                     <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

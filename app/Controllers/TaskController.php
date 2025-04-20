@@ -368,30 +368,13 @@ public function adminDownloadPdf($taskID)
 public function adminTasks()
 {
     
-// Get the search query from the GET request
-$search = $this->request->getGet('search');
 
-// Fetch tasks with optional search filter
-if ($search) {
-    $tasks = $this->taskModel
-        ->select('tasks.*, coaches.Firstname as CoachFirstname, coaches.Lastname as CoachLastname, clients.Firstname as ClientFirstname, clients.Lastname as ClientLastname')
-        ->join('coaches', 'coaches.CoachID = tasks.CoachID')
-        ->join('clients', 'clients.ClientID = tasks.ClientID')
-        ->like('CONCAT(clients.Firstname, " ", clients.Lastname)', $search)
-        ->orLike('CONCAT(coaches.Firstname, " ", coaches.Lastname)', $search)
-        ->findAll();
-} else {
     $tasks = $this->taskModel->select('tasks.*, coach.Firstname as CoachFirstname, coach.Lastname as CoachLastname, customer.Firstname as ClientFirstname, customer.Lastname as ClientLastname')
                              ->join('coach', 'coach.CoachID = tasks.CoachID')
                              ->join('customer', 'customer.CustomerID = tasks.CustomerID')
                              ->findAll();
-}
-// Pass data to the view
-$data = [
-    'tasks' => $tasks,
-    'search' => $search // Pass the search query to retain it in the form
-];
-    return view('clients1crud/viewalltask',$data);
+
+    return view('clients1crud/viewalltask', ['tasks' => $tasks]);
 }
 
 public function updateStatusDirect($taskID)

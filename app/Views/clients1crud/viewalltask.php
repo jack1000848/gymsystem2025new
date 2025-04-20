@@ -119,13 +119,13 @@
         border: 1px solid #ccc;
         font-size: 14px;
         width: 250px;
+        transition: border-color 0.3s ease;
     }
 
-    .search-form button {
-        border-radius: 6px;
-        padding: 6px 12px;
-        margin-left: 10px;
-        font-size: 14px;
+    .search-form input:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
     }
 </style>
 
@@ -133,11 +133,10 @@
     <div class="card shadow-lg border-0 rounded-4 p-4">
         <h2 class="text-center mb-4 text-primary fw-bold">📋 All Tasks</h2>
 
-        <!-- Search Form -->
-        <form action="<?= base_url('admin/tasks') ?>" method="get" class="search-form">
-            <input type="text" name="search" placeholder="Search by Client or Coach Name" value="<?= esc($search ?? '') ?>">
-            <button type="submit" class="btn btn-outline-primary">Search</button>
-        </form>
+        <!-- Search Input -->
+        <div class="search-form">
+            <input type="text" id="searchInput" placeholder="Search by Client or Coach Name">
+        </div>
 
         <?php if (session()->getFlashdata('success')): ?>
             <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
@@ -149,7 +148,7 @@
 
         <?php if (!empty($tasks)): ?>
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle" id="taskTable">
                     <thead class="table-primary text-white">
                         <tr>
                             <th>Task Title</th>
@@ -201,5 +200,46 @@
         <?php endif; ?>
     </div>
 </div>
+
+<!-- JavaScript for Client-Side Search -->
+<script>
+    (function() {
+        // Cache DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const table = document.getElementById('taskTable');
+        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+        // Debounce function to limit search execution
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Search function
+        function searchTable() {
+            const searchValue = searchInput.value.trim().toLowerCase();
+
+            for (let i = 0; i < rows.length; i++) {
+                const coachCell = rows[i].getElementsByTagName('td')[1];
+                const clientCell = rows[i].getElementsByTagName('td')[2];
+                const coachText = coachCell ? coachCell.textContent.toLowerCase() : '';
+                const clientText = clientCell ? clientCell.textContent.toLowerCase() : '';
+
+                // Show/hide row based on search match
+                rows[i].style.display = (coachText.includes(searchValue) || clientText.includes(searchValue)) ? '' : 'none';
+            }
+        }
+
+        // Add debounced event listener
+        searchInput.addEventListener('input', debounce(searchTable, 300));
+    })();
+</script>
 
 <?= $this->endSection() ?>

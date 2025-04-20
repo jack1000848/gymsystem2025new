@@ -316,7 +316,7 @@ $this->section('body'); // Start the body section
 
                     <!-- Submit Button -->
                     <div class="modal-footer">
-                        <button type="button" id="btnShowRegistration" class="btn btn-primary">Add Client from Registration</button>
+                        <button type="button" id="btnShowRegistration" class="btn btn-primary" onclick="$('#customerModal').show();">Add Client from Registration</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -473,6 +473,34 @@ $this->section('body'); // Start the body section
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customerModalLabel">Select a Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="customerForm">
+          <div class="mb-3">
+            <label for="customerSelect" class="form-label">Customer Email</label>
+            <select class="form-select" id="customerSelect" name="customer_email">
+              <!-- Options will be inserted here dynamically -->
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="customerForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -495,8 +523,23 @@ $this->section('body'); // Start the body section
         let table = new DataTable('#clientTable', {
             responsive: true
         });
-        const data = await $.get("<?= base_url('/registration/getUsers') ?>");
-        console.log(data);
+
+        $("#customerModal").on('show.bs.modal', async function () {
+            const customerSelect = $("#customerSelect");
+            customerSelect.empty(); // Clear previous options
+
+            try {
+                const data = await $.get("<?= base_url('/registration/getUsers') ?>");
+                console.log(data);
+
+                data.forEach(user => {
+                    const option = `<option value="${user.Email}">${user.Email}</option>`;
+                    customerSelect.append(option);
+                });
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        });
     $("#coach").on('change', async function() {
     const value = $(this).val();
     console.log(value);

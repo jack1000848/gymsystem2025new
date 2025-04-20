@@ -142,7 +142,7 @@ class CustomerController extends BaseController
         $insertClients = new CustomerModel ();
 
         // Retrieve the email from the form input
-   // $email = $this->request->getPost('clients1Emailaddress');
+    $email = $this->request->getPost('clients1Emailaddress');
 
     // Check if email is retrieved properly
     if (empty($email)) {

@@ -482,18 +482,16 @@ $this->section('body'); // Start the body section
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="customerForm">
           <div class="mb-3">
             <label for="customerSelect" class="form-label">Customer Email</label>
             <select class="form-select" id="customerSelect" name="customer_email">
               <!-- Options will be inserted here dynamically -->
             </select>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="customerForm">Submit</button>
+        <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
       </div>
     </div>
   </div>
@@ -523,13 +521,27 @@ $this->section('body'); // Start the body section
         let table = new DataTable('#clientTable', {
             responsive: true
         });
+        let registeredUsers = [];
 
         $("#customerModal").on('hidden.bs.modal', function () {
             $("#customerSelect").empty(); 
+            registeredUsers = [];
             $("#addClientModal").modal('show'); 
         });
 
-        // When button is clicked
+        $("#btnSubmit").on('click', function () {
+            const selectedEmail = $("#customerSelect").val();
+            const selectedUser = registeredUsers.find(user => user.Email === selectedEmail);
+
+            if (selectedUser) {
+                $("#clients1Fname").val(selectedUser.Firstname);
+                $("#clients1Lname").val(selectedUser.Lastname);
+                $("#clients1Adress").val(selectedUser.Address);
+                $("#gender").val(selectedUser.Gender);
+                $("#clients1Emailaddress").val(selectedUser.Email);
+            }
+            $("#customerModal").modal('hide'); 
+        });
         $("#btnShowRegistration").on('click', async function () {
         const customerSelect = $("#customerSelect");
         customerSelect.empty(); // Clear previous options
@@ -542,6 +554,7 @@ $this->section('body'); // Start the body section
                     const option = `<option value="${user.Email}">${user.Email}</option>`;
                     customerSelect.append(option);
                 });
+                registeredUsers = data; 
 
                 // Show the modal
                 $("#customerModal").modal('show');

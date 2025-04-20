@@ -14,6 +14,9 @@ class TaskController extends BaseController
     protected $taskModel;
     protected $customerModel;
     protected $coachModel;
+    protected $table = 'customers'; // Your customers table name
+    protected $primaryKey = 'ID';
+    protected $allowedFields = ['Firstname', 'Lastname', 'CoachID']; 
 
     public function __construct()
     {
@@ -28,10 +31,16 @@ class TaskController extends BaseController
     public function create()
 {
     $coachId = $this->session->get('ID');
+
+    // Fetch customers assigned to the coach
     $customers = $this->customerModel
-    ->where('CoachID', $coachId)
-    ->findAll();
+        ->select('customers.ID AS CustomerID, customers.Firstname, customers.Lastname')
+        ->join('selected_coach_from_registration scr', 'scr.CustomerID = customers.ID', 'inner')
+        ->where('scr.CoachID', $coachId)
+        ->findAll();
+
     log_message('debug', 'Customers fetched: ' . json_encode($customers)); // Debug log
+
     $data['customers'] = $customers;
     return view('coachdashboard/assigntask', $data);
 }

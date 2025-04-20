@@ -49,7 +49,7 @@
         button[type="submit"] {
             margin-top: 20px;
             padding: 12px 20px;
-            background-color: #44bd32;
+            background-color: rgb(5, 146, 240);
             color: white;
             border: none;
             border-radius: 5px;
@@ -58,7 +58,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #4cd137;
+            background-color:rgb(5, 146, 240);
         }
 
         .alert {

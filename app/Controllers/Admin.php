@@ -66,7 +66,18 @@ class Admin extends BaseController
                 $fetchClients1->update($client['CoachID'], ['password_hash' => password_hash($client['Password'], PASSWORD_BCRYPT)]);
             }
         }
+        // Calculate total equipment expense
+    $db = \Config\Database::connect();
+    $builder = $db->table('equipment');
+    $totalEquipmentExpense = $builder->selectSum('Amount')->get()->getRow()->Amount;
 
+    $fetchClients1 = new CoachModel();
+    $fetchClients = $fetchClients1->findAll();
+    foreach ($fetchClients as $client) {
+        if ($client['password_hash'] == null) {
+            $fetchClients1->update($client['CoachID'], ['password_hash' => password_hash($client['Password'], PASSWORD_BCRYPT)]);
+        }
+    }
         //fetch all active members where ExpirationDate is greater than or equal to today
         $db = \Config\Database::connect();
         $builder = $db->table('customer');
@@ -84,6 +95,7 @@ class Admin extends BaseController
             'clientCount' => $clientCount,
             'totalClients' => $totalClients,
             'totalClient' => $totalClient,
+            'totalEquipmentExpense' => $totalEquipmentExpense, // Pass the total expense
             'totalEquipment' => $totalEquipment,
             'totalPaidAmount' => $paymentData['total'], // Add total paid amount for the card
             'monthlyCheckinData' => $this->getMonthlyCheckins(),
@@ -123,15 +135,15 @@ class Admin extends BaseController
             'total' => $totalCheckins
         ];
     }
-    private function getTotalEquipmentExpense()
-    {
-        $db = \Config\Database::connect();
-        $builder = $db->table('equipment');
-        $builder->selectSum('Amount', 'totalExpense');
-    
-        $result = $builder->get()->getRow();
-        return $result->totalExpense ?? 0;
-    }
+private function getTotalEquipmentExpense()
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('equipment');
+    $builder->selectSum('Amount', 'totalExpense');
+
+    $result = $builder->get()->getRow();
+    return $result->totalExpense ?? 0;
+}
     private function getMonthlyCoachAttendance()
     {
         $db = \Config\Database::connect();

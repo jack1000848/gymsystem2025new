@@ -1,116 +1,113 @@
-<?= $this->extend('layout/maincoach') ?> <!-- Change if using a different layout -->
+<?= $this->extend('layout/maincoach') ?>
 <?= $this->section('body') ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f6fa;
-            margin: 0;
-            
-        }
+<!-- Include Bootstrap & Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-        h2 {
-            color: #2f3640;
-        }
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            max-width: 500px;
-            margin: auto;
-        }
+    .list-group-item.active,
+    .list-group-item:hover {
+        background-color: #0CA6F7;
+        color: #fff;
+    }
 
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #353b48;
-        }
+    .card {
+        border: none;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #dcdde1;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+    .btn-save {
+        background-color: #0CA6F7;
+        color: white;
+        border: none;
+    }
 
-        button[type="submit"] {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #44bd32;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .btn-save:hover {
+        background-color: #0990d6;
+    }
 
-        button[type="submit"]:hover {
-            background-color: #4cd137;
-        }
+    .alert {
+        font-weight: 500;
+        padding: 12px 20px;
+        border-radius: 6px;
+    }
 
-        .alert {
-            max-width: 500px;
-            margin: 10px auto;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
+    .alert-success {
+        background-color: #d1f2eb;
+        color: #148f77;
+    }
 
-        .alert-success {
-            background-color: #dff9fb;
-            color: #22a6b3;
-        }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #c0392b;
+    }
+</style>
 
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #c23616;
-        }
-    </style>
-</head>
-<body>
-<h2>Account Settings</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Sidebar -->
+        <div class="col-md-4 mb-4">
+            <div class="list-group shadow-sm rounded">
+                <a href="#" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-person"></i> My Profile
+                </a>
+                <a href="<?= base_url('change-password') ?>" class="list-group-item list-group-item-action">
+                    <i class="bi bi-lock"></i> Change Password
+                </a>
+            </div>
+        </div>
 
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
-<?php endif; ?>
+        <!-- Profile Info Form -->
+        <div class="col-md-8">
+            <div class="card">
+                <h4>My Profile</h4>
+                <p class="text-muted">Manage your account information</p>
+                <hr>
 
-<?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-<?php endif; ?>
+                <?php if (session()->getFlashdata('success')): ?>
+                    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+                <?php endif; ?>
 
-<form action="<?= base_url('update-account1') ?>" method="post">
-    <?= csrf_field() ?>
-    
-    <label for="name">First Name:</label>
-    <br><input type="text" name="firstname" value="<?= esc($user['Firstname']) ?>" required></br>
+                <?php if (session()->getFlashdata('error')): ?>
+                    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+                <?php endif; ?>
 
-    <label for="name">Last Name:</label>
-    <input type="text" name="lastname" value="<?= esc($user['Lastname']) ?>" required>
+                <form action="<?= base_url('update-account1') ?>" method="post">
+                    <?= csrf_field() ?>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" value="<?= esc($user['Email']) ?>" required>
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label"><strong>First Name</strong></label>
+                        <input type="text" class="form-control" name="firstname" value="<?= esc($user['Firstname']) ?>" required>
+                    </div>
 
-    <label for="password">New Password (Leave blank if not changing):</label>
-    <input type="password" name="password">
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label"><strong>Last Name</strong></label>
+                        <input type="text" class="form-control" name="lastname" value="<?= esc($user['Lastname']) ?>" required>
+                    </div>
 
-    <button type="submit">Save Changes</button>
-</form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><strong>Email</strong></label>
+                        <input type="email" class="form-control" name="email" value="<?= esc($user['Email']) ?>" required>
+                    </div>
 
-</body>
-</html>
+                    <div class="mb-3">
+                        <label for="password" class="form-label"><strong>New Password</strong> <small class="text-muted">(Leave blank if unchanged)</small></label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
 
+                    <button type="submit" class="btn btn-save">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?= $this->endSection() ?>

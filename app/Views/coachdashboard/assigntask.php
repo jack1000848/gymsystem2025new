@@ -23,7 +23,7 @@
             <h4 class="mb-0">Create Task</h4>
         </div>
         <div class="card-body">
-            <form action="<?= base_url('store') ?>" method="post">
+            <form action="<?= base_url('store') ?>" method="POST">
                 <div class="mb-3">
                     <label for="CustomerID" class="form-label">Select Client</label>
                     <select name="CustomerID" id="CustomerID" class="form-select" required>
@@ -31,6 +31,8 @@
                         <?php if (isset($customers) && !empty($customers)): ?>
                             <?php foreach ($customers as $customer): ?>
                                 <option value="<?= esc($customer['CustomerID']) ?>" <?= old('CustomerID') == $customer['CustomerID'] ? 'selected' : '' ?>>
+                                    <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
+                                    <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
                                     <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
                                 </option>
                             <?php endforeach; ?>

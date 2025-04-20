@@ -218,8 +218,7 @@ $this->section('body'); // Start the body section
             <div class="modal-body">
                 <form action="<?php echo site_url('/clients1/store'); ?>" method="POST">
                     
-                    
-
+                    <input type="hidden" id="customerid" name="customerid" value="">
                     <!-- First Name -->
                     <div class="mb-3">
                         <label for="clients1Fname" class="form-label">First Name</label>
@@ -514,6 +513,7 @@ $this->section('body'); // Start the body section
 
         $("#customerModal").on('hidden.bs.modal', function () {
             $("#customerSelect").empty(); 
+            $("customerid").val("");
             registeredUsers = [];
             $("#addClientModal").modal('show'); 
         });
@@ -527,6 +527,7 @@ $this->section('body'); // Start the body section
                 $("#clients1Fname").val(selectedUser.Firstname);
                 $("#clients1Lname").val(selectedUser.Lastname);
                 $("#clients1Adress").val(selectedUser.Address);
+                $("#customerid").val(selectedUser.CustomerID);
                 $("#gender").val(selectedUser.Gender);
                 $("#clients1Emailaddress").val(selectedUser.Email);
                 $("#planSelect").val(selectedUser.Membership_plan).trigger('change');

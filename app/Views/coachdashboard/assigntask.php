@@ -27,17 +27,17 @@
                 <div class="mb-3">
                     <label for="CustomerID" class="form-label">Select Client</label>
                     <select name="CustomerID" id="CustomerID" class="form-select" required>
-    <option value="">-- Select a Client --</option>
-    <?php if (isset($customers) && !empty($customers)): ?>
-        <?php foreach ($customers as $customer): ?>
-            <option value="<?= esc($customer['CustomerID']) ?>" <?= old('CustomerID') == $customer['CustomerID'] ? 'selected' : '' ?>>
-                <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
-            </option>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <option value="" disabled>No clients available</option>
-    <?php endif; ?>
-</select>
+                        <option value="">-- Select a Client --</option>
+                        <?php if (isset($customers) && !empty($customers)): ?>
+                            <?php foreach ($customers as $customer): ?>
+                                <option value="<?= esc($customer['CustomerID']) ?>" <?= old('CustomerID') == $customer['CustomerID'] ? 'selected' : '' ?>>
+                                    <?= esc($customer['Firstname'] . ' ' . $customer['Lastname']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <option value="" disabled>No clients available</option>
+                        <?php endif; ?>
+                    </select>
                 </div>
 
                 <div class="mb-3">

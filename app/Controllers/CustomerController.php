@@ -28,27 +28,20 @@ class CustomerController extends BaseController
     }
  
     public function index()
-    {
-        if (!$this->session->has('logged_in')) {
-            return redirect()->to('/joinus')->with('error', 'Please log in first.');
-        }
-        $fetchClients1 =new CustomerModel();
-        $data['clients1'] = $fetchClients1 ->findAll();
-        // use sql raw query to get the data from the database example
-        // SELECT *, p.PlanName FROM `customer` left join plan p on customer.CurrentPlanID = p.PlanID;
-         $data['clients1'] = $fetchClients1->query("SELECT *, p.PlanName FROM `customer` left join plan p on customer.CurrentPlanID = p.PlanID")->getResultArray();
-      
-    
-      $maxId = $fetchClients1->selectMax('customerid')->first(); 
-      $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
-      $data['next_id'] = $nextId;
-
-      return view('clients1crud/manage1', $data);
-
-       
-
-        ////return view('clients1crud/list', $data);
+{
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
+
+    $customerModel = new CustomerModel();
+    $data['clients1'] = $customerModel->getClientsWithPlan();
+
+    $maxId = $customerModel->selectMax('customerid')->first();
+    $nextId = isset($maxId['customerid']) ? $maxId['customerid'] + 1 : 1;
+    $data['next_id'] = $nextId;
+
+    return view('clients1crud/manage1', $data);
+}
 
     public function linkcoach()
     {
@@ -267,25 +260,25 @@ class CustomerController extends BaseController
 
        // return redirect()->to('/loginclient')->with('success', 'Your account has been verified. You can now log in.');
   //  }
-    public function editClients1($id)
-    {
-        $clients1Model = new CustomerModel();
-
-        // Fetch the Client data by ID
-        $editclient = $clients1Model->find($id);
-    
-        if (!$editclient) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'Client not found'
-            ]);
-        }
-    
-        return $this->response->setJSON([
-            'status' => 'success',
-            'data' => $editclient
-        ]);
-    }
+  public function editClients1($id)
+  {
+      $clients1Model = new CustomerModel();
+      $editclient = $clients1Model->select('customer.*, plan.PlanName')
+                                  ->join('plan', 'plan.PlanID = customer.Membership_plan', 'left')
+                                  ->find($id);
+  
+      if (!$editclient) {
+          return $this->response->setJSON([
+              'status' => 'error',
+              'message' => 'Client not found'
+          ]);
+      }
+  
+      return $this->response->setJSON([
+          'status' => 'success',
+          'data' => $editclient
+      ]);
+  }
     public function updateClients1($id)
     {
         // Load the CustomerModel

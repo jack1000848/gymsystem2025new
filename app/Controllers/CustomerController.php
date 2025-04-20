@@ -196,7 +196,7 @@ class CustomerController extends BaseController
          $db = \Config\Database::connect();
          
          $builder = $db->table('CoachSched');
-         $builder->where('CustomerID', $id)->update(['CustomerID' => null]);
+         $builder->where('CustomerID', $id)->insert(['CustomerID' => null]);
          foreach ($scheduleIds as $schedId) {
              $builder->where('CoachID', $coachId)
                      ->where('ID', $schedId)

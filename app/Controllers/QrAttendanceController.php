@@ -33,61 +33,71 @@ class QrAttendanceController extends Controller
      }
     }
     public function save($id)
-{
-    $customerPlanModel = new CustomerPlanModel();
-    $qrAttendanceModel = new QrAttendanceModel();
-
-    // Validate ID
-    if (empty($id) || !is_numeric($id)) {
-        return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
-    }
-
-    ///// Check if customer exists
-    $customer = $customerPlanModel->find($id);
-    if (!$customer) {
-        return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
-    }
-
-    // Get the current date (YYYY-MM-DD) for daily check-in restriction
-    $currentDate = date('Y-m-d');
+    {
+        $customerPlanModel = new CustomerPlanModel();
+        $qrAttendanceModel = new QrAttendanceModel();
+        $planModel = new PlanModel(); // Add PlanModel
     
-    // Check if the user has already checked in today
-    $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
-        ->where('DATE(InDate)', $currentDate)
-        ->first();
-            
-        $currentTime = date('Y-m-d h:i A');
-        
-
-    if ($todayRecord) {
-        if ($todayRecord['CheckOut'] === null) {
-            // If already checked in today but not checked out, update CheckOut
-            $qrAttendanceModel->update($todayRecord['AttendanceID'], ['CheckOut' => $currentTime]);
-            return $this->response->setJSON([
-                'status' => 'check-out',
-                'customer' => $customer,
-                'message' => 'Checked out successfully.'
-            ]);
-        } else {
-            // If already checked in and checked out today, deny new check-in
-            return $this->response->setJSON([
-                'error' => 'You have already checked in today.'
-            ])->setStatusCode(400);
+        // Validate ID
+        if (empty($id) || !is_numeric($id)) {
+            return $this->response->setJSON(['error' => 'Invalid Customer ID'])->setStatusCode(400);
         }
-    } else {
-        // If no record for today, allow check-in
-        $qrAttendanceModel->insert([
-            'CustomerID' => $id,
-            'InDate' => $currentTime,
-            'CheckOut' => null
-        ]);
-        return $this->response->setJSON([
-            'status' => 'check-in',
-            'customer' => $customer,
-            'message' => 'Checked in successfully.'
-        ]);
+    
+        // Check if customer exists
+        $customer = $customerPlanModel->find($id);
+        if (!$customer) {
+            return $this->response->setJSON(['error' => 'Customer not found'])->setStatusCode(404);
+        }
+    
+        // Fetch all plans and create a mapping of PlanID to PlanName
+        $plans = $planModel->findAll();
+        $planMap = [];
+        foreach ($plans as $plan) {
+            $planMap[$plan['PlanID']] = $plan['PlanName'];
+        }
+    
+        // Add PlanName to the customer data
+        $customer['PlanName'] = isset($planMap[$customer['Membership_plan']]) ? $planMap[$customer['Membership_plan']] : 'No Plan';
+    
+        // Get the current date (YYYY-MM-DD) for daily check-in restriction
+        $currentDate = date('Y-m-d');
+        
+        // Check if the user has already checked in today
+        $todayRecord = $qrAttendanceModel->where('CustomerID', $id)
+            ->where('DATE(InDate)', $currentDate)
+            ->first();
+                
+        $currentTime = date('Y-m-d h:i A');
+    
+        if ($todayRecord) {
+            if ($todayRecord['CheckOut'] === null) {
+                // If already checked in today but not checked out, update CheckOut
+                $qrAttendanceModel->update($todayRecord['AttendanceID'], ['CheckOut' => $currentTime]);
+                return $this->response->setJSON([
+                    'status' => 'check-out',
+                    'customer' => $customer,
+                    'message' => 'Checked out successfully.'
+                ]);
+            } else {
+                // If already checked in and checked out today, deny new check-in
+                return $this->response->setJSON([
+                    'error' => 'You have already checked in today.'
+                ])->setStatusCode(400);
+            }
+        } else {
+            // If no record for today, allow check-in
+            $qrAttendanceModel->insert([
+                'CustomerID' => $id,
+                'InDate' => $currentTime,
+                'CheckOut' => null
+            ]);
+            return $this->response->setJSON([
+                'status' => 'check-in',
+                'customer' => $customer,
+                'message' => 'Checked in successfully.'
+            ]);
+        }
     }
-}
 
 
 

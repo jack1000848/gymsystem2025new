@@ -46,7 +46,7 @@ $this->section('body'); // Start the body section
                         <p><strong>User ID:</strong> <span id="userId">-</span></p>
                         <p><strong>Full Name:</strong> <span id="fullName">-</span></p>
                         <p><strong>Expiration Date:</strong> <span id="expirationDate">-</span></p>
-                        <p><strong>Your Plan:</strong> <span id="planId">-</span></p>
+                        <p><strong>Your Plan:</strong> <span id="planName">-</span></p>
                     </div>
 
                     <!-- Loader (Hidden Initially) -->
@@ -96,7 +96,7 @@ $this->section('body'); // Start the body section
                 $("#userId").text(customer.CustomerID || "N/A");
                 $("#fullName").text(customer.CustomerName || "N/A");
                 $("#expirationDate").text(customer.ExpirationDate || "N/A");
-                $("#planId").text(customer.PlanName || "N/A");
+                $("#planName").text(customer.Membership_plan || "N/A");
 
                 // Show a simple message in the console
                 if (response.status === 'check-in') {

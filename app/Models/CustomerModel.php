@@ -31,6 +31,7 @@ class CustomerModel extends Model
     {
         return $this->insert($data);
     }
+
     public function getClientsWithPlan()
     {
         return $this->select('customer.*, plan.PlanName')

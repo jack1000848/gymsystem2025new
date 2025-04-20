@@ -59,10 +59,10 @@ $this->section('body');
             </div>
             <div class="modal-body">
                 <form action="<?= site_url('/coach-manage/store'); ?>" method="POST">
-                    <div class="mb-3">
-                        <label>Start Date:</label>
-                        <input type="date" name="startdate" id="start_date" class="form-control">
-                    </div>
+                <div class="mb-3">
+                    <label>Start Date:</label>
+                    <input type="date" name="startdate" id="start_date" class="form-control" min="<?= date('Y-m-d') ?>">
+                </div>
                     <div class="mb-3">
                         <label>Start Time:</label>
                         <input type="text" name="starttime" id="start_time" class="form-control">

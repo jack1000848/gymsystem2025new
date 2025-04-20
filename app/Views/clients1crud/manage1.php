@@ -171,7 +171,6 @@ $this->section('body'); // Start the body section
                     <th>Email Address</th>
                     <th style="display:none;">Password</th>
                     <th>Register Date</th>
-                    <th>Types of Workout</th>
                     <th>Membership Plan</th>
                     <th>QR Code</th>
                     <th>Action</th>

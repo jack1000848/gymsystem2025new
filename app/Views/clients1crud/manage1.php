@@ -296,12 +296,12 @@ $this->section('body'); // Start the body section
 
                         <!-- Duration -->
                     <div class="mb-3">
-                        <label for="duration" class="form-label">Duration</label>
+                        <label for="duration" class="form-label">Duration in Days</label>
                         <input type="text" id="duration" readonly disabled class="form-control" name="duration" required>
                     </div>
                     <div class="mb-3">
                         <label for="renewDateofregistration" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" required>
+                        <input type="date" class="form-control" id="renewDateofregistration" name="dateofregistration" min="<?= date('Y-m-d') ?>" required>
                     </div>
 
                     <!-- Total Amount -->
@@ -441,7 +441,7 @@ $this->section('body'); // Start the body section
                     
                     <!-- Duration -->
                     <div class="mb-3">
-                        <label for="renewDuration" class="form-label">Duration</label>
+                        <label for="renewDuration" class="form-label">Duration in Days</label>
                         <input type="text" class="form-control" id="renewDuration" name="duration" readonly>
                     </div>
                     <div class="mb-3">

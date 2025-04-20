@@ -142,7 +142,7 @@ class CustomerController extends BaseController
         $insertClients = new CustomerModel ();
 
         // Retrieve the email from the form input
-    $email = $this->request->getPost('clients1Emailaddress');
+   // $email = $this->request->getPost('clients1Emailaddress');
 
     // Check if email is retrieved properly
     if (empty($email)) {
@@ -156,7 +156,7 @@ class CustomerController extends BaseController
     }
     
        // Generate unique token
-    $token = bin2hex(random_bytes(50));
+   // $token = bin2hex(random_bytes(50));
 
        $data = [
                       // Maps directly

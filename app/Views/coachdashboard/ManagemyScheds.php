@@ -59,16 +59,18 @@ $this->section('body');
             </div>
             <div class="modal-body">
                 <form action="<?= site_url('/coach-manage/store'); ?>" method="POST">
-                <div class="mb-3">
-                    <label for="start_date">Start Date:</label>
-                    <input type="date" name="startdate" id="start_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
-                    <div id="date-error" class="text-danger" style="display: none;">Please select today or a future date.</div>
-                </div>
+                    <div class="mb-3">
+                        <label>Start Date:</label>
+                        <input type="text" name="startdate" id="start_date" class="form-control">
+                    </div>
                     <div class="mb-3">
                         <label>Start Time:</label>
                         <input type="text" name="starttime" id="start_time" class="form-control">
                     </div>
-                    
+                    <div class="mb-3">
+                        <label>End Date:</label>
+                        <input type="text" name="enddate" id="end_date" class="form-control">
+                    </div>
                     <div class="mb-3">
                         <label>End Time:</label>
                         <input type="text" name="endtime" id="end_time" class="form-control">
@@ -102,7 +104,10 @@ $this->section('body');
                         <label>Start Time:</label>
                         <input type="text" name="starttime" id="edit_start_time" class="form-control">
                     </div>
-                   
+                    <div class="mb-3">
+                        <label>End Date:</label>
+                        <input type="text" name="enddate" id="edit_end_date" class="form-control">
+                    </div>
                     <div class="mb-3">
                         <label>End Time:</label>
                         <input type="text" name="endtime" id="edit_end_time" class="form-control">
@@ -130,12 +135,12 @@ $this->section('body');
 
         flatpickr("#start_date", { dateFormat: "Y-m-d" });
         flatpickr("#start_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
-       /// flatpickr("#end_date", { dateFormat: "Y-m-d" });
+        flatpickr("#end_date", { dateFormat: "Y-m-d" });
         flatpickr("#end_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
 
         flatpickr("#edit_start_date", { dateFormat: "Y-m-d" });
         flatpickr("#edit_start_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
-       /// flatpickr("#edit_end_date", { dateFormat: "Y-m-d" });
+        flatpickr("#edit_end_date", { dateFormat: "Y-m-d" });
         flatpickr("#edit_end_time", { enableTime: true, noCalendar: true, dateFormat: "h:i K" });
 
         // Update Schedule AJAX
@@ -154,7 +159,7 @@ $.ajax({
         id: id, // ✅ Send this properly
         startdate: $('#edit_start_date').val(),
         starttime: $('#edit_start_time').val(),
-       // enddate: $('#edit_end_date').val(),
+        enddate: $('#edit_end_date').val(),
         endtime: $('#edit_end_time').val()
     },
         });
@@ -171,7 +176,7 @@ $.ajax({
 
                 $('#edit_start_date').val(data.ScheduleDate);
                 $('#edit_start_time').val(data.Start);
-                ///$('#edit_end_date').val(data.ScheduleDate);
+                $('#edit_end_date').val(data.ScheduleDate);
                 $('#edit_end_time').val(data.End);
                 $('#editClientModal').modal('show');
             }
@@ -198,19 +203,6 @@ $.ajax({
             }
         });
     }
-    document.getElementById('start_date').addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time for comparison
-
-        const errorDiv = document.getElementById('date-error');
-        if (selectedDate < today) {
-            errorDiv.style.display = 'block';
-            this.value = ''; // Clear invalid selection
-        } else {
-            errorDiv.style.display = 'none';
-        }
-    });
 </script>
 
 <?php $this->endSection(); ?>

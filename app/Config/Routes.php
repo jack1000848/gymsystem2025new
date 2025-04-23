@@ -250,5 +250,6 @@ $routes->match(['get', 'post'], '/payment/edit/(:num)', 'paymentController::edit
 $routes->post('/payment/update/(:num)', 'paymentController::update/$1');
 $routes->get('/payment/update/(:num)', 'paymentController::update/$1');
 $routes->get('/payment/delete/(:num)', 'paymentController::delete/$1');
+$routes->get('payment/monthly/(:any)', 'PaymentController::monthly/$1');
 ///$routes->get('/myPayments', 'paymentController::myPayments');
 //$routes->get('/payment/edit', 'paymentController::edit');

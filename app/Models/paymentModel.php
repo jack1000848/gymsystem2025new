@@ -60,4 +60,23 @@ class paymentModel extends Model
             'total' => $totalPayments
         ];
     }
+    public function getPaymentsWithDetails1()
+    {
+        return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')
+            ->join('customer', 'customer.CustomerID = paymenthistory.CustomerID')
+            ->join('plan', 'plan.PlanID = paymenthistory.PlanID')
+            ->findAll();
+    }
+
+    // New method to fetch payments for a specific month
+    public function getPaymentsWithDetailsForMonth($year, $month)
+    {
+        return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')
+            ->join('customer', 'customer.CustomerID = paymenthistory.CustomerID')
+            ->join('plan', 'plan.PlanID = paymenthistory.PlanID')
+            ->where('YEAR(paymenthistory.PaidDate)', $year)
+            ->where('MONTH(paymenthistory.PaidDate)', $month)
+            ->findAll();
+    }
+    
 }

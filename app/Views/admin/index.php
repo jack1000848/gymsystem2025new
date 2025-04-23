@@ -176,7 +176,6 @@ $this->section('body');
 
            <!-- Total Paid Amount -->
            <div class="col-lg-3 col-6">
-                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
                     <div class="small-box" style="background-color: #add8e6;">
                         <div class="inner">
                             <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
@@ -190,7 +189,6 @@ $this->section('body');
             </div>
             <!-- Equipment Expenses -->
             <div class="col-lg-3 col-6">
-                <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit; display: block;">
                     <div class="small-box" style="background-color: rgb(99, 224, 208);">
                         <div class="inner">
                             <h3>₱<?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>

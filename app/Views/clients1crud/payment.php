@@ -33,6 +33,16 @@ $this->section('body');
         background-color: #c0392b;
     }
 
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        min-width: 100px;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
     h1.modal-title {
         font-weight: bold;
         color: #2c3e50;
@@ -108,11 +118,30 @@ $this->section('body');
         font-weight: bold;
         font-size: 15px;
     }
+
+    /* Print-specific styles */
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-report, .printable-report * {
+            visibility: visible;
+        }
+        .printable-report {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+    }
 </style>
 
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
+        <!-- Month Selector and Print Report Button -->
+        <input type="month" id="monthSelector" class="form-control d-inline-block" style="width: 200px; margin-left: 10px;" value="<?= date('Y-m') ?>">
+        <button class="btn btn-success" onclick="printMonthlyReport()" style="margin-left: 10px;">Print Monthly Report</button>
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -157,7 +186,6 @@ $this->section('body');
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
-                                    
                                 </div>
                             </td>
                         </tr>
@@ -187,10 +215,10 @@ $this->section('body');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                      <div class="mb-3">
-                           <label for="PaidAmount" class="form-label">Paid Amount</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                          </div>
+                    <div class="mb-3">
+                        <label for="PaidAmount" class="form-label">Paid Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                    </div>
                     <div class="mb-3">
                         <label for="PaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="PaidDate" name="PaidDate" required>
@@ -222,7 +250,7 @@ $this->section('body');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editPaymentfurtherModalLabel">Edit Payment</h1>
+                <h1 class="modal-title fs-5" id="editPaymentModalLabel">Edit Payment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -238,9 +266,9 @@ $this->section('body');
                         </select>
                     </div>
                     <div class="mb-3">
-                     <label for="PaidAmount" class="form-label">Paid Amount</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                        </div>
+                        <label for="editPaidAmount" class="form-label">Paid Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="editPaidAmount" name="PaidAmount" required>
+                    </div>
                     <div class="mb-3">
                         <label for="editPaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="editPaidDate" name="PaidDate" required>
@@ -353,41 +381,41 @@ $(document).ready(function () {
 
     // Handle Edit Payment Form
     $('#editPaymentForm').on('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to update this payment?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, update it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response.status === 'success') {
-                        Swal.fire('Updated!', response.message, 'success').then(() => {
-                            $('#editPaymentModal').modal('hide');
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to update this payment?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            Swal.fire('Updated!', response.message, 'success').then(() => {
+                                $('#editPaymentModal').modal('hide');
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire('Error!', response.message, 'error');
+                        }
+                    },
+                    error: function (xhr) {
+                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
                     }
-                },
-                error: function (xhr) {
-                    Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
 
     // Reset forms when modals are closed
     $('#addPaymentModal').on('hidden.bs.modal', function () {
@@ -407,7 +435,7 @@ $(document).ready(function () {
 async function editPayment(id) {
     try {
         const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
-        console.log(response); // Log the response to check its structure
+        console.log(response);
         if (response.status === 'success') {
             const payment = response.data;
             $('#editPaymentId').val(payment.PaymentHistoryID);
@@ -424,6 +452,114 @@ async function editPayment(id) {
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
+
+// Print monthly payment report
+async function printMonthlyReport() {
+    const monthSelector = document.getElementById('monthSelector').value;
+    if (!monthSelector) {
+        Swal.fire('Error!', 'Please select a month to generate the report.', 'error');
+        return;
+    }
+
+    const [year, month] = monthSelector.split('-');
+    const monthYear = new Date(year, month - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    try {
+        const response = await $.ajax({
+            url: '<?= base_url('/payment/monthly/') ?>' + monthSelector,
+            type: 'GET',
+            data: {
+                <?= csrf_token() ?>: '<?= csrf_hash() ?>'
+            }
+        });
+
+        if (response.status === 'success') {
+            const payments = response.data;
+            if (payments.length === 0) {
+                Swal.fire('Info', `No payments found for ${monthYear}.`, 'info');
+                return;
+            }
+
+            // Calculate total amount
+            const totalAmount = payments.reduce((sum, payment) => sum + parseFloat(payment.PaidAmount), 0);
+
+            // Generate table rows for the report
+            let tableRows = '';
+            payments.forEach(payment => {
+                tableRows += `
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ccc;">${payment.PaymentHistoryID}</td>
+                        <td style="padding: 8px; border: 1px solid #ccc;">${payment.CustomerName}</td>
+                        <td style="padding: 8px; border: 1px solid #ccc;">₱${parseFloat(payment.PaidAmount).toFixed(2)}</td>
+                        <td style="padding: 8px; border: 1px solid #ccc;">${payment.PaidDate}</td>
+                        <td style="padding: 8px; border: 1px solid #ccc;">${payment.PlanName}</td>
+                    </tr>
+                `;
+            });
+
+            // Create the report content
+            const reportContent = `
+                <div class="printable-report" style="font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; border: 1px solid #ccc; border-radius: 8px;">
+                    <h2 style="text-align: center; color: #2c3e50;">Payment Report</h2>
+                    <h4 style="text-align: center; color: #3498db;">Payment Report for ${monthYear}</h4>
+                    <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #ccc; background-color: #f0f0f0;">Payment ID</th>
+                                <th style="padding: 8px; border: 1px solid #ccc; background-color: #f0f0f0;">Customer</th>
+                                <th style="padding: 8px; border: 1px solid #ccc; background-color: #f0f0f0;">Paid Amount</th>
+                                <th style="padding: 8px; border: 1px solid #ccc; background-color: #f0f0f0;">Paid Date</th>
+                                <th style="padding: 8px; border: 1px solid #ccc; background-color: #f0f0f0;">Plan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                    <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+                    <p style="text-align: right; font-weight: bold; color: #2c3e50;">Total Amount: ₱${totalAmount.toFixed(2)}</p>
+                    <p style="text-align: center; font-size: 14px; color: #666;">Generated on: ${new Date().toLocaleString()}</p>
+                </div>
+            `;
+
+            // Open a new window and write the report content
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Monthly Payment Report</title>
+                    <style>
+                        @media print {
+                            body {
+                                margin: 0;
+                            }
+                            .printable-report {
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${reportContent}
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(() => window.close(), 100);
+                        };
+                    </script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        } else {
+            Swal.fire('Error!', response.message, 'error');
+        }
+    } catch (error) {
+        Swal.fire('Error!', 'Failed to fetch monthly payments.', 'error');
+    }
+}
+
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({
@@ -444,7 +580,7 @@ async function deletePayment(id) {
                     <?= csrf_token() ?>: '<?= csrf_hash() ?>'
                 },
                 success: function (response) {
-                    console.log(response); // Log the response
+                    console.log(response);
                     if (response.status === 'success') {
                         Swal.fire('Deleted!', response.message, 'success').then(() => {
                             location.reload();
@@ -454,7 +590,7 @@ async function deletePayment(id) {
                     }
                 },
                 error: function (xhr) {
-                    console.log(xhr); // Log any errors
+                    console.log(xhr);
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });

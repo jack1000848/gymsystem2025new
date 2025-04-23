@@ -15,32 +15,53 @@ class paymentController extends BaseController
        
     }
     public function payment()
-    {
-        if (!$this->session->has('logged_in')) {
-            return redirect()->to('/joinus')->with('error', 'Please log in first.');
-        }
-    
-        if ($this->session->get('Role') != 'Admin') {
-            $roleVal = $this->session->get('Role');
-            if ($roleVal == 'Customer') {
-                return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
-            } else if ($roleVal == 'Coach') {
-                return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
-            }
-        }
-        
-        $paymentModel = new paymentModel();
-        $customerModel = new CustomerModel();
-        $planModel = new PlanModel();
-
-        $data = [
-            'payments' => $paymentModel->getPaymentsWithDetails(),
-            'customers' => $customerModel->select('CustomerID, CONCAT(Firstname, " ", Lastname) as CustomerName')->findAll(),
-            'plans' => $planModel->select('PlanID, PlanName, Price')->where('IsActive', 1)->findAll(),
-        ];
-
-        return view('clients1crud/payment', $data);
+{
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
     }
+
+    if ($this->session->get('Role') != 'Admin') {
+        $roleVal = $this->session->get('Role');
+        if ($roleVal == 'Customer') {
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        } else if ($roleVal == 'Coach') {
+            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+        }
+    }
+    
+    $paymentModel = new PaymentModel();
+    $customerModel = new CustomerModel();
+    $planModel = new PlanModel();
+
+    $data = [
+        'payments' => $paymentModel->getPaymentsWithDetails1(),
+        'customers' => $customerModel->select('CustomerID, CONCAT(Firstname, " ", Lastname) as CustomerName')->findAll(),
+        'plans' => $planModel->select('PlanID, PlanName, Price')->where('IsActive', 1)->findAll(),
+    ];
+
+    return view('clients1crud/payment', $data);
+}
+
+// New method to fetch payments for a specific month
+public function monthly($monthYear)
+{
+    if (!$this->session->has('logged_in') || $this->session->get('Role') != 'Admin') {
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Unauthorized access']);
+    }
+
+    $paymentModel = new PaymentModel();
+
+    // Parse the month and year (e.g., "2025-04")
+    [$year, $month] = explode('-', $monthYear);
+
+    // Fetch payments for the specified month
+    $payments = $paymentModel->getPaymentsWithDetails1ForMonth($year, $month);
+
+    return $this->response->setJSON([
+        'status' => 'success',
+        'data' => $payments
+    ]);
+}
 
     public function add()
     {

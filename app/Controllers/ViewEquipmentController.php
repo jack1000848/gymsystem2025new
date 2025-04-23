@@ -24,7 +24,7 @@ class ViewEquipmentController extends BaseController
     public function indexviewequipment1()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/member-login'); // Redirect if not logged in
         }
         
         $fetchview =new ViewEquipmentModel();

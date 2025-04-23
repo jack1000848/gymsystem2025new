@@ -31,12 +31,12 @@ class CoachDashboardController extends BaseController
     public function dashboardindex()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login');
+            return redirect()->to('/member-login');
         }
         $coachID = session()->get('CoachID');
 
         if (!$coachID) {
-            return redirect()->to('/coach-login')->with('error', 'Please login first.');
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
         }
 
         // Debug: Log CoachID
@@ -102,12 +102,12 @@ class CoachDashboardController extends BaseController
      public function coachManage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/member-login'); // Redirect if not logged in
         }
         $coachID = session()->get('CoachID'); // Get logged-in coach's ID
 
         if (!$coachID) {
-            return redirect()->to('/coach-login')->with('error', 'Please login first.');
+            return redirect()->to('/member-login')->with('error', 'Please login first.');
         }
 
         // Filter schedules by the logged-in coach only
@@ -120,7 +120,7 @@ class CoachDashboardController extends BaseController
     public function storemanage()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/member-login'); // Redirect if not logged in
         }
         $validation = \Config\Services::validation();
         $rules = [
@@ -259,7 +259,7 @@ public function mylogs()
     public function coachqr()
     {
         if (!session()->has('CoachID')) {
-            return redirect()->to('/coach-login'); // Redirect if not logged in
+            return redirect()->to('/member-login'); // Redirect if not logged in
         }
 
         $coachID = session()->get('CoachID'); // Get logged-in Coach ID
@@ -381,7 +381,7 @@ public function logout()
         session()->destroy();
 
         // Optional: Redirect to login or home page
-        return redirect()->to('/coach-login')->with('success', 'You have been logged out.');
+        return redirect()->to('/member-login')->with('success', 'You have been logged out.');
     }
     
 }

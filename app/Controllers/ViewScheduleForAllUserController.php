@@ -59,7 +59,7 @@ class ViewScheduleForAllUserController extends BaseController
     $coachID = $session->get('CoachID');
 
     if (!$coachID) {
-        return redirect()->to('/coach-login')->with('error', 'You must be logged in');
+        return redirect()->to('/member-login')->with('error', 'You must be logged in');
     }
 
     $fetchview = new ViewScheduleForAllUserModel();

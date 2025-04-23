@@ -204,7 +204,7 @@ class TaskController extends BaseController
     {
         $coachID = session()->get('CoachID');
         if (!$coachID) {
-            return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+            return redirect()->to('/member-login')->with('error', 'Please log in as a coach');
         }
 
         $task = $this->taskModel->select('tasks.*, customer.Firstname, customer.Lastname')
@@ -227,7 +227,7 @@ class TaskController extends BaseController
     {
         $coachID = session()->get('CoachID');
         if (!$coachID) {
-            return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+            return redirect()->to('/member-login')->with('error', 'Please log in as a coach');
         }
 
         $task = $this->taskModel->where('TaskID', $taskID)
@@ -306,7 +306,7 @@ class TaskController extends BaseController
     {
         $coachID = session()->get('CoachID');
         if (!$coachID) {
-            return redirect()->to('/coach-login')->with('error', 'Please log in as a coach');
+            return redirect()->to('/member-login')->with('error', 'Please log in as a coach');
         }
     
         $task = $this->taskModel->where('TaskID', $taskID)

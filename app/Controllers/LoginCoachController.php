@@ -123,7 +123,7 @@ public function resetPassword()
     ];
 
     if ($userModel->update($user['CoachID'], $updateData)) {
-        return redirect()->to('/coach-login')->with('success', 'Password reset successfully.');
+        return redirect()->to('/member-login')->with('success', 'Password reset successfully.');
     } else {
         return redirect()->to('/coach-forgot-password')->with('error', 'Something went wrong. Try again.');
     }

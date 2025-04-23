@@ -100,6 +100,9 @@ $this->section('body');
             opacity: 1;
             transform: translateY(0);
         }
+        .small-box a:hover .inner {
+    opacity: 0.9;
+}
     }
 </style>
 

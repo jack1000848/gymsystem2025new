@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ClientloginModel;
 use App\Models\CustomerModel;
+use App\Models\LoginCoachModel;
 
     class LoginClientController extends BaseController
 {

@@ -30,7 +30,7 @@
                 <div class="success"><?= session()->getFlashdata('success') ?></div>
             <?php endif; ?>
     
-            <form action="<?= site_url('auth/authenticate') ?>" method="post">
+            <form action="<?= site_url('/authenticate') ?>" method="POST">
                 <label for="email"></label>
                 <input type="email" name="email" id="email" placeholder="Email" required>
                 <label for="password"></label>

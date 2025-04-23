@@ -8,7 +8,7 @@ use App\Models\CustomerModel;
     class LoginClientController extends BaseController
 {
 
-    public function login()
+    public function LoginClient()
     {
         $session = session();
         if ($session->get('isLoggedIn')) {
@@ -20,7 +20,7 @@ use App\Models\CustomerModel;
                 return redirect()->to('/coachdashboard');
             }
         }
-        return view('auth/login'); // Load the unified login view
+        return view('/clientdashboard/loginclient'); // Load the unified login view
     }
 
     public function authenticate()

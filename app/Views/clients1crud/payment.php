@@ -4,10 +4,7 @@ $this->section('body');
 ?>
 
 <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-J+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous" />
-
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <!-- Integrated CSS -->
 <style>
@@ -34,16 +31,6 @@ $this->section('body');
 
     .btn-danger:hover {
         background-color: #c0392b;
-    }
-
-    .btn-success {
-        background-color: #28a745;
-        border: none;
-        min-width: 100px;
-    }
-
-    .btn-success:hover {
-        background-color: #218838;
     }
 
     h1.modal-title {
@@ -121,30 +108,11 @@ $this->section('body');
         font-weight: bold;
         font-size: 15px;
     }
-
-    /* Print-specific styles */
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        .printable-report, .printable-report * {
-            visibility: visible;
-        }
-        .printable-report {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-        }
-    }
 </style>
 
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
-        <!-- Month Selector and Print Report Button -->
-        <input type="month" id="monthSelector" class="form-control d-inline-block" style="width: 200px; margin-left: 10px;" value="<?= date('Y-m') ?>">
-        <button class="btn btn-success" onclick="printMonthlyReport()" style="margin-left: 10px;">Print Monthly Report</button>
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -189,7 +157,7 @@ $this->section('body');
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
-                                    <button type="button" class="btn btn-danger" onclick="deletePayment(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
+                                    
                                 </div>
                             </td>
                         </tr>
@@ -219,10 +187,10 @@ $this->section('body');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="PaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                    </div>
+                      <div class="mb-3">
+                           <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                          </div>
                     <div class="mb-3">
                         <label for="PaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="PaidDate" name="PaidDate" required>
@@ -254,7 +222,7 @@ $this->section('body');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editPaymentModalLabel">Edit Payment</h1>
+                <h1 class="modal-title fs-5" id="editPaymentfurtherModalLabel">Edit Payment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -270,9 +238,9 @@ $this->section('body');
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="editPaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" min="0" class="form-control" id="editPaidAmount" name="PaidAmount" required>
-                    </div>
+                     <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                        </div>
                     <div class="mb-3">
                         <label for="editPaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="editPaidDate" name="PaidDate" required>
@@ -300,159 +268,13 @@ $this->section('body');
 </div>
 
 <!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-$(document).ready(function () {
-    // Initialize DataTable
-    new DataTable('#paymentTable', {
-        responsive: true
-    });
-
-    // Initialize Select2 for modals
-    $('#CustomerID, #PlanID').select2({
-        dropdownParent: $('#addPaymentModal'),
-        placeholder: "Select an option",
-        width: '100%',
-        allowClear: true
-    });
-
-    $('#editCustomerID, #editPlanID').select2({
-        dropdownParent: $('#editPaymentModal'),
-        placeholder: "Select an option",
-        width: '100%',
-        allowClear: true
-    });
-
-    // Update price display when a plan is selected
-    function updatePriceDisplay(selectElement, priceDisplayElement, amountInputElement) {
-        $(selectElement).on('change', function () {
-            const price = this.options[this.selectedIndex]?.getAttribute('data-price');
-            if (price) {
-                $(priceDisplayElement).text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
-                $(amountInputElement).val(parseFloat(price).toFixed(2));
-            } else {
-                $(priceDisplayElement).text('Plan Price: Select a plan to see the price.');
-                $(amountInputElement).val('');
-            }
-        });
-    }
-
-    updatePriceDisplay('#PlanID', '#priceDisplay', '#PaidAmount');
-    updatePriceDisplay('#editPlanID', '#editPriceDisplay', '#editPaidAmount');
-
-    // Handle form submissions
-    async function handleFormSubmit(formId, url, successMessage, modalId) {
-        $(formId).on('submit', async function (e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
-
-            const confirm = formId === '#editPaymentForm' ? await Swal.fire({
-                title: 'Are you sure?',
-                text: "Do you want to update this payment?",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, update it!'
-            }) : { isConfirmed: true };
-
-            if (confirm.isConfirmed) {
-                try {
-                    const response = await $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false
-                    });
-
-                    if (response.status === 'success') {
-                        Swal.fire(successMessage, response.message, 'success').then(() => {
-                            $(modalId).modal('hide');
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
-                    }
-                } catch (error) {
-                    Swal.fire('Error!', `Failed to ${successMessage.toLowerCase()} payment.`, 'error');
-                }
-            }
-        });
-    }
-
-    handleFormSubmit('#addPaymentForm', '<?= base_url('/payment/add') ?>', 'Success!', '#addPaymentModal');
-    handleFormSubmit('#editPaymentForm', '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), 'Updated!', '#editPaymentModal');
-
-    // Reset forms when modals are closed
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).find('form')[0].reset();
-        const selects = $(this).find('select');
-        const priceDisplay = $(this).find('.price-display');
-        selects.val(null).trigger('change');
-        priceDisplay.text('Plan Price: Select a plan to see the price.');
-    });
-});
-
-// Load payment into edit modal
-async function editPayment(id) {
-    try {
-        const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
-        if (response.status === 'success') {
-            const payment = response.data;
-            $('#editPaymentId').val(payment.PaymentHistoryID);
-            $('#editCustomerID').val(payment.CustomerID).trigger('change');
-            $('#editPaidAmount').val(payment.PaidAmount);
-            $('#editPaidDate').val(payment.PaidDate);
-            $('#editPlanID').val(payment.PlanID).trigger('change');
-            $('#editPriceDisplay').text(`Plan Price: ₱${parseFloat(payment.PlanPrice).toFixed(2)}`);
-            $('#editPaymentModal').modal('show');
-        } else {
-            Swal.fire('Error!', response.message, 'error');
-        }
-    } catch (error) {
-        Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
-    }
-}
-
-// Delete payment
-async function deletePayment(id) {
-    const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!'
-    });
-
-    if (result.isConfirmed) {
-        try {
-            const response = await $.ajax({
-                url: '<?= base_url('/payment/delete/') ?>' + id,
-                type: 'POST',
-                data: {
-                    _method: 'DELETE',
-                    <?= csrf_token() ?>: '<?= csrf_hash() ?>'
-                }
-            });
-
-            if (response.status === 'success') {
-                Swal.fire('Deleted!', response.message, 'success').then(() => {
-                    location.reload();
-                });
-            } else {
-                Swal.fire('Error!', response.message, 'error');
-            }
-        } catch (error) {
-            Swal.fire('Error!', 'Failed to delete payment.', 'error');
-        }
-    }
-}
-
-// Print monthly payment report
+    // Print monthly payment report
 async function printMonthlyReport() {
     const monthSelector = document.getElementById('monthSelector').value;
     if (!monthSelector) {
@@ -541,6 +363,195 @@ async function printMonthlyReport() {
         printWindow.document.close();
     } catch (error) {
         Swal.fire('Error!', 'Failed to fetch monthly payments.', 'error');
+    }
+}
+$(document).ready(function () {
+    // Initialize DataTable
+    new DataTable('#paymentTable', {
+        responsive: true
+    });
+
+    // Initialize Select2 for modals
+    $('#CustomerID, #PlanID').select2({
+        dropdownParent: $('#addPaymentModal'),
+        placeholder: "Select an option",
+        width: '100%',
+        allowClear: true
+    });
+
+    $('#editCustomerID, #editPlanID').select2({
+        dropdownParent: $('#editPaymentModal'),
+        placeholder: "Select an option",
+        width: '100%',
+        allowClear: true
+    });
+
+    // Update price display when a plan is selected (Add Modal)
+    $('#PlanID').on('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        const priceDisplay = $('#priceDisplay');
+        if (price) {
+            priceDisplay.text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
+            $('#PaidAmount').val(parseFloat(price).toFixed(2));
+        } else {
+            priceDisplay.text('Plan Price: Select a plan to see the price.');
+            $('#PaidAmount').val('');
+        }
+    });
+
+    // Update price display when a plan is selected (Edit Modal)
+    $('#editPlanID').on('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        const priceDisplay = $('#editPriceDisplay');
+        if (price) {
+            priceDisplay.text(`Plan Price: ₱${parseFloat(price).toFixed(2)}`);
+            $('#editPaidAmount').val(parseFloat(price).toFixed(2));
+        } else {
+            priceDisplay.text('Plan Price: Select a plan to see the price.');
+            $('#editPaidAmount').val('');
+        }
+    });
+
+    // Handle Add Payment Form
+    $('#addPaymentForm').on('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+
+        $.ajax({
+            url: '<?= base_url('/payment/add') ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status === 'success') {
+                    Swal.fire('Success!', response.message, 'success').then(() => {
+                        $('#addPaymentModal').modal('hide');
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire('Error!', response.message, 'error');
+                }
+            },
+            error: function (xhr) {
+                Swal.fire('Error!', 'Failed to add payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+            }
+        });
+    });
+
+    // Handle Edit Payment Form
+    $('#editPaymentForm').on('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to update this payment?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            $('#editPaymentModal').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                },
+                error: function (xhr) {
+                    Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+                }
+            });
+        }
+    });
+});
+
+    // Reset forms when modals are closed
+    $('#addPaymentModal').on('hidden.bs.modal', function () {
+        $(this).find('form')[0].reset();
+        $('#CustomerID, #PlanID').val(null).trigger('change');
+        $('#priceDisplay').text('Plan Price: Select a plan to see the price.');
+    });
+
+    $('#editPaymentModal').on('hidden.bs.modal', function () {
+        $(this).find('form')[0].reset();
+        $('#editCustomerID, #editPlanID').val(null).trigger('change');
+        $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
+    });
+});
+
+// Load payment into edit modal
+async function editPayment(id) {
+    try {
+        const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
+        console.log(response); // Log the response to check its structure
+        if (response.status === 'success') {
+            const payment = response.data;
+            $('#editPaymentId').val(payment.PaymentHistoryID);
+            $('#editCustomerID').val(payment.CustomerID).trigger('change');
+            $('#editPaidAmount').val(payment.PaidAmount);
+            $('#editPaidDate').val(payment.PaidDate);
+            $('#editPlanID').val(payment.PlanID).trigger('change');
+            $('#editPriceDisplay').text(`Plan Price: ₱${parseFloat(payment.PlanPrice).toFixed(2)}`);
+            $('#editPaymentModal').modal('show');
+        } else {
+            Swal.fire('Error!', response.message, 'error');
+        }
+    } catch (error) {
+        Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
+    }
+}
+// Delete payment
+async function deletePayment(id) {
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await $.ajax({
+                url: '<?= base_url('/payment/delete/') ?>' + id,
+                type: 'POST',
+                data: {
+                    _method: 'DELETE',
+                    <?= csrf_token() ?>: '<?= csrf_hash() ?>'
+                },
+                success: function (response) {
+                    console.log(response); // Log the response
+                    if (response.status === 'success') {
+                        Swal.fire('Deleted!', response.message, 'success').then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr); // Log any errors
+                    Swal.fire('Error!', 'Failed to delete payment.', 'error');
+                }
+            });
+        } catch (error) {
+            Swal.fire('Error!', 'Something went wrong.', 'error');
+        }
     }
 }
 </script>

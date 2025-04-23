@@ -406,6 +406,28 @@ $(document).ready(function () {
 });
 
 
+
+// Load payment into edit modal
+async function editPayment(id) {
+    try {
+        const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
+        console.log(response); // Log the response to check its structure
+        if (response.status === 'success') {
+            const payment = response.data;
+            $('#editPaymentId').val(payment.PaymentHistoryID);
+            $('#editCustomerID').val(payment.CustomerID).trigger('change');
+            $('#editPaidAmount').val(payment.PaidAmount);
+            $('#editPaidDate').val(payment.PaidDate);
+            $('#editPlanID').val(payment.PlanID).trigger('change');
+            $('#editPriceDisplay').text(`Plan Price: ₱${parseFloat(payment.PlanPrice).toFixed(2)}`);
+            $('#editPaymentModal').modal('show');
+        } else {
+            Swal.fire('Error!', response.message, 'error');
+        }
+    } catch (error) {
+        Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
+    }
+}
 // Print monthly payment report
 async function printMonthlyReport() {
     const monthSelector = document.getElementById('monthSelector').value;
@@ -511,28 +533,7 @@ async function printMonthlyReport() {
     } catch (error) {
         Swal.fire('Error!', 'Failed to fetch monthly payments.', 'error');
     }
-}
-// Load payment into edit modal
-async function editPayment(id) {
-    try {
-        const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
-        console.log(response); // Log the response to check its structure
-        if (response.status === 'success') {
-            const payment = response.data;
-            $('#editPaymentId').val(payment.PaymentHistoryID);
-            $('#editCustomerID').val(payment.CustomerID).trigger('change');
-            $('#editPaidAmount').val(payment.PaidAmount);
-            $('#editPaidDate').val(payment.PaidDate);
-            $('#editPlanID').val(payment.PlanID).trigger('change');
-            $('#editPriceDisplay').text(`Plan Price: ₱${parseFloat(payment.PlanPrice).toFixed(2)}`);
-            $('#editPaymentModal').modal('show');
-        } else {
-            Swal.fire('Error!', response.message, 'error');
-        }
-    } catch (error) {
-        Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
-    }
-}
+
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({

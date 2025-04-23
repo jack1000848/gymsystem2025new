@@ -4,10 +4,7 @@ $this->section('body');
 ?>
 
 <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-J+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous" />
-
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <!-- Integrated CSS -->
 <style>
@@ -142,9 +139,6 @@ $this->section('body');
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
-        <!-- Month Selector and Print Report Button -->
-        <input type="month" id="monthSelector" class="form-control d-inline-block" style="width: 200px; margin-left: 10px;" value="<?= date('Y-m') ?>">
-        <button class="btn btn-success" onclick="printMonthlyReport()" style="margin-left: 10px;">Print Monthly Report</button>
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -189,7 +183,7 @@ $this->section('body');
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
-                                    <button type="button" class="btn btn-danger" onclick="deletePayment(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
+                                    
                                 </div>
                             </td>
                         </tr>
@@ -219,10 +213,10 @@ $this->section('body');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="PaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                    </div>
+                      <div class="mb-3">
+                           <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                          </div>
                     <div class="mb-3">
                         <label for="PaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="PaidDate" name="PaidDate" required>
@@ -254,7 +248,7 @@ $this->section('body');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editPaymentModalLabel">Edit Payment</h1>
+                <h1 class="modal-title fs-5" id="editPaymentfurtherModalLabel">Edit Payment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -270,9 +264,9 @@ $this->section('body');
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="editPaidAmount" class="form-label">Paid Amount</label>
-                        <input type="number" step="0.01" min="0" class="form-control" id="editPaidAmount" name="PaidAmount" required>
-                    </div>
+                     <label for="PaidAmount" class="form-label">Paid Amount</label>
+                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                        </div>
                     <div class="mb-3">
                         <label for="editPaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="editPaidDate" name="PaidDate" required>
@@ -300,10 +294,10 @@ $this->section('body');
 </div>
 
 <!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 $(document).ready(function () {
@@ -385,41 +379,41 @@ $(document).ready(function () {
 
     // Handle Edit Payment Form
     $('#editPaymentForm').on('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+    e.preventDefault();
+    const formData = new FormData(this);
+    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to update this payment?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, update it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            Swal.fire('Updated!', response.message, 'success').then(() => {
-                                $('#editPaymentModal').modal('hide');
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire('Error!', response.message, 'error');
-                        }
-                    },
-                    error: function (xhr) {
-                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to update this payment?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Updated!', response.message, 'success').then(() => {
+                            $('#editPaymentModal').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
                     }
-                });
-            }
-        });
+                },
+                error: function (xhr) {
+                    Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
+                }
+            });
+        }
     });
+});
 
     // Reset forms when modals are closed
     $('#addPaymentModal').on('hidden.bs.modal', function () {
@@ -428,18 +422,20 @@ $(document).ready(function () {
         $('#priceDisplay').text('Plan Price: Select a plan to see the price.');
     });
 
-    $('#editPaymentModal').on('read.bs.modal', function () {
+    $('#editPaymentModal').on('hidden.bs.modal', function () {
         $(this).find('form')[0].reset();
         $('#editCustomerID, #editPlanID').val(null).trigger('change');
         $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
     });
 });
 
+
+
 // Load payment into edit modal
 async function editPayment(id) {
     try {
         const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
-        console.log(response);
+        console.log(response); // Log the response to check its structure
         if (response.status === 'success') {
             const payment = response.data;
             $('#editPaymentId').val(payment.PaymentHistoryID);
@@ -456,7 +452,6 @@ async function editPayment(id) {
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
-
 // Print monthly payment report
 async function printMonthlyReport() {
     const monthSelector = document.getElementById('monthSelector').value;
@@ -563,7 +558,6 @@ async function printMonthlyReport() {
         Swal.fire('Error!', 'Failed to fetch monthly payments.', 'error');
     }
 }
-
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({
@@ -584,7 +578,7 @@ async function deletePayment(id) {
                     <?= csrf_token() ?>: '<?= csrf_hash() ?>'
                 },
                 success: function (response) {
-                    console.log(response);
+                    console.log(response); // Log the response
                     if (response.status === 'success') {
                         Swal.fire('Deleted!', response.message, 'success').then(() => {
                             location.reload();
@@ -594,7 +588,7 @@ async function deletePayment(id) {
                     }
                 },
                 error: function (xhr) {
-                    console.log(xhr);
+                    console.log(xhr); // Log any errors
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });

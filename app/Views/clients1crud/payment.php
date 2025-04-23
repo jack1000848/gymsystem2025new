@@ -389,8 +389,6 @@ $(document).ready(function () {
     });
 });
 
-
-
     // Reset forms when modals are closed
     $('#addPaymentModal').on('hidden.bs.modal', function () {
         $(this).find('form')[0].reset();
@@ -404,8 +402,6 @@ $(document).ready(function () {
         $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
     });
 });
-
-
 
 // Load payment into edit modal
 async function editPayment(id) {
@@ -428,7 +424,6 @@ async function editPayment(id) {
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
-
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({

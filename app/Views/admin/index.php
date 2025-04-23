@@ -130,7 +130,7 @@ $this->section('body');
             </div>
             <div class="col-lg-3 col-6">
     <div class="small-box" style="background-color: #add8e6;">
-        <div class="inner" onclick="window.location.href='<?= base_url('payment') ?>'" style="cursor: pointer;">
+        <div class="inner" onclick="window.location.href='<?= base_url('clients1') ?>'" style="cursor: pointer;">
             <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
             <p>Total Paid Amount</p>
         </div>
@@ -142,7 +142,7 @@ $this->section('body');
 
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-success">
-                    <div class="inner" onclick="window.location.href='<?= base_url('coach') ?>'" style="cursor: pointer;">
+                    <div class="inner">
                         <h3><?= $totalClient ?><sup class="fs-5"></sup></h3>
                         <p>Total Coach</p>
                     </div>
@@ -153,7 +153,7 @@ $this->section('body');
             </div>
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-warning">
-                    <div class="inner"onclick="window.location.href='<?= base_url('gymequipment') ?>'" style="cursor: pointer;">
+                    <div class="inner">
                         <h3><?= $totalEquipment ?><sup class="fs-5"></sup></h3>
                         <p>Total Equipments</p>
                     </div>
@@ -165,7 +165,7 @@ $this->section('body');
             </div>
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-danger">
-                    <div class="inner" onclick="window.location.href='<?= base_url('gymequipment') ?>'>
+                    <div class="inner">
                         <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>
                     </div>

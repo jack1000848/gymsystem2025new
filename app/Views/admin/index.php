@@ -4,6 +4,9 @@ $this->section('body');
 ?>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
+    .col-lg-3.col-6 a:hover .small-box {
+    opacity: 0.9;
+}
     #payment_bar_chart {
         height: 420px;
         width: 100%;
@@ -119,78 +122,96 @@ $this->section('body');
 <div class="app-content">
     <div class="container-fluid">
         <div class="row">
+            <!-- Total Members -->
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-primary">
-                    <div class="inner">
-                    <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit;">
-                        <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
-                        <p>Total Members</p>
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-primary">
+                        <div class="inner">
+                            <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
+                            <p>Total Members</p>
+                        </div>
+                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+                        </svg>
                     </div>
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                    </svg>
-                </div>
+                </a>
             </div>
-            <div class="col-lg-3 col-6">
-    <div class="small-box" style="background-color: #add8e6;">
-        <div class="inner">
-        <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit;">
-            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
-            <p>Total Paid Amount</p>
-        </div>
-        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
-            <i class="fas fa-receipt fa-3x"></i>
-        </div>
-    </div>
-</div>
 
+            <!-- Total Paid Amount -->
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-success">
-                    <div class="inner">
-                    <a href="<?= base_url('coach') ?>" style="text-decoration: none; color: inherit;">
-                        <h3><?= $totalClient ?><sup class="fs-5"></sup></h3>
-                        <p>Total Coach</p>
+                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box" style="background-color: #add8e6;">
+                        <div class="inner">
+                            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
+                            <p>Total Paid Amount</p>
+                        </div>
+                        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
+                            <i class="fas fa-receipt fa-3x"></i>
+                        </div>
                     </div>
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
-                    </svg>
-                </div>
+                </a>
             </div>
+
+            <!-- Total Coach -->
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-warning">
-                    <div class="inner">
-                    <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit;">
-                        <h3><?= $totalEquipment ?><sup class="fs-5"></sup></h3>
-                        <p>Total Equipments</p>
+                <a href="<?= base_url('coach') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-success">
+                        <div class="inner">
+                            <h3><?= $totalClient ?><sup class="fs-5"></sup></h3>
+                            <p>Total Coach</p>
+                        </div>
+                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
+                        </svg>
                     </div>
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                    </svg>
-                </div>
-                
+                </a>
             </div>
+
+            <!-- Total Equipments -->
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-danger">
-                    <div class="inner">
-                    <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit;">
-                        <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
-                        <p>Active Members</p>
+                <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-warning">
+                        <div class="inner">
+                            <h3><?= $totalEquipment ?><sup class="fs-5"></sup></h3>
+                            <p>Total Equipments</p>
+                        </div>
+                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+                        </svg>
                     </div>
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
-                    </svg>
-                </div>
+                </a>
             </div>
+
+            <!-- Active Members -->
             <div class="col-lg-3 col-6">
-    <div class="small-box" style="background-color:rgb(99, 224, 208);">
-        <div class="inner">
-        <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit;">
-            <h3>₱<?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>
-            <p>Equipment Expenses</p>
-        </div>
-        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
-            <i class="fas fa-money-bill-wave fa-3x"></i>
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-danger">
+                        <div class="inner">
+                            <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
+                            <p>Active Members</p>
+                        </div>
+                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Equipment Expenses -->
+            <div class="col-lg-3 col-6">
+                <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box" style="background-color: rgb(99, 224, 208);">
+                        <div class="inner">
+                            <h3>₱<?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>
+                            <p>Equipment Expenses</p>
+                        </div>
+                        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
+                            <i class="fas fa-money-bill-wave fa-3x"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

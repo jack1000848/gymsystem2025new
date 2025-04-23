@@ -172,8 +172,8 @@ $routes->get("/getCoachSchedules1/(:num)", "CreateMemberController::getSchedules
 
 ///////////////////////COACH DASHBOARD/////////////////////   
  //// Coach Login/ Coach Dashboard, Manage my Schedule, View my CLients, View Gym Equipment, Logout/// 
- $routes->get('/coach-login', 'LoginCoachController::LoginCoach');
-$routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
+ ///$routes->get('/coach-login', 'LoginCoachController::LoginCoach');
+//$routes->post('/coach/authenticate', 'LoginCoachController::authenticate1');
 // Coach Dashboard
 $routes->get('/coachdashboard', 'CoachDashboardController::dashboardindex');
 $routes->post('/coach/markAbsence', 'CoachDashboardController::markAbsence');

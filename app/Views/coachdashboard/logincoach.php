@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!---<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
                 <h1>Welcome to</h1>
                 <h1>Coach login</h1>
             </div>
-            <?php if (session()->getFlashdata('error')): ?>
+          <!----  <?php if (session()->getFlashdata('error')): ?>
     <div class="error"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
     

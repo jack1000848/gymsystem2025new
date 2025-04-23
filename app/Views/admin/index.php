@@ -129,16 +129,16 @@ $this->section('body');
                 </a>
             </div>
 
-            <!-- Total Paid Amount -->
+            <!-- Active Members -->
             <div class="col-lg-3 col-6">
-                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="small-box" style="background-color: #add8e6;">
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-danger">
                         <div class="inner">
-                            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
-                            <p>Total Paid Amount</p>
+                            <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
+                            <p>Active Members</p>
                         </div>
                         <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
-                            <i class="fas fa-receipt fa-3x"></i>
+                            <i class="fas fa-users fa-3x"></i>
                         </div>
                     </div>
                 </a>
@@ -174,21 +174,20 @@ $this->section('body');
                 </a>
             </div>
 
-            <!-- Active Members -->
-            <div class="col-lg-3 col-6">
-                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="small-box text-bg-danger">
+           <!-- Total Paid Amount -->
+           <div class="col-lg-3 col-6">
+                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box" style="background-color: #add8e6;">
                         <div class="inner">
-                            <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
-                            <p>Active Members</p>
+                            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
+                            <p>Total Paid Amount</p>
                         </div>
                         <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
-                            <i class="fas fa-users fa-3x"></i>
+                            <i class="fas fa-receipt fa-3x"></i>
                         </div>
                     </div>
                 </a>
             </div>
-
             <!-- Equipment Expenses -->
             <div class="col-lg-3 col-6">
                 <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit; display: block;">

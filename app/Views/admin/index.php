@@ -147,6 +147,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-success">
                     <div class="inner">
+                    <a href="<?= base_url('coach') ?>" style="text-decoration: none; color: inherit;">
                         <h3><?= $totalClient ?><sup class="fs-5"></sup></h3>
                         <p>Total Coach</p>
                     </div>
@@ -158,6 +159,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-warning">
                     <div class="inner">
+                    <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit;">
                         <h3><?= $totalEquipment ?><sup class="fs-5"></sup></h3>
                         <p>Total Equipments</p>
                     </div>
@@ -170,6 +172,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-danger">
                     <div class="inner">
+                    <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit;">
                         <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
                         <p>Active Members</p>
                     </div>
@@ -182,6 +185,7 @@ $this->section('body');
             <div class="col-lg-3 col-6">
     <div class="small-box" style="background-color:rgb(99, 224, 208);">
         <div class="inner">
+        <a href="<?= base_url('gymequipment') ?>" style="text-decoration: none; color: inherit;">
             <h3>₱<?= number_format($totalEquipmentExpense, 2) ?><sup class="fs-5"></sup></h3>
             <p>Equipment Expenses</p>
         </div>

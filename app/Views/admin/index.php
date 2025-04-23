@@ -4,7 +4,7 @@ $this->section('body');
 ?>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-    .small-box a:hover .inner {
+    .small-box a:hover {
     opacity: 0.9;
 }
     #payment_bar_chart {

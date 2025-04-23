@@ -137,17 +137,18 @@ $this->section('body');
                 </a>
             </div>
 
-            <!-- Total Paid Amount -->
-            <div class="col-lg-3 col-6">
-                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="small-box" style="background-color: #add8e6;">
+           <!-- Active Members -->
+           <div class="col-lg-3 col-6">
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box text-bg-danger">
                         <div class="inner">
-                            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
-                            <p>Total Paid Amount</p>
+                            <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
+                            <p>Active Members</p>
                         </div>
-                        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
-                            <i class="fas fa-receipt fa-3x"></i>
-                        </div>
+                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
+                        </svg>
                     </div>
                 </a>
             </div>
@@ -182,18 +183,17 @@ $this->section('body');
                 </a>
             </div>
 
-            <!-- Active Members -->
-            <div class="col-lg-3 col-6">
-                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit; display: block;">
-                    <div class="small-box text-bg-danger">
+           <!-- Total Paid Amount -->
+           <div class="col-lg-3 col-6">
+                <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="small-box" style="background-color: #add8e6;">
                         <div class="inner">
-                            <h3><?= $activeMembers ?><sup class="fs-5"></sup></h3>
-                            <p>Active Members</p>
+                            <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
+                            <p>Total Paid Amount</p>
                         </div>
-                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
-                        </svg>
+                        <div class="icon position-absolute top-0 end-0 p-3" style="opacity: 0.3;">
+                            <i class="fas fa-receipt fa-3x"></i>
+                        </div>
                     </div>
                 </a>
             </div>

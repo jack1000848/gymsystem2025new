@@ -118,6 +118,7 @@ $this->section('body');
         <div class="row">
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-primary">
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit;">
                     <div class="inner">
                         <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
                         <p>Total Members</p>
@@ -129,6 +130,7 @@ $this->section('body');
             </div>
             <div class="col-lg-3 col-6">
     <div class="small-box" style="background-color: #add8e6;">
+    <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit;">
         <div class="inner">
             <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
             <p>Total Paid Amount</p>

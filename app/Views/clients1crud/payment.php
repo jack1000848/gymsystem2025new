@@ -4,7 +4,10 @@ $this->section('body');
 ?>
 
 <!-- Select2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-J+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous" />
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous">
 
 <!-- Integrated CSS -->
 <style>
@@ -186,6 +189,7 @@ $this->section('body');
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
+                                    <button type="button" class="btn btn-danger" onclick="deletePayment(<?= $payment['PaymentHistoryID'] ?>)">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -296,10 +300,10 @@ $this->section('body');
 </div>
 
 <!-- JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js" integrity="sha384-H+U5u7zYZzM5x8z0pMw5x5l5e5v5e5z5z5y5z5z5z5z5z5z5z5z5z5z5z5z5z5z" crossorigin="anonymous"></script>
 
 <script>
 $(document).ready(function () {
@@ -424,7 +428,7 @@ $(document).ready(function () {
         $('#priceDisplay').text('Plan Price: Select a plan to see the price.');
     });
 
-    $('#editPaymentModal').on('hidden.bs.modal', function () {
+    $('#editPaymentModal').on('read.bs.modal', function () {
         $(this).find('form')[0].reset();
         $('#editCustomerID, #editPlanID').val(null).trigger('change');
         $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');

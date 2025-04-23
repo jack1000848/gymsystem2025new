@@ -114,23 +114,24 @@ $this->section('body');
 </div>
 
 <div class="app-content">
-         <div class="container-fluid">
-                <div class="row">
-                <div class="col-lg-3 col-6">
-                       <div class="small-box text-bg-primary">
-                <div class="inner" onclick="window.location.href='<?= base_url('clients1') ?>'" style="cursor: pointer;">
-                    <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
-                    <p>Total Members</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-bg-primary">
+                <a href="<?= base_url('clients1') ?>" style="text-decoration: none; color: inherit;">
+                    <div class="inner">
+                        <h3><?= $totalClients ?><sup class="fs-5"></sup></h3>
+                        <p>Total Members</p>
+                    </div>
+                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+                    </svg>
                 </div>
-                <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                </svg>
-            </div>
-</div>
             </div>
             <div class="col-lg-3 col-6">
     <div class="small-box" style="background-color: #add8e6;">
-        <div class="inner" onclick="window.location.href='<?= base_url('clients1') ?>'" style="cursor: pointer;">
+    <a href="<?= base_url('payment') ?>" style="text-decoration: none; color: inherit;">
+        <div class="inner">
             <h3>₱<?= number_format($totalPaidAmount, 2) ?><sup class="fs-5"></sup></h3>
             <p>Total Paid Amount</p>
         </div>

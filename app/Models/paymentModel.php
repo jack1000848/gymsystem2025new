@@ -78,13 +78,5 @@ class paymentModel extends Model
             ->where('MONTH(paymenthistory.PaidDate)', $month)
             ->findAll();
     }
-    public function getPaymentsByDateRange($startDate, $endDate)
-{
-    return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plans.PlanName')
-        ->join('customer', 'customer.CustomerID = paymenthistory.CustomerID')
-        ->join('plans', 'plans.PlanID = paymenthistory.PlanID')
-        ->where('paymenthistory.PaidDate >=', $startDate)
-        ->where('paymenthistory.PaidDate <=', $endDate)
-        ->findAll();
-}
+    
 }

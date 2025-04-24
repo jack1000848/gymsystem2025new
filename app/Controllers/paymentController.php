@@ -41,28 +41,7 @@ class paymentController extends BaseController
 
     return view('clients1crud/payment', $data);
 }
-public function print_monthly($year, $month)
-{
-    if (!$this->session->has('logged_in') || $this->session->get('Role') != 'Admin') {
-        return redirect()->to('/joinus')->with('error', 'You are not authorized to access this page.');
-    }
 
-    $paymentModel = new PaymentModel();
-
-    // Fetch payments for the specified month and year
-    $startDate = "$year-$month-01";
-    $endDate = date('Y-m-t', strtotime($startDate)); // Last day of the month
-    $payments = $paymentModel->getPaymentsByDateRange($startDate, $endDate);
-
-    $data = [
-        'payments' => $payments,
-        'month' => $month,
-        'year' => $year,
-        'monthName' => date('F', mktime(0, 0, 0, $month, 1)),
-    ];
-
-    return view('clients1crud/payment', $data);
-}
 // New method to fetch payments for a specific month
 public function monthly($monthYear)
 {

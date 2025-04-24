@@ -108,11 +108,18 @@ $this->section('body');
         font-weight: bold;
         font-size: 15px;
     }
+
+    .btn-group .btn {
+        margin-right: 5px;
+    }
 </style>
 
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
+        <div class="btn-group">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterPaymentModal">Filter by Month</button>
+        </div>
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -142,27 +149,7 @@ $this->section('body');
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($payments)): ?>
-                    <tr>
-                        <td colspan="6" class="text-center">No payments found.</td>
-                    </tr>
-                <?php else: ?>
-                    <?php foreach ($payments as $payment): ?>
-                        <tr>
-                            <td><?= esc($payment['PaymentHistoryID']) ?></td>
-                            <td><?= esc($payment['CustomerName']) ?></td>
-                            <td>₱<?= number_format($payment['PaidAmount'], 2) ?></td>
-                            <td><?= esc($payment['PaidDate']) ?></td>
-                            <td><?= esc($payment['PlanName']) ?></td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary" onclick="editPayment(<?= $payment['PaymentHistoryID'] ?>)">Edit</button>
-                                    
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <!-- Table body will be populated dynamically -->
             </tbody>
         </table>
     </div>
@@ -187,10 +174,10 @@ $this->section('body');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                      <div class="mb-3">
-                           <label for="PaidAmount" class="form-label">Paid Amount</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                          </div>
+                    <div class="mb-3">
+                        <label for="PaidAmount" class="form-label">Paid Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
+                    </div>
                     <div class="mb-3">
                         <label for="PaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="PaidDate" name="PaidDate" required>
@@ -217,12 +204,48 @@ $this->section('body');
     </div>
 </div>
 
+<!-- Filter by Month Modal -->
+<div class="modal fade" id="filterPaymentModal" tabindex="-1" aria-labelledby="filterPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="filterPaymentModalLabel">Filter Payments by Month</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="filterPaymentForm">
+                    <div class="mb-3">
+                        <label for="monthFilter" class="form-label">Select Month</label>
+                        <select class="form-select" id="monthFilter" name="monthFilter">
+                            <option value="">All Payments</option>
+                            <?php
+                            // Generate options for the last 12 months
+                            $currentDate = new DateTime();
+                            for ($i = 0; $i < 12; $i++) {
+                                $monthYear = $currentDate->format('Y-m');
+                                $monthName = $currentDate->format('F Y');
+                                echo "<option value='$monthYear'>$monthName</option>";
+                                $currentDate->modify('-1 month');
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Edit Payment Modal -->
 <div class="modal fade" id="editPaymentModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editPaymentfurtherModalLabel">Edit Payment</h1>
+                <h1 class="modal-title fs-5" id="editPaymentModalLabel">Edit Payment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -238,9 +261,9 @@ $this->section('body');
                         </select>
                     </div>
                     <div class="mb-3">
-                     <label for="PaidAmount" class="form-label">Paid Amount</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="PaidAmount" name="PaidAmount" required>
-                        </div>
+                        <label for="editPaidAmount" class="form-label">Paid Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="editPaidAmount" name="PaidAmount" required>
+                    </div>
                     <div class="mb-3">
                         <label for="editPaidDate" class="form-label">Paid Date</label>
                         <input type="date" class="form-control" id="editPaidDate" name="PaidDate" required>
@@ -267,55 +290,6 @@ $this->section('body');
     </div>
 </div>
 
-<!-- Add Print Monthly Payments Modal -->
-<div class="modal fade" id="printMonthlyModal" tabindex="-1" aria-labelledby="printMonthlyModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="printMonthlyModalLabel">Print Monthly Payments</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="printMonthlyForm">
-                    <div class="mb-3">
-                        <label for="month" class="form-label">Select Month</label>
-                        <select class="form-select" id="month" name="month" required>
-                            <option value="">Select Month</option>
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="year" class="form-label">Select Year</label>
-                        <select class="form-select" id="year" name="year" required>
-                            <option value="">Select Year</option>
-                            <?php
-                            $currentYear = date('Y');
-                            for ($i = $currentYear - 5; $i <= $currentYear + 5; $i++):
-                            ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Generate Report</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
@@ -323,31 +297,37 @@ $this->section('body');
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    // Handle Print Monthly Payments Form
-$('#printMonthlyForm').on('submit', function (e) {
-    e.preventDefault();
-    const month = $('#month').val();
-    const year = $('#year').val();
-
-    if (month && year) {
-        // Open a new window with the printable report
-        const printUrl = `<?= base_url('/payment/print_monthly') ?>/${year}/${month}`;
-        window.open(printUrl, '_blank');
-        $('#printMonthlyModal').modal('hide');
-    } else {
-        Swal.fire('Error!', 'Please select both month and year.', 'error');
-    }
-});
-
-// Reset print modal form when closed
-$('#printMonthlyModal').on('hidden.bs.modal', function () {
-    $(this).find('form')[0].reset();
-    $('#month, #year').val('').trigger('change');
-});
 $(document).ready(function () {
     // Initialize DataTable
-    new DataTable('#paymentTable', {
-        responsive: true
+    const paymentTable = $('#paymentTable').DataTable({
+        responsive: true,
+        ajax: {
+            url: '<?= base_url('/payment/monthly/all') ?>',
+            dataSrc: 'data'
+        },
+        columns: [
+            { data: 'PaymentHistoryID' },
+            { data: 'CustomerName' },
+            { 
+                data: 'PaidAmount',
+                render: function(data) {
+                    return '₱' + parseFloat(data).toFixed(2);
+                }
+            },
+            { data: 'PaidDate' },
+            { data: 'PlanName' },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return `
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary" onclick="editPayment(${row.PaymentHistoryID})">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="deletePayment(${row.PaymentHistoryID})">Delete</button>
+                        </div>
+                    `;
+                }
+            }
+        ]
     });
 
     // Initialize Select2 for modals
@@ -361,6 +341,13 @@ $(document).ready(function () {
     $('#editCustomerID, #editPlanID').select2({
         dropdownParent: $('#editPaymentModal'),
         placeholder: "Select an option",
+        width: '100%',
+        allowClear: true
+    });
+
+    $('#monthFilter').select2({
+        dropdownParent: $('#filterPaymentModal'),
+        placeholder: "Select a month",
         width: '100%',
         allowClear: true
     });
@@ -393,6 +380,18 @@ $(document).ready(function () {
         }
     });
 
+    // Handle Filter Payment Form
+    $('#filterPaymentForm').on('submit', function (e) {
+        e.preventDefault();
+        const monthYear = $('#monthFilter').val();
+        const url = monthYear ? 
+            '<?= base_url('/payment/monthly/') ?>' + monthYear :
+            '<?= base_url('/payment/monthly/all') ?>';
+        
+        paymentTable.ajax.url(url).load();
+        $('#filterPaymentModal').modal('hide');
+    });
+
     // Handle Add Payment Form
     $('#addPaymentForm').on('submit', function (e) {
         e.preventDefault();
@@ -409,7 +408,7 @@ $(document).ready(function () {
                 if (response.status === 'success') {
                     Swal.fire('Success!', response.message, 'success').then(() => {
                         $('#addPaymentModal').modal('hide');
-                        location.reload();
+                        paymentTable.ajax.reload();
                     });
                 } else {
                     Swal.fire('Error!', response.message, 'error');
@@ -423,41 +422,41 @@ $(document).ready(function () {
 
     // Handle Edit Payment Form
     $('#editPaymentForm').on('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to update this payment?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, update it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(), // Change to /payment/edit/
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response.status === 'success') {
-                        Swal.fire('Updated!', response.message, 'success').then(() => {
-                            $('#editPaymentModal').modal('hide');
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to update this payment?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('/payment/update/') ?>' + $('#editPaymentId').val(),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            Swal.fire('Updated!', response.message, 'success').then(() => {
+                                $('#editPaymentModal').modal('hide');
+                                paymentTable.ajax.reload();
+                            });
+                        } else {
+                            Swal.fire('Error!', response.message, 'error');
+                        }
+                    },
+                    error: function (xhr) {
+                        Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
                     }
-                },
-                error: function (xhr) {
-                    Swal.fire('Error!', 'Could not update payment: ' + (xhr.responseText || 'Unknown error'), 'error');
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
 
     // Reset forms when modals are closed
     $('#addPaymentModal').on('hidden.bs.modal', function () {
@@ -471,13 +470,17 @@ $(document).ready(function () {
         $('#editCustomerID, #editPlanID').val(null).trigger('change');
         $('#editPriceDisplay').text('Plan Price: Select a plan to see the price.');
     });
+
+    $('#filterPaymentModal').on('hidden.bs.modal', function () {
+        $(this).find('form')[0].reset();
+        $('#monthFilter').val(null).trigger('change');
+    });
 });
 
 // Load payment into edit modal
 async function editPayment(id) {
     try {
         const response = await $.get('<?= base_url('/payment/edit/') ?>' + id);
-        console.log(response); // Log the response to check its structure
         if (response.status === 'success') {
             const payment = response.data;
             $('#editPaymentId').val(payment.PaymentHistoryID);
@@ -494,6 +497,7 @@ async function editPayment(id) {
         Swal.fire('Error!', 'Failed to fetch payment details.', 'error');
     }
 }
+
 // Delete payment
 async function deletePayment(id) {
     const result = await Swal.fire({
@@ -514,17 +518,15 @@ async function deletePayment(id) {
                     <?= csrf_token() ?>: '<?= csrf_hash() ?>'
                 },
                 success: function (response) {
-                    console.log(response); // Log the response
                     if (response.status === 'success') {
                         Swal.fire('Deleted!', response.message, 'success').then(() => {
-                            location.reload();
+                            $('#paymentTable').DataTable().ajax.reload();
                         });
                     } else {
                         Swal.fire('Error!', response.message, 'error');
                     }
                 },
                 error: function (xhr) {
-                    console.log(xhr); // Log any errors
                     Swal.fire('Error!', 'Failed to delete payment.', 'error');
                 }
             });

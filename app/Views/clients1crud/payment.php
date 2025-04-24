@@ -267,6 +267,55 @@ $this->section('body');
     </div>
 </div>
 
+<!-- Add Print Monthly Payments Modal -->
+<div class="modal fade" id="printMonthlyModal" tabindex="-1" aria-labelledby="printMonthlyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="printMonthlyModalLabel">Print Monthly Payments</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="printMonthlyForm">
+                    <div class="mb-3">
+                        <label for="month" class="form-label">Select Month</label>
+                        <select class="form-select" id="month" name="month" required>
+                            <option value="">Select Month</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Select Year</label>
+                        <select class="form-select" id="year" name="year" required>
+                            <option value="">Select Year</option>
+                            <?php
+                            $currentYear = date('Y');
+                            for ($i = $currentYear - 5; $i <= $currentYear + 5; $i++):
+                            ?>
+                                <option value="<?= $i ?>"><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Generate Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
@@ -274,6 +323,27 @@ $this->section('body');
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // Handle Print Monthly Payments Form
+$('#printMonthlyForm').on('submit', function (e) {
+    e.preventDefault();
+    const month = $('#month').val();
+    const year = $('#year').val();
+
+    if (month && year) {
+        // Open a new window with the printable report
+        const printUrl = `<?= base_url('/payment/print_monthly') ?>/${year}/${month}`;
+        window.open(printUrl, '_blank');
+        $('#printMonthlyModal').modal('hide');
+    } else {
+        Swal.fire('Error!', 'Please select both month and year.', 'error');
+    }
+});
+
+// Reset print modal form when closed
+$('#printMonthlyModal').on('hidden.bs.modal', function () {
+    $(this).find('form')[0].reset();
+    $('#month, #year').val('').trigger('change');
+});
 $(document).ready(function () {
     // Initialize DataTable
     new DataTable('#paymentTable', {

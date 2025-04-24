@@ -60,9 +60,21 @@ class paymentModel extends Model
             'total' => $totalPayments
         ];
     }
+    public function getPaymentsByMonth($yearMonth)
+    {
+        [$year, $month] = explode('-', $yearMonth);
+        return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')
+            ->join('customer', 'customer.CustomerID = paymenthistory.CustomerID')
+            ->join('plan', 'plan.PlanID = paymenthistory.PlanID')
+            ->where("YEAR(paymenthistory.PaidDate) = $year")
+            ->where("MONTH(paymenthistory.PaidDate) = $month")
+            ->findAll();
+    }
+
+    // Assuming getPaymentsWithDetails1 is used in the main payment view
     public function getPaymentsWithDetails1()
     {
-        return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName')
+        return $this->select('paymenthistory.*, CONCAT(customer.Firstname, " ", customer.Lastname) as CustomerName, plan.PlanName, plan.Price as PlanPrice')
             ->join('customer', 'customer.CustomerID = paymenthistory.CustomerID')
             ->join('plan', 'plan.PlanID = paymenthistory.PlanID')
             ->findAll();

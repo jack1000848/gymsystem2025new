@@ -113,6 +113,7 @@ $this->section('body');
 <div class="p-2 row mb-3">
     <div class="col-12 mb-2">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add Payment</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#generatePdfModal">Generate PDF</button>
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -266,7 +267,29 @@ $this->section('body');
         </div>
     </div>
 </div>
-
+<!-- Generate PDF Modal -->
+<div class="modal fade" id="generatePdfModal" tabindex="-1" aria-labelledby="generatePdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="generatePdfModalLabel">Generate Payment PDF</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="generatePdfForm">
+                    <div class="mb-3">
+                        <label for="paymentMonth" class="form-label">Select Month</label>
+                        <input type="month" class="form-control" id="paymentMonth" name="paymentMonth" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Generate PDF</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
@@ -274,6 +297,20 @@ $this->section('body');
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // Handle Generate PDF Form
+$('#generatePdfForm').on('submit', function (e) {
+    e.preventDefault();
+    const paymentMonth = $('#paymentMonth').val();
+
+    if (!paymentMonth) {
+        Swal.fire('Error!', 'Please select a month.', 'error');
+        return;
+    }
+
+    // Redirect to the PDF generation route with the selected month
+    window.location.href = '<?= base_url('/payment/generate-pdf/') ?>' + paymentMonth;
+});
+    
 $(document).ready(function () {
     // Initialize DataTable
     new DataTable('#paymentTable', {

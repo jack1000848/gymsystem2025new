@@ -41,7 +41,71 @@ class paymentController extends BaseController
 
     return view('clients1crud/payment', $data);
 }
+public function generatePdf($yearMonth)
+{
+    if (!$this->session->has('logged_in')) {
+        return redirect()->to('/joinus')->with('error', 'Please log in first.');
+    }
 
+    if ($this->session->get('Role') != 'Admin') {
+        $roleVal = $this->session->get('Role');
+        if ($roleVal == 'Customer') {
+            return redirect()->to('/clientdashboard')->with('error', 'You are not authorized to access this page.');
+        } else if ($roleVal == 'Coach') {
+            return redirect()->to('/coachdashboard')->with('error', 'You are not authorized to access this page.');
+        }
+    }
+
+    $paymentModel = new PaymentModel();
+    $payments = $paymentModel->getPaymentsByMonth($yearMonth);
+
+    if (empty($payments)) {
+        return redirect()->to('/payment')->with('error', 'No payments found for the selected month.');
+    }
+
+    // Load dompdf
+    $dompdf = new \Dompdf\Dompdf();
+    [$year, $month] = explode('-', $yearMonth);
+    $monthName = date('F', mktime(0, 0, 0, $month, 1));
+
+    // HTML content for the PDF
+    $html = '
+    <h1>Payment Report for ' . $monthName . ' ' . $year . '</h1>
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #3498db; color: white;">
+                <th style="border: 1px solid #ccc; padding: 8px;">Payment ID</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Customer</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Paid Amount</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Paid Date</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Plan</th>
+            </tr>
+        </thead>
+        <tbody>';
+    
+    foreach ($payments as $payment) {
+        $html .= '
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PaymentHistoryID']) . '</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['CustomerName']) . '</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">₱' . number_format($payment['PaidAmount'], 2) . '</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PaidDate']) . '</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PlanName']) . '</td>
+            </tr>';
+    }
+
+    $html .= '
+        </tbody>
+    </table>';
+
+    // Load HTML to dompdf
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+
+    // Output the PDF
+    $dompdf->stream("Payment_Report_{$monthName}_{$year}.pdf", ['Attachment' => true]);
+}
 // New method to fetch payments for a specific month
 public function monthly($monthYear)
 {

@@ -89,7 +89,7 @@ public function generatePdf($yearMonth)
             <tr>
                 <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PaymentHistoryID']) . '</td>
                 <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['CustomerName']) . '</td>
-                <td style="border: 1px solid #ccc; padding: 8px;">₱' . number_format($payment['PaidAmount'], 2) . '</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">₱' . ₱($payment['PaidAmount'], 2) . '</td>
                 <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PaidDate']) . '</td>
                 <td style="border: 1px solid #ccc; padding: 8px;">' . esc($payment['PlanName']) . '</td>
             </tr>';

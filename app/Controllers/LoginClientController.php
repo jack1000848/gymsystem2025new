@@ -2,13 +2,11 @@
 
 namespace App\Controllers;
 use App\Controllers\BaseController;
-use App\Models\ClientloginModel;
 use App\Models\CustomerModel;
 use App\Models\LoginCoachModel;
 
-    class LoginClientController extends BaseController
+class LoginClientController extends BaseController
 {
-
     public function LoginClient()
     {
         $session = session();
@@ -19,6 +17,8 @@ use App\Models\LoginCoachModel;
                 return redirect()->to('/clientdashboard');
             } elseif ($role === 'Coach') {
                 return redirect()->to('/coachdashboard');
+            } elseif ($role === 'Admin') {
+                return redirect()->to('/admin');
             }
         }
         return view('/clientdashboard/loginclient'); // Load the unified login view
@@ -33,6 +33,18 @@ use App\Models\LoginCoachModel;
         // Get email and password from the POST request
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
+
+        // Check for hardcoded admin credentials
+        if ($email === 'admin1@example.com' && $password === 'admin1') {
+            $session->set([
+                'isLoggedIn' => true,
+                'AdminID' => 1, // Hardcoded ID for admin
+                'Email' => $email,
+                'Role' => 'Admin',
+                'logged_in' => true,
+            ]);
+            return redirect()->to('/admin');
+        }
 
         // Check if the email exists in the Customer (Client) table
         $client = $customerModel->where('Email', $email)->first();
@@ -77,21 +89,13 @@ use App\Models\LoginCoachModel;
             }
         }
 
-        // If neither Client nor Coach is found
+        // If neither Admin, Client, nor Coach is found
         return redirect()->back()->with('error', 'Email not found.');
     }
 
-    // Optional: Unified Forgot Password (if you want to combine)
+    // Optional: Unified Forgot Password
     public function forgotPassword()
     {
         return view('auth/forgot_password');
     }
-
-    // Add methods for sending reset links and resetting passwords if needed
-
-
 }
-
-
-
-?>

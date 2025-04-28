@@ -21,7 +21,7 @@
             <div class="logo">
                 <img src="" alt="">
                 <h1>Welcome to</h1>
-                <h1>Member/Coach Login</h1>
+                <h1>Login</h1>
             </div>
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="error"><?= session()->getFlashdata('error') ?></div>
@@ -37,7 +37,6 @@
                 <input type="password" name="password" id="password" placeholder="Password" required><br><br>
                 <button type="submit">Login</button>
                 <a href="<?= base_url('join-now') ?>" class="register">Signup</a>
-                <a href="<?= base_url('joinus') ?>" class="register">Admin Login</a>
                 <a href="<?= base_url('forgot-password') ?>" class="register">Forgot Password?</a>
             </form>
         </div>

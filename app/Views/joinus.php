@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GYM Master - Login</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/Joinus.css') ?>">
-    <!---<script>
+    <script>
         // JavaScript function to validate login credentials
         function validateLogin(event) {
             event.preventDefault(); // Prevent form submission
@@ -20,7 +20,7 @@
                 alert("Incorrect username or password! Please try again.");
             }
         }
-    </script> -->
+    </script> 
 </head>
 <body></div><div id=container>
   Make 

@@ -34,7 +34,7 @@ class Admin extends BaseController
     public function index()
     {
         if (!$this->session->has('logged_in')) {
-            return redirect()->to('/joinus')->with('error', 'Please log in first.');
+            return redirect()->to('/member-login')->with('error', 'Please log in first.');
         }
 
         if ($this->session->get('Role') != 'Admin') {
@@ -214,7 +214,7 @@ private function getTotalEquipmentExpense()
             $session->set('logged_in', true);
             return redirect()->to('/admin');
         } else {
-            return redirect()->to('/joinus')->with('error', 'Invalid username or password.');
+            return redirect()->to('/member-login')->with('error', 'Invalid username or password.');
         }
     }
 
@@ -222,7 +222,7 @@ private function getTotalEquipmentExpense()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/joinus')->withHeaders([
+        return redirect()->to('/member-login')->withHeaders([
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
             'Pragma' => 'no-cache',
         ]);

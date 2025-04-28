@@ -210,7 +210,7 @@ private function getTotalEquipmentExpense()
         $username = $request->getPost('username');
         $password = $request->getPost('password');
 
-        if ($username === 'admin' && $password === 'admin') {
+        if ($username === 'admin1' && $password === 'admin1') {
             $session->set('logged_in', true);
             return redirect()->to('/admin');
         } else {

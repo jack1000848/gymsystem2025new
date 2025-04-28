@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GYM Master - Login</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/Joinus.css') ?>">
-    <script>
+    <!---<script>
         // JavaScript function to validate login credentials
         function validateLogin(event) {
             event.preventDefault(); // Prevent form submission
@@ -13,14 +13,14 @@
             var password = document.getElementById("password").value;
 
             // Check if username and password are both "admin"
-            if (username === "admin1" && password === "admin1") {
+            if (username === "admin" && password === "admin") {
                 ///alert("Login successful!"); // Display success message
                 window.location.href = "<?= base_url('admin') ?>"; // Redirect to dashboard
             } else {
                 alert("Incorrect username or password! Please try again.");
             }
         }
-    </script> 
+    </script> -->
 </head>
 <body></div><div id=container>
   Make 
@@ -44,9 +44,9 @@
                  <button type="submit">Login</button>
                 <a href="<?= base_url('join-now') ?>" class="register">Signup</a>
                 <a href="<?= base_url('member-login') ?>" class="register">Member Login</a>
-              </form>
+              
                 
-            
+            </form>
         </div>
     </div>
 </body>

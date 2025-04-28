@@ -15,7 +15,7 @@
             // Check if username and password are both "admin"
             if (username === "admin" && password === "admin1") {
                 ///alert("Login successful!"); // Display success message
-                window.location.href = "<?= base_url('admin1') ?>"; // Redirect to dashboard
+                window.location.href = "<?= base_url('admin') ?>"; // Redirect to dashboard
             } else {
                 alert("Incorrect username or password! Please try again.");
             }

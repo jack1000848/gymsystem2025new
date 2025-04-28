@@ -44,9 +44,9 @@
                  <button type="submit">Login</button>
                 <a href="<?= base_url('join-now') ?>" class="register">Signup</a>
                 <a href="<?= base_url('member-login') ?>" class="register">Member Login</a>
-              
+              </form>
                 
-            </form>
+            
         </div>
     </div>
 </body>

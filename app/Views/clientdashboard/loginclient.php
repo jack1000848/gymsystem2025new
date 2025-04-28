@@ -20,8 +20,8 @@
         <div class="login-box">
             <div class="logo">
                 <img src="" alt="">
-                <h1>Welcome to</h1>
-                <h1>Login</h1>
+                <h1>Welcome to Login</h1>
+
             </div>
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="error"><?= session()->getFlashdata('error') ?></div>
